@@ -40,6 +40,74 @@ export const customerSidebar = [
         title: "Customer Job Work",
         path: "/materialmanagement/receipt/customerjobwork",
         icon: <AiIcons.AiOutlineInfoCircle />,
+        subNav: [
+          {
+            title: "Parts",
+            icon: <AiIcons.AiOutlineInfoCircle />,
+            subNav: [
+              {
+                title: "New",
+                icon: <AiIcons.AiOutlineInfoCircle />,
+              },
+              {
+                title: "Draft RV list",
+                icon: <AiIcons.AiOutlineInfoCircle />,
+              },
+              {
+                title: "Open RV LIST",
+                icon: <AiIcons.AiOutlineInfoCircle />,
+              },
+              {
+                title: "Closed RV LIST",
+                icon: <AiIcons.AiOutlineInfoCircle />,
+              },
+            ],
+          },
+          {
+            title: "Units",
+            icon: <AiIcons.AiOutlineInfoCircle />,
+            subNav: [
+              {
+                title: "New",
+                icon: <AiIcons.AiOutlineInfoCircle />,
+              },
+              {
+                title: "Draft RV list",
+                icon: <AiIcons.AiOutlineInfoCircle />,
+              },
+              {
+                title: "Open RV LIST",
+                icon: <AiIcons.AiOutlineInfoCircle />,
+              },
+              {
+                title: "Closed RV LIST",
+                icon: <AiIcons.AiOutlineInfoCircle />,
+              },
+            ],
+          },
+          {
+            title: "Sheets and Others",
+            icon: <AiIcons.AiOutlineInfoCircle />,
+            subNav: [
+              {
+                title: "New",
+                icon: <AiIcons.AiOutlineInfoCircle />,
+              },
+              {
+                title: "Draft RV list",
+                icon: <AiIcons.AiOutlineInfoCircle />,
+              },
+              {
+                title: "Open RV LIST",
+                icon: <AiIcons.AiOutlineInfoCircle />,
+              },
+              {
+                title: "Closed RV LIST",
+                icon: <AiIcons.AiOutlineInfoCircle />,
+              },
+            ],
+          },
+        ],
       },
       {
         title: "Purchase",

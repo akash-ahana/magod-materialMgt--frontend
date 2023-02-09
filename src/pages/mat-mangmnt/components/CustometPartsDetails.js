@@ -31,20 +31,8 @@ function CustometPartsDetails() {
                   <div className="row">
                     <div className="col-md-12 ">
                       <p className="form-title-deco">srl Details</p>
-                      {/* <label>Part ID</label>
-                      <input className="in-field" /> */}
-                      <label
-                        className="form-label"
-                        style={{ marginTop: "20px" }}
-                      >
-                        Part ID
-                      </label>
-                      <select className="ip-select dropdown-field">
-                        <option value="option 1">001</option>
-                        <option value="option 1">002</option>
-                        <option value="option 1">003</option>
-                        <option value="option 1">004</option>
-                      </select>
+                      <label>Part ID</label>
+                      <input className="in-field" />
                     </div>
                   </div>
                   <div className="row">
