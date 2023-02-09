@@ -1,7 +1,10 @@
-import React from 'react'
+import React ,{useState}from 'react'
+import CustometPartsDetails from '../../../../components/CustometPartsDetails'
 
 function New() {
+
   return (
+    <>
     <div>
 
       <h4 className="form-title">Customer Parts Receipt Voucher</h4>
@@ -59,7 +62,7 @@ function New() {
           <button className="button-style" style={{ width: "196px" }}>
             Save
           </button>
-          <button className="button-style" style={{ width: "196px" }}>
+          <button className="button-style" style={{ width: "196px" }}  >
             Allot RV No
           </button>
           <button className="button-style" style={{ width: "196px" }}>
@@ -76,6 +79,9 @@ function New() {
         </div>
 
     </div>
+        <CustometPartsDetails/>
+        </>
+    
   )
 }
 

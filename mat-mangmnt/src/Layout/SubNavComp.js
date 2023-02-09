@@ -55,8 +55,10 @@ const SubMenuComp = ({ item ,sidebar}) => {
   }
 },[sidebar])
 
+// console.log("itemm",item)
   return (
     <>
+
       <NavLink    className={({ isActive }) => (isActive && item.path && !subnav ? 'active-link-url' : 'link-default' )} to={item.path}>
         {
           <SidebarLink onClick={item.subNav && showSubnav}>
@@ -84,17 +86,39 @@ const SubMenuComp = ({ item ,sidebar}) => {
       </NavLink>
 
       {subnav &&
-        item.subNav.map((item, index) => {
+        item?.subNav.map((subNav1, index) => {
           return (
-            <NavLink to={item.path} key={index} className={({ isActive }) => (isActive && item.path && subnav ? 'active-link-url  side-nav-sub-menu' : 'link-default side-nav-sub-menu' )} >
+            <>
+            <NavLink to={subNav1.path} key={index} className={({ isActive }) => (isActive && subNav1.path && subnav ? 'active-link-url  side-nav-sub-menu' : 'link-default side-nav-sub-menu' )} >
               <DropdownLink>
-              <div className='sub-menu-icon'>  {item.icon}</div>
-                <SidebarLabel className="sub-menu-label">{item.title}</SidebarLabel>
+              <div className='sub-menu-icon'>  {subNav1.icon}</div>
+                <SidebarLabel className="sub-menu-label">{subNav1.title}</SidebarLabel>
               </DropdownLink>
             </NavLink>
+
+            {/* {console.log("subNav1",typeof(subNav1.subNav))} */}
+
+{(  subNav1.subNav !== undefined && subNav1?.subNav.length > 0 )  && subNav1.subNav.map((nestnav, i)=>{
+  return(
+    <li key={i} className="submenu_link">
+  <div className="submenu_links">
+    <div className="icon">{nestnav.icon}</div>
+    <div className="link_text">
+      {nestnav.title}
+    </div>
+  </div>
+</li>
+
+  )
+
+})}
+</>
           );
         })}
+
+                        
     </>
+
   );
 };
 

@@ -30,6 +30,13 @@ import MonthlyReport from "./pages/mat-mangmnt/menu/Reports/MonthlyReport";
 import BranchTransfer from "./pages/mat-mangmnt/menu/Receipt/BranchTransfer";
 import IVListProfileCutting from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListProfileCutting/IVListProfileCutting";
 import CustJobWork from "./pages/mat-mangmnt/menu/Receipt/custjobwork/CustJobWork";
+import Parts from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/Parts";
+import Units from "./pages/mat-mangmnt/menu/Receipt/custjobwork/units/Units";
+import SheetsAndOthers from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsAndOthers";
+import New from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/New";
+import { DraftRVList } from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/DraftRVList";
+import OenRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/OenRVList";
+import { ClosedRVList } from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/ClosedRVList";
 
 function App() {
   return (
@@ -38,6 +45,7 @@ function App() {
         <Route element={<Login />} path="/" />
 
         <Route path="/home" element={<Home />} />
+
         <Route element={<WithNav />}>
          
 
@@ -49,7 +57,26 @@ function App() {
 
           <Route path="receipt">
           <Route index={true} element={<Receipt/>}/>
-          <Route path="customerjobwork" element={<CustJobWork/>} />
+          <Route path="customerjobwork"  >
+          <Route index={true} element={<CustJobWork/>}/> 
+          <Route path="parts"  >
+          <Route index={true}element={<Parts/>}/> 
+          <Route path="new" element={<New/>} />
+          <Route path="draftrvlist" element={<DraftRVList/>} />
+          <Route path="openrvlist" element={<OenRVList/>} />
+          <Route path="closedrvlist" element={<ClosedRVList/>} />
+
+          
+
+
+          </Route>
+          <Route path="units" element={<Units/>} />
+          <Route path="sheetsandothers" element={<SheetsAndOthers/>} />
+
+
+
+
+          </Route>
           <Route path="purchase" element={<Purchase/>} />
           <Route path="branchtransfer" element={<BranchTransfer/>} />
 

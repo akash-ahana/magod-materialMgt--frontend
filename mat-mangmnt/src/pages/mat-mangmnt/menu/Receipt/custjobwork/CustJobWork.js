@@ -1,15 +1,13 @@
 import React from 'react'
 import CustometPartsDetails from '../../../../mat-mangmnt/components/CustometPartsDetails'
-import Modal from '../../../components/Modal'
+import DailougeBox from '../../../components/DailougeBox'
 import New from './parts/New'
 
 function CustJobWork() {
   return (
     <div>
+        jghjj
         
-        <New/>
-        <CustometPartsDetails/>
-        {/* <Modal/> */}
 
     </div>
   )
