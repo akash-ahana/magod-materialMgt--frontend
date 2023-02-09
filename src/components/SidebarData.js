@@ -12,8 +12,7 @@ import { BiFoodMenu } from "react-icons/bi";
 import { HiUsers } from "react-icons/hi";
 
 export const customerSidebar = [
-  
-  {
+  /* {
     title: "Setup",
     // path: "/customer",
     icon: <BsIcon.BsListTask />,
@@ -28,7 +27,7 @@ export const customerSidebar = [
       },
       
     ],
-  },
+  },*/
   {
     title: "Receipt",
     // path: "/customer",
@@ -52,7 +51,6 @@ export const customerSidebar = [
         path: "/materialmanagement/receipt/branchtransfer",
         icon: <AiIcons.AiOutlineInfoCircle />,
       },
-      
     ],
   },
   {
@@ -73,8 +71,6 @@ export const customerSidebar = [
         path: "/materialmanagement/return/purchaseplannedforfuture",
         icon: <AiIcons.AiOutlineInfoCircle />,
       },
-     
-      
     ],
   },
   {
@@ -108,7 +104,6 @@ export const customerSidebar = [
 
         icon: <AiIcons.AiOutlineInfoCircle />,
       },
-      
     ],
   },
   {
@@ -124,7 +119,6 @@ export const customerSidebar = [
         path: "/materialmanagement/shoopfloorreturns/pendinglist",
         icon: <AiIcons.AiOutlineInfoCircle />,
       },
-      
     ],
   },
   {
@@ -150,7 +144,6 @@ export const customerSidebar = [
         path: "/materialmanagement/reports/monthlyreports",
         icon: <AiIcons.AiOutlineInfoCircle />,
       },
-      
     ],
   },
   {
@@ -186,11 +179,8 @@ export const customerSidebar = [
         path: "/materialmanagement/storemanagement/locationstock",
         icon: <AiIcons.AiOutlineInfoCircle />,
       },
-      
     ],
   },
-  
-  
 ];
 
 export const adminSidebar = [
