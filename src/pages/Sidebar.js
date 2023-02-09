@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import {customerSidebar,adminSidebar} from "../components/SidebarData";
+import { customerSidebar, adminSidebar } from "../components/SidebarData";
 import { FaAngleRight, FaAngleLeft, FaAngleDown } from "react-icons/fa";
 
 const Sidebar = ({ children }) => {
@@ -34,7 +34,7 @@ const Sidebar = ({ children }) => {
         <div>
           <div className="routes">
             <div>
-              {adminSidebar.map((path, index) => (
+              {customerSidebar.map((path, index) => (
                 <React.Fragment key={path.id}>
                   {console.log(path)}
                   <div className="link">
@@ -45,7 +45,7 @@ const Sidebar = ({ children }) => {
                         >
                           {path.icon}
                         </div>
-                        <div className="link_text">{path.name}</div>
+                        {/* <div className="link_text">{path.name}</div> */}
                       </NavLink>
                     </div>
                     <div>
@@ -62,16 +62,33 @@ const Sidebar = ({ children }) => {
                       <ul className="submenu_ul">
                         {isSidebarOpen && (
                           <>
-                            {path?.subRoutes?.map((linkval, index) => {
+                            {path?.subNav?.map((linkval, index) => {
+                              console.log("linkval", linkval);
                               return (
-                                <li key={index} className="submenu_link">
-                                  <div className="submenu_links">
-                                    <div className="icon">{linkval.icon}</div>
-                                    <div className="link_text">
-                                      {linkval.name}
+                                <div>
+                                  <li key={index} className="submenu_link">
+                                    <div className="submenu_links">
+                                      <div className="icon">{linkval.icon}</div>
+                                      <div className="link_text">
+                                        {linkval.name}
+                                      </div>
                                     </div>
-                                  </div>
-                                </li>
+                                  </li>
+                                  {linkval?.subNav.map((nestnav, i) => {
+                                    return (
+                                      <li key={i} className="submenu_link">
+                                        <div className="submenu_links">
+                                          <div className="icon">
+                                            {nestnav.icon}
+                                          </div>
+                                          <div className="link_text">
+                                            {nestnav.name}
+                                          </div>
+                                        </div>
+                                      </li>
+                                    );
+                                  })}
+                                </div>
                               );
                             })}
                           </>

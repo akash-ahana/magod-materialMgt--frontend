@@ -1,18 +1,7 @@
-import React from 'react'
-import CustometPartsDetails from '../../../../mat-mangmnt/components/CustometPartsDetails'
-import Modal from '../../../components/Modal'
-import New from './parts/New'
+import React from "react";
 
-function CustJobWork() {
-  return (
-    <div>
-        
-        <New/>
-        <CustometPartsDetails/>
-        {/* <Modal/> */}
+const CustJobWork = () => {
+  return <div>CustJobWork</div>;
+};
 
-    </div>
-  )
-}
-
-export default CustJobWork
+export default CustJobWork;
