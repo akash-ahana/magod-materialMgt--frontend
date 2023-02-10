@@ -20,7 +20,7 @@ function CustPartRecceListCreated(props) {
           className="table-data"
           style={{ height: "480px", overflowY: "scroll" }}
         >
-          <Tables theadData={getHeadings()} tbodyData={data2} />
+          {/* <Tables theadData={getHeadings()} tbodyData={data2} /> */}
         </div>
       </div>
       <div className="col-md-6 col-sm-12">
