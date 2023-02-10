@@ -34,11 +34,11 @@ import Parts from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/Parts";
 import Units from "./pages/mat-mangmnt/menu/Receipt/custjobwork/units/Units";
 import SheetsAndOthers from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsAndOthers";
 import New from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/New";
-import { DraftRVList } from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/DraftRVList";
-import OenRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/OenRVList";
+import  DraftRVList  from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/DraftRVList";
 import { ClosedRVList } from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/ClosedRVList";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { OpenRVList } from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/OpenRVList";
 
 function App() {
   return (
@@ -63,8 +63,10 @@ function App() {
                   <Route index={true} element={<Parts />} />
                   <Route path="new" element={<New />} />
                   <Route path="draftrvlist" element={<DraftRVList />} />
-                  <Route path="openrvlist" element={<OenRVList />} />
+                  <Route path="openrvlist" element={<OpenRVList />} />
                   <Route path="closedrvlist" element={<ClosedRVList />} />
+                  <Route path="closedrvlist" element={<ClosedRVList />} />
+                  
                 </Route>
                 <Route path="units" element={<Units />} />
                 <Route path="sheetsandothers" element={<SheetsAndOthers />} />
