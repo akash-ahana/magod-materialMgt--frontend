@@ -49,6 +49,7 @@ function App() {
         <Route element={<Login />} path="/" />
 
         <Route path="/home" element={<Home />} />
+
         <Route element={<WithNav />}>
           <Route path="/materialmanagement" element={<Parentroute />}>
             <Route path="server" element={<Setup />}>
