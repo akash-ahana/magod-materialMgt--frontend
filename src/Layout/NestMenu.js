@@ -9,7 +9,7 @@ const NestMenu = ({nestnav}) => {
     
 
   return <>
-   <li className="submenu_link"  onClick={()=>{nestnav.subNav && showSubnav1()}}>
+   <li className="submenu_link"  onClick={()=>{nestnav.subNav && showSubnav1()}} style={{cursor:"pointer"}}>
                       <div className="submenu_links">
                         <div className="icon">{nestnav.icon}</div>
                         <div className="link_text">{nestnav.title}</div>
