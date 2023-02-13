@@ -38,7 +38,7 @@ import  DraftRVList  from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/Dr
 import { ClosedRVList } from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/ClosedRVList";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { OpenRVList } from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/OpenRVList";
+import OpenRVList  from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/OpenRVList";
 
 function App() {
   return (
@@ -64,7 +64,6 @@ function App() {
                   <Route path="new" element={<New />} />
                   <Route path="draftrvlist" element={<DraftRVList />} />
                   <Route path="openrvlist" element={<OpenRVList />} />
-                  <Route path="closedrvlist" element={<ClosedRVList />} />
                   <Route path="closedrvlist" element={<ClosedRVList />} />
                   
                 </Route>

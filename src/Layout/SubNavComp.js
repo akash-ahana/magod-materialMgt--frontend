@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import FirstNestMenu from "./FirstNestMenu";
+import NestMenu from "./NestMenu";
 
 const SidebarLink = styled.div`
   display: flex;
@@ -45,12 +47,19 @@ const IconNav = styled.div`
 const SubMenuComp = ({ item, sidebar }) => {
   const [subnav, setSubnav] = useState(false);
 
+
   const showSubnav = () => setSubnav(!subnav);
   useEffect(() => {
     if (!sidebar) {
       setSubnav(false);
     }
   }, [sidebar]);
+
+  // useEffect(() => {
+  //   if (!sidebar) {
+  //     setSubnav1(false);
+  //   }
+  // }, [sidebar]);
 
   return (
     <>
@@ -87,7 +96,8 @@ const SubMenuComp = ({ item, sidebar }) => {
         item?.subNav.map((subNav1, index) => {
           return (
             <>
-              <NavLink
+            <FirstNestMenu  key={index} subNav1={subNav1} subnav={subnav}/>
+              {/* <NavLink
                 to={subNav1.path}
                 key={index}
                 className={({ isActive }) =>
@@ -96,28 +106,27 @@ const SubMenuComp = ({ item, sidebar }) => {
                     : "link-default side-nav-sub-menu"
                 }
               >
-                <DropdownLink>
+                <DropdownLink onClick={()=>{subNav1.subNav && showSubnav1()}} >
                   <div className="sub-menu-icon"> {subNav1.icon}</div>
                   <SidebarLabel className="sub-menu-label">
                     {subNav1.title}
+                    
                   </SidebarLabel>
                 </DropdownLink>
               </NavLink>
 
-              {/* {console.log("subNav1",typeof(subNav1.subNav))} */}
-
-              {subNav1.subNav !== undefined &&
+              { nest && subNav1.subNav !== undefined &&
                 subNav1?.subNav.length > 0 &&
                 subNav1.subNav.map((nestnav, i) => {
-                  return (
-                    <li key={i} className="submenu_link">
-                      <div className="submenu_links">
-                        <div className="icon">{nestnav.icon}</div>
-                        <div className="link_text">{nestnav.title}</div>
-                      </div>
-                    </li>
-                  );
+                  return ( <NestMenu   key={i} nestnav={nestnav} />)
+                   
+                    
                 })}
+              */}
+
+
+
+
             </>
           );
         })}
