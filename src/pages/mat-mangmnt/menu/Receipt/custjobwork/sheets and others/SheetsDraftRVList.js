@@ -19,7 +19,7 @@ const isFirstColumn = (params) => {
   return thisIsFirstColumn;
 };
 
-export default function DraftRVList() {
+export default function SheetsDraftRVList() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

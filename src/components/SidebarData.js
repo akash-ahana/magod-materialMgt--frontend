@@ -99,18 +99,22 @@ export const customerSidebar = [
             subNav: [
               {
                 title: "New",
+                path: "/materialmanagement/receipt/customerjobwork/sheetsandothers/new",
                 icon: <AiIcons.AiOutlineInfoCircle />,
               },
               {
                 title: "Draft RV list",
+                path: "/materialmanagement/receipt/customerjobwork/sheetsandothers/draftrvlist",
                 icon: <AiIcons.AiOutlineInfoCircle />,
               },
               {
                 title: "Open RV LIST",
+                path: "/materialmanagement/receipt/customerjobwork/sheetsandothers/openrvlist",
                 icon: <AiIcons.AiOutlineInfoCircle />,
               },
               {
                 title: "Closed RV LIST",
+                path: "/materialmanagement/receipt/customerjobwork/sheetsandothers/closedrvlist",
                 icon: <AiIcons.AiOutlineInfoCircle />,
               },
             ],

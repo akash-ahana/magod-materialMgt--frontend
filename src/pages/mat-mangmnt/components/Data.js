@@ -116,4 +116,115 @@ const data2 = [
     CustDocuNo: "005",
   },
 ];
-export { data1, data2 };
+
+const data3 = [
+  {
+  Srl: "",
+  MtrlCode: "002",
+  DynamicF: "100",
+  DynamicF: "100",
+  DynamicF: "100",
+  Qty: "005",
+  Inspected: <input type="checkbox" />,
+  LocationNo :"111",
+  Updated: <input type="checkbox" />,
+
+ },
+ {
+  Srl: "",
+  MtrlCode: "002",
+  DynamicF: "100",
+  DynamicF: "100",
+  DynamicF: "100",
+  Qty: "005",
+  Inspected: <input type="checkbox" />,
+  LocationNo :"111",
+  Updated: <input type="checkbox" />,
+
+ },
+ {
+  Srl: "",
+  MtrlCode: "002",
+  DynamicF: "100",
+  DynamicF: "100",
+  DynamicF: "100",
+  Qty: "005",
+  Inspected: <input type="checkbox" />,
+  LocationNo :"111",
+  Updated: <input type="checkbox" />,
+
+ },
+ {
+  Srl: "",
+  MtrlCode: "002",
+  DynamicF: "100",
+  DynamicF: "100",
+  DynamicF: "100",
+  Qty: "005",
+  Inspected: <input type="checkbox" />,
+  LocationNo :"111",
+  Updated: <input type="checkbox" />,
+
+ },
+ {
+  Srl: "",
+  MtrlCode: "002",
+  DynamicF: "100",
+  DynamicF: "100",
+  DynamicF: "100",
+  Qty: "005",
+  Inspected: <input type="checkbox" />,
+  LocationNo :"111",
+  Updated: <input type="checkbox" />,
+
+ },
+ {
+  Srl: "",
+  MtrlCode: "002",
+  DynamicF: "100",
+  DynamicF: "100",
+  DynamicF: "100",
+  Qty: "005",
+  Inspected: <input type="checkbox" />,
+  LocationNo :"111",
+  Updated: <input type="checkbox" />,
+
+ },
+ {
+  Srl: "",
+  MtrlCode: "002",
+  DynamicF: "100",
+  DynamicF: "100",
+  DynamicF: "100",
+  Qty: "005",
+  Inspected: <input type="checkbox" />,
+  LocationNo :"111",
+  Updated: <input type="checkbox" />,
+
+ },
+ {
+  Srl: "",
+  MtrlCode: "002",
+  DynamicF: "100",
+  DynamicF: "100",
+  DynamicF: "100",
+  Qty: "005",
+  Inspected: <input type="checkbox" />,
+  LocationNo :"111",
+  Updated: <input type="checkbox" />,
+
+ },
+ {
+  Srl: "",
+  MtrlCode: "002",
+  DynamicF: "100",
+  DynamicF: "100",
+  DynamicF: "100",
+  Qty: "005",
+  Inspected: <input type="checkbox" />,
+  LocationNo :"111",
+  Updated: <input type="checkbox" />,
+
+ },
+  ]
+export { data1, data2, data3 };

@@ -39,6 +39,10 @@ import { ClosedRVList } from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import OpenRVList  from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/OpenRVList";
+import SheetsNew from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsNew";
+import SheetsDraftRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsDraftRVList";
+import SheetsOpenRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsOpenRVList";
+import SheetsClosedRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsClosedRVList";
 
 function App() {
   return (
@@ -68,8 +72,24 @@ function App() {
                   <Route path="closedrvlist" element={<ClosedRVList />} />
                   
                 </Route>
-                <Route path="units" element={<Units />} />
-                <Route path="sheetsandothers" element={<SheetsAndOthers />} />
+                <Route path="units">
+                  <Route index={true} element={<Units />}/>
+                  <Route path="new" element={<New />} />
+                  <Route path="draftrvlist" element={<DraftRVList />} />
+                  <Route path="openrvlist" element={<OpenRVList />} />
+                  <Route path="closedrvlist" element={<ClosedRVList />} />
+                  
+                </Route>
+                <Route path="sheetsandothers">
+                  <Route index={true} element={<SheetsAndOthers />}/>
+                  <Route path="new" element={<SheetsNew />} />
+                  <Route path="draftrvlist" element={<SheetsDraftRVList />} />
+                  <Route path="openrvlist" element={<SheetsOpenRVList />} />
+                  <Route path="closedrvlist" element={<SheetsClosedRVList />} />
+                  
+                </Route>
+                  
+
               </Route>{" "}
               <Route path="purchase" element={<Purchase />} />
               <Route path="branchtransfer" element={<BranchTransfer />} />
