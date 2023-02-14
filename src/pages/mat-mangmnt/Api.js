@@ -17,3 +17,4 @@ export const getSheetListByReceived = `${base}/materialReceiptRegister?type1=Rec
 export const getSheetListByClosed = `${base}/materialReceiptRegister?type1=Closed&type2=Sheets`;
 
 export const materialHeaderReceiptRegister = `${base}/materialReceiptRegister/insertHeader`;
+export const materialHeaderReceiptRegisterUpdate = `${base}/materialReceiptRegister/updateHeader`;

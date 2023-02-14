@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-  useEffect,
-} from "react";
+import React, { useState, useEffect } from "react";
 import "../../../MatMenu.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getMaterialReceiptByType } from "../../../../actions/materialReceiptAction";
@@ -16,9 +10,6 @@ export default function DraftRVList() {
   const dispatch = useDispatch();
   const materialReceipt = useSelector((state) => state.materialReceipt);
   const { loading, error, list } = materialReceipt;
-  list.map((element) => {
-    element.RV_Date = dateToShort(element.RV_Date);
-  });
   const [data, setData] = useState({
     CustDocuNo: "",
     Cust_Code: "",
@@ -36,6 +27,11 @@ export default function DraftRVList() {
     dispatch(getMaterialReceiptByType("Created", "Parts"));
   }, [dispatch]);
 
+  const openButtonClick = () => {
+    //console.log("data = ", data);
+    console.log("button click : ");
+  };
+
   const columns = [
     {
       text: "RV No",
@@ -45,6 +41,7 @@ export default function DraftRVList() {
       text: "RV Date",
       dataField: "RV_Date",
       sort: true,
+      formatter: statusFormatter,
     },
     {
       text: "Customer",
@@ -55,18 +52,21 @@ export default function DraftRVList() {
       dataField: "CustDocuNo",
     },
   ];
+  // Process the returned date in the formatter
+  function statusFormatter(cell, row, rowIndex, formatExtraData) {
+    return dateToShort(cell);
+  }
   const selectRow = {
     mode: "radio",
     clickToSelect: true,
     bgColor: "#8A92F0",
     onSelect: (row, isSelect, rowIndex, e) => {
-      //console.log(dateToShort(row.ReceiptDate));
       setData({
         CustDocuNo: row.CustDocuNo,
         Cust_Code: row.Cust_Code,
         Customer: row.Customer,
         RVStatus: row.RVStatus,
-        RV_Date: row.RV_Date,
+        RV_Date: dateToShort(row.RV_Date),
         RV_No: row.RV_No,
         ReceiptDate: dateToShort(row.ReceiptDate),
         RvID: row.RvID,
@@ -75,12 +75,6 @@ export default function DraftRVList() {
       });
     },
   };
-  const openButton = (RvID) => {
-    console.log("ID = ", RvID);
-    //navigate("/CreatedPartOpen", {state : {RvID}})
-  };
-
-  const [date, setDate] = useState();
 
   return (
     <>
@@ -113,8 +107,6 @@ export default function DraftRVList() {
                       <div className="col-md-8 ">
                         <input
                           className="in-field"
-                          /*type="date"
-                          onChange={(e) => setDate(e.target.value)}*/
                           value={data.ReceiptDate}
                           readOnly
                         />
@@ -139,10 +131,8 @@ export default function DraftRVList() {
                       <div className="col-md-8 ">
                         <input
                           className="in-field"
-                          /*type="date"*/
                           value={data.RV_Date}
                           readOnly
-                          /*onChange={(e) => setDate(e.target.value)}*/
                         />
                       </div>
                     </div>
@@ -170,7 +160,6 @@ export default function DraftRVList() {
                         />
                       </div>
                     </div>
-
                     <div className="row">
                       <div className="col-md-3">
                         <label className="">Cust Docu No</label>
@@ -199,7 +188,7 @@ export default function DraftRVList() {
 
                     <div className="row">
                       <div className="col-md-3">
-                        <label className="">Caluclatd weight</label>
+                        <label className="">Calculatd weight</label>
                       </div>
                       <div className="col-md-8 ">
                         <input
@@ -229,7 +218,8 @@ export default function DraftRVList() {
               <button
                 className="button-style "
                 style={{ width: "120px" }}
-                onClick={openButton(data.RvID)}
+                //data.RvID
+                onClick={openButtonClick}
               >
                 Open
               </button>
