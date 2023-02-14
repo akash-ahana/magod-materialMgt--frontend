@@ -5,6 +5,9 @@ import {
   MATERIAL_HEADER_REGISTER_REQUEST,
   MATERIAL_HEADER_REGISTER_SUCCESS,
   MATERIAL_HEADER_REGISTER_FAIL,
+  MATERIAL_HEADER_REGISTER_UPDATE_REQUEST,
+  MATERIAL_HEADER_REGISTER_UPDATE_SUCCESS,
+  MATERIAL_HEADER_REGISTER_UPDATE_FAIL,
 } from "../constants/materialReceiptConstant";
 
 export const materialReceiptReducer = (state = { list: [] }, action) => {
@@ -29,6 +32,22 @@ export const materialReceiptHeaderRegisterReducer = (state = {}, action) => {
     case MATERIAL_HEADER_REGISTER_FAIL:
       return { loading: false, error: action.payload };
 
+    default:
+      return state;
+  }
+};
+
+export const materialReceiptHeaderRegisterUpdateReducer = (
+  state = {},
+  action
+) => {
+  switch (action.type) {
+    case MATERIAL_HEADER_REGISTER_UPDATE_REQUEST:
+      return { loading: true };
+    case MATERIAL_HEADER_REGISTER_UPDATE_SUCCESS:
+      return { loading: false, registerUpdateInfo: action.payload };
+    case MATERIAL_HEADER_REGISTER_UPDATE_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

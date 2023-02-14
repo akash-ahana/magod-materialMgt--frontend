@@ -11,6 +11,7 @@ import { custBomReducer } from "./pages/mat-mangmnt/reducers/custBomReducer";
 import {
   materialReceiptReducer,
   materialReceiptHeaderRegisterReducer,
+  materialReceiptHeaderRegisterUpdateReducer,
 } from "./pages/mat-mangmnt/reducers/materialReceiptReducer";
 
 const reducer = combineReducers({
@@ -18,6 +19,8 @@ const reducer = combineReducers({
   custoBom: custBomReducer,
   materialReceipt: materialReceiptReducer,
   materialReceiptHeaderRegisterInfo: materialReceiptHeaderRegisterReducer,
+  materialReceiptHeaderRegisterUpdateInfo:
+    materialReceiptHeaderRegisterUpdateReducer,
 });
 
 const initialState = {};
