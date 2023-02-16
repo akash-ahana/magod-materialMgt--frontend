@@ -42,6 +42,21 @@ const data1 = [
     QtyAccepted: "004",
     QtyRejected: "005",
   },
+
+  {
+    PartId: "001",
+    UnitWt: "002",
+    QtyReceived: "003",
+    QtyAccepted: "004",
+    QtyRejected: "005",
+  },
+  {
+    PartId: "001",
+    UnitWt: "002",
+    QtyReceived: "003",
+    QtyAccepted: "004",
+    QtyRejected: "005",
+  },
 ];
 
 const data2 = [
@@ -227,4 +242,108 @@ const data3 = [
 
  },
   ]
-export { data1, data2, data3 };
+
+  const data5 =[
+    {
+      Srl:"",
+      Description:"asdfghjk",
+      Material:"sdfghjkl",
+      Qty:"001",
+      Weight:"dfgh",
+      TotalWeight:"123",
+      UpDated:< input type="checkbox"/>
+    },
+  ]
+  const CRVdata1 =[
+    {
+      RVNo:"",
+      CustDocument:"asdfghjk",
+      MaterialCode:"sdfghjkl",
+      Weight:"dfgh",
+      Length:"dfgh",
+      Scrap:< input type="checkbox"/>,
+      Weight:"123",
+      ScrapWeight:"1234",
+      InStock:"sdfghj",
+      Issue:< input type="checkbox"/>,
+    },
+    {
+      RVNo:"",
+      CustDocument:"asdfghjk",
+      MaterialCode:"sdfghjkl",
+      Weight:"dfgh",
+      Length:"dfgh",
+      Scrap:< input type="checkbox"/>,
+      Weight:"123",
+      ScrapWeight:"1234",
+      InStock:"sdfghj",
+      Issue:< input type="checkbox"/>,
+    },
+    {
+      RVNo:"",
+      CustDocument:"asdfghjk",
+      MaterialCode:"sdfghjkl",
+      Weight:"dfgh",
+      Length:"dfgh",
+      Scrap:< input type="checkbox"/>,
+      Weight:"123",
+      ScrapWeight:"1234",
+      InStock:"sdfghj",
+      Issue:< input type="checkbox"/>,
+    },
+  ]
+  const CRVdata2 =[
+    {
+      MtrlStockID:"123",
+      Issue:< input type="checkbox"/>,
+      Weight:"123",
+      ScrapWeight:"1234",
+      RVNo:"",
+      UpDated:< input type="checkbox"/>
+    },
+    {
+      MtrlStockID:"123",
+      Issue:< input type="checkbox"/>,
+      Weight:"123",
+      ScrapWeight:"1234",
+      RVNo:"",
+      UpDated:< input type="checkbox"/>
+    },
+    {
+      MtrlStockID:"123",
+      Issue:< input type="checkbox"/>,
+      Weight:"123",
+      ScrapWeight:"1234",
+      RVNo:"",
+      UpDated:< input type="checkbox"/>
+    },
+  ]
+  const CRVdata3 =[
+    {
+      MtrlStockID:"123",
+      MtrlCode:"123",
+      DynamicPara1:"sdfghjkl",
+      DynamicPara1:"sdfghjkl",
+      Weight:"dfgh",
+      Scrap:"0",
+    },
+    {
+      MtrlStockID:"123",
+      MtrlCode:"123",
+      DynamicPara1:"sdfghjkl",
+      DynamicPara1:"sdfghjkl",
+      Weight:"dfgh",
+      Scrap:"0",
+    },
+    {
+      MtrlStockID:"123",
+      MtrlCode:"123",
+      DynamicPara1:"sdfghjkl",
+      DynamicPara1:"sdfghjkl",
+      Weight:"dfgh",
+      Scrap:"0",
+    },
+  ]
+
+  
+export { data1, data2, data3,data5,CRVdata1,CRVdata2,CRVdata3};

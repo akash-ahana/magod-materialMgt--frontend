@@ -77,18 +77,26 @@ export const customerSidebar = [
             subNav: [
               {
                 title: "New",
+                path: "/materialmanagement/receipt/customerjobwork/units/new",
+
                 icon: <AiIcons.AiOutlineForward />,
               },
               {
                 title: "Draft RV list",
+                path: "/materialmanagement/receipt/customerjobwork/units/draftrvlist",
+
                 icon: <AiIcons.AiOutlineDribbble />,
               },
               {
                 title: "Open RV LIST",
+                path: "/materialmanagement/receipt/customerjobwork/units/openrvlist",
+
                 icon: <AiIcons.AiOutlineOrderedList />,
               },
               {
                 title: "Closed RV LIST",
+                path: "/materialmanagement/receipt/customerjobwork/units/closedrvlist",
+
                 icon: <AiIcons.AiOutlineClose />,
               },
             ],
@@ -222,7 +230,7 @@ export const customerSidebar = [
         subNav: [
           {
             title: "New",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/new",
+            path: "/materialmanagement/return/returncustjobwork/new",
             icon: <AiIcons.AiOutlineInfoCircle />,
           },
           {

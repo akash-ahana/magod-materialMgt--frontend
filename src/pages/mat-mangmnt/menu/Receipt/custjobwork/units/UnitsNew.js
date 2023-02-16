@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 
 
-function SheetsNew() {
+function UnitsNew() {
 
   const getHeadings = () => {
     return Object.keys(data3[0]);
@@ -23,6 +23,9 @@ function SheetsNew() {
   confirmButtonText: 'okay'
   });
 };
+
+
+
   return (
     <div>
 
@@ -107,11 +110,11 @@ function SheetsNew() {
               <button
                 className="button-style"
                 style={{ width: "196px" }}
-                
               >
                 Save
               </button>
-              <button className="button-style" style={{ width: "196px" }} onClick={ getPop}>
+
+              <button className="button-style" style={{ width: "196px" }}  onClick={ getPop} >
                 Allot RV No
               </button>
               <button className="button-style" style={{ width: "196px" }}>
@@ -134,7 +137,10 @@ function SheetsNew() {
               className="table-data"
               style={{ height: "480px", overflowY: "scroll" }}
             >
-              <Tables theadData={getHeadings()} tbodyData={data3} />
+              <Tables theadData={getHeadings()} tbodyData={data3}  
+              
+            
+              />
             </div>
           </div>
           <div className="col-md-6 col-sm-12">
@@ -278,4 +284,4 @@ function SheetsNew() {
   )
 }
 
-export default SheetsNew
+export default UnitsNew

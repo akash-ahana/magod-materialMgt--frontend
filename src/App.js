@@ -14,7 +14,7 @@ import StoreManagement from "./pages/mat-mangmnt/menu/Store management/StoreMana
 import Setup from "./pages/mat-mangmnt/menu/setup/Setup";
 import Purchase from "./pages/mat-mangmnt/menu/Receipt/puchase/Purchase";
 import Customer from "./pages/mat-mangmnt/menu/Reports/Customer/Customer";
-import CustomerJobWork from "./pages/mat-mangmnt/menu/Return/custjobwork/CustomerJobWork";
+import CustomerJobWork from "./pages/mat-mangmnt/menu/Return/custjobwork/ReturnCustomerJobWork";
 import PurchasePlannedforfuture from "./pages/mat-mangmnt/menu/Return/Purchase – Planned for future/PurchasePlannedforfuture";
 import IVListServic from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListServic/IVListServic";
 import Service from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/Service";
@@ -43,7 +43,17 @@ import SheetsNew from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and o
 import SheetsDraftRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsDraftRVList";
 import SheetsOpenRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsOpenRVList";
 import SheetsClosedRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsClosedRVList";
-
+import UnitsNew from "./pages/mat-mangmnt/menu/Receipt/custjobwork/units/UnitsNew";
+import UnitsDraftRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/units/UnitsDraftRVList";
+import UnitsOpenRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/units/UnitsOpenRVList";
+import UnitsClosedRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/units/UnitsClosedRVList";
+import ReturnNew from "./pages/mat-mangmnt/menu/Return/custjobwork/ReturnNew";
+import ReturnCustomerJobWork from "./pages/mat-mangmnt/menu/Return/custjobwork/ReturnCustomerJobWork";
+import ReturnCancelled from "./pages/mat-mangmnt/menu/Return/custjobwork/ReturnCancelled";
+import ReturnCustomerIVList from "./pages/mat-mangmnt/menu/Return/custjobwork/ReturnCustomerIVList";
+import ReturnPendingDispatchList from "./pages/mat-mangmnt/menu/Return/custjobwork/ReturnPendingDispatchList";
+import ReturnSalesIVList from "./pages/mat-mangmnt/menu/Return/custjobwork/ReturnSalesIVList";
+import OutwordMaterialIssueVocher from "./pages/mat-mangmnt/menu/Return/custjobwork/OutwordMaterialIssueVocher";
 function App() {
   return (
     <BrowserRouter>
@@ -74,10 +84,10 @@ function App() {
                 </Route>
                 <Route path="units">
                   <Route index={true} element={<Units />}/>
-                  <Route path="new" element={<New />} />
-                  <Route path="draftrvlist" element={<DraftRVList />} />
-                  <Route path="openrvlist" element={<OpenRVList />} />
-                  <Route path="closedrvlist" element={<ClosedRVList />} />
+                  <Route path="new" element={<UnitsNew />} />
+                  <Route path="draftrvlist" element={<UnitsDraftRVList />} />
+                  <Route path="openrvlist" element={<UnitsOpenRVList />} />
+                  <Route path="closedrvlist" element={<UnitsClosedRVList />} />
                   
                 </Route>
                 <Route path="sheetsandothers">
@@ -97,11 +107,21 @@ function App() {
 
             <Route path="return">
               <Route index={true} element={<Return />} />
-              <Route path="customerjobwork" element={<CustomerJobWork />} />
+              <Route path="returncustjobwork"  >
+              <Route index={true} element={<ReturnCustomerJobWork/>}/>
+                  <Route path="new" element={<ReturnNew />} />
+                  <Route path="cancelled" element={<ReturnCancelled />} />
+                  <Route path="customerivlist" element={<ReturnCustomerIVList />} />
+                  <Route path="pendingdispatch" element={<ReturnPendingDispatchList />} />
+                  <Route path="salesivlist" element={<ReturnSalesIVList />} />
+                  <Route path="OutwordMaterialIssueVocher" element={<OutwordMaterialIssueVocher />} />
+                  </Route>
+              
               <Route
-                path="purchaseplannedforfuture"
-                element={<PurchasePlannedforfuture />}
-              />
+                path="purchaseplannedforfuture"  >
+                <Route index={true} element={<PurchasePlannedforfuture />}/>
+
+                </Route>
             </Route>
 
             <Route path="shopfloorissue">

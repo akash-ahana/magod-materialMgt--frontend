@@ -16,7 +16,7 @@ function Home() {
           <div className="dashboard-card">
             <div className="card-item">
               <AiTwotoneContainer size={60} color="#283E81" />
-              <span className="dashboard-link" style={{textAlign:"center"}}>Material Managemen</span>
+              <span className="dashboard-link" style={{textAlign:"center"}}>Material Management</span>
             </div>
           </div>
         </Link>
