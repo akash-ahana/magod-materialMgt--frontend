@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../../MatMenu.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getMaterialReceiptByType } from "../../../../actions/materialReceiptAction";
+// import { getMaterialReceiptByType } from "../../../../actions/materialReceiptAction";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { dateToShort } from "../../../../../../utils";
@@ -24,7 +24,7 @@ export default function DraftRVList() {
   });
 
   useEffect(() => {
-    dispatch(getMaterialReceiptByType("Created", "Parts"));
+    // dispatch(getMaterialReceiptByType("Created", "Parts"));
   }, [dispatch]);
 
   const openButtonClick = () => {

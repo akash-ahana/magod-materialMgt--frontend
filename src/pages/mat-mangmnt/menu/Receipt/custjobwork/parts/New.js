@@ -4,12 +4,12 @@ import { data1 } from "../../../../components/Data";
 import Tables from "../../../../../../components/Tables";
 import { v4 as uuid } from "uuid";
 import { toast } from "react-toastify";
-import { listCustomers } from "../../../../actions/customerAction";
-import { custBomList } from "../../../../actions/custBomAction";
-import {
-  materialHeaderRegisterAction,
-  materialHeaderRegisterUpdateAction,
-} from "../../../../actions/materialReceiptAction";
+// import { listCustomers } from "../../../../actions/customerAction";
+// import { custBomList } from "../../../../actions/custBomAction";
+// import {
+//   materialHeaderRegisterAction,
+//   materialHeaderRegisterUpdateAction,
+// } from "../../../../actions/materialReceiptAction";
 
 function New() {
   const [custDetailVal, setCustDetailVal] = useState("");
@@ -66,8 +66,8 @@ function New() {
   const { loading4, error4, registerUpdateInfo } = materialRegisterUpdate;
 
   useEffect(() => {
-    dispatch(listCustomers());
-    dispatch(custBomList());
+    // dispatch(listCustomers());
+    // dispatch(custBomList());
     if (registerInfo && saveUpdateCount === 1) {
       toast.success("Record Saved Successfully");
       setFormHeader((preValue) => {
@@ -125,11 +125,11 @@ function New() {
       toast.error("Please Enter Customer Document Material Reference");
     else {
       if (saveUpdateCount == 0) {
-        dispatch(materialHeaderRegisterAction(formHeader));
+        // dispatch(materialHeaderRegisterAction(formHeader));
         //toast.warning("save = ", saveUpdateCount);
         setSaveUpdateCount(saveUpdateCount + 1);
       } else {
-        dispatch(materialHeaderRegisterUpdateAction(formHeader));
+        // dispatch(materialHeaderRegisterUpdateAction(formHeader));
         setSaveUpdateCount(saveUpdateCount + 1);
         //toast.warning("update = ", saveUpdateCount);
         //console.log(formHeader);

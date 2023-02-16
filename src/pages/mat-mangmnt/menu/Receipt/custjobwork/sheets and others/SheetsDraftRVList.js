@@ -6,7 +6,7 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 import "../../../MatMenu.css";
 import { data2 } from "../../../../components/Data";
 import { useDispatch, useSelector } from "react-redux";
-import { getMaterialReceiptByType } from "../../../../actions/materialReceiptAction"; 
+// import { getMaterialReceiptByType } from "../../../../actions/materialReceiptAction"; 
 import MessageBox from "../../../../components/MessageBox";
 import { Card, Col, Container, Row, Table } from 'react-bootstrap';
 import BootstrapTable from "react-bootstrap-table-next";
@@ -39,7 +39,7 @@ export default function SheetsDraftRVList() {
   })
 
   useEffect(() => {
-    dispatch(getMaterialReceiptByType('Created','Parts'));
+    // dispatch(getMaterialReceiptByType('Created','Parts'));
   }, [dispatch]);
 
 const columns = [
