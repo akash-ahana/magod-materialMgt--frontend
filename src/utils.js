@@ -1,6 +1,6 @@
 export const dateToShort = (myDate) => {
   //console.log("mydate = ", myDate);
-  var convertedStartDate = new Date(myDate.substr(0, 10));
+  var convertedStartDate = new Date(myDate.toString().substr(0, 10));
   //console.log("mydate substr= ", convertedStartDate);
   //mm/dd/yyyy
   var mmddformat = convertedStartDate.toLocaleDateString();

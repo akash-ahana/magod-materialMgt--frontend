@@ -10,6 +10,7 @@ import {
   getSheetListByReceived,
   getSheetListByClosed,
   materialHeaderReceiptRegister,
+  materialHeaderReceiptRegisterUpdate,
 } from "../Api";
 import {
   MATERIAL_RECEIPT_REQUEST,
@@ -18,6 +19,9 @@ import {
   MATERIAL_HEADER_REGISTER_REQUEST,
   MATERIAL_HEADER_REGISTER_FAIL,
   MATERIAL_HEADER_REGISTER_SUCCESS,
+  MATERIAL_HEADER_REGISTER_UPDATE_REQUEST,
+  MATERIAL_HEADER_REGISTER_UPDATE_FAIL,
+  MATERIAL_HEADER_REGISTER_UPDATE_SUCCESS,
 } from "../constants/materialReceiptConstant";
 
 export const getMaterialReceiptByType = (type1, type2) => async (dispatch) => {
@@ -127,3 +131,28 @@ export const materialHeaderRegisterAction = (body) => async (dispatch) => {
     });
   }
 };
+
+export const materialHeaderRegisterUpdateAction =
+  (body) => async (dispatch) => {
+    try {
+      dispatch({ type: MATERIAL_HEADER_REGISTER_UPDATE_REQUEST });
+      const config = { headers: { "Contnet-Type": "application/json" } };
+      const { data } = await axios.put(
+        materialHeaderReceiptRegisterUpdate,
+        body,
+        config
+      );
+      dispatch({
+        type: MATERIAL_HEADER_REGISTER_UPDATE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: MATERIAL_HEADER_REGISTER_UPDATE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
