@@ -1,3 +1,4 @@
+
 import React, {
   useCallback,
   useMemo,
@@ -5,6 +6,7 @@ import React, {
   useState,
   useEffect,
 } from "react";
+
 import { render } from "react-dom";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
@@ -12,9 +14,11 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 import "../../../MatMenu.css";
 import { data2 } from "../../../../components/Data";
 import { useDispatch, useSelector } from "react-redux";
+
 // import { getMaterialReceiptByType } from "../../../../actions/materialReceiptAction";
 import MessageBox from "../../../../components/MessageBox";
 import { Card, Col, Container, Row, Table } from "react-bootstrap";
+
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { useNavigate } from "react-router-dom";
@@ -26,6 +30,7 @@ const isFirstColumn = (params) => {
 };
 
 export default function SheetsDraftRVList() {
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const materialReceipt = useSelector((state) => state.materialReceipt);
@@ -42,6 +47,7 @@ export default function SheetsDraftRVList() {
     TotalWeight: "",
     TotalCalculatedWeight: "",
   });
+
 
   useEffect(() => {
     // dispatch(getMaterialReceiptByType('Created','Parts'));
@@ -136,6 +142,7 @@ export default function SheetsDraftRVList() {
       <div className="row">
         <div className="col-md-6 col-sm-12">
           <BootstrapTable
+
             keyField="RvID"
             columns={columns}
             data={list}
