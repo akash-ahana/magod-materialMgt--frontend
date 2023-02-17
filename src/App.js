@@ -34,11 +34,11 @@ import Parts from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/Parts";
 import Units from "./pages/mat-mangmnt/menu/Receipt/custjobwork/units/Units";
 import SheetsAndOthers from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsAndOthers";
 import New from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/New";
-import  DraftRVList  from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/DraftRVList";
+import DraftRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/DraftRVList";
 import { ClosedRVList } from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/ClosedRVList";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import OpenRVList  from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/OpenRVList";
+import OpenRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/OpenRVList";
 import SheetsNew from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsNew";
 import SheetsDraftRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsDraftRVList";
 import SheetsOpenRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsOpenRVList";
@@ -54,6 +54,8 @@ import ReturnCustomerIVList from "./pages/mat-mangmnt/menu/Return/custjobwork/Re
 import ReturnPendingDispatchList from "./pages/mat-mangmnt/menu/Return/custjobwork/ReturnPendingDispatchList";
 import ReturnSalesIVList from "./pages/mat-mangmnt/menu/Return/custjobwork/ReturnSalesIVList";
 import OutwordMaterialIssueVocher from "./pages/mat-mangmnt/menu/Return/custjobwork/OutwordMaterialIssueVocher";
+import PNew from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/PNew";
+import PDraftRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/PDraftRVList";
 function App() {
   return (
     <BrowserRouter>
@@ -76,30 +78,25 @@ function App() {
                 <Route index={true} element={<CustJobWork />} />
                 <Route path="parts">
                   <Route index={true} element={<Parts />} />
-                  <Route path="new" element={<New />} />
-                  <Route path="draftrvlist" element={<DraftRVList />} />
+                  <Route path="new" element={<PNew />} />
+                  <Route path="draftrvlist" element={<PDraftRVList />} />
                   <Route path="openrvlist" element={<OpenRVList />} />
                   <Route path="closedrvlist" element={<ClosedRVList />} />
-                  
                 </Route>
                 <Route path="units">
-                  <Route index={true} element={<Units />}/>
+                  <Route index={true} element={<Units />} />
                   <Route path="new" element={<UnitsNew />} />
                   <Route path="draftrvlist" element={<UnitsDraftRVList />} />
                   <Route path="openrvlist" element={<UnitsOpenRVList />} />
                   <Route path="closedrvlist" element={<UnitsClosedRVList />} />
-                  
                 </Route>
                 <Route path="sheetsandothers">
-                  <Route index={true} element={<SheetsAndOthers />}/>
+                  <Route index={true} element={<SheetsAndOthers />} />
                   <Route path="new" element={<SheetsNew />} />
                   <Route path="draftrvlist" element={<SheetsDraftRVList />} />
                   <Route path="openrvlist" element={<SheetsOpenRVList />} />
                   <Route path="closedrvlist" element={<SheetsClosedRVList />} />
-                  
                 </Route>
-                  
-
               </Route>{" "}
               <Route path="purchase" element={<Purchase />} />
               <Route path="branchtransfer" element={<BranchTransfer />} />
@@ -107,21 +104,28 @@ function App() {
 
             <Route path="return">
               <Route index={true} element={<Return />} />
-              <Route path="returncustjobwork"  >
-              <Route index={true} element={<ReturnCustomerJobWork/>}/>
-                  <Route path="new" element={<ReturnNew />} />
-                  <Route path="cancelled" element={<ReturnCancelled />} />
-                  <Route path="customerivlist" element={<ReturnCustomerIVList />} />
-                  <Route path="pendingdispatch" element={<ReturnPendingDispatchList />} />
-                  <Route path="salesivlist" element={<ReturnSalesIVList />} />
-                  <Route path="OutwordMaterialIssueVocher" element={<OutwordMaterialIssueVocher />} />
-                  </Route>
-              
-              <Route
-                path="purchaseplannedforfuture"  >
-                <Route index={true} element={<PurchasePlannedforfuture />}/>
+              <Route path="returncustjobwork">
+                <Route index={true} element={<ReturnCustomerJobWork />} />
+                <Route path="new" element={<ReturnNew />} />
+                <Route path="cancelled" element={<ReturnCancelled />} />
+                <Route
+                  path="customerivlist"
+                  element={<ReturnCustomerIVList />}
+                />
+                <Route
+                  path="pendingdispatch"
+                  element={<ReturnPendingDispatchList />}
+                />
+                <Route path="salesivlist" element={<ReturnSalesIVList />} />
+                <Route
+                  path="OutwordMaterialIssueVocher"
+                  element={<OutwordMaterialIssueVocher />}
+                />
+              </Route>
 
-                </Route>
+              <Route path="purchaseplannedforfuture">
+                <Route index={true} element={<PurchasePlannedforfuture />} />
+              </Route>
             </Route>
 
             <Route path="shopfloorissue">
