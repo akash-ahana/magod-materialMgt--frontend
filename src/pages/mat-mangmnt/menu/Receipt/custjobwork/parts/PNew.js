@@ -1,6 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+const { getRequest, postRequest } = require("../../../../../api/apiinstance");
+const { endpoints } = require("../../../../../api/constants");
 
 function PNew() {
+  const currDate = new Date()
+    .toJSON()
+    .slice(0, 10)
+    .split("-")
+    .reverse()
+    .join("/");
+
+  let [custdata, setCustdata] = useState([]);
+  const [formHeader, setFormHeader] = useState({
+    rvId: "",
+    receiptDate: currDate, //.split("/").reverse().join("-"),
+    rvNo: "Draft",
+    rvDate: currDate, //.split("/").reverse().join("-"),
+    status: "Created",
+    customer: "",
+    customerName: "",
+    reference: "",
+    weight: "0",
+    calcWeight: "0",
+    type: "Parts",
+    address: "",
+  });
+
+  useEffect(() => {
+    async function fetchCustData() {
+      getRequest(endpoints.getCustomers, (data) => {
+        setCustdata(data);
+      });
+      //console.log("data = ", custdata);
+    }
+    fetchCustData();
+  }, []);
+
+  let changeCustomer = async (e) => {
+    e.preventDefault();
+    const { value, name } = e.target;
+
+    const found = custdata.find((obj) => obj.Cust_Code === value);
+    //setCustDetailVal(found.Address);
+
+    setFormHeader((preValue) => {
+      //console.log(preValue)
+      return {
+        ...preValue,
+        [name]: value,
+        address: found.Address,
+      };
+    });
+  };
   return (
     <div>
       <div>
@@ -13,21 +65,20 @@ function PNew() {
             <input
               type="text"
               name="receiptDate"
-              // value={formHeader.receiptDate}
+              value={formHeader.receiptDate}
               readOnly
             />
           </div>
           <div className="col-md-3">
             <label className="">RV No</label>
-            <input type="text" name="rvNo" readOnly />
-            {/* value={formHeader.rvNo} */}
+            <input type="text" name="rvNo" readOnly value={formHeader.rvNo} />
           </div>
           <div className="col-md-3">
             <label className="">RV Date</label>
             <input
               type="text"
               name="rvDate"
-              // value={formHeader.rvDate}
+              value={formHeader.rvDate}
               readOnly
             />
           </div>
@@ -36,7 +87,7 @@ function PNew() {
             <input
               type="text"
               name="status"
-              // value={formHeader.status}
+              value={formHeader.status}
               readOnly
             />
           </div>
@@ -47,14 +98,16 @@ function PNew() {
             <select
               className="ip-select"
               name="customer"
-              // onChange={changeCustomer}
+              onChange={changeCustomer}
             >
-              {/* <option value="">Select Customer</option>
-                {customers.map((customer, index) => (
-                  <option key={index} value={customer.Cust_Code}>
-                    {customer.Cust_name}
-                  </option> */}
-              {/* ))} */}
+              <option value="" disabled selected>
+                Select Customer
+              </option>
+              {custdata.map((customer, index) => (
+                <option key={index} value={customer.Cust_Code}>
+                  {customer.Cust_name}
+                </option>
+              ))}
             </select>
           </div>
           <div className="col-md-4">
@@ -62,7 +115,7 @@ function PNew() {
             <input
               type="text"
               name="weight"
-              // value={formHeader.weight}
+              value={formHeader.weight}
               // onChange={InputHeaderEvent}
             />
           </div>
@@ -73,7 +126,7 @@ function PNew() {
             <input
               type="text"
               name="reference"
-              // value={formHeader.reference}
+              value={formHeader.reference}
               // onChange={InputHeaderEvent}
             />
           </div>
@@ -109,7 +162,7 @@ function PNew() {
             <textarea
               style={{ height: "110px" }}
               className="form-control"
-              // value={custDetailVal}
+              value={formHeader.address}
               readOnly
             ></textarea>
           </div>
