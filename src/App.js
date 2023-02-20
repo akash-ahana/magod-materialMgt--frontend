@@ -15,7 +15,7 @@ import Setup from "./pages/mat-mangmnt/menu/setup/Setup";
 import Purchase from "./pages/mat-mangmnt/menu/Receipt/puchase/Purchase";
 import Customer from "./pages/mat-mangmnt/menu/Reports/Customer/Customer";
 import CustomerJobWork from "./pages/mat-mangmnt/menu/Return/custjobwork/ReturnCustomerJobWork";
-import PurchasePlannedforfuture from "./pages/mat-mangmnt/menu/Return/Purchase – Planned for future/PurchasePlannedforfuture";
+//import PurchasePlannedforfuture from "./pages/mat-mangmnt/menu/Return/Purchase – Planned for future/PurchasePlannedforfuture";
 import IVListServic from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListServic/IVListServic";
 import Service from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/Service";
 import ProfileCutting from "./pages/mat-mangmnt/menu/Shop Floor Issue/ProfileCutting";
@@ -124,9 +124,9 @@ function App() {
                 />
               </Route>
 
-              <Route path="purchaseplannedforfuture">
+              {/* <Route path="purchaseplannedforfuture">
                 <Route index={true} element={<PurchasePlannedforfuture />} />
-              </Route>
+              </Route> */}
             </Route>
 
             <Route path="shopfloorissue">
