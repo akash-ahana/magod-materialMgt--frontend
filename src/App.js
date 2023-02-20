@@ -33,12 +33,8 @@ import CustJobWork from "./pages/mat-mangmnt/menu/Receipt/custjobwork/CustJobWor
 import Parts from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/Parts";
 import Units from "./pages/mat-mangmnt/menu/Receipt/custjobwork/units/Units";
 import SheetsAndOthers from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsAndOthers";
-import New from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/New";
-import DraftRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/DraftRVList";
-import { ClosedRVList } from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/ClosedRVList";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import OpenRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/OpenRVList";
 import SheetsNew from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsNew";
 import SheetsDraftRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsDraftRVList";
 import SheetsOpenRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsOpenRVList";
@@ -56,6 +52,8 @@ import ReturnSalesIVList from "./pages/mat-mangmnt/menu/Return/custjobwork/Retur
 import OutwordMaterialIssueVocher from "./pages/mat-mangmnt/menu/Return/custjobwork/OutwordMaterialIssueVocher";
 import PNew from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/PNew";
 import PDraftRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/PDraftRVList";
+import POpenRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/POpenRVList";
+import PClosedRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/PClosedRVList";
 function App() {
   return (
     <BrowserRouter>
@@ -80,8 +78,8 @@ function App() {
                   <Route index={true} element={<Parts />} />
                   <Route path="new" element={<PNew />} />
                   <Route path="draftrvlist" element={<PDraftRVList />} />
-                  <Route path="openrvlist" element={<OpenRVList />} />
-                  <Route path="closedrvlist" element={<ClosedRVList />} />
+                  <Route path="openrvlist" element={<POpenRVList />} />
+                  <Route path="closedrvlist" element={<PClosedRVList />} />
                 </Route>
                 <Route path="units">
                   <Route index={true} element={<Units />} />

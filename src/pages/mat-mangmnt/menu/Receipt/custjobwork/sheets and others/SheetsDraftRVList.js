@@ -5,47 +5,18 @@ import React, {
   useState,
   useEffect,
 } from "react";
-import { render } from "react-dom";
-import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
+
 import "../../../MatMenu.css";
 import { data2 } from "../../../../components/Data";
 import { useDispatch, useSelector } from "react-redux";
-// import { getMaterialReceiptByType } from "../../../../actions/materialReceiptAction";
-import MessageBox from "../../../../components/MessageBox";
 import { Card, Col, Container, Row, Table } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { useNavigate } from "react-router-dom";
 
-const isFirstColumn = (params) => {
-  var displayedColumns = params.columnApi.getAllDisplayedColumns();
-  var thisIsFirstColumn = displayedColumns[0] === params.column;
-  return thisIsFirstColumn;
-};
-
 export default function SheetsDraftRVList() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const materialReceipt = useSelector((state) => state.materialReceipt);
-  const { loading, error, list } = materialReceipt;
-  const [data, setData] = useState({
-    CustDocuNo: "",
-    Cust_Code: "",
-    Customer: "",
-    RVStatus: "",
-    RV_Date: "",
-    RV_No: "",
-    ReceiptDate: "",
-    RvID: "",
-    TotalWeight: "",
-    TotalCalculatedWeight: "",
-  });
-
-  useEffect(() => {
-    // dispatch(getMaterialReceiptByType('Created','Parts'));
-  }, [dispatch]);
+  const list = [];
 
   const columns = [
     {
@@ -66,64 +37,26 @@ export default function SheetsDraftRVList() {
       dataField: "CustDocuNo",
     },
   ];
-  const selectRow = {
-    mode: "radio",
-    clickToSelect: true,
-    bgColor: "#8A92F0",
-    onSelect: (row, isSelect, rowIndex, e) => {
-      console.log(row);
-      setData({
-        CustDocuNo: row.CustDocuNo,
-        Cust_Code: row.Cust_Code,
-        Customer: row.Customer,
-        RVStatus: row.RVStatus,
-        RV_Date: row.RV_Date,
-        RV_No: row.RV_No,
-        ReceiptDate: row.ReceiptDate,
-        RvID: row.RvID,
-        TotalWeight: row.TotalWeight,
-        TotalCalculatedWeight: row.TotalCalculatedWeight,
-      });
-    },
-  };
-  const openButton = (RvID) => {
-    console.log("ID = ", RvID);
-    //navigate("/CreatedPartOpen", {state : {RvID}})
-  };
-  const gridRef = useRef();
-  const containerStyle = useMemo(() => ({ width: "100%", height: "100%" }), []);
-  const gridStyle = useMemo(() => ({ height: "100%", width: "100%" }), []);
-  const [date, setDate] = useState();
-
-  const [rowData, setRowData] = useState();
-
-  const [columnDefs, setColumnDefs] = useState([
-    { field: "Rv No", minWidth: 180 },
-    { field: "RV date", minWidth: 150 },
-    { field: "Customer", minWidth: 150 },
-    { field: "Cust Docu No" },
-  ]);
-  const defaultColDef = useMemo(() => {
-    return {
-      flex: 1,
-      minWidth: 100,
-      resizable: true,
-      headerCheckboxSelection: isFirstColumn,
-      checkboxSelection: isFirstColumn,
-    };
-  }, []);
-
-  // const onGridReady = useCallback((params) => {
-  //   fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
-  //     .then((resp) => resp.json())
-  //     .then((data) => setRowData(data));
-  // }, []);
-
-  const onQuickFilterChanged = useCallback(() => {
-    gridRef.current.api.setQuickFilter(
-      document.getElementById("quickFilter").value
-    );
-  }, []);
+  // const selectRow = {
+  //   mode: "radio",
+  //   clickToSelect: true,
+  //   bgColor: "#8A92F0",
+  //   onSelect: (row, isSelect, rowIndex, e) => {
+  //     console.log(row);
+  //     setData({
+  //       CustDocuNo: row.CustDocuNo,
+  //       Cust_Code: row.Cust_Code,
+  //       Customer: row.Customer,
+  //       RVStatus: row.RVStatus,
+  //       RV_Date: row.RV_Date,
+  //       RV_No: row.RV_No,
+  //       ReceiptDate: row.ReceiptDate,
+  //       RvID: row.RvID,
+  //       TotalWeight: row.TotalWeight,
+  //       TotalCalculatedWeight: row.TotalCalculatedWeight,
+  //     });
+  //   },
+  // };
 
   const getHeadings = () => {
     return Object.keys(data2[0]);
@@ -139,11 +72,11 @@ export default function SheetsDraftRVList() {
             keyField="RvID"
             columns={columns}
             data={list}
-            striped
-            hover
-            condensed
-            pagination={paginationFactory()}
-            selectRow={selectRow}
+            // striped
+            // hover
+            // condensed
+            // pagination={paginationFactory()}
+            // selectRow={selectRow}
           ></BootstrapTable>
         </div>
 
@@ -174,7 +107,7 @@ export default function SheetsDraftRVList() {
                         <input
                           className="in-field"
                           type="date"
-                          onChange={(e) => setDate(e.target.value)}
+                          // onChange={(e) => setDate(e.target.value)}
                         />
                       </div>
                     </div>
@@ -194,7 +127,7 @@ export default function SheetsDraftRVList() {
                         <input
                           className="in-field"
                           type="date"
-                          onChange={(e) => setDate(e.target.value)}
+                          // onChange={(e) => setDate(e.target.value)}
                         />
                       </div>
                     </div>
