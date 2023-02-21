@@ -1,4 +1,3 @@
-
 import React, {
   useCallback,
   useMemo,
@@ -6,44 +5,17 @@ import React, {
   useState,
   useEffect,
 } from "react";
-
-import { render } from "react-dom";
-import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
 import "../../../MatMenu.css";
 import { data2 } from "../../../../components/Data";
 import { useDispatch, useSelector } from "react-redux";
-
 import { Card, Col, Container, Row, Table } from "react-bootstrap";
-
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { useNavigate } from "react-router-dom";
 
-export default function SheetsDraftRVList() {
-
+export default function PurchaseUnitsDraftRVList() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const materialReceipt = useSelector((state) => state.materialReceipt);
-  const { loading, error, list } = materialReceipt;
-  const [data, setData] = useState({
-    CustDocuNo: "",
-    Cust_Code: "",
-    Customer: "",
-    RVStatus: "",
-    RV_Date: "",
-    RV_No: "",
-    ReceiptDate: "",
-    RvID: "",
-    TotalWeight: "",
-    TotalCalculatedWeight: "",
-  });
-
-
-  useEffect(() => {
-    // dispatch(getMaterialReceiptByType('Created','Parts'));
-  }, [dispatch]);
+  const products = [];
 
   const columns = [
     {
@@ -91,19 +63,15 @@ export default function SheetsDraftRVList() {
 
   return (
     <>
-      <h4 className="form-title">Customer : Parts Receipt List Created</h4>
+      <h4 className="form-title">Magod : Units Receipt List Created</h4>
       <hr className="horizontal-line" />
       <div className="row">
         <div className="col-md-6 col-sm-12">
           <BootstrapTable
-
-            keyField="RvID"
+            keyField="id"
+            data={products}
             columns={columns}
-            data={list}
-            // striped
-            // hover
-            // condensed
-            // pagination={paginationFactory()}
+            pagination={paginationFactory()}
             // selectRow={selectRow}
           ></BootstrapTable>
         </div>

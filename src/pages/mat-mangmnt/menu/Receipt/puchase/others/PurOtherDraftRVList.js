@@ -1,50 +1,8 @@
-
-import React, {
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-  useEffect,
-} from "react";
-
-import { render } from "react-dom";
-import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
-import "../../../MatMenu.css";
-import { data2 } from "../../../../components/Data";
-import { useDispatch, useSelector } from "react-redux";
-
-import { Card, Col, Container, Row, Table } from "react-bootstrap";
-
+import React from "react";
 import BootstrapTable from "react-bootstrap-table-next";
-import paginationFactory from "react-bootstrap-table2-paginator";
-import { useNavigate } from "react-router-dom";
 
-export default function SheetsDraftRVList() {
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const materialReceipt = useSelector((state) => state.materialReceipt);
-  const { loading, error, list } = materialReceipt;
-  const [data, setData] = useState({
-    CustDocuNo: "",
-    Cust_Code: "",
-    Customer: "",
-    RVStatus: "",
-    RV_Date: "",
-    RV_No: "",
-    ReceiptDate: "",
-    RvID: "",
-    TotalWeight: "",
-    TotalCalculatedWeight: "",
-  });
-
-
-  useEffect(() => {
-    // dispatch(getMaterialReceiptByType('Created','Parts'));
-  }, [dispatch]);
-
+function PurOtherDraftRVList() {
+  const list = [];
   const columns = [
     {
       text: "RV No",
@@ -53,7 +11,7 @@ export default function SheetsDraftRVList() {
     {
       text: "RV Date",
       dataField: "RV_Date",
-      sort: true,
+      // sort:true
     },
     {
       text: "Customer",
@@ -64,39 +22,14 @@ export default function SheetsDraftRVList() {
       dataField: "CustDocuNo",
     },
   ];
-  // const selectRow = {
-  //   mode: "radio",
-  //   clickToSelect: true,
-  //   bgColor: "#8A92F0",
-  //   onSelect: (row, isSelect, rowIndex, e) => {
-  //     console.log(row);
-  //     setData({
-  //       CustDocuNo: row.CustDocuNo,
-  //       Cust_Code: row.Cust_Code,
-  //       Customer: row.Customer,
-  //       RVStatus: row.RVStatus,
-  //       RV_Date: row.RV_Date,
-  //       RV_No: row.RV_No,
-  //       ReceiptDate: row.ReceiptDate,
-  //       RvID: row.RvID,
-  //       TotalWeight: row.TotalWeight,
-  //       TotalCalculatedWeight: row.TotalCalculatedWeight,
-  //     });
-  //   },
-  // };
-
-  const getHeadings = () => {
-    return Object.keys(data2[0]);
-  };
 
   return (
     <>
-      <h4 className="form-title">Customer : Parts Receipt List Created</h4>
+      <h4 className="form-title">Magod : Sheets Receipt List Created</h4>
       <hr className="horizontal-line" />
       <div className="row">
         <div className="col-md-6 col-sm-12">
           <BootstrapTable
-
             keyField="RvID"
             columns={columns}
             data={list}
@@ -229,3 +162,5 @@ export default function SheetsDraftRVList() {
     </>
   );
 }
+
+export default PurOtherDraftRVList;

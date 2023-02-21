@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
 
-function PNew() {
+function PurchasePartsNew() {
   const currDate = new Date()
     .toJSON()
     .slice(0, 10)
@@ -306,4 +306,4 @@ function PNew() {
   );
 }
 
-export default PNew;
+export default PurchasePartsNew;

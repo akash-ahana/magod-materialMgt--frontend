@@ -15,7 +15,7 @@ import Setup from "./pages/mat-mangmnt/menu/setup/Setup";
 import Purchase from "./pages/mat-mangmnt/menu/Receipt/puchase/Purchase";
 import Customer from "./pages/mat-mangmnt/menu/Reports/Customer/Customer";
 import CustomerJobWork from "./pages/mat-mangmnt/menu/Return/custjobwork/ReturnCustomerJobWork";
-import PurchasePlannedforfuture from "./pages/mat-mangmnt/menu/Return/Purchase – Planned for future/PurchasePlannedforfuture";
+//import PurchasePlannedforfuture from "./pages/mat-mangmnt/menu/Return/Purchase – Planned for future/PurchasePlannedforfuture";
 import IVListServic from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListServic/IVListServic";
 import Service from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/Service";
 import ProfileCutting from "./pages/mat-mangmnt/menu/Shop Floor Issue/ProfileCutting";
@@ -54,6 +54,24 @@ import PNew from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/PNew";
 import PDraftRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/PDraftRVList";
 import POpenRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/POpenRVList";
 import PClosedRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/PClosedRVList";
+import PurOtherNew from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOtherNew";
+import PurOtherDraftRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOtherDraftRVList";
+import PurOtherOpenRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOtherOpenRVList";
+import PurOtherClosedRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOtherClosedRVList";
+import HeaderForm from "./pages/mat-mangmnt/components/HeaderForm";
+import DraftForm from "./pages/mat-mangmnt/components/DraftForm";
+import PurchaseOthers from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurchaseOthers";
+import PurchaseParts from "./pages/mat-mangmnt/menu/Receipt/puchase/parts/PurchaseParts";
+import PurchasePartsNew from "./pages/mat-mangmnt/menu/Receipt/puchase/parts/PurchasePartsNew";
+import PurchasePartsDraftRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/parts/PurchasePartsDraftRVList";
+import PurchasePartsOpenRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/parts/PurchasePartsOpenRVList";
+import PurchasePartsClosedRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/parts/PurchasePartsClosedRVList";
+import PurchaseUnitsNew from "./pages/mat-mangmnt/menu/Receipt/puchase/units/PurchaseUnitsNew";
+import PurchaseUnits from "./pages/mat-mangmnt/menu/Receipt/puchase/units/PurchaseUnits";
+import PurchaseUnitsDraftRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/units/PurchaseUnitsDraftRVList";
+import PurchaseUnitsOpenRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/units/PurchaseUnitsOpenRVList";
+import PurchaseUnitsClosedRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/units/PurchaseUnitsClosedRVList";
+import PurchaseGasNew from "./pages/mat-mangmnt/menu/Receipt/puchase/gas/PurchaseGasNew";
 function App() {
   return (
     <BrowserRouter>
@@ -63,6 +81,8 @@ function App() {
         <Route element={<Login />} path="/" />
 
         <Route path="/home" element={<Home />} />
+        <Route path="/header" element={<HeaderForm />} />
+        <Route path="/form" element={<DraftForm />} />
 
         <Route element={<WithNav />}>
           <Route path="/materialmanagement" element={<Parentroute />}>
@@ -83,6 +103,7 @@ function App() {
                 </Route>
                 <Route path="units">
                   <Route index={true} element={<Units />} />
+
                   <Route path="new" element={<UnitsNew />} />
                   <Route path="draftrvlist" element={<UnitsDraftRVList />} />
                   <Route path="openrvlist" element={<UnitsOpenRVList />} />
@@ -96,7 +117,54 @@ function App() {
                   <Route path="closedrvlist" element={<SheetsClosedRVList />} />
                 </Route>
               </Route>{" "}
-              <Route path="purchase" element={<Purchase />} />
+              <Route path="purchase">
+                <Route index={true} element={<Purchase />} />
+                <Route path="others">
+                  <Route index={true} element={<PurchaseOthers />} />
+                  <Route path="new" element={<PurOtherNew />} />
+                  <Route path="draftrvlist" element={<PurOtherDraftRVList />} />
+                  <Route path="openrvlist" element={<PurOtherOpenRVList />} />
+                  <Route
+                    path="closedrvlist"
+                    element={<PurOtherClosedRVList />}
+                  />
+                </Route>
+                <Route path="parts">
+                  <Route index={true} element={<PurchaseParts />} />
+                  <Route path="new" element={<PurchasePartsNew />} />
+                  <Route
+                    path="draftrvlist"
+                    element={<PurchasePartsDraftRVList />}
+                  />
+                  <Route
+                    path="openrvlist"
+                    element={<PurchasePartsOpenRVList />}
+                  />
+                  <Route
+                    path="closedrvlist"
+                    element={<PurchasePartsClosedRVList />}
+                  />
+                </Route>
+                <Route path="units">
+                  <Route index={true} element={<PurchaseUnits />} />
+                  <Route path="new" element={<PurchaseUnitsNew />} />
+                  <Route
+                    path="draftrvlist"
+                    element={<PurchaseUnitsDraftRVList />}
+                  />
+                  <Route
+                    path="openrvlist"
+                    element={<PurchaseUnitsOpenRVList />}
+                  />
+                  <Route
+                    path="closedrvlist"
+                    element={<PurchaseUnitsClosedRVList />}
+                  />
+                </Route>
+                <Route path="gas">
+                  <Route path="new" element={<PurchaseGasNew />} />
+                </Route>
+              </Route>
               <Route path="branchtransfer" element={<BranchTransfer />} />
             </Route>
 
@@ -121,9 +189,9 @@ function App() {
                 />
               </Route>
 
-              <Route path="purchaseplannedforfuture">
+              {/* <Route path="purchaseplannedforfuture">
                 <Route index={true} element={<PurchasePlannedforfuture />} />
-              </Route>
+              </Route> */}
             </Route>
 
             <Route path="shopfloorissue">
