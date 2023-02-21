@@ -4,6 +4,21 @@ let API = "http://localhost:3002";
 
 export const endpoints = {
   getCustomers: `${API}/customers/allcustomers`,
+  getCustBomList: `${API}/custbomlist/allCustBomList`,
+  getPartsCreatedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Created&type2=Parts`,
+  getPartsOpenedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Received&type2=Parts`,
+  getPartsClosedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Closed&type2=Parts`,
+
+  getUnitsCreatedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Created&type2=Units`,
+  getUnitsOpenedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Received&type2=Units`,
+  getUnitsClosedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Closed&type2=Units`,
+
+  getSheetsCreatedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Created&type2=Sheets`,
+  getSheetsOpenedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Received&type2=Sheets`,
+  getSheetsClosedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Closed&type2=Sheets`,
+
+  insertHeaderMaterialReceiptRegister: `${API}/materialReceiptRegister/insertHeaderMaterialReceiptRegisters`,
+
   /*getCustCodeName: `${API}/customers/allcustcodename`,
   getCustomerDets: `${API}/customers/getcustomer`,
   dueListCustomer: `${API}/customers/customerduelist`,
