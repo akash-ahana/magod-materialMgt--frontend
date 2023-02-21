@@ -6,15 +6,27 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { dateToShort } from "../../../../../../utils";
 
-
 function DraftRVList() {
+  const [data, setData] = useState({
+    CustDocuNo: "",
+    Cust_Code: "",
+    Customer: "",
+    RVStatus: "",
+    RV_Date: "",
+    RV_No: "",
+    ReceiptDate: "",
+    RvID: "",
+    TotalWeight: "",
+    TotalCalculatedWeight: "",
+  });
+
   return (
     <div>
       <h4 className="form-title">Customer : Parts Receipt List Created</h4>
       <hr className="horizontal-line" />
 
       <div className="col-md-6 col-sm-12">
-        {/* <BootstrapTable
+        <BootstrapTable
           keyField="RvID"
           // columns={columns}
           // data={list}
@@ -23,7 +35,7 @@ function DraftRVList() {
           condensed
           pagination={paginationFactory()}
           // selectRow={selectRow}
-        ></BootstrapTable> */}
+        ></BootstrapTable>
       </div>
     </div>
   );

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { v4 as uuid } from "uuid";
+import { toast } from "react-toastify";
 
 const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
@@ -11,7 +13,27 @@ function PNew() {
     .reverse()
     .join("/");
 
+  const [boolVal1, setBoolVal1] = useState(true);
+  const [boolVal2, setBoolVal2] = useState(true);
+
+  const [partArray, setPartArray] = useState([]);
+  const [partVal, setPartVal] = useState([]);
+  const [inputPart, setInputPart] = useState({
+    id: "",
+    partId: "",
+    unitWeight: "",
+    qtyReceived: "",
+    qtyAccepted: "",
+    qtyRejected: "",
+  });
+
+  const [custDetailVal, setCustDetailVal] = useState("");
+  const [calcWeightVal, setCalcWeightVal] = useState(0);
+
+  const currDateTime = new Date();
   let [custdata, setCustdata] = useState([]);
+  let [mtrlDetails, setMtrlDetails] = useState([]);
+
   const [formHeader, setFormHeader] = useState({
     rvId: "",
     receiptDate: currDate, //.split("/").reverse().join("-"),
@@ -27,13 +49,14 @@ function PNew() {
     address: "",
   });
 
+  async function fetchCustData() {
+    getRequest(endpoints.getCustomers, (data) => {
+      setCustdata(data);
+    });
+    //console.log("data = ", custdata);
+  }
+
   useEffect(() => {
-    async function fetchCustData() {
-      getRequest(endpoints.getCustomers, (data) => {
-        setCustdata(data);
-      });
-      //console.log("data = ", custdata);
-    }
     fetchCustData();
   }, []);
 
@@ -52,7 +75,81 @@ function PNew() {
         address: found.Address,
       };
     });
+    //fetchMtrlData();
+
+    //const foundPart = mtrlDetails.filter((obj) => obj.Cust_code == value);
+    //setMtrlDetails(foundPart);
+    getRequest(endpoints.getCustBomList, (data) => {
+      const foundPart = data.filter((obj) => obj.Cust_code == value);
+      setMtrlDetails(foundPart);
+    });
   };
+
+  const changePartHandle = (e) => {
+    console.log("change part");
+    setInputPart({ ...inputPart, [e.target.name]: [e.target.value] });
+  };
+
+  //add new part
+  let { partId, unitWeight, qtyReceived, qtyAccepted, qtyRejected } = inputPart;
+  let id = uuid();
+  const addNewPart = () => {
+    setPartArray([
+      ...partArray,
+      { id, partId, unitWeight, qtyReceived, qtyAccepted, qtyRejected },
+    ]);
+    const newWeight = calcWeightVal + unitWeight * qtyReceived;
+    setCalcWeightVal(newWeight);
+  };
+
+  //delete part
+  const handleDelete = (id) => {
+    //minus calculated weight
+    const deletePart = partArray.filter((obj) => obj.id === id);
+    const newWeight =
+      calcWeightVal - deletePart.unitWeight * deletePart.qtyReceived;
+    setCalcWeightVal(newWeight);
+
+    let afterDeleting = partArray.filter((obj) => {
+      return obj.id !== id;
+    });
+    setPartArray(afterDeleting);
+  };
+
+  //input header change event
+  const InputHeaderEvent = (e) => {
+    const { value, name } = e.target;
+    setFormHeader((preValue) => {
+      //console.log(preValue)
+      return {
+        ...preValue,
+        [name]: value,
+      };
+    });
+  };
+
+  const saveButtonState = (e) => {
+    e.preventDefault();
+    if (formHeader.customer.length == 0) {
+      toast.error("Please Select Customer");
+    } else if (formHeader.reference.length == 0)
+      toast.error("Please Enter Customer Document Material Reference");
+    else {
+      //if (saveUpdateCount == 0) {
+      //dispatch(materialHeaderRegisterAction(formHeader));
+      //toast.warning("save = ", saveUpdateCount);
+      //enable part section and other 2 buttons
+      setBoolVal1(false);
+      //setSaveUpdateCount(saveUpdateCount + 1);
+      //} else {
+      //dispatch(materialHeaderRegisterUpdateAction(formHeader));
+      //setSaveUpdateCount(saveUpdateCount + 1);
+      //toast.warning("update = ", saveUpdateCount);
+      //console.log(formHeader);
+      //}
+    }
+  };
+
   return (
     <div>
       <div>
@@ -116,7 +213,7 @@ function PNew() {
               type="text"
               name="weight"
               value={formHeader.weight}
-              // onChange={InputHeaderEvent}
+              onChange={InputHeaderEvent}
             />
           </div>
         </div>
@@ -127,7 +224,7 @@ function PNew() {
               type="text"
               name="reference"
               value={formHeader.reference}
-              // onChange={InputHeaderEvent}
+              onChange={InputHeaderEvent}
             />
           </div>
           <div className="col-md-4">
@@ -146,7 +243,7 @@ function PNew() {
             <button
               className="button-style"
               style={{ width: "196px" }}
-              // onClick={saveButtonState}
+              onClick={saveButtonState}
             >
               Save
             </button>
@@ -189,24 +286,24 @@ function PNew() {
               </tr>
             </thead>
             <tbody>
-              {/* {partArray.map((part, index) => ( */}
-              {/* <tr key={index}> */}
-              {/* <td>{index + 1}</td>
-                    <td>{part.partId}</td>
-                    <td>{part.unitWeight}</td>
-                    <td>{part.qtyReceived}</td>
-                    <td>{part.qtyAccepted}</td>
-                    <td>{part.qtyRejected}</td> */}
-              <td>
-                <button
-                  className="btn btn-danger form-control"
-                  // onClick={() => handleDelete(part.id)}
-                >
-                  Delete
-                </button>
-              </td>
-              {/* </tr> */}
-              {/* ))} */}
+              {partArray.map((part, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{part.partId}</td>
+                  <td>{part.unitWeight}</td>
+                  <td>{part.qtyReceived}</td>
+                  <td>{part.qtyAccepted}</td>
+                  <td>{part.qtyRejected}</td>
+                  <td>
+                    <button
+                      className="btn btn-danger form-control"
+                      onClick={() => handleDelete(part.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -220,7 +317,7 @@ function PNew() {
                       <button
                         className="button-style "
                         style={{ width: "120px" }}
-                        //   onClick={addNewPart}
+                        onClick={addNewPart}
                       >
                         Add New
                       </button>
@@ -230,11 +327,21 @@ function PNew() {
                         <label className="">Part ID</label>
                       </div>
                       <div className="col-md-8" style={{ marginTop: "8px" }}>
-                        <select className="ip-select dropdown-field">
-                          <option value="option 1">001</option>
+                        <select
+                          className="ip-select dropdown-field"
+                          name="partId"
+                          value={inputPart.partId}
+                          onChange={changePartHandle}
+                        >
+                          {/* <option value="option 1">001</option>
                           <option value="option 1">002</option>
                           <option value="option 1">003</option>
-                          <option value="option 1">004</option>
+                          <option value="option 1">004</option> */}
+                          {mtrlDetails.map((part, index) => (
+                            <option key={index} value={part.PartId}>
+                              {part.PartId}
+                            </option>
+                          ))}
                         </select>
                       </div>
                     </div>
@@ -246,7 +353,10 @@ function PNew() {
                         <input
                           className="in-field"
                           type="text"
-                          //   onChange={(e) => setDate(e.target.value)}
+                          name="unitWeight"
+                          value={inputPart.unitWeight}
+                          onChange={changePartHandle}
+                          disabled={boolVal1}
                         />
                       </div>
                     </div>
@@ -258,7 +368,10 @@ function PNew() {
                         <input
                           className="in-field"
                           type="text"
-                          //   onChange={(e) => setDate(e.target.value)}
+                          name="qtyReceived"
+                          value={inputPart.qtyReceived}
+                          onChange={changePartHandle}
+                          disabled={boolVal1}
                         />
                       </div>
                     </div>
@@ -270,7 +383,10 @@ function PNew() {
                         <input
                           className="in-field"
                           type="text"
-                          //   onChange={(e) => setDate(e.target.value)}
+                          name="qtyAccepted"
+                          value={inputPart.qtyAccepted}
+                          onChange={changePartHandle}
+                          disabled={boolVal1}
                         />
                       </div>
                     </div>
@@ -282,7 +398,8 @@ function PNew() {
                         <input
                           className="in-field"
                           type="text"
-                          //   onChange={(e) => setDate(e.target.value)}
+                          name="qtyRejected"
+                          readOnly
                         />
                       </div>
                     </div>
@@ -291,13 +408,13 @@ function PNew() {
               </div>
             </div>
             <div className="row justify-content-center mt-3">
-              <button
+              {/* <button
                 className="button-style "
                 style={{ width: "120px" }}
                 //   onClick={addNewPart}
               >
                 Delete
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
