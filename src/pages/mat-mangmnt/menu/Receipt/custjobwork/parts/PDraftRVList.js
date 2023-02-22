@@ -1,26 +1,66 @@
-import React, {
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-  useEffect,
-} from "react";
-import { render } from "react-dom";
-import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
-import "../../../MatMenu.css";
-import { data2 } from "../../../../components/Data";
-import { useDispatch, useSelector } from "react-redux";
-// import { getMaterialReceiptByType } from "../../../../actions/materialReceiptAction";
-import MessageBox from "../../../../components/MessageBox";
-import { Card, Col, Container, Row, Table } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { dateToShort } from "../../../../../../utils";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import { useNavigate } from "react-router-dom";
+const { getRequest, postRequest } = require("../../../../../api/apiinstance");
+const { endpoints } = require("../../../../../api/constants");
 
 function PDraftRVList() {
-  const products = [];
+  const [tabledata, setTableData] = useState([]);
+  const [data, setData] = useState({
+    CustDocuNo: "",
+    Cust_Code: "",
+    Customer: "",
+    RVStatus: "",
+    RV_Date: "",
+    RV_No: "",
+    ReceiptDate: "",
+    RvID: "",
+    TotalWeight: "",
+    TotalCalculatedWeight: "",
+  });
+
+  const fetchData = () => {
+    getRequest(endpoints.getPartsCreatedMaterial, (data) => {
+      setTableData(data);
+      //console.log("data = ", data);
+    });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // Process the returned date in the formatter
+  function statusFormatter(cell, row, rowIndex, formatExtraData) {
+    return dateToShort(cell);
+  }
+
+  const openButtonClick = () => {
+    //console.log("data = ", data);
+    console.log("button click : ");
+  };
+
+  const selectRow = {
+    mode: "radio",
+    clickToSelect: true,
+    bgColor: "#8A92F0",
+    onSelect: (row, isSelect, rowIndex, e) => {
+      setData({
+        CustDocuNo: row.CustDocuNo,
+        Cust_Code: row.Cust_Code,
+        Customer: row.Customer,
+        RVStatus: row.RVStatus,
+        RV_Date: dateToShort(row.RV_Date),
+        RV_No: row.RV_No,
+        ReceiptDate: dateToShort(row.ReceiptDate),
+        RvID: row.RvID,
+        TotalWeight: row.TotalWeight,
+        TotalCalculatedWeight: row.TotalCalculatedWeight,
+      });
+    },
+  };
+
   const columns = [
     {
       text: "RV No",
@@ -29,7 +69,8 @@ function PDraftRVList() {
     {
       text: "RV Date",
       dataField: "RV_Date",
-      // sort:true
+      sort: true,
+      formatter: statusFormatter,
     },
     {
       text: "Customer",
@@ -47,7 +88,18 @@ function PDraftRVList() {
         <hr className="horizontal-line" />
         <div className="row">
           <div className="col-md-6 col-sm-12">
-            <BootstrapTable keyField="id" data={products} columns={columns} />
+            {/* <BootstrapTable keyField="id" data={products} columns={columns} /> */}
+            <BootstrapTable
+              keyField="RvID"
+              //keyField="id"
+              columns={columns}
+              data={tabledata}
+              striped
+              hover
+              condensed
+              pagination={paginationFactory()}
+              selectRow={selectRow}
+            ></BootstrapTable>
           </div>
 
           <div className="col-md-6 col-sm-12">
@@ -58,26 +110,13 @@ function PDraftRVList() {
                     <div className="row">
                       <div className="row">
                         <div className="col-md-3 ">
-                          <label className="">Part ID</label>
-                        </div>
-                        <div className="col-md-8" style={{ marginTop: "8px" }}>
-                          <select className="ip-select dropdown-field">
-                            <option value="option 1">001</option>
-                            <option value="option 1">002</option>
-                            <option value="option 1">003</option>
-                            <option value="option 1">004</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-3 ">
                           <label className="">Receipt Date</label>
                         </div>
                         <div className="col-md-8 ">
                           <input
                             className="in-field"
-                            type="date"
-                            // onChange={(e) => setDate(e.target.value)}
+                            value={data.ReceiptDate}
+                            readOnly
                           />
                         </div>
                       </div>
@@ -86,7 +125,11 @@ function PDraftRVList() {
                           <label className="">RV No</label>
                         </div>
                         <div className="col-md-8 ">
-                          <input className="in-field" />
+                          <input
+                            className="in-field"
+                            value={data.RV_No}
+                            readOnly
+                          />
                         </div>
                       </div>
                       <div className="row">
@@ -96,8 +139,8 @@ function PDraftRVList() {
                         <div className="col-md-8 ">
                           <input
                             className="in-field"
-                            type="date"
-                            // onChange={(e) => setDate(e.target.value)}
+                            value={data.RV_Date}
+                            readOnly
                           />
                         </div>
                       </div>
@@ -106,30 +149,36 @@ function PDraftRVList() {
                           <label className="">Cust code</label>
                         </div>
                         <div className="col-md-8 ">
-                          <input className="in-field" />
+                          <input
+                            className="in-field"
+                            value={data.Cust_Code}
+                            readOnly
+                          />
                         </div>
                       </div>
                       <div className="row">
                         <div className="col-md-3 ">
                           <label className="">Customer</label>
                         </div>
-                        <div className="col-md-8" style={{ marginTop: "8px" }}>
-                          <select className="ip-select dropdown-field">
-                            <option value="option 1">001</option>
-                            <option value="option 1">002</option>
-                            <option value="option 1">003</option>
-                            <option value="option 1">004</option>
-                          </select>
+                        <div className="col-md-8 ">
+                          <input
+                            className="in-field"
+                            value={data.Customer}
+                            readOnly
+                          />
                         </div>
                       </div>
-
                       <div className="row">
                         <div className="col-md-3">
                           <label className="">Cust Docu No</label>
                         </div>
 
                         <div className="col-md-8 ">
-                          <input className="in-field" />
+                          <input
+                            className="in-field"
+                            value={data.CustDocuNo}
+                            readOnly
+                          />
                         </div>
                       </div>
                       <div className="row">
@@ -137,15 +186,24 @@ function PDraftRVList() {
                           <label className="">Total Weight</label>
                         </div>
                         <div className="col-md-8 ">
-                          <input className="in-field" />
+                          <input
+                            className="in-field"
+                            value={data.TotalWeight}
+                            readOnly
+                          />
                         </div>
                       </div>
+
                       <div className="row">
                         <div className="col-md-3">
-                          <label className="">Caluclatd weight</label>
+                          <label className="">Calculatd weight</label>
                         </div>
                         <div className="col-md-8 ">
-                          <input className="in-field" />
+                          <input
+                            className="in-field"
+                            value={data.TotalCalculatedWeight}
+                            readOnly
+                          />
                         </div>
                       </div>
                       <div className="row">
@@ -153,7 +211,11 @@ function PDraftRVList() {
                           <label className="">RV status</label>
                         </div>
                         <div className="col-md-8 ">
-                          <input className="in-field" />
+                          <input
+                            className="in-field"
+                            value={data.RVStatus}
+                            readOnly
+                          />
                         </div>
                       </div>
                     </div>
@@ -161,7 +223,12 @@ function PDraftRVList() {
                 </div>
               </div>
               <div className="row justify-content-center mt-4">
-                <button className="button-style " style={{ width: "120px" }}>
+                <button
+                  className="button-style "
+                  style={{ width: "120px" }}
+                  //data.RvID
+                  onClick={openButtonClick}
+                >
                   Open
                 </button>
               </div>

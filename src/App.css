@@ -73,7 +73,7 @@ a {
 }
 */ .icon {
   font-size: 0.75rem;
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 .small-icon {

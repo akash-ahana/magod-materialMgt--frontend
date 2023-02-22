@@ -47,7 +47,6 @@ const IconNav = styled.div`
 const SubMenuComp = ({ item, sidebar }) => {
   const [subnav, setSubnav] = useState(false);
 
-
   const showSubnav = () => setSubnav(!subnav);
   useEffect(() => {
     if (!sidebar) {

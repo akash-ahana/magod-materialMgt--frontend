@@ -14,8 +14,6 @@ import StoreManagement from "./pages/mat-mangmnt/menu/Store management/StoreMana
 import Setup from "./pages/mat-mangmnt/menu/setup/Setup";
 import Purchase from "./pages/mat-mangmnt/menu/Receipt/puchase/Purchase";
 import Customer from "./pages/mat-mangmnt/menu/Reports/Customer/Customer";
-import CustomerJobWork from "./pages/mat-mangmnt/menu/Return/custjobwork/ReturnCustomerJobWork";
-//import PurchasePlannedforfuture from "./pages/mat-mangmnt/menu/Return/Purchase – Planned for future/PurchasePlannedforfuture";
 import IVListServic from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListServic/IVListServic";
 import Service from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/Service";
 import ProfileCutting from "./pages/mat-mangmnt/menu/Shop Floor Issue/ProfileCutting";
@@ -58,8 +56,6 @@ import PurOtherNew from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOthe
 import PurOtherDraftRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOtherDraftRVList";
 import PurOtherOpenRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOtherOpenRVList";
 import PurOtherClosedRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOtherClosedRVList";
-import HeaderForm from "./pages/mat-mangmnt/components/HeaderForm";
-import DraftForm from "./pages/mat-mangmnt/components/DraftForm";
 import PurchaseOthers from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurchaseOthers";
 import PurchaseParts from "./pages/mat-mangmnt/menu/Receipt/puchase/parts/PurchaseParts";
 import PurchasePartsNew from "./pages/mat-mangmnt/menu/Receipt/puchase/parts/PurchasePartsNew";
@@ -72,6 +68,8 @@ import PurchaseUnitsDraftRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/u
 import PurchaseUnitsOpenRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/units/PurchaseUnitsOpenRVList";
 import PurchaseUnitsClosedRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/units/PurchaseUnitsClosedRVList";
 import PurchaseGasNew from "./pages/mat-mangmnt/menu/Receipt/puchase/gas/PurchaseGasNew";
+import PurchasePlannedforfuture from "./pages/mat-mangmnt/menu/Return/PurchasePlanned for future/PurchasePlannedforfuture";
+
 function App() {
   return (
     <BrowserRouter>
@@ -81,8 +79,6 @@ function App() {
         <Route element={<Login />} path="/" />
 
         <Route path="/home" element={<Home />} />
-        <Route path="/header" element={<HeaderForm />} />
-        <Route path="/form" element={<DraftForm />} />
 
         <Route element={<WithNav />}>
           <Route path="/materialmanagement" element={<Parentroute />}>
@@ -170,7 +166,7 @@ function App() {
 
             <Route path="return">
               <Route index={true} element={<Return />} />
-              <Route path="returncustjobwork">
+              <Route path="customerjobwork">
                 <Route index={true} element={<ReturnCustomerJobWork />} />
                 <Route path="new" element={<ReturnNew />} />
                 <Route path="cancelled" element={<ReturnCancelled />} />
@@ -179,7 +175,7 @@ function App() {
                   element={<ReturnCustomerIVList />}
                 />
                 <Route
-                  path="pendingdispatch"
+                  path="pendingdispatchlist"
                   element={<ReturnPendingDispatchList />}
                 />
                 <Route path="salesivlist" element={<ReturnSalesIVList />} />
@@ -188,10 +184,9 @@ function App() {
                   element={<OutwordMaterialIssueVocher />}
                 />
               </Route>
-
-              {/* <Route path="purchaseplannedforfuture">
+              <Route path="purchaseplannedforfuture">
                 <Route index={true} element={<PurchasePlannedforfuture />} />
-              </Route> */}
+              </Route>
             </Route>
 
             <Route path="shopfloorissue">
