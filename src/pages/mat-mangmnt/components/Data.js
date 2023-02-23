@@ -1,4 +1,4 @@
-import { Checkbox } from "@mui/material";
+import { Checkbox, checkboxClasses } from "@mui/material";
 const data1 = [
   {
     PartId: "001",
@@ -345,5 +345,43 @@ const outwarddata = [
     Type: "",
   },
 ];
+const returnnewpartdata1 = [
+  {
+    RVNO: "",
+    Select: <input type="checkbox" />,
+  },
+];
 
-export { data1, data2, data3, data5, CRVdata1, CRVdata2, CRVdata3 ,outwarddata};
+const returnnewpartdata2 = [
+  {
+    Select: <input type="checkbox" />,
+    PartId: "",
+    Received: "",
+    Rejected: "",
+    Issued: "",
+    Used: "",
+    Returned: "",
+  },
+];
+const returnnewpartdata3 = [
+  {
+    SlNo: "",
+    PartId: "",
+    Return: "",
+    Remarks: "",
+  },
+];
+
+export {
+  data1,
+  data2,
+  data3,
+  data5,
+  CRVdata1,
+  CRVdata2,
+  CRVdata3,
+  outwarddata,
+  returnnewpartdata1,
+  returnnewpartdata2,
+  returnnewpartdata3,
+};

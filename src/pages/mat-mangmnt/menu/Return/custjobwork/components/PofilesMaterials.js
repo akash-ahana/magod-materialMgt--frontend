@@ -23,7 +23,7 @@ function PofilesMaterials() {
       <CreateDCModal show={show} setShow={setShow} />
 
       <div>
-        <button className="button-style" onClick={handleShow}>
+        <button className="button-style" style={{ width: "200px" }}onClick={handleShow}>
           Create Return Vocher
         </button>
       </div>

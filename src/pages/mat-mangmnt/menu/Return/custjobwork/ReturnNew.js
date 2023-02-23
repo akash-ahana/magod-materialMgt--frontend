@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-
 import CreateDCModal from "../../../components/CreateDCModal";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import ProfilesMaterials from "../custjobwork/components/PofilesMaterials";
+import Parts from "./components/Parts";
 
 function ReturnNew() {
   return (
@@ -26,7 +26,7 @@ function ReturnNew() {
         </Tab>
 
         <Tab eventKey="mat_retu" title="Parts">
-          {/* <MaterialReturn /> */}
+          <Parts />
         </Tab>
       </Tabs>
     </>
