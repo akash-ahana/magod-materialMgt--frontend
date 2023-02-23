@@ -46,7 +46,7 @@ code {
   color: black;
   height: 100vh;
   overflow: hidden;
-  width: 142px;
+  width: 160px;
   display: flex;
   justify-content: center;
   position: sticky;
@@ -162,4 +162,7 @@ code {
   color: black;
   font-size: 22px;
   font-weight: 600;
+}
+.submenu_links {
+  padding-left: 20px;
 }

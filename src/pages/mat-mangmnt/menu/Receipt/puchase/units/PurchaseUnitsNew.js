@@ -1,35 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import Tables from "../../../../../../components/Tables";
 import { data3 } from "../../../../components/Data";
 import Swal from "sweetalert2";
-import Select from "react-select";
-import { display } from "@mui/system";
 
-function SheetsNew() {
-  const [dataList, setDataList] = useState([]);
-  const [input, setInput] = useState([]);
-
-  const aquaticCreatures = [
-    { label: "Shark", value: "Shark" },
-    { label: "Dolphin", value: "Dolphin" },
-  ];
-
+function PurchaseUnitsNew() {
   const getHeadings = () => {
     return Object.keys(data3[0]);
-  };
-
-  const searchText = (e) => {
-    let text = e.target.value;
-    let filteredData = dataList.filter((data) => {
-      return data.customer_name.toLowerCase().startsWith(text);
-    });
-    // console.log(filteredData);
-    if (filteredData.length > 0) {
-      setDataList(filteredData);
-    }
-    if (e.target.value.length === 0) {
-      setDataList(input);
-    }
   };
 
   const getPop = () => {
@@ -40,6 +16,7 @@ function SheetsNew() {
       confirmButtonText: "okay",
     });
   };
+
   return (
     <div>
       <div>
@@ -72,13 +49,19 @@ function SheetsNew() {
         </div>
         <div className="row">
           <div className="col-md-8">
-            <label className="">Customer</label>
-
-            <input type="text" name="city" list="cityname" />
-            <datalist id="cityname">
-              <option value="boston"></option>
-              <option value="Cambridge"></option>
-            </datalist>
+            <label className="form-label">Customer</label>
+            <select
+              className="ip-select"
+              name="customer"
+              // onChange={changeCustomer}
+            >
+              <option value="">Select Customer</option>
+              {/* {customers.map((customer, index) => (
+                  <option value={customer.Cust_Code}>
+                    {customer.Cust_name}
+                  </option>
+                ))} */}
+            </select>
           </div>
           <div className="col-md-4">
             <label className="">Weight</label>
@@ -91,9 +74,8 @@ function SheetsNew() {
             />
           </div>
         </div>
-
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-8">
             <label className="">Reference</label>
             <input
               type="text"
@@ -118,6 +100,7 @@ function SheetsNew() {
             <button className="button-style" style={{ width: "196px" }}>
               Save
             </button>
+
             <button
               className="button-style"
               style={{ width: "196px" }}
@@ -299,4 +282,4 @@ function SheetsNew() {
   );
 }
 
-export default SheetsNew;
+export default PurchaseUnitsNew;

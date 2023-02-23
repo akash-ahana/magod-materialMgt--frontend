@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function ReturnCustomerIVList() {
-  return (
-    <div>ReturnCustomerIVList</div>
-  )
+  return <div>Same as return pending disbatch list</div>;
 }
 
-export default ReturnCustomerIVList
+export default ReturnCustomerIVList;
