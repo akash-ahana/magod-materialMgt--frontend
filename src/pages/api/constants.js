@@ -17,7 +17,15 @@ export const endpoints = {
   getSheetsOpenedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Received&type2=Sheets`,
   getSheetsClosedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Closed&type2=Sheets`,
 
-  insertHeaderMaterialReceiptRegister: `${API}/materialReceiptRegister/insertHeaderMaterialReceiptRegisters`,
+  //Material Receipt Register
+  insertHeaderMaterialReceiptRegister: `${API}/materialReceiptRegister/insertHeaderMaterialReceiptRegister`,
+  updateHeaderMaterialReceiptRegister: `${API}/materialReceiptRegister/updateHeaderMaterialReceiptRegister`,
+
+  //Material Part Receipt Details
+  insertPartReceiptDetails: `${API}/mtrlPartReceiptDetails/insertPartReceiptDetails`,
+
+  //running no
+  getRunningNo: `${API}/runningNo/getRunningNoBySrlType`,
 
   /*getCustCodeName: `${API}/customers/allcustcodename`,
   getCustomerDets: `${API}/customers/getcustomer`,

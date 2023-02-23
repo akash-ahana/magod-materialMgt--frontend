@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { toast } from "react-toastify";
+import { confirmAlert } from "react-confirm-alert";
 
 const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
@@ -24,7 +25,7 @@ function PNew() {
     unitWeight: "",
     qtyReceived: "",
     qtyAccepted: "",
-    qtyRejected: "",
+    qtyRejected: "0",
   });
 
   const [custDetailVal, setCustDetailVal] = useState("");
@@ -33,6 +34,7 @@ function PNew() {
   const currDateTime = new Date();
   let [custdata, setCustdata] = useState([]);
   let [mtrlDetails, setMtrlDetails] = useState([]);
+  const [saveUpdateCount, setSaveUpdateCount] = useState(0);
 
   const [formHeader, setFormHeader] = useState({
     rvId: "",
@@ -72,6 +74,8 @@ function PNew() {
       return {
         ...preValue,
         [name]: value,
+        customerName: found.Cust_name,
+        customer: found.Cust_Code,
         address: found.Address,
       };
     });
@@ -86,29 +90,49 @@ function PNew() {
   };
 
   const changePartHandle = (e) => {
-    console.log("change part");
-    setInputPart({ ...inputPart, [e.target.name]: [e.target.value] });
+    //console.log("change part");
+    setInputPart({ ...inputPart, [e.target.name]: e.target.value });
   };
 
   //add new part
   let { partId, unitWeight, qtyReceived, qtyAccepted, qtyRejected } = inputPart;
-  let id = uuid();
+  //let id = uuid();
   const addNewPart = () => {
-    setPartArray([
-      ...partArray,
-      { id, partId, unitWeight, qtyReceived, qtyAccepted, qtyRejected },
-    ]);
-    const newWeight = calcWeightVal + unitWeight * qtyReceived;
-    setCalcWeightVal(newWeight);
+    inputPart.rvId = formHeader.rvId;
+    inputPart.custBomId = formHeader.customer;
+    inputPart.unitWt = formHeader.weight;
+    inputPart.custBomId = formHeader.customer;
+    inputPart.qtyReturned = "0";
+    inputPart.qtyUsed = "0";
+    inputPart.qtyIssued = "0";
+
+    postRequest(endpoints.insertPartReceiptDetails, inputPart, (data) => {
+      if (data.affectedRows !== 0) {
+        let id = data.insertId;
+        setPartArray([
+          ...partArray,
+          { id, partId, unitWeight, qtyReceived, qtyAccepted, qtyRejected },
+        ]);
+        const newWeight = calcWeightVal + unitWeight * qtyReceived;
+        setCalcWeightVal(parseFloat(newWeight).toFixed(2));
+      } else {
+        toast.error("Record Not Inserted");
+      }
+    });
+    //console.log("after = ", partArray);
   };
 
   //delete part
   const handleDelete = (id) => {
     //minus calculated weight
+    console.log("partarray = ", partArray);
+    console.log("id = ", id);
     const deletePart = partArray.filter((obj) => obj.id === id);
-    const newWeight =
-      calcWeightVal - deletePart.unitWeight * deletePart.qtyReceived;
-    setCalcWeightVal(newWeight);
+    console.log("delete obj = ", deletePart);
+    deletePart.map((obj) => {
+      const newWeight = calcWeightVal - obj.unitWeight * obj.qtyReceived;
+      setCalcWeightVal(parseFloat(newWeight).toFixed(2));
+    });
 
     let afterDeleting = partArray.filter((obj) => {
       return obj.id !== id;
@@ -128,6 +152,50 @@ function PNew() {
     });
   };
 
+  const insertHeaderFunction = () => {
+    //to save data
+    postRequest(
+      endpoints.insertHeaderMaterialReceiptRegister,
+      formHeader,
+      (data) => {
+        //console.log("data = ", data);
+        if (data.affectedRows !== 0) {
+          setFormHeader((preValue) => {
+            return {
+              ...preValue,
+              rvId: data.insertId,
+            };
+          });
+          setSaveUpdateCount(saveUpdateCount + 1);
+          toast.success("Record Saved Successfully");
+          //enable part section and other 2 buttons
+          setBoolVal1(false);
+        } else {
+          toast.error("Record Not Inserted");
+        }
+      }
+    );
+  };
+
+  const updateHeaderFunction = () => {
+    console.log("update formheader = ", formHeader);
+    postRequest(
+      endpoints.updateHeaderMaterialReceiptRegister,
+      formHeader,
+      (data) => {
+        //console.log("data = ", data);
+        if (data.affectedRows !== 0) {
+          setSaveUpdateCount(saveUpdateCount + 1);
+          toast.success("Record Updated Successfully");
+          //enable part section and other 2 buttons
+          setBoolVal1(false);
+        } else {
+          toast.error("Record Not Updated");
+        }
+      }
+    );
+  };
+
   const saveButtonState = (e) => {
     e.preventDefault();
     if (formHeader.customer.length == 0) {
@@ -135,19 +203,78 @@ function PNew() {
     } else if (formHeader.reference.length == 0)
       toast.error("Please Enter Customer Document Material Reference");
     else {
-      //if (saveUpdateCount == 0) {
-      //dispatch(materialHeaderRegisterAction(formHeader));
-      //toast.warning("save = ", saveUpdateCount);
-      //enable part section and other 2 buttons
-      setBoolVal1(false);
-      //setSaveUpdateCount(saveUpdateCount + 1);
-      //} else {
-      //dispatch(materialHeaderRegisterUpdateAction(formHeader));
-      //setSaveUpdateCount(saveUpdateCount + 1);
-      //toast.warning("update = ", saveUpdateCount);
-      //console.log(formHeader);
-      //}
+      if (saveUpdateCount == 0) {
+        insertHeaderFunction();
+      } else {
+        //to update data
+        updateHeaderFunction();
+      }
     }
+  };
+
+  const allotRVButtonState = (e) => {
+    e.preventDefault();
+    if (formHeader.weight == "0") {
+      toast.error(
+        "Enter the Customer Material Weight as per Customer Document"
+      );
+    } else {
+      /*let answer = confirm(
+        "Have you entered all details and inspected the parts received? No changes are permitted after this"
+      );
+      if (answer == true) {
+      } else {
+      }*/
+      confirmAlert({
+        title:
+          "Have you entered all details and inspected the parts received? No changes are permitted after this",
+        message: "Are you sure to do this.",
+        buttons: [
+          {
+            label: "Yes",
+            onClick: () => {
+              allotRVYesButton();
+            },
+            //alert("Click Yes"), //allotRVYesButton(e),
+          },
+          {
+            label: "No",
+            onClick: () => alert("Click No"),
+          },
+        ],
+      });
+    }
+  };
+
+  const allotRVYesButton = async () => {
+    formHeader.status = "Received";
+    setFormHeader((preValue) => {
+      return {
+        ...preValue,
+        status: "Received",
+      };
+    });
+
+    //get running no and assign to RvNo
+    const url =
+      endpoints.getRunningNo + "?SrlType=MaterialReceiptVoucher&Period=2023";
+    //console.log(url);
+    getRequest(url, (data) => {
+      data.map((obj) => {
+        let no = "23/00" + (obj.Running_No + 1);
+        setFormHeader((preValue) => {
+          return {
+            ...preValue,
+            rvNo: no,
+          };
+        });
+        formHeader.rvNo = no;
+        updateHeaderFunction();
+      });
+      //console.log("formheader = ", formHeader);
+      //setMtrlDetails(foundPart);
+    });
+    //console.log("no = ", no);
   };
 
   return (
@@ -228,11 +355,11 @@ function PNew() {
             />
           </div>
           <div className="col-md-4">
-            <label className="">Caluclated Weight</label>
+            <label className="">Calculated Weight</label>
             <input
               type="text"
               name="calculatedWeight"
-              // value={calcWeightVal}
+              value={calcWeightVal}
               readOnly
             />
           </div>
@@ -247,10 +374,19 @@ function PNew() {
             >
               Save
             </button>
-            <button className="button-style" style={{ width: "196px" }}>
+            <button
+              className="button-style"
+              style={{ width: "196px" }}
+              disabled={boolVal1}
+              onClick={allotRVButtonState}
+            >
               Allot RV No
             </button>
-            <button className="button-style" style={{ width: "196px" }}>
+            <button
+              className="button-style"
+              style={{ width: "196px" }}
+              disabled={boolVal1}
+            >
               Delete RV
             </button>
           </div>
@@ -318,6 +454,7 @@ function PNew() {
                         className="button-style "
                         style={{ width: "120px" }}
                         onClick={addNewPart}
+                        disabled={boolVal1}
                       >
                         Add New
                       </button>
@@ -332,6 +469,7 @@ function PNew() {
                           name="partId"
                           value={inputPart.partId}
                           onChange={changePartHandle}
+                          disabled={boolVal1}
                         >
                           {/* <option value="option 1">001</option>
                           <option value="option 1">002</option>
