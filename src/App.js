@@ -87,18 +87,18 @@ function App() {
             </Route>
 
             <Route path="receipt">
-              <Route index={true} element={<Receipt />} />
+              <Route index={true} />
               <Route path="customerjobwork">
-                <Route index={true} element={<CustJobWork />} />
+                <Route index={true} />
                 <Route path="parts">
-                  <Route index={true} element={<Parts />} />
+                  <Route index={true} />
                   <Route path="new" element={<PNew />} />
                   <Route path="draftrvlist" element={<PDraftRVList />} />
                   <Route path="openrvlist" element={<POpenRVList />} />
                   <Route path="closedrvlist" element={<PClosedRVList />} />
                 </Route>
                 <Route path="units">
-                  <Route index={true} element={<Units />} />
+                  <Route index={true} />
 
                   <Route path="new" element={<UnitsNew />} />
                   <Route path="draftrvlist" element={<UnitsDraftRVList />} />
@@ -106,7 +106,7 @@ function App() {
                   <Route path="closedrvlist" element={<UnitsClosedRVList />} />
                 </Route>
                 <Route path="sheetsandothers">
-                  <Route index={true} element={<SheetsAndOthers />} />
+                  <Route index={true} />
                   <Route path="new" element={<SheetsNew />} />
                   <Route path="draftrvlist" element={<SheetsDraftRVList />} />
                   <Route path="openrvlist" element={<SheetsOpenRVList />} />
@@ -114,9 +114,9 @@ function App() {
                 </Route>
               </Route>{" "}
               <Route path="purchase">
-                <Route index={true} element={<Purchase />} />
+                <Route index={true} />
                 <Route path="others">
-                  <Route index={true} element={<PurchaseOthers />} />
+                  <Route index={true} />
                   <Route path="new" element={<PurOtherNew />} />
                   <Route path="draftrvlist" element={<PurOtherDraftRVList />} />
                   <Route path="openrvlist" element={<PurOtherOpenRVList />} />
@@ -126,7 +126,7 @@ function App() {
                   />
                 </Route>
                 <Route path="parts">
-                  <Route index={true} element={<PurchaseParts />} />
+                  <Route index={true} />
                   <Route path="new" element={<PurchasePartsNew />} />
                   <Route
                     path="draftrvlist"
@@ -142,7 +142,7 @@ function App() {
                   />
                 </Route>
                 <Route path="units">
-                  <Route index={true} element={<PurchaseUnits />} />
+                  <Route index={true} />
                   <Route path="new" element={<PurchaseUnitsNew />} />
                   <Route
                     path="draftrvlist"
@@ -165,9 +165,9 @@ function App() {
             </Route>
 
             <Route path="return">
-              <Route index={true} element={<Return />} />
+              <Route index={true} />
               <Route path="customerjobwork">
-                <Route index={true} element={<ReturnCustomerJobWork />} />
+                <Route index={true} />
                 <Route path="new" element={<ReturnNew />} />
                 <Route path="cancelled" element={<ReturnCancelled />} />
                 <Route
