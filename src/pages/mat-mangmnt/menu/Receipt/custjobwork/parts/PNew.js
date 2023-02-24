@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { v4 as uuid } from "uuid";
+//import { v4 as uuid } from "uuid";
 import { toast } from "react-toastify";
-import { confirmAlert } from "react-confirm-alert";
+import CreateYesNoModal from "../../../../components/CreateYesNoModal";
 
 const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
 
 function PNew() {
+  const [show, setShow] = useState(false);
+
   const currDate = new Date()
     .toJSON()
     .slice(0, 10)
@@ -14,8 +16,14 @@ function PNew() {
     .reverse()
     .join("/");
 
+  //initial disable
   const [boolVal1, setBoolVal1] = useState(true);
-  const [boolVal2, setBoolVal2] = useState(true);
+  //after clicking save button
+  const [boolVal2, setBoolVal2] = useState(false);
+  //after clicking add button
+  const [boolVal3, setBoolVal3] = useState(false);
+  //after clicking allot rv button
+  const [boolVal4, setBoolVal4] = useState(false);
 
   const [partArray, setPartArray] = useState([]);
   const [partVal, setPartVal] = useState([]);
@@ -178,7 +186,7 @@ function PNew() {
   };
 
   const updateHeaderFunction = () => {
-    console.log("update formheader = ", formHeader);
+    //console.log("update formheader = ", formHeader);
     postRequest(
       endpoints.updateHeaderMaterialReceiptRegister,
       formHeader,
@@ -205,6 +213,7 @@ function PNew() {
     else {
       if (saveUpdateCount == 0) {
         insertHeaderFunction();
+        setBoolVal2(true);
       } else {
         //to update data
         updateHeaderFunction();
@@ -214,71 +223,31 @@ function PNew() {
 
   const allotRVButtonState = (e) => {
     e.preventDefault();
+
     if (formHeader.weight == "0") {
       toast.error(
         "Enter the Customer Material Weight as per Customer Document"
       );
     } else {
-      /*let answer = confirm(
-        "Have you entered all details and inspected the parts received? No changes are permitted after this"
-      );
-      if (answer == true) {
-      } else {
-      }*/
-      confirmAlert({
-        title:
-          "Have you entered all details and inspected the parts received? No changes are permitted after this",
-        message: "Are you sure to do this.",
-        buttons: [
-          {
-            label: "Yes",
-            onClick: () => {
-              allotRVYesButton();
-            },
-            //alert("Click Yes"), //allotRVYesButton(e),
-          },
-          {
-            label: "No",
-            onClick: () => alert("Click No"),
-          },
-        ],
-      });
+      //show model form
+      setShow(true);
     }
   };
 
-  const allotRVYesButton = async () => {
-    formHeader.status = "Received";
-    setFormHeader((preValue) => {
-      return {
-        ...preValue,
-        status: "Received",
-      };
-    });
-
-    //get running no and assign to RvNo
-    const url =
-      endpoints.getRunningNo + "?SrlType=MaterialReceiptVoucher&Period=2023";
-    //console.log(url);
-    getRequest(url, (data) => {
-      data.map((obj) => {
-        let no = "23/00" + (obj.Running_No + 1);
-        setFormHeader((preValue) => {
-          return {
-            ...preValue,
-            rvNo: no,
-          };
-        });
-        formHeader.rvNo = no;
-        updateHeaderFunction();
-      });
-      //console.log("formheader = ", formHeader);
-      //setMtrlDetails(foundPart);
-    });
-    //console.log("no = ", no);
+  const allotRVYesButton = (data) => {
+    //console.log("data = ", data);
+    setFormHeader(data);
+    //console.log("formHeader = ", formHeader);
   };
 
   return (
     <div>
+      <CreateYesNoModal
+        show={show}
+        setShow={setShow}
+        formHeader={formHeader}
+        allotRVYesButton={allotRVYesButton}
+      />
       <div>
         <h4 className="form-title">Customer Parts Receipt Voucher</h4>
         <hr className="horizontal-line" />
@@ -295,7 +264,7 @@ function PNew() {
           </div>
           <div className="col-md-3">
             <label className="">RV No</label>
-            <input type="text" name="rvNo" readOnly value={formHeader.rvNo} />
+            <input type="text" name="rvNo" value={formHeader.rvNo} readOnly />
           </div>
           <div className="col-md-3">
             <label className="">RV Date</label>
@@ -323,6 +292,7 @@ function PNew() {
               className="ip-select"
               name="customer"
               onChange={changeCustomer}
+              disabled={boolVal2}
             >
               <option value="" disabled selected>
                 Select Customer
@@ -386,6 +356,7 @@ function PNew() {
               className="button-style"
               style={{ width: "196px" }}
               disabled={boolVal1}
+              //onClick={handleShow}
             >
               Delete RV
             </button>
@@ -469,7 +440,7 @@ function PNew() {
                           name="partId"
                           value={inputPart.partId}
                           onChange={changePartHandle}
-                          disabled={boolVal1}
+                          disabled={boolVal3}
                         >
                           {/* <option value="option 1">001</option>
                           <option value="option 1">002</option>
@@ -494,7 +465,7 @@ function PNew() {
                           name="unitWeight"
                           value={inputPart.unitWeight}
                           onChange={changePartHandle}
-                          disabled={boolVal1}
+                          disabled={boolVal3}
                         />
                       </div>
                     </div>
@@ -509,7 +480,7 @@ function PNew() {
                           name="qtyReceived"
                           value={inputPart.qtyReceived}
                           onChange={changePartHandle}
-                          disabled={boolVal1}
+                          disabled={boolVal3}
                         />
                       </div>
                     </div>
@@ -524,7 +495,7 @@ function PNew() {
                           name="qtyAccepted"
                           value={inputPart.qtyAccepted}
                           onChange={changePartHandle}
-                          disabled={boolVal1}
+                          disabled={boolVal3}
                         />
                       </div>
                     </div>
