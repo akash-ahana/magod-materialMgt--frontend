@@ -1,39 +1,81 @@
 import React from "react";
-import Tables from "../../../../../../components/Tables";
-import {
-  returnnewpartdata1,
-  returnnewpartdata2,
-  returnnewpartdata3,
-} from "../../../../components/Data";
+import Table from "react-bootstrap/Table";
 
 function Parts() {
-  const getHeadings1 = () => {
-    return Object.keys(returnnewpartdata1[0]);
-  };
-  const getHeadings2 = () => {
-    return Object.keys(returnnewpartdata2[0]);
-  };
-  const getHeadings3 = () => {
-    return Object.keys(returnnewpartdata3[0]);
-  };
   return (
     <>
       <div className="row">
         <div className="col-md-2 col-sm-12">
           {" "}
-          <div
-            className="table-data"
-            style={{ height: "480px", overflow: "scroll" }}
-          >
-            <Tables theadData={getHeadings1()} tbodyData={returnnewpartdata1} />
+          <div className="row-md-12 table-data">
+            <div style={{ height: "400px", overflowY: "scroll" }}>
+              <Table bordered>
+                <thead
+                  style={{
+                    textAlign: "center",
+                    position: "sticky",
+                    top: "-1px",
+                  }}
+                >
+                  <tr>
+                    <th>Rv No</th>
+                    <th>Select</th>
+                  </tr>
+                </thead>
+
+                <tbody className="tablebody">
+                  <tr>
+                    <td>asdfghj</td>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            </div>
           </div>
         </div>
         <div className="col-md-6 col-sm-12">
-          <div
-            className="table-data"
-            style={{ height: "480px", overflow: "scroll" }}
-          >
-            <Tables theadData={getHeadings2()} tbodyData={returnnewpartdata2} />
+          <div className="row-md-12 table-data">
+            <div style={{ height: "400px", overflowY: "scroll" }}>
+              <Table bordered>
+                <thead
+                  style={{
+                    textAlign: "center",
+                    position: "sticky",
+                    top: "-1px",
+                  }}
+                >
+                  <tr>
+                    <th>Select</th>
+                    <th>PartID</th>
+                    <th>ReceiveID</th>
+                    <th>Rejected</th>
+                    <th>Issued</th>
+                    <th>Used</th>
+                    <th>Returned</th>
+                  </tr>
+                </thead>
+
+                <tbody className="tablebody">
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>asdfghj</td>
+                    <td>asdfghj</td>
+                    <td>asdfghj</td>
+                    <td>asdfghj</td>
+                    <td>asdfghj</td>
+                    <td>asdfghj</td>
+                    <td>asdfghj</td>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            </div>
           </div>
         </div>
         <div className="col-md-4 col-sm-12">
@@ -52,11 +94,46 @@ function Parts() {
               Create Return Vocher
             </button>
           </div>
-          <div
-            className="table-data"
-            style={{ height: "480px", overflow: "scroll", marginTop: "10px" }}
-          >
-            <Tables theadData={getHeadings3()} tbodyData={returnnewpartdata3} />
+          <div>
+            <div style={{ height: "400px", overflowY: "scroll" }}>
+              <Table bordered>
+                <thead
+                  style={{
+                    textAlign: "center",
+                    position: "sticky",
+                    top: "-1px",
+                  }}
+                >
+                  <tr>
+                    <th>Rv No</th>
+                    <th>CustDocument</th>
+                    <th>Material Code</th>
+                    <th>Weight</th>
+                    <th>Length</th>
+                    <th>Scrap</th>
+                    <th>Scrap Weight</th>
+                    <th>Instock</th>
+                    <th>Issue</th>
+                  </tr>
+                </thead>
+
+                <tbody className="tablebody">
+                  <tr>
+                    <td>asdfghj</td>
+                    <td>asdfghj</td>
+                    <td>asdfghj</td>
+                    <td>asdfghj</td>
+                    <td>asdfghj</td>
+                    <td>asdfghj</td>
+                    <td>asdfghj</td>
+                    <td>asdfghj</td>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            </div>
           </div>
         </div>
       </div>
