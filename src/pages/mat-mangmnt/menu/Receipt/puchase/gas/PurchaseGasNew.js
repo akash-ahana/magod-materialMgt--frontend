@@ -1,13 +1,9 @@
 import React from "react";
-import Tables from "../../../../../../components/Tables";
-import { data3 } from "../../../../components/Data";
+import Table from "react-bootstrap/Table";
+
 import Swal from "sweetalert2";
 
 function PurchaseGasNew() {
-  const getHeadings = () => {
-    return Object.keys(data3[0]);
-  };
-
   const getPop = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -124,11 +120,48 @@ function PurchaseGasNew() {
         </div>
         <div className="row">
           <div className="col-md-6 col-sm-12">
-            <div
-              className="table-data"
-              style={{ height: "480px", overflowY: "scroll" }}
-            >
-              <Tables theadData={getHeadings()} tbodyData={data3} />
+            <div className="row-md-12 table-data">
+              <div style={{ height: "400px", overflowY: "scroll" }}>
+                <Table bordered>
+                  <thead
+                    style={{
+                      textAlign: "center",
+                      position: "sticky",
+                      top: "-1px",
+                    }}
+                  >
+                    <tr>
+                      <th>Srl</th>
+                      <th>MtrlCode</th>
+                      <th>DynamicF</th>
+                      <th>DynamicF</th>
+                      <th>DynamicF</th>
+                      <th>Qty</th>
+                      <th>Inspected</th>
+                      <th>LocationNo</th>
+                      <th>Updated</th>
+                    </tr>
+                  </thead>
+
+                  <tbody className="tablebody">
+                    <tr>
+                      <td>asdfghj</td>
+                      <td>asdfghj</td>
+                      <td>asdfghj</td>
+                      <td>asdfghj</td>
+                      <td>asdfghj</td>
+                      <td>asdfghj</td>
+                      <td>
+                        <input type="checkbox" />
+                      </td>
+                      <td>asdfghj</td>
+                      <td>
+                        <input type="checkbox" />
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
             </div>
           </div>
           <div className="col-md-6 col-sm-12">
