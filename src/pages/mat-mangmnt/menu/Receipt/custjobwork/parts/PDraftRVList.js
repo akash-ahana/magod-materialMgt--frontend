@@ -88,7 +88,6 @@ function PDraftRVList() {
         <hr className="horizontal-line" />
         <div className="row">
           <div className="col-md-6 col-sm-12">
-            {/* <BootstrapTable keyField="id" data={products} columns={columns} /> */}
             <BootstrapTable
               keyField="RvID"
               //keyField="id"
@@ -97,7 +96,7 @@ function PDraftRVList() {
               striped
               hover
               condensed
-              pagination={paginationFactory()}
+              //pagination={paginationFactory()}
               selectRow={selectRow}
             ></BootstrapTable>
           </div>

@@ -26,6 +26,7 @@ export const endpoints = {
 
   //running no
   getRunningNo: `${API}/runningNo/getRunningNoBySrlType`,
+  updateRunningNo: `${API}/runningNo/updateRunningNoBySrlType`,
 
   /*getCustCodeName: `${API}/customers/allcustcodename`,
   getCustomerDets: `${API}/customers/getcustomer`,
