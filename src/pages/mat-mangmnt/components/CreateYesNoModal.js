@@ -53,9 +53,12 @@ function CreateYesNoModal(props) {
     <>
       <Modal show={show} onHide={handleNo}>
         <Modal.Header closeButton>
-          <Modal.Title>Create Return Vocher</Modal.Title>
+          <Modal.Title>Please Confirm</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Vocher Created</Modal.Body>
+        <Modal.Body>
+          Have you entered all details and inspected the parts received? No
+          changes are permitted after this
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleYes}>
             Yes
