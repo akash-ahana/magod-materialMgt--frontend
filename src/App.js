@@ -42,6 +42,7 @@ import PNew from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/PNew";
 import PDraftRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/PDraftRVList";
 import POpenRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/POpenRVList";
 import PClosedRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/PClosedRVList";
+import OpenClosedRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/OpenClosedRVList";
 import PurOtherNew from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOtherNew";
 import PurOtherDraftRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOtherDraftRVList";
 import PurOtherOpenRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOtherOpenRVList";
@@ -89,6 +90,10 @@ function App() {
                   <Route path="draftrvlist" element={<PDraftRVList />} />
                   <Route path="openrvlist" element={<POpenRVList />} />
                   <Route path="closedrvlist" element={<PClosedRVList />} />
+                  <Route
+                    path="openclosedrvlist"
+                    element={<OpenClosedRVList />}
+                  />
                 </Route>
                 <Route path="units">
                   <Route index={true} />
