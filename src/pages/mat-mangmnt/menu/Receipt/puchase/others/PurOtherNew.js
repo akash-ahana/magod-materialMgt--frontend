@@ -1,14 +1,33 @@
-import React from "react";
-import BootstrapTable from "react-bootstrap-table-next";
+import React, { useState, useMemo } from "react";
 import DraftForm from "../../../../components/DraftForm";
 import HeaderForm from "../../../../components/HeaderForm";
-import Tables from "../../../../../../components/Tables";
+import Table from "react-bootstrap/Table";
 import { data3 } from "../../../../components/Data";
 
 function PurOtherNew() {
-  const getHeadings = () => {
-    return Object.keys(data3[0]);
+  const [selectedRow, setSelectedRow] = useState({});
+  const [purchaseData, setpurchaseData] = useState({});
+
+  let FeildNames = { Weight: "" };
+
+  useMemo(() => {
+    setpurchaseData({ ...selectedRow });
+  }, [selectedRow]);
+
+  const handleChange = (e) => {
+    let { name, value } = e.target;
+    setpurchaseData({ ...purchaseData, [name]: value });
+    // console.log("On change fn ",name,value)
   };
+
+  const selectedRowFn = (item, index) => {
+    let list = { ...item, index: index };
+
+    console.log("api call", item.MtrlCode);
+    // api call
+    setSelectedRow(list);
+  };
+  console.log(selectedRow);
 
   return (
     <>
@@ -17,11 +36,62 @@ function PurOtherNew() {
       </div>
       <div className="row">
         <div className="col-md-6 col-sm-12">
-          <div
-            className="table-data"
-            style={{ height: "480px", overflowY: "scroll" }}
-          >
-            <Tables theadData={getHeadings()} tbodyData={data3} />
+          <div className="table-data">
+            <div style={{ height: "400px", overflowY: "scroll" }}>
+              <Table bordered>
+                <thead
+                  style={{
+                    textAlign: "center",
+                    position: "sticky",
+                    top: "-1px",
+                  }}
+                >
+                  <tr>
+                    <th>Srl</th>
+                    <th>MtrlCode</th>
+                    <th>DynamicF</th>
+                    <th>DynamicF</th>
+                    <th>DynamicF</th>
+                    <th>Qty</th>
+                    <th>Inspected</th>
+                    <th>LocationNo</th>
+                    <th>Updated</th>
+                  </tr>
+                </thead>
+                {data3.map((item, key) => {
+                  return (
+                    <>
+                      <tbody className="tablebody">
+                        <tr
+                          onClick={() => selectedRowFn(item, key)}
+                          className={
+                            key === selectedRow?.index
+                              ? "selcted-row-color"
+                              : ""
+                          }
+                        >
+                          <td>{item.Srl}</td>
+                          <td>{item.MtrlCode}</td>
+                          <td>{item.DynamicF}</td>
+                          <td>{item.DynamicF}</td>
+                          <td>{item.DynamicF}</td>
+                          <td>{item.Qty}</td>
+                          <td>
+                            {" "}
+                            <input type="checkbox" />
+                          </td>
+                          <td>
+                            {" "}
+                            <input type="checkbox" />
+                          </td>
+                          <td> {item.Updated}</td>
+                        </tr>
+                      </tbody>
+                    </>
+                  );
+                })}
+              </Table>
+            </div>
           </div>
         </div>
         <div className="col-md-6 col-sm-12">
@@ -142,7 +212,12 @@ function PurOtherNew() {
                         <label className="">Weight</label>
                       </div>
                       <div className="col-md-4 ">
-                        <input className="in-field" />
+                        <input
+                          className="in-field"
+                          name="Weight"
+                          onChange={(e) => handleChange(e)}
+                          value={selectedRow.MtrlCode}
+                        />
                       </div>
                     </div>
                     <div className="row">

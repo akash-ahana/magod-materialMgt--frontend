@@ -8,7 +8,12 @@ const NestMenu = ({ nestnav }) => {
 
   return (
     <>
-      <NavLink to={nestnav.path}>
+      <NavLink
+        className={({ isActive }) =>
+          isActive && nestnav.path && !nest ? "active-link-url" : "link-default"
+        }
+        to={nestnav.path}
+      >
         <li
           className="submenu_link"
           onClick={() => {
@@ -17,10 +22,7 @@ const NestMenu = ({ nestnav }) => {
           style={{ cursor: "pointer" }}
         >
           <div className="submenu_links">
-            <div
-              className="icon"
-              style={{ color: "white"}}
-            >
+            <div className="icon" style={{ color: "white" }}>
               {nestnav.icon}
             </div>
             <div className="link_text">{nestnav.title}</div>

@@ -1,44 +1,45 @@
 import React from "react";
-import BootstrapTable from "react-bootstrap-table-next";
+import Table from "react-bootstrap/Table";
 
 function PurOtherDraftRVList() {
-  const list = [];
-  const columns = [
-    {
-      text: "RV No",
-      dataField: "RV_No",
-    },
-    {
-      text: "RV Date",
-      dataField: "RV_Date",
-      // sort:true
-    },
-    {
-      text: "Customer",
-      dataField: "Customer",
-    },
-    {
-      text: "Cust Doc No",
-      dataField: "CustDocuNo",
-    },
-  ];
-
   return (
     <>
       <h4 className="form-title">Magod : Sheets Receipt List Created</h4>
       <hr className="horizontal-line" />
       <div className="row">
         <div className="col-md-6 col-sm-12">
-          <BootstrapTable
-            keyField="RvID"
-            columns={columns}
-            data={list}
-            // striped
-            // hover
-            // condensed
-            // pagination={paginationFactory()}
-            // selectRow={selectRow}
-          ></BootstrapTable>
+          <div style={{ height: "400px", overflowY: "scroll" }}>
+            <Table bordered>
+              <thead
+                style={{
+                  textAlign: "center",
+                  position: "sticky",
+                  top: "-1px",
+                }}
+              >
+                <tr>
+                  <th>RV No</th>
+                  <th>RV Date</th>
+                  <th>Customer</th>
+                  <th>Cust Doc No</th>
+                </tr>
+              </thead>
+
+              <tbody className="tablebody">
+                <tr
+                // onClick={() => selectedRowFn(item, key)}
+                // className={
+                //   key === selectedRow?.index ? "selcted-row-clr" : ""
+                // }
+                >
+                  <td>asdfghj</td>
+                  <td>asdfghj</td>
+                  <td>asdfghj</td>
+                  <td>asdfghj</td>
+                </tr>
+              </tbody>
+            </Table>
+          </div>
         </div>
 
         <div className="col-md-6 col-sm-12">

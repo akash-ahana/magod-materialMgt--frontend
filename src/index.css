@@ -166,3 +166,12 @@ code {
 .submenu_links {
   padding-left: 20px;
 }
+.selcted-row-color {
+  background-color: #4e4ef2;
+  color: white;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  content: ">" !important;
+  align-self: baseline;
+  color: #7d8daa;
+}

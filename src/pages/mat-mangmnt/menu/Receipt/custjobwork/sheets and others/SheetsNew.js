@@ -72,13 +72,19 @@ function SheetsNew() {
         </div>
         <div className="row">
           <div className="col-md-8">
-            <label className="">Customer</label>
-
-            <input type="text" name="city" list="cityname" />
-            <datalist id="cityname">
-              <option value="boston"></option>
-              <option value="Cambridge"></option>
-            </datalist>
+            <label className="form-label">Customer</label>
+            <select
+              className="ip-select"
+              name="customer"
+              // onChange={changeCustomer}
+            >
+              <option value="">Select Customer</option>
+              {/* {customers.map((customer, index) => (
+                  <option value={customer.Cust_Code}>
+                    {customer.Cust_name}
+                  </option>
+                ))} */}
+            </select>
           </div>
           <div className="col-md-4">
             <label className="">Weight</label>
