@@ -5,17 +5,12 @@ import WithNav from "./Layout/WithNav";
 import Parentroute from "./Layout/Parentroute";
 import Login from "./pages/Auth/Login";
 import Home from "./pages/Home";
-import Receipt from "./pages/mat-mangmnt/menu/Receipt/Receipt";
-import Return from "./pages/mat-mangmnt/menu/Return/Return";
-import ShopFloorIssue from "./pages/mat-mangmnt/menu/Shop Floor Issue/ShopFloorIssue";
+
 import ShoopFloorreturns from "./pages/mat-mangmnt/menu/Shop Floor Returns/ShoopFloorreturns";
 import Reports from "./pages/mat-mangmnt/menu/Reports/Reports";
 import StoreManagement from "./pages/mat-mangmnt/menu/Store management/StoreManagement";
 import Setup from "./pages/mat-mangmnt/menu/setup/Setup";
-import Purchase from "./pages/mat-mangmnt/menu/Receipt/puchase/Purchase";
 import Customer from "./pages/mat-mangmnt/menu/Reports/Customer/Customer";
-import IVListServic from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListServic/IVListServic";
-import Service from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/Service";
 import ProfileCutting from "./pages/mat-mangmnt/menu/Shop Floor Issue/ProfileCutting";
 import PendingList from "./pages/mat-mangmnt/menu/Shop Floor Returns/PendingList";
 import MoveStore from "./pages/mat-mangmnt/menu/Store management/move store/MoveStore";
@@ -26,11 +21,7 @@ import ResizeSheets from "./pages/mat-mangmnt/menu/Store management/ResizeSheets
 import DailyReport from "./pages/mat-mangmnt/menu/Reports/DailyReport";
 import MonthlyReport from "./pages/mat-mangmnt/menu/Reports/MonthlyReport";
 import BranchTransfer from "./pages/mat-mangmnt/menu/Receipt/BranchTransfer";
-import IVListProfileCutting from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListProfileCutting/IVListProfileCutting";
-import CustJobWork from "./pages/mat-mangmnt/menu/Receipt/custjobwork/CustJobWork";
-import Parts from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/Parts";
-import Units from "./pages/mat-mangmnt/menu/Receipt/custjobwork/units/Units";
-import SheetsAndOthers from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsAndOthers";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SheetsNew from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsNew";
@@ -42,7 +33,6 @@ import UnitsDraftRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/units
 import UnitsOpenRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/units/UnitsOpenRVList";
 import UnitsClosedRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/units/UnitsClosedRVList";
 import ReturnNew from "./pages/mat-mangmnt/menu/Return/custjobwork/ReturnNew";
-import ReturnCustomerJobWork from "./pages/mat-mangmnt/menu/Return/custjobwork/ReturnCustomerJobWork";
 import ReturnCancelled from "./pages/mat-mangmnt/menu/Return/custjobwork/ReturnCancelled";
 import ReturnCustomerIVList from "./pages/mat-mangmnt/menu/Return/custjobwork/ReturnCustomerIVList";
 import ReturnPendingDispatchList from "./pages/mat-mangmnt/menu/Return/custjobwork/ReturnPendingDispatchList";
@@ -56,19 +46,22 @@ import PurOtherNew from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOthe
 import PurOtherDraftRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOtherDraftRVList";
 import PurOtherOpenRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOtherOpenRVList";
 import PurOtherClosedRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOtherClosedRVList";
-import PurchaseOthers from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurchaseOthers";
-import PurchaseParts from "./pages/mat-mangmnt/menu/Receipt/puchase/parts/PurchaseParts";
 import PurchasePartsNew from "./pages/mat-mangmnt/menu/Receipt/puchase/parts/PurchasePartsNew";
 import PurchasePartsDraftRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/parts/PurchasePartsDraftRVList";
 import PurchasePartsOpenRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/parts/PurchasePartsOpenRVList";
 import PurchasePartsClosedRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/parts/PurchasePartsClosedRVList";
 import PurchaseUnitsNew from "./pages/mat-mangmnt/menu/Receipt/puchase/units/PurchaseUnitsNew";
-import PurchaseUnits from "./pages/mat-mangmnt/menu/Receipt/puchase/units/PurchaseUnits";
 import PurchaseUnitsDraftRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/units/PurchaseUnitsDraftRVList";
 import PurchaseUnitsOpenRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/units/PurchaseUnitsOpenRVList";
 import PurchaseUnitsClosedRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/units/PurchaseUnitsClosedRVList";
 import PurchaseGasNew from "./pages/mat-mangmnt/menu/Receipt/puchase/gas/PurchaseGasNew";
 import PurchasePlannedforfuture from "./pages/mat-mangmnt/menu/Return/PurchasePlanned for future/PurchasePlannedforfuture";
+import ShopIssueParts from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/ShopIssueParts";
+import ShopIssueUnits from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/ShopIssueUnits";
+import ShopIssueIVListClosed from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListService/ShopIssueIVListClosed";
+import ShopIssueIVListIssued from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListService/ShopIssueIVListIssued";
+import IVListProfileCuttingClosed from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListProfileCutting/IVListProfileCuttingClosed";
+import IVListProfileCuttingCurrent from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListProfileCutting/IVListProfileCuttingCurrent";
 
 function App() {
   return (
@@ -190,14 +183,29 @@ function App() {
             </Route>
 
             <Route path="shopfloorissue">
-              <Route index={true} element={<ShopFloorIssue />} />
-              <Route
-                path="IVListprofilecutting"
-                element={<IVListProfileCutting />}
-              />
-              <Route path="IVListservice" element={<IVListServic />} />
-              <Route path="service" element={<Service />} />
-              <Route path="profilecutting" element={<ProfileCutting />} />
+              <Route index={true} />
+              <Route path="service">
+                <Route index={true} />
+                <Route path="parts" element={<ShopIssueParts />} />
+                <Route path="units" element={<ShopIssueUnits />} />
+              </Route>
+              <Route path="profilecutting">
+                <Route index={true} element={<ProfileCutting />} />
+              </Route>
+              <Route path="ivlistservice">
+                <Route index={true} />
+                <Route path="closed" element={<ShopIssueIVListClosed />} />
+                <Route path="issued" element={<ShopIssueIVListIssued />} />
+              </Route>
+
+              <Route path="IVListprofilecutting">
+                <Route index={true} />
+                <Route path="closed" element={<IVListProfileCuttingClosed />} />
+                <Route
+                  path="current"
+                  element={<IVListProfileCuttingCurrent />}
+                />
+              </Route>
             </Route>
 
             <Route path="shoopfloorreturns">

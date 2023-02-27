@@ -20,26 +20,16 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import { useNavigate } from "react-router-dom";
 
 function PurchasePartsDraftRVList() {
-  const products = [];
-  const columns = [
-    {
-      text: "RV No",
-      dataField: "RV_No",
-    },
-    {
-      text: "RV Date",
-      dataField: "RV_Date",
-      // sort:true
-    },
-    {
-      text: "Customer",
-      dataField: "Customer",
-    },
-    {
-      text: "Cust Doc No",
-      dataField: "CustDocuNo",
-    },
-  ];
+  const [selectedRow, setSelectedRow] = useState();
+
+  const selectedRowFn = (item, index) => {
+    let list = { ...item, index: index };
+    // setMachine_srl(item.Machine_srl);
+    // api call
+
+    setSelectedRow();
+  };
+
   return (
     <div>
       <>
@@ -47,7 +37,38 @@ function PurchasePartsDraftRVList() {
         <hr className="horizontal-line" />
         <div className="row">
           <div className="col-md-6 col-sm-12">
-            <BootstrapTable keyField="id" data={products} columns={columns} />
+            <div style={{ height: "400px", overflowY: "scroll" }}>
+              <Table bordered>
+                <thead
+                  style={{
+                    textAlign: "center",
+                    position: "sticky",
+                    top: "-1px",
+                  }}
+                >
+                  <tr>
+                    <th>RV No</th>
+                    <th>RV Date</th>
+                    <th>Customer</th>
+                    <th>Cust Doc No</th>
+                  </tr>
+                </thead>
+
+                <tbody className="tablebody">
+                  <tr
+                  // onClick={() => selectedRowFn(item, key)}
+                  // className={
+                  //   key === selectedRow?.index ? "selcted-row-clr" : ""
+                  // }
+                  >
+                    <td>asdfghj</td>
+                    <td>asdfghj</td>
+                    <td>asdfghj</td>
+                    <td>asdfghj</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </div>
           </div>
 
           <div className="col-md-6 col-sm-12">

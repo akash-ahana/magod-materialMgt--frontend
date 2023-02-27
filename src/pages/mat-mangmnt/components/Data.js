@@ -134,7 +134,7 @@ const data2 = [
 
 const data3 = [
   {
-    Srl: "",
+    Srl: "001",
     MtrlCode: "002",
     DynamicF: "100",
     DynamicF: "100",

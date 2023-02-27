@@ -288,63 +288,56 @@ export const customerSidebar = [
     subNav: [
       {
         title: "Service",
-        path: "/materialmanagement/shopfloorissue/service",
-        icon: <AiIcons.AiOutlineInfoCircle />,
+        // path: "/materialmanagement/shopfloorissue/service",
+        icon: <MdIcon.MdMiscellaneousServices />,
         subNav: [
           {
             title: "Parts",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/new",
-            icon: <AiIcons.AiOutlineInfoCircle />,
+            path: "/materialmanagement/shopfloorissue/service/parts",
+            icon: <AiIcons.AiOutlineArrowRight />,
           },
           {
             title: "Units",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/draftrvlist",
-
-            icon: <AiIcons.AiOutlineInfoCircle />,
+            path: "/materialmanagement/shopfloorissue/service/units",
+            icon: <AiIcons.AiOutlineArrowRight />,
           },
         ],
       },
       {
         title: "ProfileCutting",
         path: "/materialmanagement/shopfloorissue/profilecutting",
-
-        icon: <AiIcons.AiOutlineInfoCircle />,
+        icon: <BiIcons.BiCut />,
       },
       {
         title: "IV List Service",
-        // path: "/materialmanagement/shopfloorissue/IVListservice",
-
-        icon: <AiIcons.AiOutlineInfoCircle />,
+        icon: <MdIcon.MdMiscellaneousServices />,
         subNav: [
           {
             title: "Issued",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/new",
-            icon: <AiIcons.AiOutlineInfoCircle />,
+            path: "/materialmanagement/shopfloorissue/ivlistservice/issued",
+            icon: <AiIcons.AiOutlineArrowRight />,
           },
           {
             title: "Closed",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/draftrvlist",
-
-            icon: <AiIcons.AiOutlineInfoCircle />,
+            path: "/materialmanagement/shopfloorissue/ivlistservice/closed",
+            icon: <AiIcons.AiOutlineArrowRight />,
           },
         ],
       },
       {
         title: "IV List Profile Cutting",
-        path: "/materialmanagement/shopfloorissue/IVListprofilecutting",
-
-        icon: <AiIcons.AiOutlineInfoCircle />,
+        // path: "/materialmanagement/shopfloorissue/IVListprofilecutting",
+        icon: <BiIcons.BiCut />,
         subNav: [
           {
             title: "Current",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/new",
-            icon: <AiIcons.AiOutlineInfoCircle />,
+            path: "/materialmanagement/shopfloorissue/IVListprofilecutting/current",
+            icon: <AiIcons.AiOutlineArrowRight />,
           },
           {
             title: "Closed",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/draftrvlist",
-
-            icon: <AiIcons.AiOutlineInfoCircle />,
+            path: "/materialmanagement/shopfloorissue/IVListprofilecutting/closed",
+            icon: <AiIcons.AiOutlineArrowRight />,
           },
         ],
       },
