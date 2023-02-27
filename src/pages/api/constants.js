@@ -20,9 +20,12 @@ export const endpoints = {
   //Material Receipt Register
   insertHeaderMaterialReceiptRegister: `${API}/materialReceiptRegister/insertHeaderMaterialReceiptRegister`,
   updateHeaderMaterialReceiptRegister: `${API}/materialReceiptRegister/updateHeaderMaterialReceiptRegister`,
+  deleteHeaderMaterialReceiptRegisterAndDetails: `${API}/materialReceiptRegister/deleteHeaderMaterialReceiptRegisterAndDetails`,
 
   //Material Part Receipt Details
   insertPartReceiptDetails: `${API}/mtrlPartReceiptDetails/insertPartReceiptDetails`,
+  updatePartReceiptDetails: `${API}/mtrlPartReceiptDetails/updatePartReceiptDetails`,
+  deletePartReceiptDetails: `${API}/mtrlPartReceiptDetails/deletePartReceiptDetails`,
 
   //running no
   getRunningNo: `${API}/runningNo/getRunningNoBySrlType`,

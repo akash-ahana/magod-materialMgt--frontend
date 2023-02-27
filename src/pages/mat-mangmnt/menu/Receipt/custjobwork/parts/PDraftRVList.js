@@ -87,7 +87,10 @@ function PDraftRVList() {
         <h4 className="form-title">Customer : Parts Receipt List Created</h4>
         <hr className="horizontal-line" />
         <div className="row">
-          <div className="col-md-6 col-sm-12">
+          <div
+            style={{ height: "420px", overflowY: "scroll" }}
+            className="col-md-6 col-sm-12"
+          >
             <BootstrapTable
               keyField="RvID"
               //keyField="id"
