@@ -170,8 +170,6 @@ code {
   background-color: #4e4ef2;
   color: white;
 }
-.breadcrumb-item + .breadcrumb-item::before {
-  content: ">" !important;
-  align-self: baseline;
-  color: #7d8daa;
-}
+/* .breadcrumb-item + .breadcrumb-item::before + .breadcrumb {
+  content: "|" !important;
+} */
