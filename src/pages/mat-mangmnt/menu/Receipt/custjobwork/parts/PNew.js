@@ -43,10 +43,10 @@ function PNew() {
     qtyRejected: "0",
   });
 
-  const [custDetailVal, setCustDetailVal] = useState("");
+  //const [custDetailVal, setCustDetailVal] = useState("");
   const [calcWeightVal, setCalcWeightVal] = useState(0);
 
-  const currDateTime = new Date();
+  //const currDateTime = new Date();
   let [custdata, setCustdata] = useState([]);
   let [mtrlDetails, setMtrlDetails] = useState([]);
   const [saveUpdateCount, setSaveUpdateCount] = useState(0);

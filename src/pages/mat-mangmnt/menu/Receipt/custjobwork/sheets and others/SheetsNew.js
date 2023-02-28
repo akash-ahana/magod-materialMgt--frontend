@@ -1,45 +1,121 @@
-import React, { useState } from "react";
-import Tables from "../../../../../../components/Tables";
-import { data3 } from "../../../../components/Data";
-import Swal from "sweetalert2";
-import Select from "react-select";
-import { display } from "@mui/system";
+import React, { useEffect, useState } from "react";
+import { formatDate } from "../../../../../../utils";
+const { getRequest, postRequest } = require("../../../../../api/apiinstance");
+const { endpoints } = require("../../../../../api/constants");
 
 function SheetsNew() {
-  const [dataList, setDataList] = useState([]);
-  const [input, setInput] = useState([]);
+  const currDate = new Date()
+    .toJSON()
+    .slice(0, 10)
+    .split("-")
+    .reverse()
+    .join("/");
 
-  const aquaticCreatures = [
-    { label: "Shark", value: "Shark" },
-    { label: "Dolphin", value: "Dolphin" },
-  ];
+  const [formHeader, setFormHeader] = useState({
+    rvId: "",
+    receiptDate: formatDate(new Date(), 4), //currDate, //.split("/").reverse().join("-"),
+    rvNo: "Draft",
+    rvDate: currDate, //.split("/").reverse().join("-"),
+    status: "Created",
+    customer: "",
+    customerName: "",
+    reference: "",
+    weight: "0",
+    calcWeight: "0",
+    type: "Parts",
+    address: "",
+  });
+  let [custdata, setCustdata] = useState([]);
+  let [mtrlDetails, setMtrlDetails] = useState([]);
+  let [locationData, setLocationData] = useState([]);
+  let [para1Label, setPara1Label] = useState("Para 1");
+  let [para2Label, setPara2Label] = useState("Para 2");
+  let [para3Label, setPara3Label] = useState("Para 3");
 
-  const getHeadings = () => {
-    return Object.keys(data3[0]);
-  };
-
-  const searchText = (e) => {
-    let text = e.target.value;
-    let filteredData = dataList.filter((data) => {
-      return data.customer_name.toLowerCase().startsWith(text);
+  async function fetchData() {
+    getRequest(endpoints.getCustomers, (data) => {
+      setCustdata(data);
     });
-    // console.log(filteredData);
-    if (filteredData.length > 0) {
-      setDataList(filteredData);
-    }
-    if (e.target.value.length === 0) {
-      setDataList(input);
-    }
+    getRequest(endpoints.getMaterialLocationList, (data) => {
+      setLocationData(data);
+    });
+    getRequest(endpoints.getMtrlData, (data) => {
+      setMtrlDetails(data);
+    });
+    //console.log("data = ", custdata);
+  }
+
+  useEffect(() => {
+    fetchData();
+    //setPartArray(partArray);
+  }, []); //[inputPart]);
+
+  let changeCustomer = async (e) => {
+    e.preventDefault();
+    const { value, name } = e.target;
+
+    const found = custdata.find((obj) => obj.Cust_Code === value);
+    //setCustDetailVal(found.Address);
+
+    setFormHeader((preValue) => {
+      //console.log(preValue)
+      return {
+        ...preValue,
+        [name]: value,
+        customerName: found.Cust_name,
+        customer: found.Cust_Code,
+        address: found.Address,
+      };
+    });
+
+    // getRequest(endpoints.getCustBomList, (data) => {
+    //   const foundPart = data.filter((obj) => obj.Cust_code == value);
+    //   setMtrlDetails(foundPart);
+    // });
+  };
+  let changeMtrl = async (e) => {
+    e.preventDefault();
+    const { value, name } = e.target;
+    //console.log("value = ", value);
+    mtrlDetails.map((material) => {
+      if (material.Mtrl_Code === value) {
+        if (material.Shape === "Block") {
+          setPara1Label("Length");
+          setPara2Label("Width");
+          setPara3Label("Height");
+        } else if (material.Shape === "Plate") {
+          setPara1Label("Length");
+          setPara2Label("Width");
+          setPara3Label("");
+        } else if (material.Shape === "Sheet") {
+          setPara1Label("Width");
+          setPara2Label("Length");
+          setPara3Label("");
+        } else if (material.Shape === "Tiles") {
+          setPara1Label("");
+          setPara2Label("");
+          setPara3Label("");
+        } else if (material.Shape.includes("Tube")) {
+          setPara1Label("Length");
+          setPara2Label("");
+          setPara3Label("");
+        }
+      }
+    });
   };
 
-  const getPop = () => {
+  /* const getHeadings = () => {
+    return Object.keys(data3[0]);
+  };*/
+
+  /*const getPop = () => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       confirmButtonColor: "#3085d6",
       confirmButtonText: "okay",
     });
-  };
+  };*/
   return (
     <div>
       <div>
@@ -52,22 +128,31 @@ function SheetsNew() {
             <input
               type="text"
               name="receiptDate"
-              // value={formHeader.receiptDate}
+              value={formHeader.receiptDate}
               readOnly
             />
           </div>
           <div className="col-md-3">
             <label className="">RV No</label>
-            <input type="text" name="rvNo" value="Draft" readOnly />
+            <input type="text" name="rvNo" value={formHeader.rvNo} readOnly />
           </div>
           <div className="col-md-3">
             <label className="">RV Date</label>
-            <input type="text" name="rvDate" readOnly />
-            {/* value={currDate} */}
+            <input
+              type="text"
+              name="rvDate"
+              value={formHeader.rvDate}
+              readOnly
+            />
           </div>
           <div className="col-md-3">
             <label className="">status</label>
-            <input type="text" name="status" value="Created" readOnly />
+            <input
+              type="text"
+              name="status"
+              value={formHeader.status}
+              readOnly
+            />
           </div>
         </div>
         <div className="row">
@@ -76,14 +161,16 @@ function SheetsNew() {
             <select
               className="ip-select"
               name="customer"
-              // onChange={changeCustomer}
+              onChange={changeCustomer}
             >
-              <option value="">Select Customer</option>
-              {/* {customers.map((customer, index) => (
-                  <option value={customer.Cust_Code}>
-                    {customer.Cust_name}
-                  </option>
-                ))} */}
+              <option value="" disabled selected>
+                Select Customer
+              </option>
+              {custdata.map((customer, index) => (
+                <option key={index} value={customer.Cust_Code}>
+                  {customer.Cust_name}
+                </option>
+              ))}
             </select>
           </div>
           <div className="col-md-4">
@@ -92,24 +179,24 @@ function SheetsNew() {
               type="text"
               name="weight"
               required
-              // value={formHeader.weight}
+              value={formHeader.weight}
               // onChange={InputHeaderEvent}
             />
           </div>
         </div>
 
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-8">
             <label className="">Reference</label>
             <input
               type="text"
               name="reference"
-              // value={formHeader.reference}
+              value={formHeader.reference}
               // onChange={InputHeaderEvent}
             />
           </div>
           <div className="col-md-4">
-            <label className="">Caluclated Weight</label>
+            <label className="">Calculated Weight</label>
             <input
               type="text"
               name="calculatedWeight"
@@ -127,7 +214,7 @@ function SheetsNew() {
             <button
               className="button-style"
               style={{ width: "196px" }}
-              onClick={getPop}
+              //onClick={getPop}
             >
               Allot RV No
             </button>
@@ -140,7 +227,7 @@ function SheetsNew() {
             <textarea
               style={{ height: "110px" }}
               className="form-control"
-              // value={custDetailVal}
+              value={formHeader.address}
               readOnly
             ></textarea>
           </div>
@@ -151,7 +238,7 @@ function SheetsNew() {
               className="table-data"
               style={{ height: "480px", overflowY: "scroll" }}
             >
-              <Tables theadData={getHeadings()} tbodyData={data3} />
+              {/* <Tables theadData={getHeadings()} tbodyData={data3} /> */}
             </div>
           </div>
           <div className="col-md-6 col-sm-12">
@@ -179,18 +266,32 @@ function SheetsNew() {
                         <label className="">Part ID</label>
                       </div>
                       <div className="col-md-6" style={{ marginTop: "8px" }}>
-                        <select className="ip-select dropdown-field">
-                          <option value="option 1">001</option>
-                          <option value="option 1">002</option>
-                          <option value="option 1">003</option>
-                          <option value="option 1">004</option>
+                        <select
+                          className="ip-select dropdown-field"
+                          onChange={changeMtrl}
+                        >
+                          <option value="" disabled selected>
+                            Select Material
+                          </option>
+                          {mtrlDetails.map((material, index) =>
+                            (material.Shape !== "Units") &
+                            (material.Shape !== "Cylinder") &
+                            (material.Shape !== null) &
+                            (material.Mtrl_Code !== "") ? (
+                              <option key={index} value={material.Mtrl_Code}>
+                                {material.Mtrl_Code}
+                              </option>
+                            ) : (
+                              ""
+                            )
+                          )}
                         </select>
                       </div>
                     </div>
 
                     <div className="row">
                       <div className="col-md-3">
-                        <label className="">Para 1</label>
+                        <label className="">{para1Label}</label>
                       </div>
                       <div className="col-md-4 ">
                         <input className="in-field" />
@@ -198,7 +299,7 @@ function SheetsNew() {
                     </div>
                     <div className="row">
                       <div className="col-md-3">
-                        <label className="">Para 2</label>
+                        <label className="">{para2Label}</label>
                       </div>
                       <div className="col-md-4 ">
                         <input className="in-field" />
@@ -206,7 +307,7 @@ function SheetsNew() {
                     </div>
                     <div className="row">
                       <div className="col-md-3">
-                        <label className="">Para 3</label>
+                        <label className="">{para3Label}</label>
                       </div>
                       <div className="col-md-4 ">
                         <input className="in-field" />
@@ -281,10 +382,19 @@ function SheetsNew() {
                         </div>
                         <div className="col-md-6" style={{ marginTop: "8px" }}>
                           <select className="ip-select dropdown-field">
-                            <option value="option 1">001</option>
+                            <option value="" disabled selected>
+                              Select Location
+                            </option>
+                            {locationData.map((location, index) => (
+                              <option key={index} value={location.LocationNo}>
+                                {location.LocationNo}
+                              </option>
+                            ))}
+
+                            {/* <option value="option 1">001</option>
                             <option value="option 1">002</option>
                             <option value="option 1">003</option>
-                            <option value="option 1">004</option>
+                            <option value="option 1">004</option> */}
                           </select>
                         </div>
                       </div>

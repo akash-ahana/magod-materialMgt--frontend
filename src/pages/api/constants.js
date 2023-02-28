@@ -3,8 +3,15 @@ let API = "http://localhost:3002";
 //let API = "http://20.204.144.125:3001";
 
 export const endpoints = {
+  //customers
   getCustomers: `${API}/customers/allcustomers`,
+  //bom list
   getCustBomList: `${API}/custbomlist/allCustBomList`,
+  //locations
+  getMaterialLocationList: `${API}/materiallocationlist/allMaterialLocationList`,
+  //mtrl data
+  getMtrlData: `${API}/mtrlData/allmtrldata`,
+
   getPartsCreatedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Created&type2=Parts`,
   getPartsOpenedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Received&type2=Parts`,
   getPartsClosedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Closed&type2=Parts`,
@@ -24,7 +31,6 @@ export const endpoints = {
   deleteHeaderMaterialReceiptRegisterAndDetails: `${API}/materialReceiptRegister/deleteHeaderMaterialReceiptRegisterAndDetails`,
 
   //Material Part Receipt Details
-
   getPartReceiptDetailsByRvID: `${API}/mtrlPartReceiptDetails/getPartReceiptDetailsByRvID`,
   insertPartReceiptDetails: `${API}/mtrlPartReceiptDetails/insertPartReceiptDetails`,
   updatePartReceiptDetails: `${API}/mtrlPartReceiptDetails/updatePartReceiptDetails`,

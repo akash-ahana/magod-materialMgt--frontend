@@ -3,7 +3,6 @@ import { dateToShort } from "../../../../../../utils";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { useNavigate } from "react-router-dom";
-import OpenClosedRVList from "./OpenClosedRVList";
 
 const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
@@ -44,7 +43,7 @@ function PClosedRVList() {
   const openButtonClick = () => {
     //console.log("data = ", data);
     //console.log("button click : ");
-    nav("/materialmanagement/receipt/customerjobwork/parts/openclosedrvlist", {
+    nav("/materialmanagement/receipt/customerjobwork/openclosedrvlist", {
       state: { id: data.RvID },
     });
     //<OpenClosedRVList />;
