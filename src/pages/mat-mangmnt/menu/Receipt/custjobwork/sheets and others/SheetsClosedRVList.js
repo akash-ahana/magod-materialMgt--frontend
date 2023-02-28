@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { dateToShort } from "../../../../../../utils";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import { useNavigate } from "react-router-dom";
+
 const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
 
 function SheetsClosedRVList() {
+  const nav = useNavigate();
   const [tabledata, setTableData] = useState([]);
   const [data, setData] = useState({
     CustDocuNo: "",
@@ -39,6 +42,9 @@ function SheetsClosedRVList() {
   const openButtonClick = () => {
     //console.log("data = ", data);
     console.log("button click : ");
+    nav("/materialmanagement/receipt/customerjobwork/openclosedrvlist", {
+      state: { id: data.RvID },
+    });
   };
 
   const selectRow = {
@@ -87,7 +93,10 @@ function SheetsClosedRVList() {
         <h4 className="form-title">Customer : Sheets Receipt List Closed</h4>
         <hr className="horizontal-line" />
         <div className="row">
-          <div className="col-md-6 col-sm-12">
+          <div
+            style={{ height: "420px", overflowY: "scroll" }}
+            className="col-md-6 col-sm-12"
+          >
             {/* <BootstrapTable keyField="id" data={products} columns={columns} /> */}
             <BootstrapTable
               keyField="RvID"
@@ -97,7 +106,7 @@ function SheetsClosedRVList() {
               striped
               hover
               condensed
-              pagination={paginationFactory()}
+              //pagination={paginationFactory()}
               selectRow={selectRow}
             ></BootstrapTable>
           </div>
