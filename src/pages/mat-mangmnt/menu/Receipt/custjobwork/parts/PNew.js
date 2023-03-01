@@ -51,7 +51,7 @@ function PNew() {
   let [mtrlDetails, setMtrlDetails] = useState([]);
   const [saveUpdateCount, setSaveUpdateCount] = useState(0);
 
-  const [formHeader, setFormHeader] = useState({
+  let [formHeader, setFormHeader] = useState({
     rvId: "",
     receiptDate: formatDate(new Date(), 4), //currDate, //.split("/").reverse().join("-"),
     rvNo: "Draft",
@@ -155,7 +155,7 @@ function PNew() {
     postRequest(endpoints.updatePartReceiptDetails, inputPart, (data) => {
       if (data.affectedRows !== 0) {
       } else {
-        toast.error("Record Not Inserted");
+        toast.error("Record Not Updated");
       }
     });
 
@@ -364,17 +364,21 @@ function PNew() {
   };
 
   const allotRVYesButton = (data) => {
-    console.log("data = ", data);
+    console.log("data = ", formHeader);
     setFormHeader(data);
+    console.log("formheader = ", formHeader);
     setBoolVal4(true);
+    console.log("formheader = ", formHeader);
+    //formHeader = data;
     //formHeader.rvNo = data.rvNo;
+    //setFormHeader(formHeader);
 
-    setFormHeader((preValue) => {
+    /*setFormHeader((preValue) => {
       return {
         ...preValue,
         rvNo: data.rvNo,
       };
-    });
+    });*/
 
     //console.log("formHeader = ", formHeader);
   };

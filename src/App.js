@@ -63,6 +63,7 @@ import ShopIssueIVListClosed from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVL
 import ShopIssueIVListIssued from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListService/ShopIssueIVListIssued";
 import IVListProfileCuttingClosed from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListProfileCutting/IVListProfileCuttingClosed";
 import IVListProfileCuttingCurrent from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListProfileCutting/IVListProfileCuttingCurrent";
+import OpenClosedPurchaseRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/OpenClosedPurchaseRVList";
 
 function App() {
   return (
@@ -110,6 +111,10 @@ function App() {
               </Route>{" "}
               <Route path="purchase">
                 <Route index={true} />
+                <Route
+                  path="openclosedpurchaservlist"
+                  element={<OpenClosedPurchaseRVList />}
+                />
                 <Route path="others">
                   <Route index={true} />
                   <Route path="new" element={<PurOtherNew />} />

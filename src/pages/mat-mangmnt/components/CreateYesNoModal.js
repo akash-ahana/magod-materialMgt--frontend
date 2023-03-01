@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
+import { formatDate } from "../../../utils";
 const { getRequest, postRequest } = require("../../api/apiinstance");
 const { endpoints } = require("../../api/constants");
 
@@ -19,13 +20,34 @@ function CreateYesNoModal(props) {
     getRequest(url, (data) => {
       data.map((obj) => {
         let newNo = parseInt(obj.Running_No) + 1;
-        let no = "23/000" + newNo;
+        //let no = "23/000" + newNo;
+        let series = "";
+        // console.log(
+        //   "length = ",
+        //   parseInt(obj.Length),
+        //   " newno length = ",
+        //   newNo.toString().length
+        // );
+        //add prefix zeros
+        for (
+          let i = 0;
+          i < parseInt(obj.Length) - newNo.toString().length;
+          i++
+        ) {
+          series = series + "0";
+        }
+        series = series + "" + newNo;
+        //console.log("series = ", series);
+        //get last 2 digit of year
+        let yy = formatDate(new Date(), 6).toString().substring(2);
+        let no = yy + "/" + series;
+        //console.log("no = ", no);
         formHeader.rvNo = no;
 
         //update the running no
         const inputData = {
           SrlType: "MaterialReceiptVoucher",
-          Period: "2023",
+          Period: formatDate(new Date(), 6),
           RunningNo: newNo,
         };
         postRequest(endpoints.updateRunningNo, inputData, (data) => {});

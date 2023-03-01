@@ -76,5 +76,8 @@ export function formatDate(dateObj, format) {
       ":" +
       curr_sc
     );
+  } else if (format == 6) {
+    //yyyy
+    return curr_year;
   }
 }
