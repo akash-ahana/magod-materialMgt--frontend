@@ -41,10 +41,10 @@ function SheetsClosedRVList() {
 
   const openButtonClick = () => {
     //console.log("data = ", data);
-    console.log("button click : ");
-    nav("/materialmanagement/receipt/customerjobwork/openclosedrvlist", {
-      state: { id: data.RvID },
-    });
+    //console.log("button click : ");
+    //nav("/materialmanagement/receipt/customerjobwork/openclosedrvlist", {
+    //  state: { id: data.RvID },
+    //});
   };
 
   const selectRow = {

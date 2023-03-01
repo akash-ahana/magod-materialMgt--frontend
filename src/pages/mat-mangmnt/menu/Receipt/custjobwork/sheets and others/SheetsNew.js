@@ -1,15 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { formatDate } from "../../../../../../utils";
+import { toast } from "react-toastify";
+import CreateYesNoModal from "../../../../components/CreateYesNoModal";
+import { useNavigate } from "react-router-dom";
+import BootstrapTable from "react-bootstrap-table-next";
+
 const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
 
 function SheetsNew() {
+  const nav = useNavigate();
+  const [show, setShow] = useState(false);
+
   const currDate = new Date()
     .toJSON()
     .slice(0, 10)
     .split("-")
     .reverse()
     .join("/");
+
+  //initial disable
+  const [boolVal1, setBoolVal1] = useState(true);
+  //after clicking save button
+  const [boolVal2, setBoolVal2] = useState(false);
+
+  const [saveUpdateCount, setSaveUpdateCount] = useState(0);
 
   const [formHeader, setFormHeader] = useState({
     rvId: "",
@@ -22,15 +37,88 @@ function SheetsNew() {
     reference: "",
     weight: "0",
     calcWeight: "0",
-    type: "Parts",
+    type: "Sheets",
     address: "",
   });
+
   let [custdata, setCustdata] = useState([]);
   let [mtrlDetails, setMtrlDetails] = useState([]);
   let [locationData, setLocationData] = useState([]);
   let [para1Label, setPara1Label] = useState("Para 1");
   let [para2Label, setPara2Label] = useState("Para 2");
   let [para3Label, setPara3Label] = useState("Para 3");
+
+  const [partUniqueId, setPartUniqueId] = useState();
+  const [materialArray, setMaterialArray] = useState([]);
+  const [inputPart, setInputPart] = useState({
+    id: "",
+    rvId: "",
+    srl: "",
+    custCode: "",
+    mtrlCode: "",
+    material: "",
+    shapeMtrlId: "",
+    shapeID: "",
+    dynamicPara1: "",
+    dynamicPara2: "",
+    dynamicPara3: "",
+    qty: "",
+    inspected: "",
+    accepted: "",
+    totalWeightCalculated: "",
+    totalWeight: "",
+    locationNo: "",
+    upDated: "",
+    qtyAccepted: 0,
+    qtyReceived: 0,
+    qtyRejected: 0,
+    qtyUsed: 0,
+    qtyReturned: 0,
+  });
+
+  const columns = [
+    {
+      text: "#",
+      dataField: "id",
+      hidden: true,
+    },
+    {
+      text: "Srl",
+      dataField: "srl",
+    },
+    {
+      text: "Mtrl Code",
+      dataField: "mtrlCode",
+    },
+    {
+      text: para1Label,
+      dataField: "dynamicPara1",
+    },
+    {
+      text: para2Label,
+      dataField: "dynamicPara2",
+    },
+    {
+      text: para3Label,
+      dataField: "dynamicPara3",
+    },
+    {
+      text: "Qty",
+      dataField: "qty",
+    },
+    {
+      text: "Inspected",
+      dataField: "inspected",
+    },
+    {
+      text: "Location No",
+      dataField: "locationNo",
+    },
+    {
+      text: "Updated",
+      dataField: "updated",
+    },
+  ];
 
   async function fetchData() {
     getRequest(endpoints.getCustomers, (data) => {
@@ -104,6 +192,251 @@ function SheetsNew() {
     });
   };
 
+  //input header change event
+  const InputHeaderEvent = (e) => {
+    const { value, name } = e.target;
+    setFormHeader((preValue) => {
+      //console.log(preValue)
+      return {
+        ...preValue,
+        [name]: value,
+      };
+    });
+  };
+
+  const insertHeaderFunction = () => {
+    //to save data
+    postRequest(
+      endpoints.insertHeaderMaterialReceiptRegister,
+      formHeader,
+      (data) => {
+        //console.log("data = ", data);
+        if (data.affectedRows !== 0) {
+          setFormHeader((preValue) => {
+            return {
+              ...preValue,
+              rvId: data.insertId,
+            };
+          });
+          setSaveUpdateCount(saveUpdateCount + 1);
+          toast.success("Record Saved Successfully");
+          //enable part section and other 2 buttons
+          setBoolVal1(false);
+        } else {
+          toast.error("Record Not Inserted");
+        }
+      }
+    );
+  };
+
+  const updateHeaderFunction = () => {
+    //console.log("update formheader = ", formHeader);
+    postRequest(
+      endpoints.updateHeaderMaterialReceiptRegister,
+      formHeader,
+      (data) => {
+        //console.log("data = ", data);
+        if (data.affectedRows !== 0) {
+          setSaveUpdateCount(saveUpdateCount + 1);
+          toast.success("Record Updated Successfully");
+          //enable part section and other 2 buttons
+          setBoolVal1(false);
+        } else {
+          toast.error("Record Not Updated");
+        }
+      }
+    );
+  };
+
+  const saveButtonState = (e) => {
+    e.preventDefault();
+    if (formHeader.customer.length == 0) {
+      toast.error("Please Select Customer");
+    } else if (formHeader.reference.length == 0)
+      toast.error("Please Enter Customer Document Material Reference");
+    else {
+      if (saveUpdateCount == 0) {
+        insertHeaderFunction();
+        setBoolVal2(true);
+      } else {
+        //to update data
+        updateHeaderFunction();
+      }
+    }
+  };
+
+  const allotRVButtonState = (e) => {
+    e.preventDefault();
+
+    if (formHeader.weight == "0") {
+      toast.error(
+        "Enter the Customer Material Weight as per Customer Document"
+      );
+    } else {
+      //show model form
+      setShow(true);
+    }
+  };
+
+  const allotRVYesButton = (data) => {
+    //console.log("data = ", formHeader);
+    setFormHeader(data);
+    //console.log("formheader = ", formHeader);
+    //setBoolVal4(true);
+    //console.log("formheader = ", formHeader);
+  };
+
+  const deleteRVButtonState = () => {
+    postRequest(
+      endpoints.deleteHeaderMaterialReceiptRegisterAndDetails,
+      formHeader,
+      (data) => {
+        if (data.affectedRows !== 0) {
+          toast.success("Record is Deleted");
+          nav(
+            "/materialmanagement/receipt/customerjobwork/sheetsandothers/new",
+            {
+              replace: true,
+            }
+          );
+          window.location.reload();
+        }
+      }
+    );
+  };
+
+  let {
+    id,
+    srl,
+    mtrlCode,
+    dynamicPara1,
+    dynamicPara2,
+    dynamicPara3,
+    qty,
+    inspected,
+    locationNo,
+    upDated,
+  } = inputPart;
+
+  const addNewMaterial = (e) => {
+    //setBoolVal3(false);
+
+    //clear all part fields
+    inputPart.rvId = 71018; //formHeader.rvId;
+    inputPart.srl = "01";
+    inputPart.custCode = 2847; //formHeader.customer;
+    inputPart.mtrlCode = "";
+    inputPart.material = "";
+    inputPart.shapeMtrlId = 0;
+    inputPart.shapeID = 0;
+    inputPart.dynamicPara1 = 0.0;
+    inputPart.dynamicPara2 = 0.0;
+    inputPart.dynamicPara3 = 0.0;
+    inputPart.qty = 0.0;
+    inputPart.inspected = 0;
+    inputPart.accepted = 0.0;
+    inputPart.totalWeightCalculated = 0.0;
+    inputPart.totalWeight = 0.0;
+    inputPart.locationNo = "";
+    inputPart.upDated = 0.0;
+    inputPart.qtyAccepted = 0.0;
+    inputPart.qtyReceived = 0.0;
+    inputPart.qtyRejected = 0.0;
+    inputPart.qtyUsed = 0.0;
+    inputPart.qtyReturned = 0.0;
+
+    // console.log("partarray = ", partArray);
+
+    //insert blank row in table
+    postRequest(endpoints.insertMtrlReceiptDetails, inputPart, (data) => {
+      if (data.affectedRows !== 0) {
+        //toast.success("Record added");
+        let id = data.insertId;
+        inputPart.id = id;
+        inputPart.dynamicPara1 = "";
+        inputPart.dynamicPara2 = "";
+        inputPart.dynamicPara3 = "";
+
+        //count total record in material Array
+        let count = materialArray.length + 1;
+        srl = "0" + count;
+
+        //set inserted id
+        setPartUniqueId(id);
+
+        setMaterialArray([
+          ...materialArray,
+          {
+            id,
+            srl,
+            mtrlCode,
+            dynamicPara1,
+            dynamicPara2,
+            dynamicPara3,
+            qty,
+            inspected,
+            locationNo,
+            upDated,
+          },
+        ]);
+        //const newWeight = calcWeightVal + unitWeight * qtyReceived;
+        //setCalcWeightVal(parseFloat(newWeight).toFixed(2));
+
+        //let uniqueid = uuid();
+        // setPartUniqueId(id);
+        // let newRow = {
+        //   id: id,
+        //   partId: "",
+        //   unitWeight: "",
+        //   qtyReceived: "",
+        //   qtyAccepted: "",
+        //   qtyRejected: "",
+        // };
+        //setPartArray(newRow);
+        //setPartArray([...partArray, newRow]);
+        //setInputPart(inputPart);
+      } else {
+        toast.error("Record Not Inserted");
+      }
+    });
+
+    //console.log("after = ", partArray);
+  };
+
+  const changeMaterialHandle = (e) => {
+    const { value, name } = e.target;
+    setInputPart((preValue) => {
+      //console.log(preValue)
+      return {
+        ...preValue,
+        [name]: value,
+      };
+    });
+    inputPart[name] = value;
+    //inputPart.custCode = formHeader.customer;
+    //inputPart.rvId = formHeader.rvId;
+
+    setInputPart(inputPart);
+    // console.log(inputPart);
+    //update blank row with respected to modified part textfield
+    postRequest(endpoints.updateMtrlReceiptDetails, inputPart, (data) => {
+      if (data.affectedRows !== 0) {
+      } else {
+        toast.error("Record Not Updated");
+      }
+    });
+
+    const newArray = materialArray.map((p) =>
+      //p.id === "d28d67b2-6c32-4aae-a7b6-74dc985a3cff"
+      p.id === partUniqueId
+        ? {
+            ...p,
+            [name]: value,
+          }
+        : p
+    );
+    setMaterialArray(newArray);
+  };
   /* const getHeadings = () => {
     return Object.keys(data3[0]);
   };*/
@@ -118,6 +451,13 @@ function SheetsNew() {
   };*/
   return (
     <div>
+      <CreateYesNoModal
+        show={show}
+        setShow={setShow}
+        formHeader={formHeader}
+        allotRVYesButton={allotRVYesButton}
+      />
+
       <div>
         <h4 className="form-title">Material Receipt Voucher</h4>
         <hr className="horizontal-line" />
@@ -161,6 +501,7 @@ function SheetsNew() {
             <select
               className="ip-select"
               name="customer"
+              disabled={boolVal2}
               onChange={changeCustomer}
             >
               <option value="" disabled selected>
@@ -180,7 +521,7 @@ function SheetsNew() {
               name="weight"
               required
               value={formHeader.weight}
-              // onChange={InputHeaderEvent}
+              onChange={InputHeaderEvent}
             />
           </div>
         </div>
@@ -192,7 +533,7 @@ function SheetsNew() {
               type="text"
               name="reference"
               value={formHeader.reference}
-              // onChange={InputHeaderEvent}
+              onChange={InputHeaderEvent}
             />
           </div>
           <div className="col-md-4">
@@ -208,17 +549,26 @@ function SheetsNew() {
 
         <div className="row mt-4">
           <div className="col-md-8 justify-content-center">
-            <button className="button-style" style={{ width: "196px" }}>
+            <button
+              className="button-style"
+              style={{ width: "196px" }}
+              onClick={saveButtonState}
+            >
               Save
             </button>
             <button
               className="button-style"
               style={{ width: "196px" }}
               //onClick={getPop}
+              onClick={allotRVButtonState}
             >
               Allot RV No
             </button>
-            <button className="button-style" style={{ width: "196px" }}>
+            <button
+              className="button-style"
+              style={{ width: "196px" }}
+              onClick={deleteRVButtonState}
+            >
               Delete RV
             </button>
           </div>
@@ -234,17 +584,34 @@ function SheetsNew() {
         </div>
         <div className="row">
           <div className="col-md-6 col-sm-12">
-            <div
+            <div style={{ height: "330px", overflowY: "scroll" }}>
+              <BootstrapTable
+                keyField="id"
+                columns={columns}
+                data={materialArray}
+                striped
+                hover
+                condensed
+                //selectRow={selectRow}
+              ></BootstrapTable>
+            </div>
+
+            {/* <div
               className="table-data"
               style={{ height: "480px", overflowY: "scroll" }}
             >
-              {/* <Tables theadData={getHeadings()} tbodyData={data3} /> */}
-            </div>
+             <Tables theadData={getHeadings()} tbodyData={data3} />
+            </div> */}
           </div>
           <div className="col-md-6 col-sm-12">
             <div className="ip-box form-bg">
               <div className="row justify-content-center mt-2">
-                <button className="button-style " style={{ width: "260px" }}>
+                <button
+                  className="button-style "
+                  style={{ width: "260px" }}
+                  //onClick={addNewPart}
+                  onClick={addNewMaterial}
+                >
                   Add Serial
                 </button>
               </div>
@@ -294,7 +661,12 @@ function SheetsNew() {
                         <label className="">{para1Label}</label>
                       </div>
                       <div className="col-md-4 ">
-                        <input className="in-field" />
+                        <input
+                          className="in-field"
+                          name="dynamicPara1"
+                          value={inputPart.dynamicPara1}
+                          onChange={changeMaterialHandle}
+                        />
                       </div>
                     </div>
                     <div className="row">
@@ -302,7 +674,12 @@ function SheetsNew() {
                         <label className="">{para2Label}</label>
                       </div>
                       <div className="col-md-4 ">
-                        <input className="in-field" />
+                        <input
+                          className="in-field"
+                          name="dynamicPara2"
+                          value={inputPart.dynamicPara2}
+                          onChange={changeMaterialHandle}
+                        />
                       </div>
                     </div>
                     <div className="row">
@@ -310,7 +687,12 @@ function SheetsNew() {
                         <label className="">{para3Label}</label>
                       </div>
                       <div className="col-md-4 ">
-                        <input className="in-field" />
+                        <input
+                          className="in-field"
+                          name="dynamicPara3"
+                          value={inputPart.dynamicPara3}
+                          onChange={changeMaterialHandle}
+                        />
                       </div>
                     </div>
                     <div className="col-md-12 ">
@@ -320,7 +702,12 @@ function SheetsNew() {
                           <label className="">Received</label>
                         </div>
                         <div className="col-md-4 ">
-                          <input className="in-field" />
+                          <input
+                            className="in-field"
+                            name="qtyReceived"
+                            value={inputPart.qtyReceived}
+                            onChange={changeMaterialHandle}
+                          />
                         </div>
                         <div className="col-md-4">
                           <div
@@ -330,8 +717,10 @@ function SheetsNew() {
                             <input
                               className="form-check-input mt-2"
                               type="checkbox"
-                              value=""
                               id="flexCheckDefault"
+                              name="inspected"
+                              value={inputPart.inspected}
+                              onChange={changeMaterialHandle}
                             />
                              <label className="">Inspected</label>
                           </div>
@@ -342,7 +731,12 @@ function SheetsNew() {
                           <label className="">Accepted</label>
                         </div>
                         <div className="col-md-4 ">
-                          <input className="in-field" />
+                          <input
+                            className="in-field"
+                            name="qtyAccepted"
+                            value={inputPart.qtyAccepted}
+                            onChange={changeMaterialHandle}
+                          />
                         </div>
                         <div className="col-md-4">
                           <div
@@ -352,8 +746,10 @@ function SheetsNew() {
                             <input
                               className="form-check-input mt-2"
                               type="checkbox"
-                              value=""
                               id="flexCheckDefault"
+                              name="updated"
+                              value={inputPart.upDated}
+                              onChange={changeMaterialHandle}
                             />
                              <label className="">Updated</label>
                           </div>
@@ -365,7 +761,12 @@ function SheetsNew() {
                           <label className="">Wt Caluclated 2</label>
                         </div>
                         <div className="col-md-4 ">
-                          <input className="in-field" />
+                          <input
+                            className="in-field"
+                            name="totalWeightCalculated"
+                            value={inputPart.totalWeightCalculated}
+                            onChange={changeMaterialHandle}
+                          />
                         </div>
                       </div>
                       <div className="row">
@@ -373,7 +774,12 @@ function SheetsNew() {
                           <label className="">Weight</label>
                         </div>
                         <div className="col-md-4 ">
-                          <input className="in-field" />
+                          <input
+                            className="in-field"
+                            name="totalWeight"
+                            value={inputPart.totalWeight}
+                            onChange={changeMaterialHandle}
+                          />
                         </div>
                       </div>
                       <div className="row">
