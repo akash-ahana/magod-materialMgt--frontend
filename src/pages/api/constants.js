@@ -11,6 +11,7 @@ export const endpoints = {
   getMaterialLocationList: `${API}/materiallocationlist/allMaterialLocationList`,
   //mtrl data
   getMtrlData: `${API}/mtrlData/allmtrldata`,
+  getShapeByMtrlCode: `${API}/mtrlData/getShapeByMtrlCode`,
 
   getPartsCreatedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Created&type2=Parts`,
   getPartsOpenedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Received&type2=Parts`,
@@ -40,6 +41,7 @@ export const endpoints = {
   deletePartReceiptDetails: `${API}/mtrlPartReceiptDetails/deletePartReceiptDetails`,
 
   //Material Receipt Details
+  getMtrlReceiptDetailsByRvID: `${API}/mtrlReceiptDetails/getMtrlReceiptDetailsByRvID`,
   insertMtrlReceiptDetails: `${API}/mtrlReceiptDetails/insertMtrlReceiptDetails`,
   updateMtrlReceiptDetails: `${API}/mtrlReceiptDetails/updateMtrlReceiptDetails`,
 
