@@ -185,13 +185,13 @@ a {
   font-weight: 700;
 }
 
-.submenu_links {
-  /* border: 1px solid black; */
+/* .submenu_links {
+  border: 1px solid black;
   display: flex;
-  /* margin-left: 30px; */
+  margin-left: 30px;
   gap: 10px;
   text-decoration: none;
-}
+} */
 
 .submenu_ul {
   list-style: none;
@@ -291,24 +291,24 @@ label {
 .main-form {
   margin-left: 8px;
 }
-.submenu_link {
+/* .submenu_link {
   display: flex;
   color: #000000;
   gap: 10px;
   padding-left: -2px;
   border-right: 4px solid transparent;
-  transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
-  /* align-items: center; */
-  /* justify-content: space-around; */
-  /* border: 1px solid black; */
-}
-.submenu_link:hover {
-  /* border-right: 4px solid #000000; */
-  transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045); */
+/* align-items: center; */
+/* justify-content: space-around; */
+/* border: 1px solid black; */
+/* } */
+/* .submenu_link:hover { */
+/* border-right: 4px solid #000000; */
+/* transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
   background-color: #495579;
   text-decoration: none;
   width: 100%;
-}
+} */
 
 .css-4pdmu4-MuiBreadcrumbs-ol {
   margin-top: 18px !important;
@@ -367,4 +367,48 @@ td {
   .button-style {
     width: 100%;
   }
+}
+
+.submenu_links {
+  /* border: 1px solid black; */
+  /* display: flex; */
+  /* margin-left: 30px; */
+  /* text-decoration: none; */
+  gap: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  height: 35px;
+  text-decoration: none;
+  font-size: 13px;
+}
+.submenu_links:hover {
+  background: #707075;
+  /* border-left: 4px solid #707075; */
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.submenu_link {
+  display: flex;
+  color: #000000;
+  gap: 10px;
+  padding-left: -2px;
+  border-right: 4px solid transparent;
+  /* transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045); */
+  /* align-items: center; */
+  /* justify-content: space-around; */
+  /* border: 1px solid black; */
+}
+.submenu_link:hover {
+  background: #707075;
+  cursor: pointer;
+  color: #ffffff;
+  text-decoration: none;
+  /* width: 100%; */
+  /* border-right: 4px solid #000000; */
+  /* transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045); */
+  /* background-color: #495579; */
+  /* border-left: 4px solid #707075; */
 }
