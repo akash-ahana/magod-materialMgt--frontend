@@ -43,7 +43,7 @@ function PClosedRVList() {
   const openButtonClick = () => {
     //console.log("data = ", data);
     //console.log("button click : ");
-    nav("/materialmanagement/receipt/openbuttonclosedpartlist", {
+    nav("/materialmanagement/receipt/openbuttonreceivedclosedpartlist", {
       state: { id: data.RvID },
     });
     //<OpenClosedRVList />;

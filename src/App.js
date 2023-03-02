@@ -60,8 +60,8 @@ import ShopIssueIVListClosed from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVL
 import ShopIssueIVListIssued from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListService/ShopIssueIVListIssued";
 import IVListProfileCuttingClosed from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListProfileCutting/IVListProfileCuttingClosed";
 import IVListProfileCuttingCurrent from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListProfileCutting/IVListProfileCuttingCurrent";
-import OpenButtonClosedPartList from "./pages/mat-mangmnt/menu/Receipt/OpenButtonClosedPartList";
 import OpenButtonClosedSheetUnit from "./pages/mat-mangmnt/menu/Receipt/OpenButtonClosedSheetUnit";
+import OpenButtonReceivedClosedPartList from "./pages/mat-mangmnt/menu/Receipt/OpenButtonReceivedClosedPartList";
 
 function App() {
   return (
@@ -82,8 +82,8 @@ function App() {
             <Route path="receipt">
               <Route index={true} />
               <Route
-                path="openbuttonclosedpartlist"
-                element={<OpenButtonClosedPartList />}
+                path="openbuttonreceivedclosedpartlist"
+                element={<OpenButtonReceivedClosedPartList />}
               />
               <Route
                 path="openbuttonclosedsheetunit"
