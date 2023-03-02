@@ -16,6 +16,7 @@ export const endpoints = {
   getPartsCreatedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Created&type2=Parts`,
   getPartsOpenedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Received&type2=Parts`,
   getPartsClosedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Closed&type2=Parts`,
+  getPartsOpenedPurchaseMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Received&type2=Parts&type3=Purchase`,
   getPartsClosedPurchaseMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Closed&type2=Parts&type3=Purchase`,
 
   getUnitsCreatedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Created&type2=Units`,

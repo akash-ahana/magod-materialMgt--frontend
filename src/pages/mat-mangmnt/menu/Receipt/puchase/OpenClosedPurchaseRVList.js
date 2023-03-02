@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BootstrapTable from "react-bootstrap-table-next";
-import { formatDate } from "../../../../utils";
+import { formatDate } from "../../../../../utils";
 import { useLocation } from "react-router-dom";
 
-const { getRequest, postRequest } = require("../../../api/apiinstance");
-const { endpoints } = require("../../../api/constants");
+const { getRequest, postRequest } = require("../../../../api/apiinstance");
+const { endpoints } = require("../../../../api/constants");
 
-function OpenButtonClosedPartList() {
+function OpenClosedPurchaseRVList() {
   const location = useLocation();
 
-  //const nav = useNavigate();
-  //const [show, setShow] = useState(false);
+  const nav = useNavigate();
+  const [show, setShow] = useState(false);
 
-  // const currDate = new Date()
-  //   .toJSON()
-  //   .slice(0, 10)
-  //   .split("-")
-  //   .reverse()
-  //   .join("/");
+  const currDate = new Date()
+    .toJSON()
+    .slice(0, 10)
+    .split("-")
+    .reverse()
+    .join("/");
 
   //initial disable all
   const [boolVal, setBoolVal] = useState(true);
@@ -375,4 +375,4 @@ function OpenButtonClosedPartList() {
   );
 }
 
-export default OpenButtonClosedPartList;
+export default OpenClosedPurchaseRVList;

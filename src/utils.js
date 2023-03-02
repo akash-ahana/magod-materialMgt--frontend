@@ -81,3 +81,8 @@ export function formatDate(dateObj, format) {
     return curr_year;
   }
 }
+
+export function getVolume(mtrlCode, shape, para1, para2, para3) {
+  if (shape === "Sheet") {
+  }
+}
