@@ -5,7 +5,6 @@ import WithNav from "./Layout/WithNav";
 import Parentroute from "./Layout/Parentroute";
 import Login from "./pages/Auth/Login";
 import Home from "./pages/Home";
-
 import ShoopFloorreturns from "./pages/mat-mangmnt/menu/Shop Floor Returns/ShoopFloorreturns";
 import Reports from "./pages/mat-mangmnt/menu/Reports/Reports";
 import StoreManagement from "./pages/mat-mangmnt/menu/Store management/StoreManagement";
@@ -21,7 +20,6 @@ import ResizeSheets from "./pages/mat-mangmnt/menu/Store management/ResizeSheets
 import DailyReport from "./pages/mat-mangmnt/menu/Reports/DailyReport";
 import MonthlyReport from "./pages/mat-mangmnt/menu/Reports/MonthlyReport";
 import BranchTransfer from "./pages/mat-mangmnt/menu/Receipt/BranchTransfer";
-
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SheetsNew from "./pages/mat-mangmnt/menu/Receipt/custjobwork/sheets and others/SheetsNew";
@@ -75,7 +73,7 @@ function App() {
         <Route path="/home" element={<Home />} />
 
         <Route element={<WithNav />}>
-          <Route path="/materialmanagement" element={<Parentroute />}>
+          <Route path="/MaterialManagement" element={<Parentroute />}>
             <Route path="server" element={<Setup />}>
               <Route index={true} element={<Setup />} />
             </Route>
