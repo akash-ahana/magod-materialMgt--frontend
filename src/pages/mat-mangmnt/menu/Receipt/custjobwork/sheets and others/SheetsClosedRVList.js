@@ -42,9 +42,9 @@ function SheetsClosedRVList() {
   const openButtonClick = () => {
     //console.log("data = ", data);
     //console.log("button click : ");
-    //nav("/materialmanagement/receipt/customerjobwork/openclosedrvlist", {
-    //  state: { id: data.RvID },
-    //});
+    nav("/materialmanagement/receipt/openbuttonclosedsheetunit", {
+      state: { id: data.RvID },
+    });
   };
 
   const selectRow = {

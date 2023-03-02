@@ -40,7 +40,6 @@ import PNew from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/PNew";
 import PDraftRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/PDraftRVList";
 import POpenRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/POpenRVList";
 import PClosedRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/parts/PClosedRVList";
-import OpenClosedRVList from "./pages/mat-mangmnt/menu/Receipt/custjobwork/OpenClosedRVList";
 import PurOtherNew from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOtherNew";
 import PurOtherDraftRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOtherDraftRVList";
 import PurOtherOpenRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/others/PurOtherOpenRVList";
@@ -61,7 +60,8 @@ import ShopIssueIVListClosed from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVL
 import ShopIssueIVListIssued from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListService/ShopIssueIVListIssued";
 import IVListProfileCuttingClosed from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListProfileCutting/IVListProfileCuttingClosed";
 import IVListProfileCuttingCurrent from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListProfileCutting/IVListProfileCuttingCurrent";
-import OpenClosedPurchaseRVList from "./pages/mat-mangmnt/menu/Receipt/puchase/OpenClosedPurchaseRVList";
+import OpenButtonClosedPartList from "./pages/mat-mangmnt/menu/Receipt/OpenButtonClosedPartList";
+import OpenButtonClosedSheetUnit from "./pages/mat-mangmnt/menu/Receipt/OpenButtonClosedSheetUnit";
 
 function App() {
   return (
@@ -81,9 +81,16 @@ function App() {
 
             <Route path="receipt">
               <Route index={true} />
+              <Route
+                path="openbuttonclosedpartlist"
+                element={<OpenButtonClosedPartList />}
+              />
+              <Route
+                path="openbuttonclosedsheetunit"
+                element={<OpenButtonClosedSheetUnit />}
+              />
               <Route path="customerjobwork">
                 <Route index={true} />
-                <Route path="openclosedrvlist" element={<OpenClosedRVList />} />
                 <Route path="parts">
                   <Route index={true} />
                   <Route path="new" element={<PNew />} />
@@ -109,10 +116,6 @@ function App() {
               </Route>{" "}
               <Route path="purchase">
                 <Route index={true} />
-                <Route
-                  path="openclosedpurchaservlist"
-                  element={<OpenClosedPurchaseRVList />}
-                />
                 <Route path="others">
                   <Route index={true} />
                   <Route path="new" element={<PurOtherNew />} />

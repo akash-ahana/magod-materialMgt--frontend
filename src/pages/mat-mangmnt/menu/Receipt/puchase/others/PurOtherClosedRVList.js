@@ -43,9 +43,9 @@ function PurOtherClosedRVList() {
   const openButtonClick = () => {
     //console.log("data = ", data);
     //console.log("button click : ");
-    //nav("/materialmanagement/receipt/purchase/openclosedpurchaservlist", {
-    //  state: { id: data.RvID },
-    //});
+    nav("/materialmanagement/receipt/openbuttonclosedsheetunit", {
+      state: { id: data.RvID },
+    });
     //<OpenClosedRVList />;
   };
 
