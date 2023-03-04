@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { dateToShort } from "../../../../../../utils";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import { useNavigate } from "react-router-dom";
 const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
 
 function PDraftRVList() {
+  const nav = useNavigate();
+
   const [tabledata, setTableData] = useState([]);
   const [data, setData] = useState({
     CustDocuNo: "",
@@ -38,7 +41,10 @@ function PDraftRVList() {
 
   const openButtonClick = () => {
     //console.log("data = ", data);
-    console.log("button click : ");
+    //console.log("button click : ");
+    nav("/materialmanagement/receipt/openbuttondraftpartlist", {
+      state: { id: data.RvID },
+    });
   };
 
   const selectRow = {
