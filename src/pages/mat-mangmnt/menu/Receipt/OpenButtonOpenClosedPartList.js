@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 const { getRequest, postRequest } = require("../../../api/apiinstance");
 const { endpoints } = require("../../../api/constants");
 
-function OpenButtonReceivedClosedPartList() {
+function OpenButtonOpenClosedPartList() {
   const location = useLocation();
 
   //const nav = useNavigate();
@@ -375,4 +375,4 @@ function OpenButtonReceivedClosedPartList() {
   );
 }
 
-export default OpenButtonReceivedClosedPartList;
+export default OpenButtonOpenClosedPartList;
