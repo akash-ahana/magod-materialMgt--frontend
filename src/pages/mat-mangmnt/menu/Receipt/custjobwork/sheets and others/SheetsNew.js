@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { formatDate } from "../../../../../../utils";
+import { formatDate, getWeight } from "../../../../../../utils";
 import { toast } from "react-toastify";
 import CreateYesNoModal from "../../../../components/CreateYesNoModal";
 import { useNavigate } from "react-router-dom";
@@ -139,6 +139,16 @@ function SheetsNew() {
     {
       text: "Updated",
       dataField: "updated",
+      formatter: (celContent, row) => (
+        <div className="checkbox">
+          <lable>
+            <input
+              type="checkbox"
+              checked={inputPart.inspected === "1" ? true : false}
+            />
+          </lable>
+        </div>
+      ),
     },
   ];
 
@@ -193,15 +203,22 @@ function SheetsNew() {
           setPara1Label("Length");
           setPara2Label("Width");
           setPara3Label("Height");
+          setBoolPara1(false);
+          setBoolPara2(false);
+          setBoolPara3(false);
         } else if (material.Shape === "Plate") {
           setPara1Label("Length");
           setPara2Label("Width");
           setPara3Label("");
+          setBoolPara1(false);
+          setBoolPara2(false);
           setBoolPara3(true);
         } else if (material.Shape === "Sheet") {
           setPara1Label("Width");
           setPara2Label("Length");
           setPara3Label("");
+          setBoolPara1(false);
+          setBoolPara2(false);
           setBoolPara3(true);
         } else if (material.Shape === "Tiles") {
           setPara1Label("");
@@ -214,6 +231,7 @@ function SheetsNew() {
           setPara1Label("Length");
           setPara2Label("");
           setPara3Label("");
+          setBoolPara1(false);
           setBoolPara2(true);
           setBoolPara3(true);
         }
@@ -523,21 +541,9 @@ function SheetsNew() {
       }
     }
 
-    //calculate weight
-    if (name === "qtyAccepted") {
-      if (e.target.value) {
-      }
-    }
-
+    inputPart[name] = value;
     setInputPart(inputPart);
-    console.log(inputPart);
-    //update blank row with respected to modified part textfield
-    postRequest(endpoints.updateMtrlReceiptDetails, inputPart, (data) => {
-      if (data.affectedRows !== 0) {
-      } else {
-        toast.error("Record Not Updated");
-      }
-    });
+    //console.log(inputPart);
 
     const newArray = materialArray.map((p) =>
       //p.id === "d28d67b2-6c32-4aae-a7b6-74dc985a3cff"
@@ -551,19 +557,85 @@ function SheetsNew() {
         : p
     );
     setMaterialArray(newArray);
-  };
-  /* const getHeadings = () => {
-    return Object.keys(data3[0]);
-  };*/
 
-  /*const getPop = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      confirmButtonColor: "#3085d6",
-      confirmButtonText: "okay",
+    //calculate weight
+    if (name === "qtyAccepted") {
+      if (e.target.value) {
+        let val = e.target.value;
+        //get mtrl_data by mtrl_code
+        let url = endpoints.getRowByMtrlCode + "?code=" + inputPart.mtrlCode;
+        getRequest(url, (data) => {
+          //setCustdata(data);
+          let TotalWeightCalculated =
+            parseFloat(inputPart.qtyAccepted) *
+            getWeight(
+              data,
+              parseFloat(inputPart.dynamicPara1),
+              parseFloat(inputPart.dynamicPara2),
+              parseFloat(inputPart.dynamicPara3)
+            );
+          TotalWeightCalculated = TotalWeightCalculated / (1000 * 1000);
+          inputPart.totalWeightCalculated = parseFloat(
+            TotalWeightCalculated
+          ).toFixed(2);
+          inputPart.totalWeight = parseFloat(TotalWeightCalculated).toFixed(2);
+          inputPart["TotalWeightCalculated"] = TotalWeightCalculated;
+          inputPart["TotalWeight"] = TotalWeightCalculated;
+
+          formHeader.calcWeight = parseFloat(
+            parseFloat(formHeader.calcWeight) + TotalWeightCalculated
+          ).toFixed(2);
+          setInputPart(inputPart);
+          setFormHeader(formHeader);
+
+          //update forheader in database
+          postRequest(
+            endpoints.updateHeaderMaterialReceiptRegister,
+            formHeader,
+            (data) => {}
+          );
+        });
+        //inputPart[name] = value;
+        //setInputPart(inputPart);
+
+        //console.log("inputPart : ", inputPart);
+      }
+    }
+    //update blank row with respected to modified part textfield
+    postRequest(endpoints.updateMtrlReceiptDetails, inputPart, (data) => {
+      if (data.affectedRows !== 0) {
+      } else {
+        toast.error("Record Not Updated");
+      }
     });
-  };*/
+  };
+
+  const selectRow = {
+    mode: "radio",
+    clickToSelect: true,
+    bgColor: "#8A92F0",
+    onSelect: (row, isSelect, rowIndex, e) => {
+      setInputPart({
+        // id: row.id,
+        // partId: row.partId,
+        // unitWeight: row.unitWeight,
+        // qtyAccepted: row.qtyAccepted,
+        // qtyRejected: row.qtyRejected,
+        // qtyReceived: row.qtyReceived,
+        id: row.id,
+        srl: row.srl,
+        mtrlCode: row.mtrlCode,
+        dynamicPara1: row.dynamicPara1,
+        dynamicPara2: row.dynamicPara2,
+        dynamicPara3: row.dynamicPara3,
+        qty: row.qty,
+        inspected: row.inspected,
+        locationNo: row.locationNo,
+        upDated: row.upDated,
+      });
+    },
+  };
+
   return (
     <div>
       <CreateYesNoModal
@@ -658,7 +730,7 @@ function SheetsNew() {
             <input
               type="text"
               name="calculatedWeight"
-              // value={calcWeightVal}
+              value={formHeader.calcWeight}
               readOnly
             />
           </div>
@@ -710,7 +782,7 @@ function SheetsNew() {
                 striped
                 hover
                 condensed
-                //selectRow={selectRow}
+                selectRow={selectRow}
               ></BootstrapTable>
             </div>
 
@@ -735,10 +807,18 @@ function SheetsNew() {
                 </button>
               </div>
               <div className="row justify-content-center mt-2">
-                <button className="button-style " style={{ width: "120px" }}>
+                <button
+                  className="button-style "
+                  style={{ width: "120px" }}
+                  disabled={true}
+                >
                   Add to stock
                 </button>
-                <button className="button-style " style={{ width: "130px" }}>
+                <button
+                  className="button-style "
+                  style={{ width: "130px" }}
+                  disabled={true}
+                >
                   Remove stock
                 </button>
               </div>
@@ -878,7 +958,8 @@ function SheetsNew() {
                               id="flexCheckDefault"
                               name="updated"
                               value={inputPart.upDated}
-                              disabled={boolVal3 | boolVal4}
+                              //disabled={boolVal3 | boolVal4}
+                              disabled={true}
                               onChange={changeMaterialHandle}
                             />
                              <label className="">Updated</label>
@@ -920,7 +1001,7 @@ function SheetsNew() {
                         <div className="col-md-6" style={{ marginTop: "8px" }}>
                           <select
                             className="ip-select dropdown-field"
-                            onChange={changeLocation}
+                            onChange={changeMaterialHandle}
                             disabled={boolVal3 | boolVal4}
                             name="locationNo"
                           >

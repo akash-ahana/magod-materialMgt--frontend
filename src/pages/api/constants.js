@@ -11,7 +11,7 @@ export const endpoints = {
   getMaterialLocationList: `${API}/materiallocationlist/allMaterialLocationList`,
   //mtrl data
   getMtrlData: `${API}/mtrlData/allmtrldata`,
-  getShapeByMtrlCode: `${API}/mtrlData/getShapeByMtrlCode`,
+  getRowByMtrlCode: `${API}/mtrlData/getRowByMtrlCode`,
 
   getPartsCreatedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Created&type2=Parts`,
   getPartsOpenedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Received&type2=Parts`,
