@@ -60,7 +60,7 @@ function OpenButtonClosedSheetUnit() {
         //find shape of material
         for (let i = 0; i < data2.length; i++) {
           const url2 =
-            endpoints.getShapeByMtrlCode + "?code=" + data2[i].Mtrl_Code;
+            endpoints.getRowByMtrlCode + "?code=" + data2[i].Mtrl_Code;
           getRequest(url2, (data3) => {
             if (data3.Shape === "Block") {
               setPara1Label("Length");

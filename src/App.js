@@ -64,6 +64,7 @@ import OpenButtonClosedSheetUnit from "./pages/mat-mangmnt/menu/Receipt/OpenButt
 import OpenButtonOpenClosedPartList from "./pages/mat-mangmnt/menu/Receipt/OpenButtonOpenClosedPartList";
 import OpenButtonOpenSheetUnit from "./pages/mat-mangmnt/menu/Receipt/OpenButtonOpenSheetUnit";
 import OpenButtonDraftPartList from "./pages/mat-mangmnt/menu/Receipt/OpenButtonDraftPartList";
+import OpenButtonDraftSheetUnit from "./pages/mat-mangmnt/menu/Receipt/OpenButtonDraftSheetUnit";
 
 function App() {
   return (
@@ -90,6 +91,10 @@ function App() {
               <Route
                 path="openbuttondraftpartlist"
                 element={<OpenButtonDraftPartList />}
+              />
+              <Route
+                path="openbuttondraftsheetunit"
+                element={<OpenButtonDraftSheetUnit />}
               />
               <Route
                 path="openbuttonclosedsheetunit"

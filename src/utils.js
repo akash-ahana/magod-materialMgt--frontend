@@ -25,64 +25,127 @@ export function formatDate(dateObj, format) {
     "November",
     "December",
   ];
-  var curr_date = dateObj.getDate();
-  var curr_month = dateObj.getMonth();
-  curr_month = curr_month + 1;
-  var curr_year = dateObj.getFullYear();
-  var curr_min = dateObj.getMinutes();
-  var curr_hr = dateObj.getHours();
-  var curr_sc = dateObj.getSeconds();
-  if (curr_month.toString().length == 1) curr_month = "0" + curr_month;
-  if (curr_date.toString().length == 1) curr_date = "0" + curr_date;
-  if (curr_hr.toString().length == 1) curr_hr = "0" + curr_hr;
-  if (curr_min.toString().length == 1) curr_min = "0" + curr_min;
+  var currdate = dateObj.getDate();
+  var currmonth = dateObj.getMonth();
+  currmonth = currmonth + 1;
+  var curryear = dateObj.getFullYear();
+  var currmin = dateObj.getMinutes();
+  var currhr = dateObj.getHours();
+  var currsc = dateObj.getSeconds();
+  if (currmonth.toString().length == 1) currmonth = "0" + currmonth;
+  if (currdate.toString().length == 1) currdate = "0" + currdate;
+  if (currhr.toString().length == 1) currhr = "0" + currhr;
+  if (currmin.toString().length == 1) currmin = "0" + currmin;
 
   if (format == 1) {
     //dd-mm-yyyy
-    return curr_date + "-" + curr_month + "-" + curr_year;
+    return currdate + "-" + currmonth + "-" + curryear;
   } else if (format == 2) {
     //yyyy-mm-dd
-    return curr_year + "-" + curr_month + "-" + curr_date;
+    return curryear + "-" + currmonth + "-" + currdate;
   } else if (format == 3) {
     //dd/mm/yyyy
-    return curr_date + "/" + curr_month + "/" + curr_year;
+    return currdate + "/" + currmonth + "/" + curryear;
   } else if (format == 4) {
     // dd Month yyyy HH:mm:ss
     return (
-      curr_date +
+      currdate +
       " " +
-      monthNames[parseInt(curr_month - 1)] +
+      monthNames[parseInt(currmonth - 1)] +
       " " +
-      curr_year +
+      curryear +
       " " +
-      curr_hr +
+      currhr +
       ":" +
-      curr_min +
+      currmin +
       ":" +
-      curr_sc
+      currsc
     );
   } else if (format == 5) {
     // yyyy-mm-dd HH:mm:ss
     return (
-      curr_year +
+      curryear +
       "-" +
-      curr_month +
+      currmonth +
       "-" +
-      curr_date +
+      currdate +
       " " +
-      curr_hr +
+      currhr +
       ":" +
-      curr_min +
+      currmin +
       ":" +
-      curr_sc
+      currsc
     );
   } else if (format == 6) {
     //yyyy
-    return curr_year;
+    return curryear;
   }
 }
 
-export function getVolume(mtrlCode, shape, para1, para2, para3) {
+export function getWeight(obj, para1, para2, para3) {
+  //console.log(" getweight = ", obj);
+  let dblWeight = 0;
+  let dblVol = getVolume(obj, obj.Shape, para1, para2, para3);
+  //console.log(" dblVol = ", dblVol);
+  dblWeight = dblVol * obj.SpecificWt;
+  //dblWeight = dblVol * getDensity();
+  //console.log(" dblweight = ", dblWeight);
+  return dblWeight;
+}
+
+/*export function  getDensity(obj){
+    if (obj && obj.Mtrl_Code){
+      //check 
+      if obj.MaterialGrade.Specific_Wt > 0 Then
+      Return objMaterialGrade.Specific_Wt
+  Else
+      If objMaterial.SpecificWt > 0 Then
+          Return objMaterial.SpecificWt
+      Else
+          Return 0
+      End If
+  End If
+
+    }
+    else
+        return 0
+}*/
+
+export function getVolume(obj, shape, para1, para2, para3) {
+  let dblVol = 0;
   if (shape === "Sheet") {
+    //console.log("sheet = ", obj.StaticPara1, "  1 = ", para1, " 2 = ", para2);
+    dblVol = obj.StaticPara1 * para1 * para2;
+  } else if (shape === "Tiles") {
+    dblVol = obj.StaticPara1 * obj.StaticPara2 * obj.StaticPara3;
+  } else if (shape === "Tube Rectangle") {
+    dblVol =
+      para1 *
+      (obj.StaticPara1 * obj.StaticPara2 -
+        (obj.StaticPara1 - 2 * obj.StaticPara3) *
+          (obj.StaticPara2 - 2 * obj.StaticPara3));
+  } else if (shape === "Tube Square") {
+    dblVol =
+      para1 *
+      (obj.StaticPara1 * obj.StaticPara2 -
+        (obj.StaticPara1 - 2 * obj.StaticPara3) *
+          (obj.StaticPara2 - 2 * obj.StaticPara3));
+  } else if (shape === "Tube Round") {
+    dblVol =
+      Math.PI *
+      para1 *
+      (Math.Pow(obj.StaticPara1 / 2, 2) -
+        Math.Pow(obj.StaticPara1 / 2 - obj.StaticPara2, 2));
+  } else if (shape === "Plate") {
+    dblVol = obj.StaticPara1 * para1 * para2;
+  } else if (shape === "Strip") {
+    dblVol = obj.StaticPara1 * para1 * para2;
+  } else if (shape === "Block") {
+    dblVol = obj.StaticPara1 * para1 * para2;
+  } else if (shape === "Cylinder") {
+    dblVol = 0;
+  } else {
+    dblVol = 0;
   }
+  return dblVol;
 }

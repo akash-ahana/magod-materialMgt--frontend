@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { formatDate, getWeight } from "../../../../../../utils";
+import { formatDate, getWeight } from "../../../../utils";
 import { toast } from "react-toastify";
-import CreateYesNoModal from "../../../../components/CreateYesNoModal";
+import CreateYesNoModal from "../../components/CreateYesNoModal";
 import { useNavigate } from "react-router-dom";
 import BootstrapTable from "react-bootstrap-table-next";
+import { useLocation } from "react-router-dom";
 
-const { getRequest, postRequest } = require("../../../../../api/apiinstance");
-const { endpoints } = require("../../../../../api/constants");
+const { getRequest, postRequest } = require("../../../api/apiinstance");
+const { endpoints } = require("../../../api/constants");
 
-function PurchaseGasNew() {
+function OpenButtonDraftSheetUnit() {
+  const location = useLocation();
+
   const nav = useNavigate();
   const [show, setShow] = useState(false);
 
@@ -40,18 +43,20 @@ function PurchaseGasNew() {
 
   const [formHeader, setFormHeader] = useState({
     rvId: "",
-    receiptDate: formatDate(new Date(), 4), //currDate, //.split("/").reverse().join("-"),
-    rvNo: "Draft",
-    rvDate: currDate, //.split("/").reverse().join("-"),
-    status: "Created",
+    receiptDate: "", //currDate, //.split("/").reverse().join("-"),
+    rvNo: "",
+    rvDate: "", //.split("/").reverse().join("-"),
+    status: "",
     customer: "",
     customerName: "",
     reference: "",
-    weight: "0",
-    calcWeight: "0",
-    type: "Sheets",
+    weight: "",
+    calcWeight: "",
+    type: "",
     address: "",
   });
+
+  //const [mtrlArray, setMtrlArray] = useState([]);
 
   let [custdata, setCustdata] = useState([]);
   let [mtrlDetails, setMtrlDetails] = useState([]);
@@ -143,7 +148,107 @@ function PurchaseGasNew() {
   ];
 
   async function fetchData() {
-    getRequest(endpoints.getCustomers, (data) => {
+    const url =
+      endpoints.getByTypeMaterialReceiptRegisterByRvID +
+      "?id=" +
+      location.state.id;
+    getRequest(url, (data) => {
+      formHeader.rvId = data.RvID;
+      formHeader.receiptDate = formatDate(new Date(data.ReceiptDate), 4);
+      formHeader.rvNo = data.RV_No;
+      formHeader.rvDate = formatDate(new Date(data.RV_Date), 3);
+      formHeader.status = data.RVStatus;
+      formHeader.customer = data.Cust_Code;
+      formHeader.customerName = data.Customer;
+      formHeader.reference = data.CustDocuNo;
+      formHeader.weight = data.TotalWeight;
+      formHeader.calcWeight = data.TotalCalculatedWeight;
+      formHeader.type = data.Type;
+
+      //console.log("data = ", data);
+      //data.ReceiptDate = formatDate(new Date(data.ReceiptDate), 4);
+      //data.RV_Date = formatDate(new Date(data.RV_Date), 3);
+      //setFormHeader(formHeader);
+
+      //get customer details for address
+      getRequest(endpoints.getCustomers, (data1) => {
+        const found = data1.find((obj) => obj.Cust_Code === data.Cust_Code);
+        data.address = found.Address;
+        setFormHeader(formHeader);
+      });
+      //get material details
+      const url1 =
+        endpoints.getMtrlReceiptDetailsByRvID + "?id=" + location.state.id;
+      getRequest(url1, (data2) => {
+        //console.log("data2  = ", data2);
+        data2.forEach((obj) => {
+          obj.id = obj.Mtrl_Rv_id;
+          obj.rvId = obj.RvID;
+          obj.srl = obj.Srl;
+          obj.custCode = obj.Cust_Code;
+          obj.mtrlCode = obj.Mtrl_Code;
+          obj.material = obj.Material;
+          obj.shapeMtrlId = obj.ShapeMtrlID;
+          obj.shapeID = obj.ShapeID;
+          obj.dynamicPara1 = obj.DynamicPara1;
+          obj.dynamicPara2 = obj.DynamicPara1;
+          obj.dynamicPara3 = obj.DynamicPara1;
+          obj.qty = obj.Qty;
+          obj.inspected = obj.Inspected;
+          obj.accepted = obj.Accepted;
+          obj.totalWeightCalculated = obj.TotalWeightCalculated;
+          obj.totalWeight = obj.TotalWeight;
+          obj.locationNo = obj.LocationNo;
+          obj.upDated = obj.UpDated;
+          obj.qtyAccepted = obj.QtyAccepted;
+          obj.qtyReceived = obj.QtyReceived;
+          obj.qtyRejected = obj.QtyRejected;
+          obj.qtyUsed = obj.QtyUsed;
+          obj.qtyReturned = obj.QtyReturned;
+        });
+        console.log("data 2 = ", data2);
+        setMaterialArray(data2);
+
+        //find shape of material
+        for (let i = 0; i < data2.length; i++) {
+          const url2 =
+            endpoints.getRowByMtrlCode + "?code=" + data2[i].Mtrl_Code;
+          getRequest(url2, (data3) => {
+            if (data3.Shape === "Block") {
+              setPara1Label("Length");
+              setPara2Label("Width");
+              setPara3Label("Height");
+            } else if (data3.Shape === "Plate") {
+              setPara1Label("Length");
+              setPara2Label("Width");
+              setPara3Label("");
+            } else if (data3.Shape === "Sheet") {
+              setPara1Label("Width");
+              setPara2Label("Length");
+              setPara3Label("");
+            } else if (data3.Shape === "Tiles") {
+              setPara1Label("");
+              setPara2Label("");
+              setPara3Label("");
+            } else if (data3.Shape.includes("Tube")) {
+              setPara1Label("Length");
+              setPara2Label("");
+              setPara3Label("");
+            } else if (data3.Shape.includes("Units")) {
+              setPara1Label("Qty(Nos)");
+              setPara2Label("");
+              setPara3Label("");
+            }
+          });
+        }
+
+        //setFormHeader(formHeader);
+        //console.log(data2);
+      });
+    });
+    //console.log("data = ", formHeader);
+
+    /*getRequest(endpoints.getCustomers, (data) => {
       setCustdata(data);
     });
     getRequest(endpoints.getMaterialLocationList, (data) => {
@@ -151,7 +256,7 @@ function PurchaseGasNew() {
     });
     getRequest(endpoints.getMtrlData, (data) => {
       setMtrlDetails(data);
-    });
+    });*/
     //console.log("data = ", custdata);
   }
 
@@ -160,7 +265,7 @@ function PurchaseGasNew() {
     //setPartArray(partArray);
   }, []); //[inputPart]);
 
-  let changeCustomer = async (e) => {
+  /*  let changeCustomer = async (e) => {
     e.preventDefault();
     const { value, name } = e.target;
 
@@ -182,20 +287,14 @@ function PurchaseGasNew() {
     //   const foundPart = data.filter((obj) => obj.Cust_code == value);
     //   setMtrlDetails(foundPart);
     // });
-  };
+  };*/
   let changeMtrl = async (e) => {
     e.preventDefault();
     const { value, name } = e.target;
     //console.log("value = ", value);
     mtrlDetails.map((material) => {
       if (material.Mtrl_Code === value) {
-        if (material.Shape === "Units") {
-          setPara1Label("Qty (Nos)");
-          setPara2Label("");
-          setPara3Label("");
-          setBoolPara2(true);
-          setBoolPara3(true);
-        } else if (material.Shape === "Block") {
+        if (material.Shape === "Block") {
           setPara1Label("Length");
           setPara2Label("Width");
           setPara3Label("Height");
@@ -634,17 +733,12 @@ function PurchaseGasNew() {
             <select
               className="ip-select"
               name="customer"
-              disabled={boolVal2}
-              onChange={changeCustomer}
+              disabled={true}
+              //onChange={changeCustomer}
             >
-              <option value="" disabled selected>
-                Select Customer
+              <option value={formHeader.customer} disabled selected>
+                {formHeader.customerName}
               </option>
-              {custdata.map((customer, index) => (
-                <option key={index} value={customer.Cust_Code}>
-                  {customer.Cust_name}
-                </option>
-              ))}
             </select>
           </div>
           <div className="col-md-4">
@@ -694,7 +788,7 @@ function PurchaseGasNew() {
             <button
               className="button-style"
               style={{ width: "196px" }}
-              disabled={boolVal1}
+              //disabled={boolVal1}
               onClick={allotRVButtonState}
             >
               Allot RV No
@@ -702,7 +796,7 @@ function PurchaseGasNew() {
             <button
               className="button-style"
               style={{ width: "196px" }}
-              disabled={boolVal1}
+              //disabled={boolVal1}
               onClick={deleteRVButtonState}
             >
               Delete RV
@@ -746,7 +840,7 @@ function PurchaseGasNew() {
                   className="button-style "
                   style={{ width: "260px" }}
                   //onClick={addNewPart}
-                  disabled={boolVal1 | boolVal4}
+                  disabled={boolVal4}
                   onClick={addNewMaterial}
                 >
                   Add Serial
@@ -788,8 +882,8 @@ function PurchaseGasNew() {
                             Select Material
                           </option>
                           {mtrlDetails.map((material, index) =>
-                            //(material.Shape !== "Units") &
-                            //(material.Shape !== "Cylinder") &
+                            (material.Shape !== "Units") &
+                            (material.Shape !== "Cylinder") &
                             (material.Shape !== null) &
                             (material.Mtrl_Code !== "") ? (
                               <option key={index} value={material.Mtrl_Code}>
@@ -987,4 +1081,4 @@ function PurchaseGasNew() {
   );
 }
 
-export default PurchaseGasNew;
+export default OpenButtonDraftSheetUnit;
