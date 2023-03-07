@@ -134,15 +134,35 @@ function OpenButtonClosedSheetUnit() {
     },
     {
       text: "Inspected",
-      dataField: "Inspected",
+      dataField: "inspected",
+      formatter: (celContent, row) => (
+        console.log("inspected cell = ", celContent),
+        (
+          <div className="checkbox">
+            <lable>
+              <input type="checkbox" checked={celContent == 1 ? true : false} />
+            </lable>
+          </div>
+        )
+      ),
     },
     {
       text: "Location No",
-      dataField: "LocationNo",
+      dataField: "locationNo",
     },
     {
       text: "Updated",
-      dataField: "UpDated",
+      dataField: "updated",
+      formatter: (celContent, row) => (
+        <div className="checkbox">
+          <lable>
+            <input
+              type="checkbox"
+              checked={row.Inspected == 1 ? true : false}
+            />
+          </lable>
+        </div>
+      ),
     },
   ];
 
