@@ -13,7 +13,7 @@ const { endpoints } = require("../../../../../api/constants");
 function PNew() {
   const nav = useNavigate();
   const [show, setShow] = useState(false);
-
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
   const currDate = new Date()
     .toJSON()
     .slice(0, 10)
@@ -363,25 +363,19 @@ function PNew() {
     }
   };
 
-  const allotRVYesButton = (data) => {
-    console.log("data = ", formHeader);
+  const allotRVYesButton = async (data) => {
+    await delay(500);
     setFormHeader(data);
-    console.log("formheader = ", formHeader);
     setBoolVal4(true);
-    console.log("formheader = ", formHeader);
-    //formHeader = data;
-    //formHeader.rvNo = data.rvNo;
-    //setFormHeader(formHeader);
-
-    /*setFormHeader((preValue) => {
-      return {
-        ...preValue,
-        rvNo: data.rvNo,
-      };
-    });*/
-
-    //console.log("formHeader = ", formHeader);
   };
+
+  // const allotRVYesButton = (data) => {
+  //   console.log("data = ", formHeader);
+  //   setFormHeader(data);
+  //   console.log("formheader = ", formHeader);
+  //   setBoolVal4(true);
+  //   console.log("formheader = ", formHeader);
+  // };
 
   const deleteRVButtonState = () => {
     postRequest(
