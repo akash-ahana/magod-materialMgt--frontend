@@ -7,11 +7,14 @@ import { useLocation } from "react-router-dom";
 const { getRequest, postRequest } = require("../../../api/apiinstance");
 const { endpoints } = require("../../../api/constants");
 
-function OpenButtonClosedSheetUnit() {
+function OpenButtonOpenSheetUnit() {
   const location = useLocation();
 
   //initial disable all
   const [boolVal, setBoolVal] = useState(true);
+
+  //alter enable add and remove stock
+  const [boolVal2, setBoolVal2] = useState(true);
 
   const [mtrlArray, setMtrlArray] = useState([]);
   const [para1Label, setPara1Label] = useState("");
@@ -102,6 +105,14 @@ function OpenButtonClosedSheetUnit() {
     //formHeader.ReceiptDate = formatDate(new Date(), 4);
   }, []);
 
+  const addToStock = () => {
+    setBoolVal2(true);
+  };
+
+  const removeStock = () => {
+    setBoolVal2(false);
+  };
+
   const columns = [
     {
       text: "#",
@@ -134,35 +145,15 @@ function OpenButtonClosedSheetUnit() {
     },
     {
       text: "Inspected",
-      dataField: "inspected",
-      formatter: (celContent, row) => (
-        console.log("inspected cell = ", celContent),
-        (
-          <div className="checkbox">
-            <lable>
-              <input type="checkbox" checked={celContent == 1 ? true : false} />
-            </lable>
-          </div>
-        )
-      ),
+      dataField: "Inspected",
     },
     {
       text: "Location No",
-      dataField: "locationNo",
+      dataField: "LocationNo",
     },
     {
       text: "Updated",
-      dataField: "updated",
-      formatter: (celContent, row) => (
-        <div className="checkbox">
-          <lable>
-            <input
-              type="checkbox"
-              checked={row.Inspected == 1 ? true : false}
-            />
-          </lable>
-        </div>
-      ),
+      dataField: "UpDated",
     },
   ];
 
@@ -333,14 +324,16 @@ function OpenButtonClosedSheetUnit() {
                 <button
                   className="button-style "
                   style={{ width: "120px" }}
-                  disabled={boolVal}
+                  disabled={boolVal2}
+                  onClick={addToStock}
                 >
                   Add to stock
                 </button>
                 <button
                   className="button-style "
                   style={{ width: "130px" }}
-                  disabled={boolVal}
+                  disabled={!boolVal2}
+                  onClick={removeStock}
                 >
                   Remove stock
                 </button>
@@ -493,4 +486,4 @@ function OpenButtonClosedSheetUnit() {
   );
 }
 
-export default OpenButtonClosedSheetUnit;
+export default OpenButtonOpenSheetUnit;

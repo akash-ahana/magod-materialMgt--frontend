@@ -60,8 +60,11 @@ import ShopIssueIVListClosed from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVL
 import ShopIssueIVListIssued from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListService/ShopIssueIVListIssued";
 import IVListProfileCuttingClosed from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListProfileCutting/IVListProfileCuttingClosed";
 import IVListProfileCuttingCurrent from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListProfileCutting/IVListProfileCuttingCurrent";
-import OpenButtonClosedPartList from "./pages/mat-mangmnt/menu/Receipt/OpenButtonClosedPartList";
 import OpenButtonClosedSheetUnit from "./pages/mat-mangmnt/menu/Receipt/OpenButtonClosedSheetUnit";
+import OpenButtonOpenClosedPartList from "./pages/mat-mangmnt/menu/Receipt/OpenButtonOpenClosedPartList";
+import OpenButtonOpenSheetUnit from "./pages/mat-mangmnt/menu/Receipt/OpenButtonOpenSheetUnit";
+import OpenButtonDraftPartList from "./pages/mat-mangmnt/menu/Receipt/OpenButtonDraftPartList";
+import OpenButtonDraftSheetUnit from "./pages/mat-mangmnt/menu/Receipt/OpenButtonDraftSheetUnit";
 
 function App() {
   return (
@@ -82,12 +85,24 @@ function App() {
             <Route path="receipt">
               <Route index={true} />
               <Route
-                path="openbuttonclosedpartlist"
-                element={<OpenButtonClosedPartList />}
+                path="openbuttonopenclosedpartlist"
+                element={<OpenButtonOpenClosedPartList />}
+              />
+              <Route
+                path="openbuttondraftpartlist"
+                element={<OpenButtonDraftPartList />}
+              />
+              <Route
+                path="openbuttondraftsheetunit"
+                element={<OpenButtonDraftSheetUnit />}
               />
               <Route
                 path="openbuttonclosedsheetunit"
                 element={<OpenButtonClosedSheetUnit />}
+              />
+              <Route
+                path="openbuttonopensheetunit"
+                element={<OpenButtonOpenSheetUnit />}
               />
               <Route path="customerjobwork">
                 <Route index={true} />

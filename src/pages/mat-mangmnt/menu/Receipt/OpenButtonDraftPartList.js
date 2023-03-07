@@ -2,18 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { toast } from "react-toastify";
-import CreateYesNoModal from "../../../../components/CreateYesNoModal";
 import BootstrapTable from "react-bootstrap-table-next";
 import Table from "react-bootstrap/Table";
-import { formatDate } from "../../../../../../utils";
+import CreateYesNoModal from "../../components/CreateYesNoModal";
+import { formatDate } from "../../../../utils";
+import { useLocation } from "react-router-dom";
 
-const { getRequest, postRequest } = require("../../../../../api/apiinstance");
-const { endpoints } = require("../../../../../api/constants");
+const { getRequest, postRequest } = require("../../../api/apiinstance");
+const { endpoints } = require("../../../api/constants");
 
-function PNew() {
+function OpenButtonDraftPartList() {
+  const location = useLocation();
+
   const nav = useNavigate();
   const [show, setShow] = useState(false);
-  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+
   const currDate = new Date()
     .toJSON()
     .slice(0, 10)
@@ -53,32 +56,83 @@ function PNew() {
 
   let [formHeader, setFormHeader] = useState({
     rvId: "",
-    receiptDate: formatDate(new Date(), 4), //currDate, //.split("/").reverse().join("-"),
-    rvNo: "Draft",
-    rvDate: currDate, //.split("/").reverse().join("-"),
-    status: "Created",
+    receiptDate: "", //formatDate(new Date(), 4), //currDate, //.split("/").reverse().join("-"),
+    rvNo: "", //"Draft",
+    rvDate: "", //currDate, //.split("/").reverse().join("-"),
+    status: "", //"Created",
     customer: "",
     customerName: "",
     reference: "",
-    weight: "0",
-    calcWeight: "0",
-    type: "Parts",
+    weight: "",
+    calcWeight: "",
+    type: "", //"Parts",
     address: "",
   });
 
-  async function fetchCustData() {
-    getRequest(endpoints.getCustomers, (data) => {
-      setCustdata(data);
+  async function fetchData() {
+    const url =
+      endpoints.getByTypeMaterialReceiptRegisterByRvID +
+      "?id=" +
+      location.state.id;
+    getRequest(url, (data) => {
+      //console.log("data = ", data);
+      formHeader.rvId = data.RvID;
+      formHeader.receiptDate = formatDate(new Date(data.ReceiptDate), 4);
+      formHeader.rvNo = data.RV_No;
+      formHeader.rvDate = formatDate(new Date(data.RV_Date), 3);
+      formHeader.status = data.RVStatus;
+      formHeader.customer = data.Cust_Code;
+      formHeader.customerName = data.Customer;
+      formHeader.reference = data.CustDocuNo;
+      formHeader.weight = data.TotalWeight;
+      formHeader.calcWeight = data.TotalCalculatedWeight;
+      formHeader.type = data.Type;
+
+      //data.ReceiptDate = formatDate(new Date(data.ReceiptDate), 4);
+      //data.RV_Date = formatDate(new Date(data.RV_Date), 3);
+      //setFormHeader(data);
+
+      //get customer details for address
+      getRequest(endpoints.getCustomers, (data1) => {
+        const found = data1.find((obj) => obj.Cust_Code === data.Cust_Code);
+        data.address = found.Address;
+        setFormHeader(formHeader);
+
+        //get part details
+        const url1 =
+          endpoints.getPartReceiptDetailsByRvID + "?id=" + location.state.id;
+        getRequest(url1, (data2) => {
+          data2.forEach((obj) => {
+            obj["id"] = obj["Id"];
+            obj["partId"] = obj["PartId"];
+            obj["unitWeight"] = obj["UnitWt"];
+            obj["qtyReceived"] = obj["QtyReceived"];
+            obj["qtyAccepted"] = obj["QtyAccepted"];
+            obj["qtyRejected"] = obj["QtyRejected"];
+          });
+          setPartArray(data2);
+          //setFormHeader(formHeader);
+          //console.log(data2);
+        });
+      });
+
+      //fetch part names from bomlist
+      getRequest(endpoints.getCustBomList, (data3) => {
+        const foundPart = data3.filter(
+          (obj) => obj.Cust_code == data.Cust_Code
+        );
+        setMtrlDetails(foundPart);
+      });
     });
     //console.log("data = ", custdata);
   }
 
   useEffect(() => {
-    fetchCustData();
+    fetchData();
     //setPartArray(partArray);
   }, []); //[inputPart]);
 
-  let changeCustomer = async (e) => {
+  /*  let changeCustomer = async (e) => {
     e.preventDefault();
     const { value, name } = e.target;
 
@@ -103,7 +157,7 @@ function PNew() {
       const foundPart = data.filter((obj) => obj.Cust_code == value);
       setMtrlDetails(foundPart);
     });
-  };
+  };*/
 
   const columns = [
     {
@@ -168,6 +222,7 @@ function PNew() {
           }
         : p
     );
+    //console.log(newArray);
     setPartArray(newArray);
 
     let totwt = 0;
@@ -266,6 +321,7 @@ function PNew() {
     clickToSelect: true,
     bgColor: "#8A92F0",
     onSelect: (row, isSelect, rowIndex, e) => {
+      setPartUniqueId(row.id);
       setInputPart({
         id: row.id,
         partId: row.partId,
@@ -340,13 +396,13 @@ function PNew() {
     } else if (formHeader.reference.length == 0)
       toast.error("Please Enter Customer Document Material Reference");
     else {
-      if (saveUpdateCount == 0) {
+      /*if (saveUpdateCount == 0) {
         insertHeaderFunction();
         setBoolVal2(true);
-      } else {
-        //to update data
-        updateHeaderFunction();
-      }
+      } else {*/
+      //to update data
+      updateHeaderFunction();
+      //}
     }
   };
 
@@ -363,19 +419,25 @@ function PNew() {
     }
   };
 
-  const allotRVYesButton = async (data) => {
-    await delay(500);
+  const allotRVYesButton = (data) => {
+    console.log("data = ", formHeader);
     setFormHeader(data);
+    console.log("formheader = ", formHeader);
     setBoolVal4(true);
-  };
+    console.log("formheader = ", formHeader);
+    //formHeader = data;
+    //formHeader.rvNo = data.rvNo;
+    //setFormHeader(formHeader);
 
-  // const allotRVYesButton = (data) => {
-  //   console.log("data = ", formHeader);
-  //   setFormHeader(data);
-  //   console.log("formheader = ", formHeader);
-  //   setBoolVal4(true);
-  //   console.log("formheader = ", formHeader);
-  // };
+    /*setFormHeader((preValue) => {
+      return {
+        ...preValue,
+        rvNo: data.rvNo,
+      };
+    });*/
+
+    //console.log("formHeader = ", formHeader);
+  };
 
   const deleteRVButtonState = () => {
     postRequest(
@@ -443,17 +505,12 @@ function PNew() {
             <select
               className="ip-select"
               name="customer"
-              onChange={changeCustomer}
-              disabled={boolVal2}
+              //onChange={changeCustomer}
+              disabled={boolVal1}
             >
-              <option value="" disabled selected>
-                Select Customer
+              <option value={formHeader.customer} disabled selected>
+                {formHeader.customerName}
               </option>
-              {custdata.map((customer, index) => (
-                <option key={index} value={customer.Cust_Code}>
-                  {customer.Cust_name}
-                </option>
-              ))}
             </select>
           </div>
           <div className="col-md-4">
@@ -502,7 +559,7 @@ function PNew() {
             <button
               className="button-style"
               style={{ width: "196px" }}
-              disabled={boolVal1}
+              //disabled={boolVal1}
               onClick={allotRVButtonState}
             >
               Allot RV No
@@ -510,7 +567,7 @@ function PNew() {
             <button
               className="button-style"
               style={{ width: "196px" }}
-              disabled={boolVal1}
+              //disabled={boolVal1}
               onClick={deleteRVButtonState}
             >
               Delete RV
@@ -588,7 +645,8 @@ function PNew() {
                         className="button-style "
                         style={{ width: "120px" }}
                         onClick={addNewPart}
-                        disabled={boolVal1 | boolVal4}
+                        //disabled={boolVal1 | boolVal4}
+                        disabled={boolVal4}
                       >
                         Add New
                       </button>
@@ -603,7 +661,7 @@ function PNew() {
                           name="partId"
                           value={inputPart.partId}
                           onChange={changePartHandle}
-                          disabled={boolVal3 | boolVal4}
+                          disabled={boolVal4}
                         >
                           {mtrlDetails.map((part, index) => (
                             <option key={index} value={part.PartId}>
@@ -625,7 +683,7 @@ function PNew() {
                           value={inputPart.unitWeight}
                           onChange={changePartHandle}
                           //onKeyUp={changePartHandle1}
-                          disabled={boolVal3 | boolVal4}
+                          disabled={boolVal4}
                         />
                       </div>
                     </div>
@@ -641,7 +699,7 @@ function PNew() {
                           //value={tempVal}
                           value={inputPart.qtyReceived}
                           onChange={changePartHandle}
-                          disabled={boolVal3 | boolVal4}
+                          disabled={boolVal4}
                         />
                       </div>
                     </div>
@@ -656,7 +714,7 @@ function PNew() {
                           name="qtyAccepted"
                           value={inputPart.qtyAccepted}
                           onChange={changePartHandle}
-                          disabled={boolVal3 | boolVal4}
+                          disabled={boolVal4}
                         />
                       </div>
                     </div>
@@ -681,7 +739,7 @@ function PNew() {
               <button
                 className="button-style "
                 style={{ width: "120px" }}
-                disabled={boolVal3 | boolVal4}
+                disabled={boolVal4}
                 onClick={handleDelete}
               >
                 Delete
@@ -694,4 +752,4 @@ function PNew() {
   );
 }
 
-export default PNew;
+export default OpenButtonDraftPartList;

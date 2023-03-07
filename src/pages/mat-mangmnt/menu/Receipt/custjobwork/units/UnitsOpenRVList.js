@@ -3,10 +3,13 @@ import "../../../MatMenu.css";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { dateToShort } from "../../../../../../utils";
+import { useNavigate } from "react-router-dom";
+
 const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
 
 function UnitsOpenRVList() {
+  const nav = useNavigate();
   const [tabledata, setTableData] = useState([]);
   const [data, setData] = useState({
     CustDocuNo: "",
@@ -39,7 +42,10 @@ function UnitsOpenRVList() {
 
   const openButtonClick = () => {
     //console.log("data = ", data);
-    console.log("button click : ");
+    nav("/materialmanagement/receipt/openbuttonopensheetunit", {
+      state: { id: data.RvID },
+    });
+    //console.log("button click : ");
   };
 
   const selectRow = {
@@ -88,7 +94,10 @@ function UnitsOpenRVList() {
         <h4 className="form-title">Customer : Units Receipt List Received</h4>
         <hr className="horizontal-line" />
         <div className="row">
-          <div className="col-md-6 col-sm-12">
+          <div
+            style={{ height: "420px", overflowY: "scroll" }}
+            className="col-md-6 col-sm-12"
+          >
             {/* <BootstrapTable keyField="id" data={products} columns={columns} /> */}
             <BootstrapTable
               keyField="RvID"
@@ -98,7 +107,7 @@ function UnitsOpenRVList() {
               striped
               hover
               condensed
-              pagination={paginationFactory()}
+              //pagination={paginationFactory()}
               selectRow={selectRow}
             ></BootstrapTable>
           </div>
