@@ -782,13 +782,14 @@ function OpenButtonDraftSheetUnit() {
               className="button-style"
               style={{ width: "196px" }}
               onClick={saveButtonState}
+              disabled={boolVal4}
             >
               Save
             </button>
             <button
               className="button-style"
               style={{ width: "196px" }}
-              //disabled={boolVal1}
+              disabled={boolVal4}
               onClick={allotRVButtonState}
             >
               Allot RV No
@@ -796,7 +797,7 @@ function OpenButtonDraftSheetUnit() {
             <button
               className="button-style"
               style={{ width: "196px" }}
-              //disabled={boolVal1}
+              disabled={boolVal4}
               onClick={deleteRVButtonState}
             >
               Delete RV

@@ -219,7 +219,7 @@ function NewSheetsUnits(props) {
         });
 
         if (material.Shape === "Units") {
-          setPara1Label("Qty (Nos)"); //Nos
+          setPara1Label("Qty"); //Nos
           setPara2Label("");
           setPara3Label("");
           setBoolPara1(false);
@@ -278,7 +278,7 @@ function NewSheetsUnits(props) {
           setUnitLabel1("mm");
           setUnitLabel2("");
           setUnitLabel3("");
-        } else if (material.shape.includes("Cylinder")) {
+        } else if (material.Shape.includes("Cylinder")) {
           setPara1Label("Volume"); //CubicMtr
           setPara2Label("");
           setPara3Label("");
@@ -851,7 +851,7 @@ function NewSheetsUnits(props) {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-6 col-sm-12">
+          <div className="col-md-8 col-sm-12">
             <div style={{ height: "330px", overflowY: "scroll" }}>
               <BootstrapTable
                 keyField="id"
@@ -871,7 +871,7 @@ function NewSheetsUnits(props) {
              <Tables theadData={getHeadings()} tbodyData={data3} />
             </div> */}
           </div>
-          <div className="col-md-6 col-sm-12">
+          <div className="col-md-4 col-sm-12">
             <div className="ip-box form-bg">
               <div className="row justify-content-center mt-2">
                 <button
