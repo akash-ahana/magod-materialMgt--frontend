@@ -1,5 +1,5 @@
-let API = "http://localhost:3002";
-//let API = "http://172.16.20.39:3001";
+let API = "http://localhost:5001";
+//let API = "http://172.16.20.61:5001";
 //let API = "http://20.204.144.125:3001";
 
 export const endpoints = {
@@ -12,6 +12,9 @@ export const endpoints = {
   //mtrl data
   getMtrlData: `${API}/mtrlData/allmtrldata`,
   getRowByMtrlCode: `${API}/mtrlData/getRowByMtrlCode`,
+
+  //shape data
+  getRowByShape: `${API}/shapes/getRowByShape`,
 
   getPartsCreatedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Created&type2=Parts`,
   getPartsOpenedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Received&type2=Parts`,
@@ -52,6 +55,10 @@ export const endpoints = {
   //running no
   getRunningNo: `${API}/runningNo/getRunningNoBySrlType`,
   updateRunningNo: `${API}/runningNo/updateRunningNoBySrlType`,
+
+  //Material stock List
+  //getMtrlReceiptDetailsByRvID: `${API}/mtrlReceiptDetails/getMtrlReceiptDetailsByRvID`,
+  insertMtrlStockList: `${API}/mtrlStockList/insertMtrlStockList`,
 
   /*getCustCodeName: `${API}/customers/allcustcodename`,
   getCustomerDets: `${API}/customers/getcustomer`,
