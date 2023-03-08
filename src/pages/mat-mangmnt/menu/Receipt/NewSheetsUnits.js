@@ -695,9 +695,9 @@ function NewSheetsUnits(props) {
     },
   };
 
-  const addToStock = () => {};
+  // const addToStock = () => {};
 
-  const removeToStock = () => {};
+  // const removeToStock = () => {};
 
   return (
     <div>
@@ -896,7 +896,7 @@ function NewSheetsUnits(props) {
                   className="button-style "
                   style={{ width: "130px" }}
                   disabled={true}
-                  onClick={addToStock}
+                  // onClick={addToStock}
                 >
                   Remove stock
                 </button>
