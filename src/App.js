@@ -67,6 +67,9 @@ import OpenButtonDraftPartList from "./pages/mat-mangmnt/menu/Receipt/OpenButton
 import OpenButtonDraftSheetUnit from "./pages/mat-mangmnt/menu/Receipt/OpenButtonDraftSheetUnit";
 import ProductionMatIssueParts from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListService/IssuedComponents/ProductionMatIssueParts";
 import ShopMatIssueVocher from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListProfileCutting/components/ShopMatIssueVocher";
+import NavComp from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/PartsComponents/ShopFlorMatAllotment/NavComp";
+import MaterialAllotmentMain from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/PartsComponents/MaterialAllotmentMain";
+import ProductionMaterialIssueParts from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/PartsComponents/ProductionMaterialIssueParts";
 
 function App() {
   return (
@@ -77,6 +80,7 @@ function App() {
         <Route element={<Login />} path="/" />
 
         <Route path="/home" element={<Home />} />
+        <Route path="/navcomp" element={<NavComp />} />
 
         <Route element={<WithNav />}>
           <Route path="/materialmanagement" element={<Parentroute />}>
@@ -211,7 +215,17 @@ function App() {
               <Route index={true} />
               <Route path="service">
                 <Route index={true} />
-                <Route path="parts" element={<ShopIssueParts />} />
+                <Route path="parts">
+                  <Route index={true} element={<ShopIssueParts />} />
+                  <Route
+                    path="shopfloorallotmentform"
+                    element={<MaterialAllotmentMain />}
+                  />
+                  <Route
+                    path="productionmaterialissueparts"
+                    element={<ProductionMaterialIssueParts />}
+                  />
+                </Route>
                 <Route path="units" element={<ShopIssueUnits />} />
               </Route>
               <Route path="profilecutting">
