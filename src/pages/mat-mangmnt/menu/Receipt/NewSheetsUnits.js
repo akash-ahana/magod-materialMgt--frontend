@@ -130,7 +130,7 @@ function NewSheetsUnits(props) {
           <lable>
             <input
               type="checkbox"
-              checked={inputPart.inspected === "1" ? true : false}
+              checked={row.Inspected == 1 ? true : false}
             />
           </lable>
         </div>
@@ -146,10 +146,7 @@ function NewSheetsUnits(props) {
       formatter: (celContent, row) => (
         <div className="checkbox">
           <lable>
-            <input
-              type="checkbox"
-              checked={inputPart.inspected === "1" ? true : false}
-            />
+            <input type="checkbox" checked={row.UpDated == 1 ? true : false} />
           </lable>
         </div>
       ),
@@ -207,6 +204,20 @@ function NewSheetsUnits(props) {
     //console.log("value = ", value);
     mtrlDetails.map((material) => {
       if (material.Mtrl_Code === value) {
+        //update the mtrl_data related columns
+        let url1 = endpoints.getRowByMtrlCode + "?code=" + value;
+        getRequest(url1, async (mtrlData) => {
+          //console.log("mtrldata = ", mtrlData);
+          inputPart.material = mtrlData.Mtrl_Type;
+          inputPart.shapeMtrlId = mtrlData.ShapeMtrlID;
+          let url2 = endpoints.getRowByShape + "?shape=" + mtrlData.Shape;
+          getRequest(url2, async (shapeData) => {
+            //console.log("shapedata = ", shapeData);
+            inputPart.shapeID = shapeData.ShapeID;
+            setInputPart(inputPart);
+          });
+        });
+
         if (material.Shape === "Units") {
           setPara1Label("Qty (Nos)"); //Nos
           setPara2Label("");
@@ -292,6 +303,9 @@ function NewSheetsUnits(props) {
     inputPart[name] = value;
     setInputPart(inputPart);
 
+    console.log("Before update = ", inputPart);
+
+    await delay(500);
     //update database row
     postRequest(endpoints.updateMtrlReceiptDetails, inputPart, (data) => {
       if (data.affectedRows !== 0) {
@@ -644,6 +658,7 @@ function NewSheetsUnits(props) {
         //console.log("inputPart : ", inputPart);
       }
     }
+    await delay(500);
     //update blank row with respected to modified part textfield
     postRequest(endpoints.updateMtrlReceiptDetails, inputPart, (data) => {
       if (data.affectedRows !== 0) {
