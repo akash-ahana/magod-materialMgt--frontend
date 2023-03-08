@@ -1,12 +1,22 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
+import { useNavigate } from "react-router-dom";
 
 function ReleaseToProduction() {
+  const nav = useNavigate();
   return (
     <div>
       <div className="row mt-4">
         <div className="col-md-8 justify-content-center">
-          <button className="button-style" style={{ width: "196px" }}>
+          <button
+            className="button-style"
+            style={{ width: "196px" }}
+            onClick={() =>
+              nav(
+                "/materialmanagement/shopfloorissue/service/parts/productionmaterialissueparts"
+              )
+            }
+          >
             Release To Production
           </button>
         </div>

@@ -34,7 +34,7 @@ const BreadcrumbsComponent = () => {
   return (
     <div style={{ marginLeft: "10px" }}>
       {/* Capitalized: <b>{capitalizeWords(propertyNames)}</b>; */}
-      <Breadcrumbs aria-label="breadcrumb" separator=">">
+      {/* <Breadcrumbs aria-label="breadcrumb" separator=">">
         {finalArr.map((value, index) => {
           const last = index === finalArr.length - 1;
 
@@ -49,8 +49,8 @@ const BreadcrumbsComponent = () => {
             </Link>
           );
         })}
-      </Breadcrumbs>
-      {/* <Breadcrumb>
+      </Breadcrumbs> */}
+      <Breadcrumb>
         {finalArr.map((value, index) => {
           const last = index === finalArr.length - 1;
 
@@ -65,7 +65,7 @@ const BreadcrumbsComponent = () => {
             </Link>
           );
         })}
-      </Breadcrumb> */}
+      </Breadcrumb>
       {/* <Breadcrumb>
         <Breadcrumb.Item href="#">Dashboard</Breadcrumb.Item>
         <Breadcrumb.Item href="#">Profile</Breadcrumb.Item>
