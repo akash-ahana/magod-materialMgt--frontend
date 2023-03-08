@@ -326,17 +326,16 @@ export const customerSidebar = [
       },
       {
         title: "IV List Profile Cutting",
-        // path: "/materialmanagement/shopfloorissue/IVListprofilecutting",
         icon: <BiIcons.BiCut />,
         subNav: [
           {
             title: "Current",
-            path: "/materialmanagement/shopfloorissue/IVListprofilecutting/current",
+            path: "/materialmanagement/shopfloorissue/ivlistprofilecutting/current",
             icon: <AiIcons.AiOutlineArrowRight />,
           },
           {
             title: "Closed",
-            path: "/materialmanagement/shopfloorissue/IVListprofilecutting/closed",
+            path: "/materialmanagement/shopfloorissue/ivlistprofilecutting/closed",
             icon: <AiIcons.AiOutlineArrowRight />,
           },
         ],

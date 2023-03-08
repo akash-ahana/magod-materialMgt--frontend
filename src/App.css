@@ -412,3 +412,7 @@ td {
   /* background-color: #495579; */
   /* border-left: 4px solid #707075; */
 }
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "|" !important;
+}

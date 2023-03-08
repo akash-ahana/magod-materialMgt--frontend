@@ -65,6 +65,8 @@ import OpenButtonOpenClosedPartList from "./pages/mat-mangmnt/menu/Receipt/OpenB
 import OpenButtonOpenSheetUnit from "./pages/mat-mangmnt/menu/Receipt/OpenButtonOpenSheetUnit";
 import OpenButtonDraftPartList from "./pages/mat-mangmnt/menu/Receipt/OpenButtonDraftPartList";
 import OpenButtonDraftSheetUnit from "./pages/mat-mangmnt/menu/Receipt/OpenButtonDraftSheetUnit";
+import ProductionMatIssueParts from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListService/IssuedComponents/ProductionMatIssueParts";
+import ShopMatIssueVocher from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListProfileCutting/components/ShopMatIssueVocher";
 
 function App() {
   return (
@@ -77,7 +79,7 @@ function App() {
         <Route path="/home" element={<Home />} />
 
         <Route element={<WithNav />}>
-          <Route path="/MaterialManagement" element={<Parentroute />}>
+          <Route path="/materialmanagement" element={<Parentroute />}>
             <Route path="server" element={<Setup />}>
               <Route index={true} element={<Setup />} />
             </Route>
@@ -217,17 +219,45 @@ function App() {
               </Route>
               <Route path="ivlistservice">
                 <Route index={true} />
-                <Route path="closed" element={<ShopIssueIVListClosed />} />
-                <Route path="issued" element={<ShopIssueIVListIssued />} />
+                <Route path="issued">
+                  <Route index={true} element={<ShopIssueIVListIssued />} />
+                  <Route
+                    path="shopmatissuevocher"
+                    element={<ProductionMatIssueParts />}
+                  />
+                </Route>
+                <Route path="closed">
+                  <Route index={true} element={<ShopIssueIVListClosed />} />
+                  <Route
+                    path="shopmatissuevocher"
+                    element={<ProductionMatIssueParts />}
+                  />
+                </Route>
               </Route>
 
-              <Route path="IVListprofilecutting">
+              <Route path="ivlistprofilecutting">
                 <Route index={true} />
-                <Route path="closed" element={<IVListProfileCuttingClosed />} />
-                <Route
-                  path="current"
-                  element={<IVListProfileCuttingCurrent />}
-                />
+                <Route path="closed">
+                  <Route
+                    index={true}
+                    element={<IVListProfileCuttingClosed />}
+                  />
+                  <Route
+                    path="shopmatissuevocher"
+                    element={<ShopMatIssueVocher />}
+                  />
+                </Route>
+
+                <Route path="current">
+                  <Route
+                    index={true}
+                    element={<IVListProfileCuttingCurrent />}
+                  />
+                  <Route
+                    path="shopmatissuevocher"
+                    element={<ShopMatIssueVocher />}
+                  />
+                </Route>
               </Route>
             </Route>
 
