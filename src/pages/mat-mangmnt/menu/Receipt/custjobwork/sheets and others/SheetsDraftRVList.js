@@ -87,7 +87,10 @@ export default function SheetsDraftRVList() {
         <h4 className="form-title">Customer : Sheets Receipt List Created</h4>
         <hr className="horizontal-line" />
         <div className="row">
-          <div className="col-md-6 col-sm-12">
+          <div
+            style={{ height: "420px", overflowY: "scroll" }}
+            className="col-md-6 col-sm-12"
+          >
             {/* <BootstrapTable keyField="id" data={products} columns={columns} /> */}
             <BootstrapTable
               keyField="RvID"
@@ -97,7 +100,7 @@ export default function SheetsDraftRVList() {
               striped
               hover
               condensed
-              pagination={paginationFactory()}
+              //pagination={paginationFactory()}
               selectRow={selectRow}
             ></BootstrapTable>
           </div>
