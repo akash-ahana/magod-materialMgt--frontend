@@ -66,7 +66,7 @@ export default function PurchaseUnitsDraftRVList() {
       <h4 className="form-title">Magod : Units Receipt List Created</h4>
       <hr className="horizontal-line" />
       <div className="row">
-        <div className="col-md-6 col-sm-12">
+        <div className="col-md-7 col-sm-12">
           <BootstrapTable
             keyField="id"
             data={products}
@@ -76,7 +76,7 @@ export default function PurchaseUnitsDraftRVList() {
           ></BootstrapTable>
         </div>
 
-        <div className="col-md-6 col-sm-12">
+        <div className="col-md-5 col-sm-12">
           <div className="ip-box form-bg">
             <div className="row">
               <div className="col-md-12 col-sm-12">

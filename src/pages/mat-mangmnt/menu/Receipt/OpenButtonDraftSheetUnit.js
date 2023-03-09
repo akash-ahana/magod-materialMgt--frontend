@@ -131,7 +131,7 @@ function OpenButtonDraftSheetUnit() {
           <lable>
             <input
               type="checkbox"
-              checked={inputPart.inspected === "1" ? true : false}
+              checked={row.Inspected == 1 ? true : false}
             />
           </lable>
         </div>
@@ -144,6 +144,13 @@ function OpenButtonDraftSheetUnit() {
     {
       text: "Updated",
       dataField: "updated",
+      formatter: (celContent, row) => (
+        <div className="checkbox">
+          <lable>
+            <input type="checkbox" checked={row.UpDated == 1 ? true : false} />
+          </lable>
+        </div>
+      ),
     },
   ];
 
@@ -620,10 +627,10 @@ function OpenButtonDraftSheetUnit() {
     //checkbox update
     if (name === "inspected") {
       if (e.target.checked) {
-        inputPart.inspected = "1";
+        inputPart.inspected = 1;
         setBoolVal5(true);
       } else {
-        inputPart.inspected = "0";
+        inputPart.inspected = 0;
         setBoolVal5(false);
       }
     }

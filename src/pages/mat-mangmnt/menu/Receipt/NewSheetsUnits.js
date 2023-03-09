@@ -36,6 +36,7 @@ function NewSheetsUnits(props) {
   //after clicking inspected checkbox
   const [boolVal5, setBoolVal5] = useState(false);
 
+  const [calcWeightVal, setCalcWeightVal] = useState(0);
   const [saveUpdateCount, setSaveUpdateCount] = useState(0);
 
   const [formHeader, setFormHeader] = useState({
@@ -588,10 +589,10 @@ function NewSheetsUnits(props) {
     //checkbox update
     if (name === "inspected") {
       if (e.target.checked) {
-        inputPart.inspected = "1";
+        inputPart.inspected = 1;
         setBoolVal5(true);
       } else {
-        inputPart.inspected = "0";
+        inputPart.inspected = 0;
         setBoolVal5(false);
       }
     }
