@@ -36,6 +36,7 @@ function NewSheetsUnits(props) {
   //after clicking inspected checkbox
   const [boolVal5, setBoolVal5] = useState(false);
 
+  const [insCheck, setInsCheck] = useState(false);
   const [calcWeightVal, setCalcWeightVal] = useState(0);
   const [saveUpdateCount, setSaveUpdateCount] = useState(0);
 
@@ -131,7 +132,7 @@ function NewSheetsUnits(props) {
           <lable>
             <input
               type="checkbox"
-              checked={row.Inspected == 1 ? true : false}
+              checked={row.inspected == 1 ? true : false}
             />
           </lable>
         </div>
@@ -514,6 +515,10 @@ function NewSheetsUnits(props) {
     inputPart.qtyUsed = 0.0;
     inputPart.qtyReturned = 0.0;
 
+    //uncheck inspected
+    setInsCheck(false);
+    inputPart.inspected = 0;
+    setBoolVal5(false);
     // console.log("partarray = ", partArray);
 
     //insert blank row in table
@@ -591,9 +596,11 @@ function NewSheetsUnits(props) {
       if (e.target.checked) {
         inputPart.inspected = 1;
         setBoolVal5(true);
+        setInsCheck(true);
       } else {
         inputPart.inspected = 0;
         setBoolVal5(false);
+        setInsCheck(false);
       }
     }
 
@@ -601,26 +608,13 @@ function NewSheetsUnits(props) {
     setInputPart(inputPart);
     //console.log(inputPart);
 
-    const newArray = materialArray.map((p) =>
-      //p.id === "d28d67b2-6c32-4aae-a7b6-74dc985a3cff"
-      p.id === partUniqueId
-        ? {
-            ...p,
-            [name]: value,
-            qty: inputPart.qtyReceived,
-            inspected: inputPart.inspected,
-          }
-        : p
-    );
-    setMaterialArray(newArray);
-
     //calculate weight
     if (name === "qtyAccepted") {
       if (e.target.value) {
         let val = e.target.value;
         //get mtrl_data by mtrl_code
         let url = endpoints.getRowByMtrlCode + "?code=" + inputPart.mtrlCode;
-        getRequest(url, (data) => {
+        getRequest(url, async (data) => {
           //setCustdata(data);
           let TotalWeightCalculated =
             parseFloat(inputPart.qtyAccepted) *
@@ -640,18 +634,59 @@ function NewSheetsUnits(props) {
           inputPart["TotalWeight"] = TotalWeightCalculated;
           setInputPart(inputPart);
 
-          // formHeader.calcWeight = parseFloat(
-          //   parseFloat(formHeader.calcWeight) + TotalWeightCalculated
-          // ).toFixed(2);
-          // setInputPart(inputPart);
-          // setFormHeader(formHeader);
-
           //update forheader in database
           postRequest(
             endpoints.updateHeaderMaterialReceiptRegister,
             formHeader,
             (data) => {}
           );
+
+          //update material array:
+          const newArray = materialArray.map((p) =>
+            //p.id === "d28d67b2-6c32-4aae-a7b6-74dc985a3cff"
+            p.id === partUniqueId
+              ? {
+                  ...p,
+                  [name]: value,
+                  //qty: inputPart.qtyReceived,
+                  //inspected: inputPart.inspected,
+                }
+              : p
+          );
+          setMaterialArray(newArray);
+          console.log("material array = ", materialArray);
+          await delay(500);
+
+          //find calculateweight
+          let totwt = 0;
+          materialArray.map((obj) => {
+            if (obj.id === partUniqueId) {
+              totwt =
+                parseFloat(totwt) +
+                (parseFloat(value) *
+                  getWeight(
+                    data,
+                    parseFloat(obj.dynamicPara1),
+                    parseFloat(obj.dynamicPara2),
+                    parseFloat(obj.dynamicPara3)
+                  )) /
+                  (1000 * 1000);
+            } else {
+              totwt =
+                parseFloat(totwt) +
+                (parseFloat(obj.qtyAccepted) *
+                  getWeight(
+                    data,
+                    parseFloat(obj.dynamicPara1),
+                    parseFloat(obj.dynamicPara2),
+                    parseFloat(obj.dynamicPara3)
+                  )) /
+                  (1000 * 1000);
+            }
+            //parseFloat(obj.unitWeight) * parseFloat(obj.qtyReceived);
+            //console.log(newWeight);
+          });
+          setCalcWeightVal(parseFloat(totwt).toFixed(2));
         });
         //inputPart[name] = value;
         //setInputPart(inputPart);
@@ -659,7 +694,21 @@ function NewSheetsUnits(props) {
         //console.log("inputPart : ", inputPart);
       }
     }
+    const newArray = materialArray.map((p) =>
+      //p.id === "d28d67b2-6c32-4aae-a7b6-74dc985a3cff"
+      p.id === partUniqueId
+        ? {
+            ...p,
+            [name]: value,
+            qty: inputPart.qtyReceived,
+            inspected: inputPart.inspected == "on" ? 1 : 0,
+          }
+        : p
+    );
+
+    setMaterialArray(newArray);
     await delay(500);
+
     //update blank row with respected to modified part textfield
     postRequest(endpoints.updateMtrlReceiptDetails, inputPart, (data) => {
       if (data.affectedRows !== 0) {
@@ -809,7 +858,8 @@ function NewSheetsUnits(props) {
             <input
               type="text"
               name="calculatedWeight"
-              value={formHeader.calcWeight}
+              //value={formHeader.calcWeight}
+              value={calcWeightVal}
               readOnly
             />
           </div>
@@ -821,13 +871,14 @@ function NewSheetsUnits(props) {
               className="button-style"
               style={{ width: "196px" }}
               onClick={saveButtonState}
+              disabled={boolVal4}
             >
               Save
             </button>
             <button
               className="button-style"
               style={{ width: "196px" }}
-              disabled={boolVal1}
+              disabled={boolVal1 | boolVal4}
               onClick={allotRVButtonState}
             >
               Allot RV No
@@ -835,7 +886,7 @@ function NewSheetsUnits(props) {
             <button
               className="button-style"
               style={{ width: "196px" }}
-              disabled={boolVal1}
+              disabled={boolVal1 | boolVal4}
               onClick={deleteRVButtonState}
             >
               Delete RV
@@ -1047,6 +1098,7 @@ function NewSheetsUnits(props) {
                               type="checkbox"
                               id="flexCheckDefault"
                               name="inspected"
+                              checked={insCheck}
                               /*checked={
                                 inputPart.inspected === "1" ? true : false
                               }*/
@@ -1099,7 +1151,7 @@ function NewSheetsUnits(props) {
                             className="in-field"
                             name="totalWeightCalculated"
                             value={inputPart.totalWeightCalculated}
-                            readOnly
+                            disabled={true}
                           />
                         </div>
                       </div>
