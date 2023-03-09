@@ -97,7 +97,7 @@ function PurchaseUnitsOpenRVList() {
         <div className="row">
           <div
             style={{ height: "420px", overflowY: "scroll" }}
-            className="col-md-6 col-sm-12"
+            className="col-md-7 col-sm-12"
           >
             {/* <BootstrapTable keyField="id" data={products} columns={columns} /> */}
             <BootstrapTable
@@ -113,7 +113,7 @@ function PurchaseUnitsOpenRVList() {
             ></BootstrapTable>
           </div>
 
-          <div className="col-md-6 col-sm-12">
+          <div className="col-md-5 col-sm-12">
             <div className="ip-box form-bg">
               <div className="row">
                 <div className="col-md-12 col-sm-12">

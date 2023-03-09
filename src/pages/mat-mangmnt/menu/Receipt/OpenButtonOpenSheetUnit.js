@@ -369,6 +369,9 @@ function OpenButtonOpenSheetUnit() {
                           className="ip-select dropdown-field"
                           disabled={boolVal}
                         >
+                          <option value="" disabled selected>
+                            Select Material
+                          </option>
                           {/* <option value="option 1">001</option>
                           <option value="option 1">002</option>
                           <option value="option 1">003</option>

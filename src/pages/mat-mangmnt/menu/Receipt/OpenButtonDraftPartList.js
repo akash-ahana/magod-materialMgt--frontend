@@ -561,7 +561,7 @@ function OpenButtonDraftPartList() {
             <button
               className="button-style"
               style={{ width: "196px" }}
-              //disabled={boolVal1}
+              disabled={boolVal4}
               onClick={allotRVButtonState}
             >
               Allot RV No
@@ -569,7 +569,7 @@ function OpenButtonDraftPartList() {
             <button
               className="button-style"
               style={{ width: "196px" }}
-              //disabled={boolVal1}
+              disabled={boolVal4}
               onClick={deleteRVButtonState}
             >
               Delete RV
@@ -665,6 +665,9 @@ function OpenButtonDraftPartList() {
                           onChange={changePartHandle}
                           disabled={boolVal4}
                         >
+                          <option value="" disabled selected>
+                            Select Part
+                          </option>
                           {mtrlDetails.map((part, index) => (
                             <option key={index} value={part.PartId}>
                               {part.PartId}

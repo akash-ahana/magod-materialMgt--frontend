@@ -530,7 +530,7 @@ function PNew() {
       <div className="row">
         <div
           style={{ height: "330px", overflowY: "scroll" }}
-          className="col-md-6 col-sm-12"
+          className="col-md-8 col-sm-12"
         >
           <BootstrapTable
             keyField="id"
@@ -577,7 +577,7 @@ function PNew() {
             </tbody>
           </table> 
         </div>*/}
-        <div className="col-md-6 col-sm-12">
+        <div className="col-md-4 col-sm-12">
           <div className="ip-box form-bg">
             <div className="row">
               <div className="col-md-12 col-sm-12">
@@ -605,6 +605,10 @@ function PNew() {
                           onChange={changePartHandle}
                           disabled={boolVal3 | boolVal4}
                         >
+                          <option value="" disabled selected>
+                            Select Part
+                          </option>
+
                           {mtrlDetails.map((part, index) => (
                             <option key={index} value={part.PartId}>
                               {part.PartId}
