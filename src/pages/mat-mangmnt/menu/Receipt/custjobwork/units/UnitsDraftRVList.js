@@ -45,7 +45,7 @@ export default function UnitsDraftRVList() {
     //console.log("data = ", data);
     //console.log("button click : ");
     nav("/materialmanagement/receipt/openbuttondraftsheetunit", {
-      state: { id: data.RvID },
+      state: { id: data.RvID, type: "units" },
     });
   };
 
