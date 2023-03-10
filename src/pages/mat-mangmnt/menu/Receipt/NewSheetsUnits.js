@@ -492,9 +492,9 @@ function NewSheetsUnits(props) {
     setBoolVal3(false);
 
     //clear all part fields
-    inputPart.rvId = 71018; //formHeader.rvId;
+    inputPart.rvId = formHeader.rvId;
     inputPart.srl = "01";
-    inputPart.custCode = 2847; //formHeader.customer;
+    inputPart.custCode = formHeader.customer;
     inputPart.mtrlCode = "";
     inputPart.material = "";
     inputPart.shapeMtrlId = 0;
