@@ -1,4 +1,3 @@
-import { Checkbox, checkboxClasses } from "@mui/material";
 const data1 = [
   {
     PartId: "001",

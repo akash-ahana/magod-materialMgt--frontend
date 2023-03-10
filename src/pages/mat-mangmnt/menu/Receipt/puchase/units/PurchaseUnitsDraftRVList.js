@@ -7,7 +7,6 @@ import React, {
 } from "react";
 import "../../../MatMenu.css";
 import { data2 } from "../../../../components/Data";
-import { useDispatch, useSelector } from "react-redux";
 import { Card, Col, Container, Row, Table } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";

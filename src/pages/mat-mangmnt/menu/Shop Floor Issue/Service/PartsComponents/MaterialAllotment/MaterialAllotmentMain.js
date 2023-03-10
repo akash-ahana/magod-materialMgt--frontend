@@ -1,5 +1,5 @@
 import React from "react";
-import MaterialAllotmentForm from "../UnitsComponents/UnitMaterialAllotmentForm";
+import MaterialAllotmentForm from "./MaterialAllotmentForm";
 import MaterialAllotmentTable from "./MaterialAllotmentTable";
 import ReleaseToProduction from "./ReleaseToProduction";
 

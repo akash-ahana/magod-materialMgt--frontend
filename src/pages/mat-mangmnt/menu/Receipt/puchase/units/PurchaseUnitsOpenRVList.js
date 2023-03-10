@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../../MatMenu.css";
 import BootstrapTable from "react-bootstrap-table-next";
-import paginationFactory from "react-bootstrap-table2-paginator";
 import { dateToShort } from "../../../../../../utils";
 import { useNavigate } from "react-router-dom";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import NavComp from "./NavComp";
+import NavComp from "../Components/NavComp";
 import Table from "react-bootstrap/Table";
 import { useNavigate } from "react-router-dom";
 
