@@ -67,9 +67,11 @@ import OpenButtonDraftPartList from "./pages/mat-mangmnt/menu/Receipt/OpenButton
 import OpenButtonDraftSheetUnit from "./pages/mat-mangmnt/menu/Receipt/OpenButtonDraftSheetUnit";
 import ProductionMatIssueParts from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListService/IssuedComponents/ProductionMatIssueParts";
 import ShopMatIssueVocher from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListProfileCutting/components/ShopMatIssueVocher";
-import NavComp from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/PartsComponents/ShopFlorMatAllotment/NavComp";
-import MaterialAllotmentMain from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/PartsComponents/MaterialAllotmentMain";
+import NavComp from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/Components/NavComp";
+import MaterialAllotmentMain from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/PartsComponents/MaterialAllotment/MaterialAllotmentMain";
 import ProductionMaterialIssueParts from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/PartsComponents/ProductionMaterialIssueParts";
+import UnitsMatAllotmentForm from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/UnitsComponents/UnitsMatAllotmentForm";
+import UnitsIssueToProduction from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/UnitsComponents/UnitsIssueToProduction";
 
 function App() {
   return (
@@ -226,7 +228,17 @@ function App() {
                     element={<ProductionMaterialIssueParts />}
                   />
                 </Route>
-                <Route path="units" element={<ShopIssueUnits />} />
+                <Route path="units">
+                  <Route index={true} element={<ShopIssueUnits />} />
+                  <Route
+                    path="materialallotmentform"
+                    element={<UnitsMatAllotmentForm />}
+                  />
+                  <Route
+                    path="shopfloormaterialissuevocher"
+                    element={<UnitsIssueToProduction />}
+                  />
+                </Route>
               </Route>
               <Route path="profilecutting">
                 <Route index={true} element={<ProfileCutting />} />

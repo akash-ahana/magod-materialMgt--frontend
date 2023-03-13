@@ -20,7 +20,7 @@ function ReleaseToProduction() {
             Release To Production
           </button>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-7">
           <div style={{ height: "300px", overflowY: "scroll" }}>
             <Table bordered>
               <thead
@@ -59,7 +59,7 @@ function ReleaseToProduction() {
           </div>
         </div>
 
-        <div className="col-md-6">
+        <div className="col-md-5">
           <div className="ip-box form-bg">
             <div className="row">
               <div className="col-md-3 ">
@@ -89,7 +89,12 @@ function ReleaseToProduction() {
                 <label className="">Qty Received</label>
               </div>
               <div className="col-md-8 ">
-                <input className="in-field" type="text" name="qtyReceived" />
+                <input
+                  className="in-field"
+                  type="text"
+                  name="qtyReceived"
+                  // disabled="true"
+                />
               </div>
             </div>
             <div className="row">

@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import CreateDCModal from "../../../components/CreateDCModal";
+import React from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import ProfilesMaterials from "../custjobwork/components/PofilesMaterials";

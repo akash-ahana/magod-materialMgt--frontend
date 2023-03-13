@@ -1,13 +1,12 @@
 import * as React from "react";
 
-import Typography from "@mui/material/Typography";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
+// import Typography from "@mui/material/Typography";
+// import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { Link, useLocation } from "react-router-dom";
-import { sr } from "date-fns/locale";
-import Breadcrumb from "react-bootstrap/Breadcrumb";
-
+// import { sr } from "date-fns/locale";
+// import Breadcrumb from "react-bootstrap/Breadcrumb";
+// import { BreadcrumbItem } from "react-bootstrap";
 // MemoryRouter,    //assign initilal state
-
 {
   /* <MemoryRouter initialEntries={['/inbox']} initialIndex={0}></MemoryRouter> */
 } //this will wrap whole return
@@ -33,7 +32,6 @@ const BreadcrumbsComponent = () => {
 
   return (
     <div style={{ marginLeft: "10px" }}>
-      {/* Capitalized: <b>{capitalizeWords(propertyNames)}</b>; */}
       {/* <Breadcrumbs aria-label="breadcrumb" separator=">">
         {finalArr.map((value, index) => {
           const last = index === finalArr.length - 1;
@@ -50,26 +48,23 @@ const BreadcrumbsComponent = () => {
           );
         })}
       </Breadcrumbs> */}
-      <Breadcrumb>
+      {/* <Breadcrumb>
         {finalArr.map((value, index) => {
           const last = index === finalArr.length - 1;
 
           const to = `/${finalArr.slice(0, index + 1).join("/")}`;
 
           return last ? (
-            <p key={index}>{value}</p>
+            <p key={index}>
+              <Breadcrumb.Item>{value}</Breadcrumb.Item>
+            </p>
           ) : (
             <Link to={to} key={index} style={{ textDecoration: "none" }}>
               {" "}
-              {value}
+              <Breadcrumb.Item>{value}</Breadcrumb.Item>
             </Link>
           );
         })}
-      </Breadcrumb>
-      {/* <Breadcrumb>
-        <Breadcrumb.Item href="#">Dashboard</Breadcrumb.Item>
-        <Breadcrumb.Item href="#">Profile</Breadcrumb.Item>
-        <Breadcrumb.Item active>Details</Breadcrumb.Item>
       </Breadcrumb> */}
     </div>
   );

@@ -1,10 +1,8 @@
 import React from "react";
 import TreeView from "react-treeview";
 import "react-treeview/react-treeview.css";
-import { useNavigate } from "react-router-dom";
 
 function NavComp() {
-  const nav = useNavigate();
   const dataSource = [
     {
       type: "Program NOS1",
@@ -40,26 +38,6 @@ function NavComp() {
         },
       ],
     },
-    // {
-    //   type: "Program NOS2",
-    //   collapsed: false,
-    //   people: [
-    //     {
-    //       name: "Laser11",
-    //       one: "Process 1",
-    //       two: "Process 2",
-    //       three: "Process 3",
-    //       collapsed: false,
-    //     },
-    //     {
-    //       name: "Laser11",
-    //       one: "Process 1",
-    //       two: "Process 2",
-    //       three: "Process 3",
-    //       collapsed: false,
-    //     },
-    //   ],
-    // },
   ];
 
   return (

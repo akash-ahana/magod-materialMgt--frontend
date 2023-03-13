@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Menu, MenuItem, Tooltip } from "@mui/material";
+// import { Button, Menu, MenuItem, Tooltip } from "@mui/material";
 import { Link } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import { BiDownArrow } from "react-icons/bi";
@@ -23,7 +23,7 @@ function Header({ user }) {
       </div>
       {user && (
         <div style={{ marginRight: "50px" }}>
-          <Button
+          <button
             id="resources-button"
             aria-controls={userDropDown ? "resources-menu" : undefined}
             aria-haspopup="true"
@@ -34,8 +34,8 @@ function Header({ user }) {
           >
             {`Hi, ${true ? "Admin" : "Guest"}`}
             {/* {`Hi, ${user.isAdmin ? 'Admin' : user.isDeveloper ? 'Dev' : user.isnormalUser ? 'User': 'Guest' }`} */}
-          </Button>
-          <Menu
+          </button>
+          <menu
             id="resources-menu"
             anchorEl={anchorEl}
             open={userDropDown}
@@ -54,19 +54,19 @@ function Header({ user }) {
           >
             <Link to="/" className="text-link">
               {" "}
-              <MenuItem onClick={handleClose}>
+              <menuItem onClick={handleClose}>
                 {" "}
                 <FiLogOut /> Logout
-              </MenuItem>
+              </menuItem>
             </Link>
             <Link to="/profile" className="text-link">
               {" "}
-              <MenuItem onClick={handleClose}>
+              <menuItem onClick={handleClose}>
                 {" "}
                 <CgProfile /> Profile
-              </MenuItem>
+              </menuItem>
             </Link>
-          </Menu>
+          </menu>
         </div>
       )}
     </nav>

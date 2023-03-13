@@ -32,21 +32,21 @@ export function formatDate(dateObj, format) {
   var currmin = dateObj.getMinutes();
   var currhr = dateObj.getHours();
   var currsc = dateObj.getSeconds();
-  if (currmonth.toString().length == 1) currmonth = "0" + currmonth;
-  if (currdate.toString().length == 1) currdate = "0" + currdate;
-  if (currhr.toString().length == 1) currhr = "0" + currhr;
-  if (currmin.toString().length == 1) currmin = "0" + currmin;
+  if (currmonth.toString().length === 1) currmonth = "0" + currmonth;
+  if (currdate.toString().length === 1) currdate = "0" + currdate;
+  if (currhr.toString().length === 1) currhr = "0" + currhr;
+  if (currmin.toString().length === 1) currmin = "0" + currmin;
 
-  if (format == 1) {
+  if (format === 1) {
     //dd-mm-yyyy
     return currdate + "-" + currmonth + "-" + curryear;
-  } else if (format == 2) {
+  } else if (format === 2) {
     //yyyy-mm-dd
     return curryear + "-" + currmonth + "-" + currdate;
-  } else if (format == 3) {
+  } else if (format === 3) {
     //dd/mm/yyyy
     return currdate + "/" + currmonth + "/" + curryear;
-  } else if (format == 4) {
+  } else if (format === 4) {
     // dd Month yyyy HH:mm:ss
     return (
       currdate +
@@ -61,7 +61,7 @@ export function formatDate(dateObj, format) {
       ":" +
       currsc
     );
-  } else if (format == 5) {
+  } else if (format === 5) {
     // yyyy-mm-dd HH:mm:ss
     return (
       curryear +
@@ -76,7 +76,7 @@ export function formatDate(dateObj, format) {
       ":" +
       currsc
     );
-  } else if (format == 6) {
+  } else if (format === 6) {
     //yyyy
     return curryear;
   }

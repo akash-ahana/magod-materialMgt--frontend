@@ -1,5 +1,5 @@
 import React from "react";
-import { CRVdata1, CRVdata2, CRVdata3 } from "../../../components/Data";
+import { CRVdata3 } from "../../../components/Data";
 import Tables from "../../../../../components/Tables";
 
 function ReturnPendingDispatchList() {
