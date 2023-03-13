@@ -61,6 +61,8 @@ export const endpoints = {
   //Material stock List
   //getMtrlReceiptDetailsByRvID: `${API}/mtrlReceiptDetails/getMtrlReceiptDetailsByRvID`,
   insertMtrlStockList: `${API}/mtrlStockList/insertMtrlStockList`,
+  checkStockAvailable: `${API}/mtrlStockList/checkStockAvailable`,
+  deleteMtrlStockByRVNo: `${API}/mtrlStockList/deleteMtrlStockByRVNo`,
 
   /*getCustCodeName: `${API}/customers/allcustcodename`,
   getCustomerDets: `${API}/customers/getcustomer`,

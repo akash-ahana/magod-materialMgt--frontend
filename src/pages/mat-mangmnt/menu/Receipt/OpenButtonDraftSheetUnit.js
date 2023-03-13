@@ -1255,7 +1255,7 @@ function OpenButtonDraftSheetUnit() {
                         <div className="col-md-6" style={{ marginTop: "8px" }}>
                           <select
                             className="ip-select dropdown-field"
-                            onChange={changeMaterialHandle}
+                            onChange={changeLocation}
                             disabled={boolVal3 | boolVal4}
                             name="locationNo"
                           >
