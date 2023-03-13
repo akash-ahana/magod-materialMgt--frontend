@@ -631,6 +631,9 @@ function PurchasePartsNew() {
                           onChange={changePartHandle}
                           disabled={boolVal3 | boolVal4}
                         >
+                          <option value="" disabled selected>
+                            Select Part
+                          </option>
                           {mtrlDetails.map((part, index) => (
                             <option key={index} value={part.PartId}>
                               {part.PartId}

@@ -16,6 +16,7 @@ function OpenButtonDraftPartList() {
 
   const nav = useNavigate();
   const [show, setShow] = useState(false);
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   const currDate = new Date()
     .toJSON()
@@ -419,12 +420,13 @@ function OpenButtonDraftPartList() {
     }
   };
 
-  const allotRVYesButton = (data) => {
-    console.log("data = ", formHeader);
+  const allotRVYesButton = async (data) => {
+    await delay(500);
+    //console.log("data = ", formHeader);
     setFormHeader(data);
-    console.log("formheader = ", formHeader);
+    //console.log("formheader = ", formHeader);
     setBoolVal4(true);
-    console.log("formheader = ", formHeader);
+    //console.log("formheader = ", formHeader);
     //formHeader = data;
     //formHeader.rvNo = data.rvNo;
     //setFormHeader(formHeader);
@@ -559,7 +561,7 @@ function OpenButtonDraftPartList() {
             <button
               className="button-style"
               style={{ width: "196px" }}
-              //disabled={boolVal1}
+              disabled={boolVal4}
               onClick={allotRVButtonState}
             >
               Allot RV No
@@ -567,7 +569,7 @@ function OpenButtonDraftPartList() {
             <button
               className="button-style"
               style={{ width: "196px" }}
-              //disabled={boolVal1}
+              disabled={boolVal4}
               onClick={deleteRVButtonState}
             >
               Delete RV
@@ -663,6 +665,9 @@ function OpenButtonDraftPartList() {
                           onChange={changePartHandle}
                           disabled={boolVal4}
                         >
+                          <option value="" disabled selected>
+                            Select Part
+                          </option>
                           {mtrlDetails.map((part, index) => (
                             <option key={index} value={part.PartId}>
                               {part.PartId}

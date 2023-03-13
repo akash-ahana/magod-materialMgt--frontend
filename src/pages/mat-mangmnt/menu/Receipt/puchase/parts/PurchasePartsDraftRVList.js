@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { dateToShort } from "../../../../../../utils";
+import { dateToShort, formatDate } from "../../../../../../utils";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
 
@@ -36,15 +38,19 @@ function PurchasePartsDraftRVList() {
 
   // Process the returned date in the formatter
   function statusFormatter(cell, row, rowIndex, formatExtraData) {
-    return dateToShort(cell);
+    return formatDate(new Date(cell), 3);
   }
 
   const openButtonClick = () => {
     //console.log("data = ", data);
     //console.log("button click : ");
-    nav("/materialmanagement/receipt/openbuttondraftpartlist", {
-      state: { id: data.RvID },
-    });
+    if (data && data.RvID !== "") {
+      nav("/materialmanagement/receipt/openbuttondraftpartlist", {
+        state: { id: data.RvID },
+      });
+    } else {
+      toast.error("Select Customer");
+    }
   };
 
   const selectRow = {
@@ -57,9 +63,9 @@ function PurchasePartsDraftRVList() {
         Cust_Code: row.Cust_Code,
         Customer: row.Customer,
         RVStatus: row.RVStatus,
-        RV_Date: dateToShort(row.RV_Date),
+        RV_Date: formatDate(new Date(row.RV_Date), 3), //dateToShort(row.RV_Date),
         RV_No: row.RV_No,
-        ReceiptDate: dateToShort(row.ReceiptDate),
+        ReceiptDate: formatDate(new Date(row.ReceiptDate), 3), //dateToShort(row.ReceiptDate),
         RvID: row.RvID,
         TotalWeight: row.TotalWeight,
         TotalCalculatedWeight: row.TotalCalculatedWeight,
@@ -95,7 +101,7 @@ function PurchasePartsDraftRVList() {
         <div className="row">
           <div
             style={{ height: "420px", overflowY: "scroll" }}
-            className="col-md-6 col-sm-12"
+            className="col-md-7 col-sm-12"
           >
             <BootstrapTable
               keyField="RvID"
@@ -110,7 +116,7 @@ function PurchasePartsDraftRVList() {
             ></BootstrapTable>
           </div>
 
-          <div className="col-md-6 col-sm-12">
+          <div className="col-md-5 col-sm-12">
             <div className="ip-box form-bg">
               <div className="row">
                 <div className="col-md-12 col-sm-12">

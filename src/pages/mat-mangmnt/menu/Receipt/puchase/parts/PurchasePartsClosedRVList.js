@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { dateToShort } from "../../../../../../utils";
+import { dateToShort, formatDate } from "../../../../../../utils";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { useNavigate } from "react-router-dom";
@@ -38,7 +38,8 @@ function PurchasePartsClosedRVList() {
 
   // Process the returned date in the formatter
   function statusFormatter(cell, row, rowIndex, formatExtraData) {
-    return dateToShort(cell);
+    //return dateToShort(cell);
+    return formatDate(new Date(cell), 3);
   }
 
   const openButtonClick = () => {
@@ -65,9 +66,9 @@ function PurchasePartsClosedRVList() {
         Cust_Code: row.Cust_Code,
         Customer: row.Customer,
         RVStatus: row.RVStatus,
-        RV_Date: dateToShort(row.RV_Date),
+        RV_Date: formatDate(new Date(row.RV_Date), 3), //dateToShort(row.RV_Date),
         RV_No: row.RV_No,
-        ReceiptDate: dateToShort(row.ReceiptDate),
+        ReceiptDate: formatDate(new Date(row.ReceiptDate), 3), //dateToShort(row.ReceiptDate),
         RvID: row.RvID,
         TotalWeight: row.TotalWeight,
         TotalCalculatedWeight: row.TotalCalculatedWeight,
@@ -106,7 +107,7 @@ function PurchasePartsClosedRVList() {
         <div className="row">
           <div
             style={{ height: "420px", overflowY: "scroll" }}
-            className="col-md-6 col-sm-12"
+            className="col-md-7 col-sm-12"
           >
             <BootstrapTable
               keyField="RvID"
@@ -121,7 +122,7 @@ function PurchasePartsClosedRVList() {
             ></BootstrapTable>
           </div>
 
-          <div className="col-md-6 col-sm-12">
+          <div className="col-md-5 col-sm-12">
             <div className="ip-box form-bg">
               <div className="row">
                 <div className="col-md-12 col-sm-12">
