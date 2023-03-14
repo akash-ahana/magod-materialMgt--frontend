@@ -684,6 +684,46 @@ function OpenButtonDraftSheetUnit() {
     //console.log("after = ", partArray);
   };
 
+  //delete part
+  const handleDelete = () => {
+    if (inputPart.id.length === 0) {
+      toast.error("Select Material");
+    } else {
+      //console.log("id = ", inputPart.id);
+      console.log("input part = ", inputPart);
+      postRequest(endpoints.deleteMtrlReceiptDetails, inputPart, (data) => {
+        if (data.affectedRows !== 0) {
+          const newArray = materialArray.filter(
+            (p) =>
+              //p.id === "d28d67b2-6c32-4aae-a7b6-74dc985a3cff"
+              p.id !== inputPart.id
+          );
+          setMaterialArray(newArray);
+          toast.success("Material Deleted");
+        }
+      });
+
+      //get mtrl_data by mtrl_code
+      let url = endpoints.getRowByMtrlCode + "?code=" + inputPart.mtrlCode;
+      getRequest(url, async (data) => {
+        let totwt = 0;
+        materialArray.map((obj) => {
+          totwt =
+            parseFloat(totwt) +
+            (parseFloat(obj.qtyAccepted) *
+              getWeight(
+                data,
+                parseFloat(obj.dynamicPara1),
+                parseFloat(obj.dynamicPara2),
+                parseFloat(obj.dynamicPara3)
+              )) /
+              (1000 * 1000);
+        });
+        setCalcWeightVal(parseFloat(totwt).toFixed(2));
+      });
+    }
+  };
+
   const changeMaterialHandle = async (e) => {
     const { value, name } = e.target;
 
@@ -1283,7 +1323,8 @@ function OpenButtonDraftSheetUnit() {
                 <button
                   className="button-style "
                   style={{ width: "120px" }}
-                  disabled={boolVal3 | boolVal4}
+                  disabled={boolVal4}
+                  onClick={handleDelete}
                 >
                   Delete Serial
                 </button>
