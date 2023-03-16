@@ -1,7 +1,90 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import Table from "react-bootstrap/Table";
+import CreateDCModal from "../../../../components/CreateDCModal";
+import BootstrapTable from "react-bootstrap-table-next";
+import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
 
-function Parts() {
+const { getRequest, postRequest } = require("../../../../../api/apiinstance");
+const { endpoints } = require("../../../../../api/constants");
+
+function Parts(props) {
+  let [firstTable, setFirstTable] = useState([]);
+  let [secondTable, setSecondTable] = useState([]);
+  let [thirdTable, setThirdTable] = useState([]);
+
+  let [allData, setAllData] = useState([]);
+
+  const fetchData = () => {
+    //console.log("props = ", props);
+    if (props && props.custCode.length !== 0) {
+      let url1 = endpoints.partFirst + "?Cust_Code=" + props.custCode;
+      getRequest(url1, (data) => {
+        // data.forEach((item, i) => {
+        //   item.id = i + 1;
+        //   item.Issue = false;
+        // });
+        setFirstTable(data);
+      });
+
+      //fetch second table data
+      let url2 = endpoints.partSecond + "?Cust_Code=" + props.custCode;
+      getRequest(url2, (data) => {
+        setAllData(data);
+        setSecondTable(data);
+      });
+    }
+  };
+
+  useEffect(() => {
+    //setPropsValue(props.custCode);
+    fetchData();
+    //console.log("S props value = ", propsValue);
+  }, [props.custCode]);
+
+  const columnsFirst = [
+    {
+      text: "RV No",
+      dataField: "RV_No",
+      //hidden: true,
+    },
+    {
+      text: "Select",
+      dataField: "RV_No",
+      editable: false,
+    },
+  ];
+  const columnsSecond = [
+    {
+      text: "Id",
+      dataField: "Id",
+      hidden: true,
+    },
+    {
+      text: "PartId",
+      dataField: "PartId",
+    },
+    {
+      text: "Received",
+      dataField: "QtyReceived",
+    },
+    {
+      text: "Rejected",
+      dataField: "QtyRejected",
+    },
+    {
+      text: "Issued",
+      dataField: "QtyIssued",
+    },
+    {
+      text: "Used",
+      dataField: "QtyUsed",
+    },
+    {
+      text: "Returned",
+      dataField: "QtyReturned",
+    },
+  ];
   return (
     <>
       <div className="row">
@@ -9,7 +92,17 @@ function Parts() {
           {" "}
           <div className="row-md-12 table-data">
             <div style={{ height: "400px", overflowY: "scroll" }}>
-              <Table bordered>
+              <BootstrapTable
+                keyField="Rv_No"
+                columns={columnsFirst}
+                data={firstTable}
+                striped
+                hover
+                condensed
+                //</div>selectRow={selectRowFirst}
+              ></BootstrapTable>
+
+              {/* <Table bordered>
                 <thead
                   style={{
                     textAlign: "center",
@@ -31,14 +124,23 @@ function Parts() {
                     </td>
                   </tr>
                 </tbody>
-              </Table>
+              </Table> */}
             </div>
           </div>
         </div>
         <div className="col-md-6 col-sm-12">
           <div className="row-md-12 table-data">
             <div style={{ height: "400px", overflowY: "scroll" }}>
-              <Table bordered>
+              <BootstrapTable
+                keyField="Id"
+                columns={columnsSecond}
+                data={secondTable}
+                striped
+                hover
+                condensed
+                //</div>selectRow={selectRowFirst}
+              ></BootstrapTable>
+              {/* <Table bordered>
                 <thead
                   style={{
                     textAlign: "center",
@@ -74,7 +176,7 @@ function Parts() {
                     </td>
                   </tr>
                 </tbody>
-              </Table>
+              </Table> */}
             </div>
           </div>
         </div>

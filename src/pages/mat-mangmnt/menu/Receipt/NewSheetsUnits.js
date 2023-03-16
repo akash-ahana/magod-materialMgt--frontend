@@ -42,9 +42,9 @@ function NewSheetsUnits(props) {
 
   const [formHeader, setFormHeader] = useState({
     rvId: "",
-    receiptDate: formatDate(new Date(), 4), //currDate, //.split("/").reverse().join("-"),
+    receiptDate: "", //formatDate(new Date(), 4),
     rvNo: "Draft",
-    rvDate: currDate, //.split("/").reverse().join("-"),
+    rvDate: "", //currDate,
     status: "Created",
     customer: props.type2 === "purchase" ? "0000" : "",
     customerName: "",
@@ -200,6 +200,7 @@ function NewSheetsUnits(props) {
     //   setMtrlDetails(foundPart);
     // });
   };
+
   let changeMtrl = async (e) => {
     e.preventDefault();
     const { value, name } = e.target;
@@ -329,42 +330,43 @@ function NewSheetsUnits(props) {
     setMaterialArray(newArray);
   };
 
-  let changeLocation = async (e) => {
-    e.preventDefault();
-    const { value, name } = e.target;
+  // let changeLocation = async (e) => {
+  //   e.preventDefault();
+  //   const { value, name } = e.target;
 
-    //update input Array set material code
-    setInputPart((preValue) => {
-      //console.log(preValue)
-      return {
-        ...preValue,
-        [name]: value,
-      };
-    });
-    inputPart[name] = value;
-    setInputPart(inputPart);
+  //   //update input Array set material code
+  //   setInputPart((preValue) => {
+  //     //console.log(preValue)
+  //     return {
+  //       ...preValue,
+  //       [name]: value,
+  //     };
+  //   });
+  //   inputPart[name] = value;
+  //   setInputPart(inputPart);
 
-    //update databse row
-    postRequest(endpoints.updateMtrlReceiptDetails, inputPart, (data) => {
-      if (data.affectedRows !== 0) {
-      } else {
-        toast.error("Record Not Updated");
-      }
-    });
+  //   //update databse row
+  //   postRequest(endpoints.updateMtrlReceiptDetails, inputPart, (data) => {
+  //     if (data.affectedRows !== 0) {
+  //     } else {
+  //       toast.error("Record Not Updated");
+  //     }
+  //   });
 
-    //update table grid
-    const newArray = materialArray.map((p) =>
-      //p.id === "d28d67b2-6c32-4aae-a7b6-74dc985a3cff"
-      p.id === partUniqueId
-        ? {
-            ...p,
-            [name]: value,
-          }
-        : p
-    );
-    setMaterialArray(newArray);
-  };
+  //   //update table grid
+  //   const newArray = materialArray.map((p) =>
+  //     //p.id === "d28d67b2-6c32-4aae-a7b6-74dc985a3cff"
+  //     p.id === partUniqueId
+  //       ? {
+  //           ...p,
+  //           [name]: value,
+  //         }
+  //       : p
+  //   );
+  //   setMaterialArray(newArray);
+  // };
   //input header change event
+
   const InputHeaderEvent = (e) => {
     const { value, name } = e.target;
     setFormHeader((preValue) => {
@@ -420,7 +422,7 @@ function NewSheetsUnits(props) {
     );
   };
 
-  const saveButtonState = (e) => {
+  const saveButtonState = async (e) => {
     e.preventDefault();
     if (formHeader.customer.length == 0) {
       toast.error("Please Select Customer");
@@ -428,6 +430,10 @@ function NewSheetsUnits(props) {
       toast.error("Please Enter Customer Document Material Reference");
     else {
       if (saveUpdateCount == 0) {
+        formHeader.receiptDate = formatDate(new Date(), 4);
+        formHeader.rvDate = currDate;
+        setFormHeader(formHeader);
+        await delay(500);
         insertHeaderFunction();
         setBoolVal2(true);
       } else {
@@ -577,6 +583,46 @@ function NewSheetsUnits(props) {
     //console.log("after = ", partArray);
   };
 
+  //delete part
+  const handleDelete = () => {
+    if (inputPart.id.length === 0) {
+      toast.error("Select Material");
+    } else {
+      //console.log("id = ", inputPart.id);
+      console.log("input part = ", inputPart);
+      postRequest(endpoints.deleteMtrlReceiptDetails, inputPart, (data) => {
+        if (data.affectedRows !== 0) {
+          const newArray = materialArray.filter(
+            (p) =>
+              //p.id === "d28d67b2-6c32-4aae-a7b6-74dc985a3cff"
+              p.id !== inputPart.id
+          );
+          setMaterialArray(newArray);
+          toast.success("Material Deleted");
+        }
+      });
+
+      //get mtrl_data by mtrl_code
+      let url = endpoints.getRowByMtrlCode + "?code=" + inputPart.mtrlCode;
+      getRequest(url, async (data) => {
+        let totwt = 0;
+        materialArray.map((obj) => {
+          totwt =
+            parseFloat(totwt) +
+            (parseFloat(obj.qtyAccepted) *
+              getWeight(
+                data,
+                parseFloat(obj.dynamicPara1),
+                parseFloat(obj.dynamicPara2),
+                parseFloat(obj.dynamicPara3)
+              )) /
+              (1000 * 1000);
+        });
+        setCalcWeightVal(parseFloat(totwt).toFixed(2));
+      });
+    }
+  };
+
   const changeMaterialHandle = async (e) => {
     const { value, name } = e.target;
 
@@ -687,6 +733,20 @@ function NewSheetsUnits(props) {
             //console.log(newWeight);
           });
           setCalcWeightVal(parseFloat(totwt).toFixed(2));
+
+          formHeader.calcWeight = parseFloat(totwt).toFixed(2);
+          setFormHeader(formHeader);
+          delay(500);
+          console.log("form header = ", formHeader);
+          //update calc weight in header
+          postRequest(
+            endpoints.updateHeaderMaterialReceiptRegister,
+            formHeader,
+            (data) => {
+              if (data.affectedRows !== 0) {
+              }
+            }
+          );
         });
         //inputPart[name] = value;
         //setInputPart(inputPart);
@@ -1205,6 +1265,7 @@ function NewSheetsUnits(props) {
                   className="button-style "
                   style={{ width: "120px" }}
                   disabled={boolVal3 | boolVal4}
+                  onClick={handleDelete}
                 >
                   Delete Serial
                 </button>

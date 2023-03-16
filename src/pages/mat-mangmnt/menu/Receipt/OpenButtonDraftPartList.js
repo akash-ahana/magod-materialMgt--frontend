@@ -410,7 +410,7 @@ function OpenButtonDraftPartList() {
   const allotRVButtonState = (e) => {
     e.preventDefault();
 
-    if (formHeader.weight == "0") {
+    if (formHeader.weight == "0" || formHeader.weight == "0.000") {
       toast.error(
         "Enter the Customer Material Weight as per Customer Document"
       );

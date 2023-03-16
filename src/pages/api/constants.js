@@ -53,6 +53,7 @@ export const endpoints = {
   getMtrlReceiptDetailsByRvID: `${API}/mtrlReceiptDetails/getMtrlReceiptDetailsByRvID`,
   insertMtrlReceiptDetails: `${API}/mtrlReceiptDetails/insertMtrlReceiptDetails`,
   updateMtrlReceiptDetails: `${API}/mtrlReceiptDetails/updateMtrlReceiptDetails`,
+  deleteMtrlReceiptDetails: `${API}/mtrlReceiptDetails/deleteMtrlReceiptDetails`,
 
   //running no
   getRunningNo: `${API}/runningNo/getRunningNoBySrlType`,
@@ -63,6 +64,13 @@ export const endpoints = {
   insertMtrlStockList: `${API}/mtrlStockList/insertMtrlStockList`,
   checkStockAvailable: `${API}/mtrlStockList/checkStockAvailable`,
   deleteMtrlStockByRVNo: `${API}/mtrlStockList/deleteMtrlStockByRVNo`,
+
+  //return
+  profileMaterialFirst: `${API}/return/profileMaterialFirst`,
+  profileMaterialSecond: `${API}/return/profileMaterialSecond`,
+  profileMaterialThird: `${API}/return/profileMaterialThird`,
+  partFirst: `${API}/return/partFirst`,
+  partSecond: `${API}/return/partSecond`,
 
   /*getCustCodeName: `${API}/customers/allcustcodename`,
   getCustomerDets: `${API}/customers/getcustomer`,

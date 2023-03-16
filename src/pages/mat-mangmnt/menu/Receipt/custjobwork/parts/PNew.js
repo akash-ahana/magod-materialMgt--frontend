@@ -53,9 +53,9 @@ function PNew() {
 
   let [formHeader, setFormHeader] = useState({
     rvId: "",
-    receiptDate: formatDate(new Date(), 4), //currDate, //.split("/").reverse().join("-"),
+    receiptDate: "", //formatDate(new Date(), 4), //currDate, //.split("/").reverse().join("-"),
     rvNo: "Draft",
-    rvDate: currDate, //.split("/").reverse().join("-"),
+    rvDate: "", //currDate, //.split("/").reverse().join("-"),
     status: "Created",
     customer: "",
     customerName: "",
@@ -333,7 +333,7 @@ function PNew() {
     );
   };
 
-  const saveButtonState = (e) => {
+  const saveButtonState = async (e) => {
     e.preventDefault();
     if (formHeader.customer.length == 0) {
       toast.error("Please Select Customer");
@@ -341,6 +341,11 @@ function PNew() {
       toast.error("Please Enter Customer Document Material Reference");
     else {
       if (saveUpdateCount == 0) {
+        formHeader.receiptDate = formatDate(new Date(), 4);
+        formHeader.rvDate = currDate;
+        setFormHeader(formHeader);
+        await delay(500);
+
         insertHeaderFunction();
         setBoolVal2(true);
       } else {

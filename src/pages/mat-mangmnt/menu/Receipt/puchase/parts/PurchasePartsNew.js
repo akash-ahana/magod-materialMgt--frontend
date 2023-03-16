@@ -13,6 +13,7 @@ const { endpoints } = require("../../../../../api/constants");
 function PurchasePartsNew() {
   const nav = useNavigate();
   const [show, setShow] = useState(false);
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   const currDate = new Date()
     .toJSON()
@@ -53,9 +54,9 @@ function PurchasePartsNew() {
 
   let [formHeader, setFormHeader] = useState({
     rvId: "",
-    receiptDate: formatDate(new Date(), 4), //currDate, //.split("/").reverse().join("-"),
+    receiptDate: "", //formatDate(new Date(), 4), //currDate, //.split("/").reverse().join("-"),
     rvNo: "Draft",
-    rvDate: currDate, //.split("/").reverse().join("-"),
+    rvDate: "", //currDate, //.split("/").reverse().join("-"),
     status: "Created",
     customer: "0000",
     customerName: "",
@@ -352,7 +353,7 @@ function PurchasePartsNew() {
     );
   };
 
-  const saveButtonState = (e) => {
+  const saveButtonState = async (e) => {
     e.preventDefault();
     if (formHeader.customer.length == 0) {
       toast.error("Please Select Customer");
@@ -360,6 +361,11 @@ function PurchasePartsNew() {
       toast.error("Please Enter Customer Document Material Reference");
     else {
       if (saveUpdateCount == 0) {
+        formHeader.receiptDate = formatDate(new Date(), 4);
+        formHeader.rvDate = currDate;
+        setFormHeader(formHeader);
+        await delay(500);
+
         insertHeaderFunction();
         setBoolVal2(true);
       } else {
