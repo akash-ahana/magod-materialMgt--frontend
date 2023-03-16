@@ -372,12 +372,12 @@ export const customerSidebar = [
         subNav: [
           {
             title: "Stock Report",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/new",
+            path: "/materialmanagement/reports/customer/stocklist",
             icon: <AiIcons.AiOutlineInfoCircle />,
           },
           {
             title: "Parts Reports",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/draftrvlist",
+            path: "/materialmanagement/reports/customer/partlist",
 
             icon: <AiIcons.AiOutlineInfoCircle />,
           },

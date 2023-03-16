@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import MaterialStockList from "./Components/MaterialStockList";
 
 function Customer() {
-  return (
-    <div>Customer</div>
-  )
+  return <div></div>;
 }
 
-export default Customer
+export default Customer;

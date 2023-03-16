@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import MaterialStockList from "./Components/MaterialStockList";
 
 function StockReport() {
   return (
-    <div>StockReport</div>
-  )
+    <div>
+      {" "}
+      <MaterialStockList />
+    </div>
+  );
 }
 
-export default StockReport
+export default StockReport;

@@ -72,7 +72,14 @@ import MaterialAllotmentMain from "./pages/mat-mangmnt/menu/Shop Floor Issue/Ser
 import ProductionMaterialIssueParts from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/PartsComponents/ProductionMaterialIssueParts";
 import UnitsMatAllotmentForm from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/UnitsComponents/UnitsMatAllotmentForm";
 import UnitsIssueToProduction from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/UnitsComponents/UnitsIssueToProduction";
-
+import ReturnAsScrap from "./pages/mat-mangmnt/menu/Shop Floor Returns/ReturnComponents/ReturnAsScrap";
+import ReturnToStock from "./pages/mat-mangmnt/menu/Shop Floor Returns/ReturnComponents/ReturnToStock";
+import ResizeAndReturn from "./pages/mat-mangmnt/menu/Shop Floor Returns/ReturnComponents/ResizeAndReturn";
+import LocationModel from "./pages/mat-mangmnt/menu/Shop Floor Returns/ReturnComponents/LocationModel";
+import ModalComp from "./pages/mat-mangmnt/menu/Shop Floor Returns/ReturnComponents/ModalComp";
+import ResizeAndSplittingForm from "./pages/mat-mangmnt/menu/Shop Floor Returns/ReturnComponents/ResizeAndSplittingForm";
+import StockReport from "./pages/mat-mangmnt/menu/Reports/Customer/StockReport";
+import PartsReport from "./pages/mat-mangmnt/menu/Reports/Customer/PartsReport";
 function App() {
   return (
     <BrowserRouter>
@@ -286,16 +293,31 @@ function App() {
                 </Route>
               </Route>
             </Route>
-
+            {/* shoopfloorreturns/pendinglist/returnasscrap/location */}
             <Route path="shoopfloorreturns">
               <Route index={true} element={<ShoopFloorreturns />} />
-              <Route path="pendinglist" element={<PendingList />} />
+              <Route path="pendinglist">
+                <Route index={true} element={<PendingList />} />
+                <Route path="returnasscrap" element={<ReturnAsScrap />} />
+                <Route path="returntostock" element={<ReturnToStock />} />
+                <Route path="resizeandreturn">
+                  <Route index={true} element={<ResizeAndReturn />} />
+                  <Route
+                    path="materialsplitter"
+                    element={<ResizeAndSplittingForm />}
+                  />
+                </Route>
+              </Route>
             </Route>
 
             <Route path="reports">
               <Route index={true} element={<Reports />} />
-              <Route path="customer" element={<Customer />} />
-              <Route path="dailyreports" element={<DailyReport />} />/
+              <Route path="customer">
+                <Route index={true} element={<Customer />} />
+                <Route path="stocklist" element={<StockReport />} />
+                <Route path="partlist" element={<PartsReport />} />
+              </Route>
+              <Route path="dailyreports" element={<DailyReport />} />
               <Route path="monthlyreports" element={<MonthlyReport />} />
             </Route>
 
