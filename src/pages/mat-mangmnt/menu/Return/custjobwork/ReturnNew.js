@@ -11,12 +11,19 @@ const { endpoints } = require("../../../../api/constants");
 
 function ReturnNew() {
   let [custdata, setCustdata] = useState([]);
+  let [custCode, setCustCode] = useState("");
 
   async function fetchData() {
     getRequest(endpoints.getCustomers, (data) => {
       setCustdata(data);
     });
   }
+
+  let changeCustomer = async (e) => {
+    e.preventDefault();
+    const { value, name } = e.target;
+    setCustCode(value);
+  };
 
   useEffect(() => {
     fetchData();
@@ -29,7 +36,7 @@ function ReturnNew() {
       <div className="row">
         <div className="col-md-8">
           <label className="form-label">Select Customer</label>
-          <select className="ip-select">
+          <select className="ip-select" onChange={changeCustomer}>
             <option value="" disabled selected>
               Select Customer
             </option>
@@ -43,11 +50,11 @@ function ReturnNew() {
       </div>
       <Tabs id="controlled-tab-example" className="mb-3 mt-3 tab_font">
         <Tab eventKey="mat_rece" title="Profiles Matireals">
-          <ProfilesMaterials />
+          <ProfilesMaterials custCode={custCode} />
         </Tab>
 
         <Tab eventKey="mat_retu" title="Parts">
-          <Parts />
+          <Parts custCode={custCode} />
         </Tab>
       </Tabs>
     </>

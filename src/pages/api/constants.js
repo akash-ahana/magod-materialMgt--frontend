@@ -65,6 +65,13 @@ export const endpoints = {
   checkStockAvailable: `${API}/mtrlStockList/checkStockAvailable`,
   deleteMtrlStockByRVNo: `${API}/mtrlStockList/deleteMtrlStockByRVNo`,
 
+  //return
+  profileMaterialFirst: `${API}/return/profileMaterialFirst`,
+  profileMaterialSecond: `${API}/return/profileMaterialSecond`,
+  profileMaterialThird: `${API}/return/profileMaterialThird`,
+  partFirst: `${API}/return/partFirst`,
+  partSecond: `${API}/return/partSecond`,
+
   /*getCustCodeName: `${API}/customers/allcustcodename`,
   getCustomerDets: `${API}/customers/getcustomer`,
   dueListCustomer: `${API}/customers/customerduelist`,
