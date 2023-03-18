@@ -9,10 +9,14 @@ const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
 
 function PofilesMaterials(props) {
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+
   const [show, setShow] = useState(false);
   let [firstTable, setFirstTable] = useState([]);
   let [secondTable, setSecondTable] = useState([]);
   let [thirdTable, setThirdTable] = useState([]);
+
+  let [selectedSecond, setSelectedSecond] = useState({ selected: [] });
 
   let [firstTableSingleRow, setFirstTableSingleRow] = useState({});
 
@@ -108,7 +112,7 @@ function PofilesMaterials(props) {
       dataField: "InStock",
       editable: false,
     },
-    {
+    /*    {
       text: "Issue",
       dataField: "Issue",
       type: "bool",
@@ -128,15 +132,15 @@ function PofilesMaterials(props) {
           </lable>
         </div>
       ),
-    },
+    },*/
   ];
 
   const columnsSecond = [
-    {
+    /*{
       text: "#",
       dataField: "id",
       hidden: true,
-    },
+    },*/
     {
       text: "MtrlStockID",
       dataField: "MtrlStockID",
@@ -271,89 +275,64 @@ function PofilesMaterials(props) {
     }
   };
   const selectRowFirst = {
-    mode: "radio",
+    mode: "checkbox",
     clickToSelect: true,
-    clickToEdit: true,
+    selectColumnPosition: "right",
     bgColor: "#8A92F0",
-    onSelect: (row, isSelect, rowIndex, e) => {
-      setFirstTableSingleRow(row);
-      const newArray = allData.filter((obj) => {
-        return (
-          obj.RV_No === row.RV_No &&
-          obj.Mtrl_Code === row.Mtrl_Code &&
-          obj.DynamicPara1 === row.DynamicPara1 &&
-          obj.DynamicPara2 === row.DynamicPara2
-        );
-        // if (row.InStock === 1) {
-        //   return (
-        //     obj.RV_No === row.RV_No &&
-        //     obj.Mtrl_Code === row.Mtrl_Code &&
-        //     obj.DynamicPara1 === row.DynamicPara1 &&
-        //     obj.DynamicPara2 === row.DynamicPara2 &&
-        //     obj.Weight === row.Weight
-        //   );
-        // } else {
-        //   return (
-        //     obj.RV_No === row.RV_No &&
-        //     obj.Mtrl_Code === row.Mtrl_Code &&
-        //     obj.DynamicPara1 === row.DynamicPara1 &&
-        //     obj.DynamicPara2 === row.DynamicPara2
-        //   );
-        // }
-      });
-      setSecondTable(newArray);
+    onSelect: (row, isSelect) => {
+      if (isSelect) {
+        //console.log("first table = ",firstTable)
+        //console.log("second table = ",secondTable)
+
+        setFirstTableSingleRow(row);
+        const newArray = allData.filter((obj) => {
+          return (
+            obj.RV_No === row.RV_No &&
+            obj.Mtrl_Code === row.Mtrl_Code &&
+            obj.DynamicPara1 === row.DynamicPara1 &&
+            obj.DynamicPara2 === row.DynamicPara2
+          );
+        });
+
+        let arr = [];
+        //mark checkbox of second table
+        newArray.forEach(async (item, i) => {
+          arr = [...arr, item.MtrlStockID];
+        });
+        setSelectedSecond({
+          selected: arr,
+        });
+        //console.log("new array = ", newArray);
+        //console.log("selected = ", selectedSecond);
+        setSecondTable(newArray);
+        thirdTable.push.apply(thirdTable, newArray);
+        setThirdTable(thirdTable);
+      } else {
+        console.log("selected = ", selectedSecond);
+        //console.log("third table = ", thirdTable);
+        let newData = thirdTable.filter((obj, index) => {
+          return (
+            obj.RV_No !== row.RV_No ||
+            obj.Mtrl_Code !== row.Mtrl_Code ||
+            obj.DynamicPara1 !== row.DynamicPara1 ||
+            obj.DynamicPara2 !== row.DynamicPara2
+          );
+        });
+
+        setSelectedSecond({
+          selected: [],
+        });
+
+        setThirdTable(newData);
+      }
     },
   };
-
-  const cellEditFirstTable = (row, columns, rowIndex, columnIndex) => {
-    //console.log("Row = ", row);
-    // if (row.Issue === true) {
-    //   const newArray = allData.filter((obj) => {
-    //     return (
-    //       obj.RV_No === row.RV_No &&
-    //       obj.Mtrl_Code === row.Mtrl_Code &&
-    //       obj.DynamicPara1 === row.DynamicPara1 &&
-    //       obj.DynamicPara2 === row.DynamicPara2
-    //     );
-    //   });
-    //   //setSecondTable(newArray);
-    //   thirdTable.push(newArray);
-    //   setThirdTable(thirdTable);
-    //   console.log("thord table = ", thirdTable);
-    // } else {
-    //   const newArray = thirdTable.filter((obj) => {
-    //     return (
-    //       obj.RV_No !== row.RV_No &&
-    //       obj.Mtrl_Code !== row.Mtrl_Code &&
-    //       obj.DynamicPara1 !== row.DynamicPara1 &&
-    //       obj.DynamicPara2 !== row.DynamicPara2
-    //     );
-    //   });
-    //   setThirdTable(thirdTable);
-    // }
-  };
-  const beforeSaveCellFirst = (oldValue, newValue) => {
-    console.log(
-      "old = ",
-      oldValue,
-      " new = ",
-      newValue,
-      " row = ",
-      firstTableSingleRow
-    );
-    // if (newValue === true) {
-    //   const newArray = allData.filter((obj) => {
-    //     return (
-    //       obj.RV_No === firstTableSingleRow.RV_No &&
-    //       obj.Mtrl_Code === firstTableSingleRow.Mtrl_Code &&
-    //       obj.DynamicPara1 === firstTableSingleRow.DynamicPara1 &&
-    //       obj.DynamicPara2 === firstTableSingleRow.DynamicPara2
-    //     );
-    //   });
-    //   setSecondTable(newArray);
-    //   setThirdTable(thirdTable.push(newArray));
-    // } else {
-    // }
+  const selectRowSecond = {
+    mode: "checkbox",
+    clickToSelect: true,
+    bgColor: "#8A92F0",
+    selected: selectedSecond.selected,
+    //onSelect: (row, isSelect) => {},
   };
   return (
     <>
@@ -378,11 +357,6 @@ function PofilesMaterials(props) {
             hover
             condensed
             selectRow={selectRowFirst}
-            cellEdit={cellEditFactory({
-              mode: "click",
-              blurToSave: true,
-              onStartEdit: cellEditFirstTable,
-            })}
           ></BootstrapTable>
         </div>
       </div>
@@ -392,17 +366,13 @@ function PofilesMaterials(props) {
             <div className="col-md-6 table-data">
               <div style={{ height: "400px", overflowY: "scroll" }}>
                 <BootstrapTable
-                  keyField="id"
+                  keyField="MtrlStockID"
                   columns={columnsSecond}
                   data={secondTable}
                   striped
                   hover
                   condensed
-                  //selectRow={selectRowSecond}
-                  cellEdit={cellEditFactory({
-                    mode: "click",
-                    blurToSave: true,
-                  })}
+                  selectRow={selectRowSecond}
                 ></BootstrapTable>
               </div>
             </div>
