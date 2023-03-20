@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import ReturnListing from "./ReturnListing";
 
 function ReturnSalesIVList() {
-  return (
-    <div>ReturnSalesIVList</div>
-  )
+  return <ReturnListing type="returnSaleListing" />;
 }
 
-export default ReturnSalesIVList
+export default ReturnSalesIVList;

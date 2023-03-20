@@ -14,8 +14,9 @@ function CreateYesNoModal(props) {
     formHeader.status = "Received";
 
     //get running no and assign to RvNo
+    let yyyy = formatDate(new Date(), 6).toString();
     const url =
-      endpoints.getRunningNo + "?SrlType=MaterialReceiptVoucher&Period=2023";
+      endpoints.getRunningNo + "?SrlType=MaterialReceiptVoucher&Period=" + yyyy;
     //console.log(url);
     getRequest(url, (data) => {
       data.map((obj) => {

@@ -4,6 +4,7 @@ import Table from "react-bootstrap/Table";
 import CreateDCModal from "../../../../components/CreateDCModal";
 import BootstrapTable from "react-bootstrap-table-next";
 import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
+import { formatDate } from "../../../../../../utils";
 
 const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
@@ -213,67 +214,6 @@ function PofilesMaterials(props) {
       editable: false,
     },
   ];
-  let firstTableCheckoxChange = (row) => {
-    //console.log("row = ", row);
-    console.log("third table : ", thirdTable);
-    if (row.Issue === true) {
-      var flag = 0;
-      if (thirdTable.length !== 0) {
-        thirdTable.map((ele) => {
-          if (ele.MtrlStockID === row.MtrlStockID) {
-            flag = 1;
-          }
-        });
-      }
-      if (flag == 0) {
-        const newArray = allData.filter((obj) => {
-          return (
-            obj.RV_No === row.RV_No &&
-            obj.Mtrl_Code === row.Mtrl_Code &&
-            obj.DynamicPara1 === row.DynamicPara1 &&
-            obj.DynamicPara2 === row.DynamicPara2
-          );
-        });
-        thirdTable.push(newArray[0]);
-        setThirdTable(thirdTable);
-      }
-      //const newArray = allData.filter((obj) => {
-      // if (thirdTable.length !== 0) {
-      //   thirdTable.map((ele) => {
-      //     if (ele.MtrlStockID !== obj.MtrlStockID) {
-      //       return (
-      //         obj.RV_No === row.RV_No &&
-      //         obj.Mtrl_Code === row.Mtrl_Code &&
-      //         obj.DynamicPara1 === row.DynamicPara1 &&
-      //         obj.DynamicPara2 === row.DynamicPara2
-      //       );
-      //     }
-      //   });
-      // } else {
-      //   return (
-      //     obj.RV_No === row.RV_No &&
-      //     obj.Mtrl_Code === row.Mtrl_Code &&
-      //     obj.DynamicPara1 === row.DynamicPara1 &&
-      //     obj.DynamicPara2 === row.DynamicPara2
-      //   );
-      // }
-      //});
-      //setSecondTable(newArray);
-      //thirdTable.push(newArray[0]);
-      //setThirdTable(thirdTable);
-    } else {
-      console.log(" OFF ");
-      const newArray = thirdTable.filter((obj) => {
-        return (
-          obj.RV_No !== row.RV_No &&
-          obj.Mtrl_Code !== row.Mtrl_Code &&
-          obj.DynamicPara1 !== row.DynamicPara1 &&
-          obj.DynamicPara2 !== row.DynamicPara2
-        );
-      });
-      setThirdTable(thirdTable);
-    }
-  };
   const selectRowFirst = {
     mode: "checkbox",
     clickToSelect: true,
@@ -332,7 +272,83 @@ function PofilesMaterials(props) {
     clickToSelect: true,
     bgColor: "#8A92F0",
     selected: selectedSecond.selected,
-    //onSelect: (row, isSelect) => {},
+    onSelect: (row, isSelect) => {
+      if (isSelect) {
+        setFirstTableSingleRow(row);
+        //console.log("third table = ", thirdTable);
+        //console.log("row = ", row);
+
+        const newArray = allData.filter((obj) => {
+          return obj.MtrlStockID === row.MtrlStockID;
+        });
+
+        let arr = [];
+        //mark checkbox of second table
+        newArray.forEach(async (item, i) => {
+          arr = [...selectedSecond.selected, item.MtrlStockID];
+        });
+        setSelectedSecond({
+          selected: arr,
+        });
+        //console.log("new array = ", newArray);
+        //console.log("selected = ", selectedSecond);
+        //setSecondTable(newArray);
+        thirdTable.push.apply(thirdTable, newArray);
+        setThirdTable(thirdTable);
+      } else {
+        //console.log("third table = ", thirdTable);
+        //console.log("row = ", row);
+        let newData = thirdTable.filter((obj, index) => {
+          return obj.MtrlStockID !== row.MtrlStockID;
+        });
+
+        //secondTable.forEach((item, i) => {
+        setSelectedSecond({
+          selected: selectedSecond.selected.filter((ele) => {
+            return ele !== row.MtrlStockID;
+          }),
+        });
+        //});
+
+        // setSelectedSecond({
+        //   selected: [],
+        // });
+
+        setThirdTable(newData);
+      }
+    },
+  };
+  let createReturnVoucher = async () => {
+    if (thirdTable.length === 0) {
+      toast.error("Select Material to return");
+    } else {
+      //get running no and assign to RvNo
+      let yyyy = formatDate(new Date(), 6).toString();
+      //console.log("yy = ", yyyy);
+      const url =
+        endpoints.getRunningNo + "?SrlType=MaterialReturnIV&Period=" + yyyy;
+      getRequest(url, (data) => {
+        data.map((obj) => {
+          let newNo = parseInt(obj.Running_No) + 1;
+          //let no = "23/000" + newNo;
+          let series = "";
+          //add prefix zeros
+          for (
+            let i = 0;
+            i < parseInt(obj.Length) - newNo.toString().length;
+            i++
+          ) {
+            series = series + "0";
+          }
+          series = series + "" + newNo;
+          //console.log("series = ", series);
+          //get last 2 digit of year
+          let yy = formatDate(new Date(), 6).toString().substring(2);
+          let no = yy + "/" + series;
+          console.log("no = ", no);
+        });
+      });
+    }
   };
   return (
     <>
@@ -342,7 +358,7 @@ function PofilesMaterials(props) {
         <button
           className="button-style"
           style={{ width: "200px" }}
-          onClick={handleShow}
+          onClick={createReturnVoucher}
         >
           Create Return Vocher
         </button>

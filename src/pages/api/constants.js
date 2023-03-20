@@ -72,6 +72,15 @@ export const endpoints = {
   partFirst: `${API}/return/partFirst`,
   partSecond: `${API}/return/partSecond`,
 
+  //listing part
+  getReturnPendingList: `${API}/pendingDispatch/allPendingDispatchRouter?customer`,
+  getCustomerIVList: `${API}/pendingDispatch/customerIVlist`,
+  getSalesIVList: `${API}/pendingDispatch/SalesIVList`,
+  getCancelledList: `${API}/pendingDispatch/cancelledList`,
+  getCheckReturnPendingList: `${API}/pendingDispatch/checkPendingDispatchRouter`,
+  getOutwordMaterialVocher: `${API}/outwordMaterialIssue/allmtrlIssueDetailsRouter`,
+  updateOutwordMaterialVocher: `${API}/outwordMaterialIssue/updatemtrlIssueDetailsRouter`,
+
   /*getCustCodeName: `${API}/customers/allcustcodename`,
   getCustomerDets: `${API}/customers/getcustomer`,
   dueListCustomer: `${API}/customers/customerduelist`,

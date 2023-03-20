@@ -1,16 +1,103 @@
-import React, { useState } from "react";
-import { data5 } from "../../../components/Data";
+import React, { useState, useEffect } from "react";
+import { OutwordMaterial } from "../../../components/Data";
 import Tables from "../../../../../components/Tables";
+import { dateToShort } from "../../../../../utils";
 import Swal from "sweetalert2";
+import CreateDCModal from "../../../components/CreateDCModal";
 import FormModal from "../../../components/FormModal";
+import { useLocation } from "react-router-dom";
+import Table from "react-bootstrap/Table";
+import { toast } from "react-toastify";
+import BootstrapTable from "react-bootstrap-table-next";
+
+const { getRequest, postRequest } = require("../../../../api/apiinstance");
+const { endpoints } = require("../../../../api/constants");
 
 function OutwordMaterialIssueVocher(props) {
   const [show, setShow] = useState(false);
+  const [outData, setOutData] = useState([]);
+  const [upData, setUpData] = useState();
+  const location = useLocation();
 
   const handleShow = () => setShow(true);
 
+  function statusFormatter(cell, row, rowIndex, formatExtraData) {
+    if (!cell) return;
+    return dateToShort(cell);
+  }
+
+  async function fetchOutwordData() {
+    getRequest(endpoints.getOutwordMaterialVocher, (data) => {
+      setOutData(data);
+    });
+  }
+
+  useEffect(() => {
+    fetchOutwordData();
+  }, []); //[inputPart]);
+
+  const columns = [
+    {
+      text: "Srl",
+      dataField: "Srl",
+    },
+    {
+      text: "MtrlDescription",
+      dataField: "MtrlDescription",
+    },
+    {
+      text: "Material",
+      dataField: "Material",
+    },
+    {
+      text: "Qty",
+      dataField: "Qty",
+    },
+    {
+      text: "TotalWeightCalculated",
+      dataField: "TotalWeightCalculated",
+    },
+    {
+      text: "Wieght",
+      dataField: "TotalWeight",
+    },
+  ];
+
   const getHeadings = () => {
-    return Object.keys(data5[0]);
+    return Object.keys(outData[0]);
+  };
+
+  let [formHeader, setFormHeader] = useState({
+    IvId: location.state.selectData.IV_No,
+    PkngDcNo: "",
+    TotalWeight: "",
+  });
+  const InputHeaderEvent = (e) => {
+    const { name, value } = e.target;
+    setFormHeader({ ...formHeader, [name]: value });
+  };
+
+  const updateOutwordFunction = () => {
+    console.log("update formheader = ", formHeader);
+    postRequest(endpoints.updateOutwordMaterialVocher, formHeader, (data) => {
+      console.log("data = ", data);
+      if (data.affectedRows !== 0) {
+        toast.success("Record Updated Successfully");
+      } else {
+        toast.error("Record Not Updated");
+      }
+    });
+  };
+
+  const saveButtonState = (e) => {
+    e.preventDefault();
+    if (formHeader.PkngDcNo.length == 0) {
+      toast.error("Please Select PkngDcNo");
+    } else if (formHeader.TotalWeight.length == 0)
+      toast.error("Please Enter TotalWeight");
+    else {
+      updateOutwordFunction();
+    }
   };
 
   const getPop = () => {
@@ -32,36 +119,50 @@ function OutwordMaterialIssueVocher(props) {
         <div className="row">
           <div className="col-md-4">
             <label className="">IV No</label>
-            <input type="text" name="rvNo" value="Draft" readOnly />
-          </div>
-          <div className="col-md-4">
-            <label className="">Date</label>
             <input
               type="text"
-              name="rvDate"
-              //   value={currDate} readOnly
+              name="IvId"
+              value={location.state.selectData.IV_No}
+              readOnly
+              onChange={InputHeaderEvent}
             />
           </div>
           <div className="col-md-4">
-            <button className="button-style">Save</button>
+            <label className="">IV Date</label>
+            <input
+              type="text"
+              name="IVDate"
+              value={statusFormatter(location.state.selectData.IV_Date)}
+              readOnly
+            />
+          </div>
+          <div className="col-md-4">
+            <button className="button-style" onClick={saveButtonState}>
+              Save
+            </button>
           </div>
         </div>
         <div className="row">
           <div className="col-md-8">
-            <label className="form-label">Customer</label>
-            <select
-              className="ip-select"
-              name="customer"
-              // onChange={changeCustomer}
-            >
-              {/* <option value="">Select Customer</option> */}
-              {/* {customers.map((customer, index) => ( */}
-              {/* <option value={customer.Cust_Code}> */}
-              {/* {customer.Cust_name} */}
-              {/* </option> */}
-              {/* ))} */}
-            </select>
+            <label className="">Customer</label>
+            <input
+              type="text"
+              name="Customer"
+              value={location.state.selectData.Customer}
+              readOnly
+            />
           </div>
+          {/* <div className="col-md-8">
+              <label className="form-label">Customer</label>
+              <select
+                className="ip-select"
+                name="customer"
+                // onChange={changeCustomer}
+              >
+               
+              </select>
+            </div> */}
+
           <div className="col-md-4">
             <button className="button-style" onClick={getPop}>
               Cancel IV
@@ -82,9 +183,9 @@ function OutwordMaterialIssueVocher(props) {
             <label className="">DC No / Ph No</label>
             <input
               type="text"
-              name="reference"
-              // value={formHeader.reference}
-              // onChange={InputHeaderEvent}
+              name="PkngDcNo"
+              value={formHeader.PkngDcNo}
+              onChange={InputHeaderEvent}
             />
           </div>
           <div className="col-md-4">
@@ -98,18 +199,17 @@ function OutwordMaterialIssueVocher(props) {
             <label className="">Weight</label>
             <input
               type="text"
-              name="reference"
-              // value={formHeader.reference}
-              // onChange={InputHeaderEvent}
+              name="TotalWeight"
+              value={formHeader.TotalWeight}
+              onChange={InputHeaderEvent}
             />
           </div>
-
           <div className="col-md-4">
-            <label className="">Caluclated Weight</label>
+            <label className="">Calculate Weight</label>
             <input
               type="text"
-              name="calculatedWeight"
-              // value={calcWeightVal}
+              name="Type"
+              value={location.state.selectData.TotalWeight}
               readOnly
             />
           </div>
@@ -121,11 +221,23 @@ function OutwordMaterialIssueVocher(props) {
 
       <div className="row">
         <div className="col-md-12 col-sm-12">
-          <div className="ip-box form-bg">
-            <div className="row">
-              <Tables theadData={getHeadings()} tbodyData={data5} />
-            </div>
+          <div
+            style={{ height: "420px", overflowY: "scroll" }}
+            //className="col-md-12 col-sm-12"
+          >
+            <BootstrapTable
+              keyField="IV_No"
+              //keyField="id"
+              columns={columns}
+              data={outData}
+              striped
+              hover
+              condensed
+              //pagination={paginationFactory()}
+              //selectRow={selectRow}
+            ></BootstrapTable>
           </div>
+          {/* {outData.length>0 &&  <Tables theadData={getHeadings()} tbodyData={outData} /> }                   */}
         </div>
       </div>
     </div>
