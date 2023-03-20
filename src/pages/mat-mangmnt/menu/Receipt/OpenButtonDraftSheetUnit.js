@@ -13,6 +13,7 @@ function OpenButtonDraftSheetUnit() {
   const location = useLocation();
 
   const nav = useNavigate();
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
   const [show, setShow] = useState(false);
 
   const currDate = new Date()
@@ -39,6 +40,8 @@ function OpenButtonDraftSheetUnit() {
   //after clicking inspected checkbox
   const [boolVal5, setBoolVal5] = useState(false);
 
+  const [insCheck, setInsCheck] = useState(false);
+  const [calcWeightVal, setCalcWeightVal] = useState(0);
   const [saveUpdateCount, setSaveUpdateCount] = useState(0);
 
   const [formHeader, setFormHeader] = useState({
@@ -57,13 +60,17 @@ function OpenButtonDraftSheetUnit() {
   });
 
   //const [mtrlArray, setMtrlArray] = useState([]);
+  let [para1Label, setPara1Label] = useState("Para 1");
+  let [para2Label, setPara2Label] = useState("Para 2");
+  let [para3Label, setPara3Label] = useState("Para 3");
+
+  const [unitLabel1, setUnitLabel1] = useState("");
+  const [unitLabel2, setUnitLabel2] = useState("");
+  const [unitLabel3, setUnitLabel3] = useState("");
 
   let [custdata, setCustdata] = useState([]);
   let [mtrlDetails, setMtrlDetails] = useState([]);
   let [locationData, setLocationData] = useState([]);
-  let [para1Label, setPara1Label] = useState("Para 1");
-  let [para2Label, setPara2Label] = useState("Para 2");
-  let [para3Label, setPara3Label] = useState("Para 3");
 
   const [partUniqueId, setPartUniqueId] = useState();
   const [materialArray, setMaterialArray] = useState([]);
@@ -108,15 +115,15 @@ function OpenButtonDraftSheetUnit() {
       dataField: "mtrlCode",
     },
     {
-      text: para1Label,
+      text: unitLabel1 !== "" ? para1Label + "(" + unitLabel1 + ")" : "",
       dataField: "dynamicPara1",
     },
     {
-      text: para2Label,
+      text: unitLabel2 !== "" ? para2Label + "(" + unitLabel2 + ")" : "",
       dataField: "dynamicPara2",
     },
     {
-      text: para3Label,
+      text: unitLabel3 !== "" ? para3Label + "(" + unitLabel3 + ")" : "",
       dataField: "dynamicPara3",
     },
     {
@@ -131,7 +138,7 @@ function OpenButtonDraftSheetUnit() {
           <lable>
             <input
               type="checkbox"
-              checked={inputPart.inspected === "1" ? true : false}
+              checked={row.Inspected == 1 ? true : false}
             />
           </lable>
         </div>
@@ -144,6 +151,13 @@ function OpenButtonDraftSheetUnit() {
     {
       text: "Updated",
       dataField: "updated",
+      formatter: (celContent, row) => (
+        <div className="checkbox">
+          <lable>
+            <input type="checkbox" checked={row.UpDated == 1 ? true : false} />
+          </lable>
+        </div>
+      ),
     },
   ];
 
@@ -175,6 +189,7 @@ function OpenButtonDraftSheetUnit() {
         const found = data1.find((obj) => obj.Cust_Code === data.Cust_Code);
         data.address = found.Address;
         setFormHeader(formHeader);
+        setCalcWeightVal(data.TotalCalculatedWeight);
       });
       //get material details
       const url1 =
@@ -206,7 +221,7 @@ function OpenButtonDraftSheetUnit() {
           obj.qtyUsed = obj.QtyUsed;
           obj.qtyReturned = obj.QtyReturned;
         });
-        console.log("data 2 = ", data2);
+        //console.log("data 2 = ", data2);
         setMaterialArray(data2);
 
         //find shape of material
@@ -250,13 +265,13 @@ function OpenButtonDraftSheetUnit() {
 
     /*getRequest(endpoints.getCustomers, (data) => {
       setCustdata(data);
-    });
+    });*/
     getRequest(endpoints.getMaterialLocationList, (data) => {
       setLocationData(data);
     });
     getRequest(endpoints.getMtrlData, (data) => {
       setMtrlDetails(data);
-    });*/
+    });
     //console.log("data = ", custdata);
   }
 
@@ -294,20 +309,60 @@ function OpenButtonDraftSheetUnit() {
     //console.log("value = ", value);
     mtrlDetails.map((material) => {
       if (material.Mtrl_Code === value) {
-        if (material.Shape === "Block") {
-          setPara1Label("Length");
+        //update the mtrl_data related columns
+        let url1 = endpoints.getRowByMtrlCode + "?code=" + value;
+        getRequest(url1, async (mtrlData) => {
+          //console.log("mtrldata = ", mtrlData);
+          inputPart.material = mtrlData.Mtrl_Type;
+          inputPart.shapeMtrlId = mtrlData.ShapeMtrlID;
+          let url2 = endpoints.getRowByShape + "?shape=" + mtrlData.Shape;
+          getRequest(url2, async (shapeData) => {
+            //console.log("shapedata = ", shapeData);
+            inputPart.shapeID = shapeData.ShapeID;
+            setInputPart(inputPart);
+          });
+        });
+
+        if (material.Shape === "Units") {
+          setPara1Label("Qty"); //Nos
+          setPara2Label("");
+          setPara3Label("");
+          setBoolPara1(false);
+          setBoolPara2(true);
+          setBoolPara3(true);
+          setUnitLabel1("Nos");
+          setUnitLabel2("");
+          setUnitLabel3("");
+        } else if (material.Shape === "Block") {
+          setPara1Label("Length"); //mm
           setPara2Label("Width");
           setPara3Label("Height");
+          setBoolPara1(false);
+          setBoolPara2(false);
+          setBoolPara3(false);
+          setUnitLabel1("mm");
+          setUnitLabel2("mm");
+          setUnitLabel3("mm");
         } else if (material.Shape === "Plate") {
-          setPara1Label("Length");
+          setPara1Label("Length"); //mm
           setPara2Label("Width");
           setPara3Label("");
+          setBoolPara1(false);
+          setBoolPara2(false);
           setBoolPara3(true);
+          setUnitLabel1("mm");
+          setUnitLabel2("mm");
+          setUnitLabel3("");
         } else if (material.Shape === "Sheet") {
-          setPara1Label("Width");
-          setPara2Label("Length");
+          setPara1Label("Width"); //mm
+          setPara2Label("Length"); //mm
           setPara3Label("");
+          setBoolPara1(false);
+          setBoolPara2(false);
           setBoolPara3(true);
+          setUnitLabel1("mm");
+          setUnitLabel2("mm");
+          setUnitLabel3("");
         } else if (material.Shape === "Tiles") {
           setPara1Label("");
           setPara2Label("");
@@ -315,12 +370,29 @@ function OpenButtonDraftSheetUnit() {
           setBoolPara1(true);
           setBoolPara2(true);
           setBoolPara3(true);
+          setUnitLabel1("");
+          setUnitLabel2("");
+          setUnitLabel3("");
         } else if (material.Shape.includes("Tube")) {
-          setPara1Label("Length");
+          setPara1Label("Length"); //mm
           setPara2Label("");
           setPara3Label("");
+          setBoolPara1(false);
           setBoolPara2(true);
           setBoolPara3(true);
+          setUnitLabel1("mm");
+          setUnitLabel2("");
+          setUnitLabel3("");
+        } else if (material.Shape.includes("Cylinder")) {
+          setPara1Label("Volume"); //CubicMtr
+          setPara2Label("");
+          setPara3Label("");
+          setBoolPara1(false);
+          setBoolPara2(true);
+          setBoolPara3(true);
+          setUnitLabel1("CubicMtr");
+          setUnitLabel2("");
+          setUnitLabel3("");
         }
       }
     });
@@ -336,6 +408,9 @@ function OpenButtonDraftSheetUnit() {
     inputPart[name] = value;
     setInputPart(inputPart);
 
+    console.log("Before update = ", inputPart);
+
+    await delay(500);
     //update database row
     postRequest(endpoints.updateMtrlReceiptDetails, inputPart, (data) => {
       if (data.affectedRows !== 0) {
@@ -455,13 +530,14 @@ function OpenButtonDraftSheetUnit() {
     } else if (formHeader.reference.length == 0)
       toast.error("Please Enter Customer Document Material Reference");
     else {
-      if (saveUpdateCount == 0) {
+      /*if (saveUpdateCount == 0) {
         insertHeaderFunction();
         setBoolVal2(true);
       } else {
         //to update data
         updateHeaderFunction();
-      }
+      }*/
+      updateHeaderFunction();
     }
   };
 
@@ -478,8 +554,9 @@ function OpenButtonDraftSheetUnit() {
     }
   };
 
-  const allotRVYesButton = (data) => {
+  const allotRVYesButton = async (data) => {
     //console.log("data = ", formHeader);
+    await delay(500);
     setFormHeader(data);
     setBoolVal4(true);
     //console.log("formheader = ", formHeader);
@@ -522,9 +599,9 @@ function OpenButtonDraftSheetUnit() {
     setBoolVal3(false);
 
     //clear all part fields
-    inputPart.rvId = 71018; //formHeader.rvId;
+    inputPart.rvId = formHeader.rvId;
     inputPart.srl = "01";
-    inputPart.custCode = 2847; //formHeader.customer;
+    inputPart.custCode = formHeader.customer;
     inputPart.mtrlCode = "";
     inputPart.material = "";
     inputPart.shapeMtrlId = 0;
@@ -545,6 +622,10 @@ function OpenButtonDraftSheetUnit() {
     inputPart.qtyUsed = 0.0;
     inputPart.qtyReturned = 0.0;
 
+    //uncheck inspected
+    setInsCheck(false);
+    inputPart.inspected = 0;
+    setBoolVal5(false);
     // console.log("partarray = ", partArray);
 
     //insert blank row in table
@@ -603,7 +684,47 @@ function OpenButtonDraftSheetUnit() {
     //console.log("after = ", partArray);
   };
 
-  const changeMaterialHandle = (e) => {
+  //delete part
+  const handleDelete = () => {
+    if (inputPart.id.length === 0) {
+      toast.error("Select Material");
+    } else {
+      //console.log("id = ", inputPart.id);
+      console.log("input part = ", inputPart);
+      postRequest(endpoints.deleteMtrlReceiptDetails, inputPart, (data) => {
+        if (data.affectedRows !== 0) {
+          const newArray = materialArray.filter(
+            (p) =>
+              //p.id === "d28d67b2-6c32-4aae-a7b6-74dc985a3cff"
+              p.id !== inputPart.id
+          );
+          setMaterialArray(newArray);
+          toast.success("Material Deleted");
+        }
+      });
+
+      //get mtrl_data by mtrl_code
+      let url = endpoints.getRowByMtrlCode + "?code=" + inputPart.mtrlCode;
+      getRequest(url, async (data) => {
+        let totwt = 0;
+        materialArray.map((obj) => {
+          totwt =
+            parseFloat(totwt) +
+            (parseFloat(obj.qtyAccepted) *
+              getWeight(
+                data,
+                parseFloat(obj.dynamicPara1),
+                parseFloat(obj.dynamicPara2),
+                parseFloat(obj.dynamicPara3)
+              )) /
+              (1000 * 1000);
+        });
+        setCalcWeightVal(parseFloat(totwt).toFixed(2));
+      });
+    }
+  };
+
+  const changeMaterialHandle = async (e) => {
     const { value, name } = e.target;
 
     setInputPart((preValue) => {
@@ -620,36 +741,19 @@ function OpenButtonDraftSheetUnit() {
     //checkbox update
     if (name === "inspected") {
       if (e.target.checked) {
-        inputPart.inspected = "1";
+        inputPart.inspected = 1;
         setBoolVal5(true);
+        setInsCheck(true);
       } else {
-        inputPart.inspected = "0";
+        inputPart.inspected = 0;
         setBoolVal5(false);
+        setInsCheck(false);
       }
     }
 
-    //setInputPart(inputPart);
+    inputPart[name] = value;
+    setInputPart(inputPart);
     //console.log(inputPart);
-    //update blank row with respected to modified part textfield
-    postRequest(endpoints.updateMtrlReceiptDetails, inputPart, (data) => {
-      if (data.affectedRows !== 0) {
-      } else {
-        toast.error("Record Not Updated");
-      }
-    });
-
-    const newArray = materialArray.map((p) =>
-      //p.id === "d28d67b2-6c32-4aae-a7b6-74dc985a3cff"
-      p.id === partUniqueId
-        ? {
-            ...p,
-            [name]: value,
-            qty: inputPart.qtyReceived,
-            inspected: inputPart.inspected,
-          }
-        : p
-    );
-    setMaterialArray(newArray);
 
     //calculate weight
     if (name === "qtyAccepted") {
@@ -657,7 +761,7 @@ function OpenButtonDraftSheetUnit() {
         let val = e.target.value;
         //get mtrl_data by mtrl_code
         let url = endpoints.getRowByMtrlCode + "?code=" + inputPart.mtrlCode;
-        getRequest(url, (data) => {
+        getRequest(url, async (data) => {
           //setCustdata(data);
           let TotalWeightCalculated =
             parseFloat(inputPart.qtyAccepted) *
@@ -667,6 +771,7 @@ function OpenButtonDraftSheetUnit() {
               parseFloat(inputPart.dynamicPara2),
               parseFloat(inputPart.dynamicPara3)
             );
+
           TotalWeightCalculated = TotalWeightCalculated / (1000 * 1000);
           inputPart.totalWeightCalculated = parseFloat(
             TotalWeightCalculated
@@ -675,10 +780,116 @@ function OpenButtonDraftSheetUnit() {
           inputPart["TotalWeightCalculated"] = TotalWeightCalculated;
           inputPart["TotalWeight"] = TotalWeightCalculated;
           setInputPart(inputPart);
+
+          //update forheader in database
+          postRequest(
+            endpoints.updateHeaderMaterialReceiptRegister,
+            formHeader,
+            (data) => {}
+          );
+
+          //update material array:
+          const newArray = materialArray.map((p) =>
+            //p.id === "d28d67b2-6c32-4aae-a7b6-74dc985a3cff"
+            p.id === partUniqueId
+              ? {
+                  ...p,
+                  [name]: value,
+                  //qty: inputPart.qtyReceived,
+                  //inspected: inputPart.inspected,
+                }
+              : p
+          );
+          setMaterialArray(newArray);
+          console.log("material array = ", materialArray);
+          await delay(500);
+
+          //find calculateweight
+          let totwt = 0;
+          materialArray.map((obj) => {
+            if (obj.id === partUniqueId) {
+              totwt =
+                parseFloat(totwt) +
+                (parseFloat(value) *
+                  getWeight(
+                    data,
+                    parseFloat(obj.dynamicPara1),
+                    parseFloat(obj.dynamicPara2),
+                    parseFloat(obj.dynamicPara3)
+                  )) /
+                  (1000 * 1000);
+            } else {
+              totwt =
+                parseFloat(totwt) +
+                (parseFloat(obj.qtyAccepted) *
+                  getWeight(
+                    data,
+                    parseFloat(obj.dynamicPara1),
+                    parseFloat(obj.dynamicPara2),
+                    parseFloat(obj.dynamicPara3)
+                  )) /
+                  (1000 * 1000);
+            }
+            //parseFloat(obj.unitWeight) * parseFloat(obj.qtyReceived);
+            //console.log(newWeight);
+          });
+          setCalcWeightVal(parseFloat(totwt).toFixed(2));
         });
+        //inputPart[name] = value;
+        //setInputPart(inputPart);
+
         //console.log("inputPart : ", inputPart);
       }
     }
+    const newArray = materialArray.map((p) =>
+      //p.id === "d28d67b2-6c32-4aae-a7b6-74dc985a3cff"
+      p.id === partUniqueId
+        ? {
+            ...p,
+            [name]: value,
+            qty: inputPart.qtyReceived,
+            inspected: inputPart.inspected == "on" ? 1 : 0,
+          }
+        : p
+    );
+
+    setMaterialArray(newArray);
+    await delay(500);
+
+    //update blank row with respected to modified part textfield
+    postRequest(endpoints.updateMtrlReceiptDetails, inputPart, (data) => {
+      if (data.affectedRows !== 0) {
+      } else {
+        toast.error("Record Not Updated");
+      }
+    });
+    await delay(500);
+  };
+
+  const selectRow = {
+    mode: "radio",
+    clickToSelect: true,
+    bgColor: "#8A92F0",
+    onSelect: (row, isSelect, rowIndex, e) => {
+      setInputPart({
+        // id: row.id,
+        // partId: row.partId,
+        // unitWeight: row.unitWeight,
+        // qtyAccepted: row.qtyAccepted,
+        // qtyRejected: row.qtyRejected,
+        // qtyReceived: row.qtyReceived,
+        id: row.id,
+        srl: row.srl,
+        mtrlCode: row.mtrlCode,
+        dynamicPara1: row.dynamicPara1,
+        dynamicPara2: row.dynamicPara2,
+        dynamicPara3: row.dynamicPara3,
+        qty: row.qty,
+        inspected: row.inspected,
+        locationNo: row.locationNo,
+        upDated: row.upDated,
+      });
+    },
   };
 
   return (
@@ -770,7 +981,7 @@ function OpenButtonDraftSheetUnit() {
             <input
               type="text"
               name="calculatedWeight"
-              // value={calcWeightVal}
+              value={calcWeightVal}
               readOnly
             />
           </div>
@@ -782,13 +993,14 @@ function OpenButtonDraftSheetUnit() {
               className="button-style"
               style={{ width: "196px" }}
               onClick={saveButtonState}
+              disabled={boolVal4}
             >
               Save
             </button>
             <button
               className="button-style"
               style={{ width: "196px" }}
-              //disabled={boolVal1}
+              disabled={boolVal4}
               onClick={allotRVButtonState}
             >
               Allot RV No
@@ -796,7 +1008,7 @@ function OpenButtonDraftSheetUnit() {
             <button
               className="button-style"
               style={{ width: "196px" }}
-              //disabled={boolVal1}
+              disabled={boolVal4}
               onClick={deleteRVButtonState}
             >
               Delete RV
@@ -822,7 +1034,7 @@ function OpenButtonDraftSheetUnit() {
                 striped
                 hover
                 condensed
-                //selectRow={selectRow}
+                selectRow={selectRow}
               ></BootstrapTable>
             </div>
 
@@ -881,18 +1093,51 @@ function OpenButtonDraftSheetUnit() {
                           <option value="" disabled selected>
                             Select Material
                           </option>
-                          {mtrlDetails.map((material, index) =>
-                            (material.Shape !== "Units") &
-                            (material.Shape !== "Cylinder") &
-                            (material.Shape !== null) &
-                            (material.Mtrl_Code !== "") ? (
-                              <option key={index} value={material.Mtrl_Code}>
-                                {material.Mtrl_Code}
-                              </option>
-                            ) : (
-                              ""
-                            )
-                          )}
+                          {location.state.type === "sheets"
+                            ? mtrlDetails.map((material, index) =>
+                                (material.Shape !== "Units") &
+                                (material.Shape !== "Cylinder") &
+                                (material.Shape !== null) &
+                                (material.Mtrl_Code !== "") ? (
+                                  <option
+                                    key={index}
+                                    value={material.Mtrl_Code}
+                                  >
+                                    {material.Mtrl_Code}
+                                  </option>
+                                ) : (
+                                  ""
+                                )
+                              )
+                            : location.state.type === "units"
+                            ? mtrlDetails.map((material, index) =>
+                                (material.Shape === "Units") &
+                                //(material.Shape !== "Cylinder") &
+                                (material.Shape !== null) &
+                                (material.Mtrl_Code !== "") ? (
+                                  <option
+                                    key={index}
+                                    value={material.Mtrl_Code}
+                                  >
+                                    {material.Mtrl_Code}
+                                  </option>
+                                ) : (
+                                  ""
+                                )
+                              )
+                            : mtrlDetails.map((material, index) =>
+                                (material.Shape !== null) &
+                                (material.Mtrl_Code !== "") ? (
+                                  <option
+                                    key={index}
+                                    value={material.Mtrl_Code}
+                                  >
+                                    {material.Mtrl_Code}
+                                  </option>
+                                ) : (
+                                  ""
+                                )
+                              )}
                         </select>
                       </div>
                     </div>
@@ -910,6 +1155,9 @@ function OpenButtonDraftSheetUnit() {
                           onChange={changeMaterialHandle}
                         />
                       </div>
+                      <div className="col-md-3">
+                        <label className="">{unitLabel1}</label>
+                      </div>
                     </div>
                     <div className="row">
                       <div className="col-md-3">
@@ -924,6 +1172,9 @@ function OpenButtonDraftSheetUnit() {
                           disabled={boolVal3 | boolVal4 | boolPara2 | boolVal5}
                         />
                       </div>
+                      <div className="col-md-3">
+                        <label className="">{unitLabel2}</label>
+                      </div>
                     </div>
                     <div className="row">
                       <div className="col-md-3">
@@ -937,6 +1188,9 @@ function OpenButtonDraftSheetUnit() {
                           onChange={changeMaterialHandle}
                           disabled={boolVal3 | boolVal4 | boolPara3 | boolVal5}
                         />
+                      </div>
+                      <div className="col-md-3">
+                        <label className="">{unitLabel3}</label>
                       </div>
                     </div>
                     <div className="col-md-12 ">
@@ -964,6 +1218,7 @@ function OpenButtonDraftSheetUnit() {
                               type="checkbox"
                               id="flexCheckDefault"
                               name="inspected"
+                              checked={insCheck}
                               /*checked={
                                 inputPart.inspected === "1" ? true : false
                               }*/
@@ -1015,7 +1270,7 @@ function OpenButtonDraftSheetUnit() {
                             className="in-field"
                             name="totalWeightCalculated"
                             value={inputPart.totalWeightCalculated}
-                            readOnly
+                            disabled={true}
                           />
                         </div>
                       </div>
@@ -1068,7 +1323,8 @@ function OpenButtonDraftSheetUnit() {
                 <button
                   className="button-style "
                   style={{ width: "120px" }}
-                  disabled={boolVal3 | boolVal4}
+                  disabled={boolVal4}
+                  onClick={handleDelete}
                 >
                   Delete Serial
                 </button>

@@ -26,6 +26,7 @@ export const endpoints = {
   getUnitsCreatedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Created&type2=Units`,
   getUnitsOpenedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Received&type2=Units`,
   getUnitsClosedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Closed&type2=Units`,
+  getUnitsCreatedPurchaseMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Created&type2=Units&type3=Purchase`,
   getUnitsOpenedPurchaseMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Received&type2=Units&type3=Purchase`,
   getUnitsClosedPurchaseMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Closed&type2=Units&type3=Purchase`,
 
@@ -33,6 +34,7 @@ export const endpoints = {
   getSheetsOpenedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Received&type2=Sheets`,
   getSheetsClosedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Closed&type2=Sheets`,
   getSheetsOpenedPurchaseMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Received&type2=Sheets&type3=Purchase`,
+  getSheetsCreatedPurchaseMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Created&type2=Sheets&type3=Purchase`,
   getSheetsClosedPurchaseMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Closed&type2=Sheets&type3=Purchase`,
 
   //Material Receipt Register
@@ -51,6 +53,7 @@ export const endpoints = {
   getMtrlReceiptDetailsByRvID: `${API}/mtrlReceiptDetails/getMtrlReceiptDetailsByRvID`,
   insertMtrlReceiptDetails: `${API}/mtrlReceiptDetails/insertMtrlReceiptDetails`,
   updateMtrlReceiptDetails: `${API}/mtrlReceiptDetails/updateMtrlReceiptDetails`,
+  deleteMtrlReceiptDetails: `${API}/mtrlReceiptDetails/deleteMtrlReceiptDetails`,
 
   //running no
   getRunningNo: `${API}/runningNo/getRunningNoBySrlType`,
@@ -59,6 +62,15 @@ export const endpoints = {
   //Material stock List
   //getMtrlReceiptDetailsByRvID: `${API}/mtrlReceiptDetails/getMtrlReceiptDetailsByRvID`,
   insertMtrlStockList: `${API}/mtrlStockList/insertMtrlStockList`,
+  checkStockAvailable: `${API}/mtrlStockList/checkStockAvailable`,
+  deleteMtrlStockByRVNo: `${API}/mtrlStockList/deleteMtrlStockByRVNo`,
+
+  //return
+  profileMaterialFirst: `${API}/return/profileMaterialFirst`,
+  profileMaterialSecond: `${API}/return/profileMaterialSecond`,
+  profileMaterialThird: `${API}/return/profileMaterialThird`,
+  partFirst: `${API}/return/partFirst`,
+  partSecond: `${API}/return/partSecond`,
 
   /*getCustCodeName: `${API}/customers/allcustcodename`,
   getCustomerDets: `${API}/customers/getcustomer`,

@@ -53,9 +53,9 @@ function PNew() {
 
   let [formHeader, setFormHeader] = useState({
     rvId: "",
-    receiptDate: formatDate(new Date(), 4), //currDate, //.split("/").reverse().join("-"),
+    receiptDate: "", //formatDate(new Date(), 4), //currDate, //.split("/").reverse().join("-"),
     rvNo: "Draft",
-    rvDate: currDate, //.split("/").reverse().join("-"),
+    rvDate: "", //currDate, //.split("/").reverse().join("-"),
     status: "Created",
     customer: "",
     customerName: "",
@@ -333,7 +333,7 @@ function PNew() {
     );
   };
 
-  const saveButtonState = (e) => {
+  const saveButtonState = async (e) => {
     e.preventDefault();
     if (formHeader.customer.length == 0) {
       toast.error("Please Select Customer");
@@ -341,6 +341,11 @@ function PNew() {
       toast.error("Please Enter Customer Document Material Reference");
     else {
       if (saveUpdateCount == 0) {
+        formHeader.receiptDate = formatDate(new Date(), 4);
+        formHeader.rvDate = currDate;
+        setFormHeader(formHeader);
+        await delay(500);
+
         insertHeaderFunction();
         setBoolVal2(true);
       } else {
@@ -530,7 +535,7 @@ function PNew() {
       <div className="row">
         <div
           style={{ height: "330px", overflowY: "scroll" }}
-          className="col-md-6 col-sm-12"
+          className="col-md-8 col-sm-12"
         >
           <BootstrapTable
             keyField="id"
@@ -577,7 +582,7 @@ function PNew() {
             </tbody>
           </table> 
         </div>*/}
-        <div className="col-md-6 col-sm-12">
+        <div className="col-md-4 col-sm-12">
           <div className="ip-box form-bg">
             <div className="row">
               <div className="col-md-12 col-sm-12">
@@ -605,6 +610,10 @@ function PNew() {
                           onChange={changePartHandle}
                           disabled={boolVal3 | boolVal4}
                         >
+                          <option value="" disabled selected>
+                            Select Part
+                          </option>
+
                           {mtrlDetails.map((part, index) => (
                             <option key={index} value={part.PartId}>
                               {part.PartId}
