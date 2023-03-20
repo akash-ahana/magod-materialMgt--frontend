@@ -1,7 +1,8 @@
 import React from "react";
+import ReturnListing from "./ReturnListing";
 
 function ReturnCustomerIVList() {
-  return <div>Same as return pending disbatch list</div>;
+  return <ReturnListing type="customerIVList" />;
 }
 
 export default ReturnCustomerIVList;

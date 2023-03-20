@@ -191,7 +191,71 @@ function Parts(props) {
     clickToSelect: true,
     bgColor: "#8A92F0",
     selected: selectedSecond.selected,
-    //onSelect: (row, isSelect) => {},
+    onSelect: (row, isSelect) => {
+      if (isSelect) {
+        let newData = allData.filter((obj, index) => {
+          return obj.RVId === row.RVId;
+        });
+
+        //prepare third table
+        newData.forEach((item, i) => {
+          //set check in second table
+          setSelectedSecond({
+            selected: [...selectedSecond.selected, item.Id],
+          });
+          if (
+            item.QtyReceived -
+              item.QtyRejected -
+              item.QtyReturned -
+              item.QtyUsed >
+            0
+          ) {
+            item.PartIdNew = item.partId + "/**Ref: " + row.CustDocuNo;
+            if (item.QtyRejected > 0) {
+              if (
+                item.QtyReceived - item.QtyReturned - item.QtyUsed >
+                item.QtyRejected
+              ) {
+                item.QtyReturnedNew = item.QtyRejected;
+              } else {
+                item.QtyReturnedNew =
+                  item.QtyReceived -
+                  item.QtyRejected -
+                  item.QtyReturned -
+                  item.QtyUsed;
+              }
+              item.Remarks = "Rejected";
+            } else {
+              item.QtyReturnedNew =
+                item.QtyReceived -
+                item.QtyRejected -
+                item.QtyReturned -
+                item.QtyUsed;
+              item.Remarks = "Returned Unused";
+            }
+          }
+        });
+        console.log("new data = ", newData);
+        //concat to prev to new
+        thirdTable.push.apply(thirdTable, newData);
+        setThirdTable(thirdTable);
+      } else {
+        console.log("third table = ", thirdTable);
+        console.log("row = ", row);
+        let newData = thirdTable.filter((obj, index) => {
+          return obj.RVId !== row.RVId;
+        });
+        secondTable.forEach((item, i) => {
+          setSelectedSecond({
+            selected: selectedSecond.selected.filter((ele) => {
+              return ele !== item.Id;
+            }),
+          });
+        });
+
+        setThirdTable(newData);
+      }
+    },
   };
 
   return (

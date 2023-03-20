@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import ReturnListing from "./ReturnListing";
 
 function ReturnCancelled() {
-  return (
-    <div>ReturnCancelled</div>
-  )
+  return <ReturnListing type="returnCancelled" />;
 }
 
-export default ReturnCancelled
+export default ReturnCancelled;

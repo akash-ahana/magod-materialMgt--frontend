@@ -193,6 +193,10 @@ function App() {
               <Route path="customerjobwork">
                 <Route index={true} />
                 <Route path="new" element={<ReturnNew />} />
+                <Route
+                  path="OutwordMaterialIssueVocher"
+                  element={<OutwordMaterialIssueVocher />}
+                />
                 <Route path="cancelled" element={<ReturnCancelled />} />
                 <Route
                   path="customerivlist"
