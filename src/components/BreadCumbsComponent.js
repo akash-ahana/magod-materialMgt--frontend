@@ -15,17 +15,17 @@ const BreadcrumbsComponent = () => {
   const propertyNames = Object.values(pathnames);
   console.log(propertyNames);
 
-  function capitalizeWords(arr) {
-    return arr.map((word) => {
-      const capitalizedFirst = word.charAt(0).toUpperCase();
-      const rest = word.slice(1).toLowerCase();
-      return capitalizedFirst + rest;
-    });
-  }
+  // function capitalizeWords(arr) {
+  //   return arr.map((word) => {
+  //     const capitalizedFirst = word.charAt(0).toUpperCase();
+  //     const rest = word.slice(1).toLowerCase();
+  //     return capitalizedFirst + rest;
+  //   });
+  // }
 
-  console.log(capitalizeWords(propertyNames));
-  const finalArr = capitalizeWords(propertyNames);
-  console.log(finalArr);
+  // console.log(capitalizeWords(propertyNames));
+  // const finalArr = capitalizeWords(propertyNames);
+  // console.log(finalArr);
 
   return (
     <div style={{ marginLeft: "10px", marginTop: "0px" }}>
@@ -35,10 +35,10 @@ const BreadcrumbsComponent = () => {
             <a href="#">
               {""}
 
-              {finalArr.map((value, index) => {
-                const last = index === finalArr.length - 1;
+              {pathnames.map((value, index) => {
+                const last = index === pathnames.length - 1;
 
-                const to = `/${finalArr.slice(0, index + 1).join("/")}`;
+                const to = `/${pathnames.slice(0, index + 1).join("/")}`;
 
                 return last ? (
                   // <typography key={index}>{value}</typography>

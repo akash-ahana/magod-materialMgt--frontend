@@ -8,7 +8,7 @@ function MaterialStockList() {
       <>
         <h4 className="form-title">Material Stock List</h4>
         <hr className="horizontal-line" />
-        <h4 className="form-title">Material Stock List</h4>
+        <h4 className="form-title">Customer Material Stock List</h4>
         <div className="row">
           <div className="col-md-1 mt-2">
             <label className="">Location</label>

@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
+import SplitMatModal from "./SplitMatModal";
 
-function ResizeAndSplittingForm() {
+function MaterialResizeAndSplittingForm(props) {
+  const [open, setOpen] = useState();
+  const handleOpen = (event) => {
+    // alert("open yaaa");
+    event.preventDefault();
+    setOpen(true);
+  };
   return (
     <div>
+      <SplitMatModal open={open} setOpen={setOpen} />
       <h4 className="form-title">Material Resize and Splitting Form</h4>
       <hr className="horizontal-line" />
       <div className="table_top_style">
@@ -15,7 +23,9 @@ function ResizeAndSplittingForm() {
             </div>
 
             <div className="col-md-3 mt-2">
-              <button className="button-style ">Split Material</button>
+              <button className="button-style" onClick={handleOpen}>
+                Split Material
+              </button>
             </div>
           </div>
           <div className="row">
@@ -60,7 +70,7 @@ function ResizeAndSplittingForm() {
                     <th>MtrlStock ID</th>
                     <th>DynamicPara1</th>
                     <th>DynamicPara2</th>
-                    <th>Returned</th>
+                    <th>Weight</th>
                   </tr>
                 </thead>
 
@@ -122,7 +132,7 @@ function ResizeAndSplittingForm() {
                   <div className="col-md-3">
                     <label className="">Para2</label>
                   </div>
-                  <div className="col-md-9 ">
+                  <div className="col-md-9">
                     <input className="in-field" readOnly />
                   </div>
                 </div>
@@ -158,4 +168,4 @@ function ResizeAndSplittingForm() {
   );
 }
 
-export default ResizeAndSplittingForm;
+export default MaterialResizeAndSplittingForm;

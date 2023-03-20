@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import LocationStockReport from "./LocationStockReport";
 
 function LocationStock() {
   return (
-    <div>LocationStock</div>
-  )
+    <div>
+      <LocationStockReport />
+    </div>
+  );
 }
 
-export default LocationStock
+export default LocationStock;

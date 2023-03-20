@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import SheetResizeForm from "./SheetResizeForm";
 
 function ResizeSheets() {
   return (
-    <div>ResizeSheets</div>
-  )
+    <div>
+      <SheetResizeForm />
+    </div>
+  );
 }
 
-export default ResizeSheets
+export default ResizeSheets;

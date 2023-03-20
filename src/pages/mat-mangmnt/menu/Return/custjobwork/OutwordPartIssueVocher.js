@@ -4,7 +4,7 @@ import Tables from "../../../../../components/Tables";
 import Swal from "sweetalert2";
 import FormModal from "../../../components/FormModal";
 
-function OutwordMaterialIssueVocher(props) {
+function OutwordPartIssueVocher(props) {
   const [show, setShow] = useState(false);
 
   const handleShow = () => setShow(true);
@@ -70,7 +70,7 @@ function OutwordMaterialIssueVocher(props) {
         </div>
         <div className="row">
           <div className="col-md-4">
-            <label className="">GST No</label>
+            <label className="">CST No</label>
             <input
               type="text"
               name="reference"
@@ -132,4 +132,4 @@ function OutwordMaterialIssueVocher(props) {
   );
 }
 
-export default OutwordMaterialIssueVocher;
+export default OutwordPartIssueVocher;
