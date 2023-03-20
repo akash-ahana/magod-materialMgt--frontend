@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function OpeningStock() {
-  return (
-    <div>OpeningStock</div>
-  )
+  return <div>OpeningStock</div>;
 }
 
-export default OpeningStock
+export default OpeningStock;

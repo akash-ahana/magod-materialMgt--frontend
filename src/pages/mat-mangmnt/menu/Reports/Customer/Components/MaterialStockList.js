@@ -1,7 +1,7 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 
-function StockList() {
+function MaterialStockList() {
   return (
     <div>
       {" "}
@@ -79,7 +79,7 @@ function StockList() {
                     }}
                   >
                     <tr>
-                      <th>Material Code</th>
+                      <th>Material</th>
                       <th>Qty</th>
                       <th>Weight</th>
                       <th>Scrap Weight</th>
@@ -154,4 +154,4 @@ function StockList() {
   );
 }
 
-export default StockList;
+export default MaterialStockList;

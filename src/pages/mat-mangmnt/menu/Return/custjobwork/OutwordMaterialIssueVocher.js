@@ -113,7 +113,7 @@ function OutwordMaterialIssueVocher(props) {
       <FormModal show={show} setShow={setShow} />
 
       <div>
-        <h4 className="form-title">Outword Material Issue Vocher</h4>
+        <h4 className="form-title">Outward Material Issue Vocher</h4>
         <hr className="horizontal-line" />
 
         <div className="row">

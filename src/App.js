@@ -9,7 +9,7 @@ import ShoopFloorreturns from "./pages/mat-mangmnt/menu/Shop Floor Returns/Shoop
 import Reports from "./pages/mat-mangmnt/menu/Reports/Reports";
 import StoreManagement from "./pages/mat-mangmnt/menu/Store management/StoreManagement";
 import Setup from "./pages/mat-mangmnt/menu/setup/Setup";
-import Customer from "./pages/mat-mangmnt/menu/Reports/Customer/Customer";
+// import Customer from "./pages/mat-mangmnt/menu/Reports/Customer/Customer";
 import ProfileCutting from "./pages/mat-mangmnt/menu/Shop Floor Issue/ProfileCutting";
 import PendingList from "./pages/mat-mangmnt/menu/Shop Floor Returns/PendingList";
 import MoveStore from "./pages/mat-mangmnt/menu/Store management/move store/MoveStore";
@@ -72,6 +72,24 @@ import MaterialAllotmentMain from "./pages/mat-mangmnt/menu/Shop Floor Issue/Ser
 import ProductionMaterialIssueParts from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/PartsComponents/ProductionMaterialIssueParts";
 import UnitsMatAllotmentForm from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/UnitsComponents/UnitsMatAllotmentForm";
 import UnitsIssueToProduction from "./pages/mat-mangmnt/menu/Shop Floor Issue/Service/UnitsComponents/UnitsIssueToProduction";
+import ReturnAsScrap from "./pages/mat-mangmnt/menu/Shop Floor Returns/ReturnComponents/ReturnAsScrap";
+import ReturnToStock from "./pages/mat-mangmnt/menu/Shop Floor Returns/ReturnComponents/ReturnToStock";
+import ResizeAndReturn from "./pages/mat-mangmnt/menu/Shop Floor Returns/ReturnComponents/ResizeAndReturn";
+import LocationModel from "./pages/mat-mangmnt/menu/Shop Floor Returns/ReturnComponents/LocationModel";
+import ModalComp from "./pages/mat-mangmnt/menu/Shop Floor Returns/ReturnComponents/ModalComp";
+import ResizeAndSplittingForm from "./pages/mat-mangmnt/menu/Shop Floor Returns/ReturnComponents/ResizeAndSplittingForm";
+import StockReport from "./pages/mat-mangmnt/menu/Reports/Customer/StockReport";
+import PartsReport from "./pages/mat-mangmnt/menu/Reports/Customer/PartsReport";
+import OutwordPartIssueVocher from "./pages/mat-mangmnt/menu/Return/custjobwork/OutwordPartIssueVocher";
+import MaterialResizeAndSplittingForm from "./pages/mat-mangmnt/menu/Store management/MaterialResizeAndSplittingForm";
+import ChangeLocation from "./pages/mat-mangmnt/menu/Store management/move store/ChangeLocation";
+import All from "./pages/mat-mangmnt/menu/Store management/move store/All";
+import Customer from "./pages/mat-mangmnt/menu/Store management/move store/Customer";
+import StockList from "./pages/mat-mangmnt/menu/Store management/Stock/StockList";
+import StockArrival from "./pages/mat-mangmnt/menu/Store management/Stock/StockArrival";
+import StockDispatch from "./pages/mat-mangmnt/menu/Store management/Stock/StockDispatch";
+import StockLedger from "./pages/mat-mangmnt/menu/Store management/Stock/StockLedger";
+import OpeningStock from "./pages/mat-mangmnt/menu/Store management/Stock/OpeningStock";
 
 function App() {
   return (
@@ -85,12 +103,11 @@ function App() {
         <Route path="/navcomp" element={<NavComp />} />
 
         <Route element={<WithNav />}>
-          <Route path="/materialmanagement" element={<Parentroute />}>
-            <Route path="server" element={<Setup />}>
+          <Route path="/MaterialManagement" element={<Parentroute />}>
+            <Route path="Server" element={<Setup />}>
               <Route index={true} element={<Setup />} />
             </Route>
-
-            <Route path="receipt">
+            <Route path="Receipt">
               <Route index={true} />
               <Route
                 path="openbuttonopenclosedpartlist"
@@ -187,16 +204,23 @@ function App() {
               </Route>
               <Route path="branchtransfer" element={<BranchTransfer />} />
             </Route>
-
             <Route path="return">
               <Route index={true} />
               <Route path="customerjobwork">
                 <Route index={true} />
-                <Route path="new" element={<ReturnNew />} />
-                <Route
-                  path="OutwordMaterialIssueVocher"
-                  element={<OutwordMaterialIssueVocher />}
-                />
+
+                <Route path="new">
+                  <Route index={true} element={<ReturnNew />} />
+                  <Route
+                    path="OutwardMaterialIssueVocher"
+                    element={<OutwordMaterialIssueVocher />}
+                  />
+                  <Route
+                    path="OutwardPartIssueVocher"
+                    element={<OutwordPartIssueVocher />}
+                  />
+                </Route>
+
                 <Route path="cancelled" element={<ReturnCancelled />} />
                 <Route
                   path="customerivlist"
@@ -216,100 +240,131 @@ function App() {
                 <Route index={true} element={<PurchasePlannedforfuture />} />
               </Route>
             </Route>
-
-            <Route path="shopfloorissue">
+            <Route path="ShopfloorIssue">
               <Route index={true} />
-              <Route path="service">
+              <Route path="Service">
                 <Route index={true} />
-                <Route path="parts">
+                <Route path="Parts">
                   <Route index={true} element={<ShopIssueParts />} />
                   <Route
-                    path="shopfloorallotmentform"
+                    path="ShopFloorAllotmentForm"
                     element={<MaterialAllotmentMain />}
                   />
                   <Route
-                    path="productionmaterialissueparts"
+                    path="ProductionMaterialIssueParts"
                     element={<ProductionMaterialIssueParts />}
                   />
                 </Route>
-                <Route path="units">
+                <Route path="Units">
                   <Route index={true} element={<ShopIssueUnits />} />
                   <Route
-                    path="materialallotmentform"
+                    path="MaterialAllotmentForm"
                     element={<UnitsMatAllotmentForm />}
                   />
                   <Route
-                    path="shopfloormaterialissuevocher"
+                    path="ShopFloorMaterialIssueVocher"
                     element={<UnitsIssueToProduction />}
                   />
                 </Route>
               </Route>
-              <Route path="profilecutting">
+              <Route path="ProfileCutting">
                 <Route index={true} element={<ProfileCutting />} />
               </Route>
-              <Route path="ivlistservice">
+              <Route path="IVListService">
                 <Route index={true} />
-                <Route path="issued">
+                <Route path="Issued">
                   <Route index={true} element={<ShopIssueIVListIssued />} />
                   <Route
-                    path="shopmatissuevocher"
+                    path="ShopMatIssueVocher"
                     element={<ProductionMatIssueParts />}
                   />
                 </Route>
-                <Route path="closed">
+                <Route path="Closed">
                   <Route index={true} element={<ShopIssueIVListClosed />} />
                   <Route
-                    path="shopmatissuevocher"
+                    path="ShopMatIssueVocher"
                     element={<ProductionMatIssueParts />}
                   />
                 </Route>
               </Route>
 
-              <Route path="ivlistprofilecutting">
+              <Route path="IVListProfileCutting">
                 <Route index={true} />
-                <Route path="closed">
+                <Route path="Closed">
                   <Route
                     index={true}
                     element={<IVListProfileCuttingClosed />}
                   />
                   <Route
-                    path="shopmatissuevocher"
+                    path="ShopMatIssueVocher"
                     element={<ShopMatIssueVocher />}
                   />
                 </Route>
 
-                <Route path="current">
+                <Route path="Current">
                   <Route
                     index={true}
                     element={<IVListProfileCuttingCurrent />}
                   />
                   <Route
-                    path="shopmatissuevocher"
+                    path="ShopMatIssueVocher"
                     element={<ShopMatIssueVocher />}
                   />
                 </Route>
               </Route>
             </Route>
-
-            <Route path="shoopfloorreturns">
+            {/* shoopfloorreturns/pendinglist/returnasscrap/location */}R
+            <Route path="ShoopFloorReturns">
               <Route index={true} element={<ShoopFloorreturns />} />
-              <Route path="pendinglist" element={<PendingList />} />
+              <Route path="PendingList">
+                <Route index={true} element={<PendingList />} />
+                <Route path="ReturnAsScrap" element={<ReturnAsScrap />} />
+                <Route path="ReturnToStock" element={<ReturnToStock />} />
+                <Route path="ResizeAndReturn">
+                  <Route index={true} element={<ResizeAndReturn />} />
+                  <Route
+                    path="MaterialSplitter"
+                    element={<ResizeAndSplittingForm />}
+                  />
+                </Route>
+              </Route>
             </Route>
-
-            <Route path="reports">
+            <Route path="Reports">
               <Route index={true} element={<Reports />} />
-              <Route path="customer" element={<Customer />} />
-              <Route path="dailyreports" element={<DailyReport />} />/
-              <Route path="monthlyreports" element={<MonthlyReport />} />
+              <Route path="Customer">
+                <Route index={true} element={<Customer />} />
+                <Route path="StockList" element={<StockReport />} />
+                <Route path="PartList" element={<PartsReport />} />
+              </Route>
+              <Route path="DailyReports" element={<DailyReport />} />
+              <Route path="MonthlyReports" element={<MonthlyReport />} />
             </Route>
-
-            <Route path="storemanagement">
+            <Route path="StoreManagement">
               <Route index={true} element={<StoreManagement />} />
-              <Route path="movestore" element={<MoveStore />} />
-              <Route path="stock" element={<Stock />} />
-              <Route path="locationlist" element={<LocationList />} />
-              <Route path="locationstock" element={<LocationStock />} />
-              <Route path="resizesheets" element={<ResizeSheets />} />
+              <Route path="ResizeSheets">
+                <Route index={true} element={<ResizeSheets />} />
+                <Route
+                  path="MaterialResizeAndSplittingForm"
+                  element={<MaterialResizeAndSplittingForm />}
+                />
+              </Route>
+              <Route path="MoveStore">
+                <Route index={true} element={<MoveStore />} />
+
+                <Route path="Customer" element={<Customer />} />
+                <Route path="ChangeLocation" element={<ChangeLocation />} />
+                <Route path="All" element={<All />} />
+              </Route>
+              <Route path="Stock">
+                <Route index={true} element={<Stock />} />
+                <Route path="StockList" element={<StockList />} />
+                <Route path="StockArrival" element={<StockArrival />} />
+                <Route path="StockDispatch" element={<StockDispatch />} />
+                <Route path="StockLedger" element={<StockLedger />} />
+                <Route path="OpeningStock" element={<OpeningStock />} />
+              </Route>
+              <Route path="LocationList" element={<LocationList />} />
+              <Route path="LocationStock" element={<LocationStock />} />
             </Route>
           </Route>
         </Route>

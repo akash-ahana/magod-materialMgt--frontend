@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import ChangeLocationModal from "./ChangeLocationModal";
 
-function ChangeLocation(props) {
+function MaterialMoverForm(props) {
   const [open, setOpen] = useState();
   const PopupOpen = () => {
     // alert("open yaaa");
@@ -17,8 +17,6 @@ function ChangeLocation(props) {
       <div className="row">
         <div className="row ">
           <div className="col-md-3"></div>
-          <div className="col-md-3"></div>
-
           <div className="col-md-6 ">
             <div
               className="row justify-content-center"
@@ -38,13 +36,31 @@ function ChangeLocation(props) {
                   </button>
                 </div>
               </div>
-              <div className="row ">
-                <div className="col-md-6" style={{ marginBottom: "20px" }}>
-                  <label>From Location</label>
-                  <input type="text" />
-                </div>
-                <div className="col-md-6" style={{ marginBottom: "20px" }}>
+              <div className="row   ">
+                <div className="col-md-12">
                   <label className="form-label">To Location</label>
+                  <select
+                    className="ip-select"
+                    name="customer"
+                    //onChange={changeCustomer}
+                    // disabled={boolVal1}
+                  >
+                    {/* {custdata.map((customer, index) =>
+                  customer.Cust_Code == 0 ? ( */}
+                    <option>
+                      {/* key={index} value={customer.Cust_Code} */}
+                      {/* {customer.Cust_name} */}
+                    </option>
+                    {/* ) : (
+                    ""
+                  )
+                )} */}
+                  </select>
+                </div>
+              </div>
+              <div className="row   ">
+                <div className="col-md-12" style={{ marginBottom: "15px" }}>
+                  <label className="form-label">Customer</label>
                   <select
                     className="ip-select"
                     name="customer"
@@ -66,6 +82,7 @@ function ChangeLocation(props) {
               </div>
             </div>
           </div>
+          <div className="col-md-3"></div>
         </div>
       </div>
 
@@ -177,4 +194,4 @@ function ChangeLocation(props) {
   );
 }
 
-export default ChangeLocation;
+export default MaterialMoverForm;
