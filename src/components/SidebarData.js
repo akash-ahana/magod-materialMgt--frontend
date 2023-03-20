@@ -293,19 +293,19 @@ export const customerSidebar = [
         subNav: [
           {
             title: "Parts",
-            path: "/materialmanagement/shopfloorissue/service/parts",
+            path: "/MaterialManagement/ShopFloorIssue/Service/Parts",
             icon: <AiIcons.AiOutlineArrowRight />,
           },
           {
             title: "Units",
-            path: "/materialmanagement/shopfloorissue/service/units",
+            path: "/MaterialManagement/ShopFloorIssue/Service/Units",
             icon: <AiIcons.AiOutlineArrowRight />,
           },
         ],
       },
       {
         title: "ProfileCutting",
-        path: "/materialmanagement/shopfloorissue/profilecutting",
+        path: "/MaterialManagement/ShopFloorIssue/ProfileCutting",
         icon: <BiIcons.BiCut />,
       },
       {
@@ -314,12 +314,12 @@ export const customerSidebar = [
         subNav: [
           {
             title: "Issued",
-            path: "/materialmanagement/shopfloorissue/ivlistservice/issued",
+            path: "/MaterialManagement/ShopFloorIssue/IVListService/Issued",
             icon: <AiIcons.AiOutlineArrowRight />,
           },
           {
             title: "Closed",
-            path: "/materialmanagement/shopfloorissue/ivlistservice/closed",
+            path: "/MaterialManagement/ShopFloorIssue/IVListService/Closed",
             icon: <AiIcons.AiOutlineArrowRight />,
           },
         ],
@@ -330,12 +330,12 @@ export const customerSidebar = [
         subNav: [
           {
             title: "Current",
-            path: "/materialmanagement/shopfloorissue/ivlistprofilecutting/current",
+            path: "/MaterialManagement/ShopFloorIssue/IVListProfileCutting/Current",
             icon: <AiIcons.AiOutlineArrowRight />,
           },
           {
             title: "Closed",
-            path: "/materialmanagement/shopfloorissue/ivlistprofilecutting/closed",
+            path: "/MaterialManagement/ShopFloorIssue/IVListProfileCutting/Closed",
             icon: <AiIcons.AiOutlineArrowRight />,
           },
         ],
@@ -352,8 +352,8 @@ export const customerSidebar = [
     subNav: [
       {
         title: "Pending IV List",
-        path: "/materialmanagement/shoopfloorreturns/pendinglist",
-        icon: <AiIcons.AiOutlineInfoCircle />,
+        path: "/MaterialManagement/ShoopFloorReturns/PendingList",
+        icon: <AiIcons.AiOutlineArrowRight />,
       },
     ],
   },
@@ -367,31 +367,30 @@ export const customerSidebar = [
     subNav: [
       {
         title: "Customer",
-        path: "/materialmanagement/reports/customer",
-        icon: <AiIcons.AiOutlineInfoCircle />,
+        icon: <AiIcons.AiFillCustomerService />,
         subNav: [
           {
             title: "Stock Report",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/new",
-            icon: <AiIcons.AiOutlineInfoCircle />,
+            path: "/MaterialManagement/Reports/Customer/StockList",
+            icon: <MdIcon.MdOutlineSummarize />,
           },
           {
             title: "Parts Reports",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/draftrvlist",
+            path: "/MaterialManagement/Reports/Customer/PartList",
 
-            icon: <AiIcons.AiOutlineInfoCircle />,
+            icon: <MdIcon.MdOutlineSummarize />,
           },
         ],
       },
       {
         title: "Daily Report",
-        path: "/materialmanagement/reports/dailyreports",
-        icon: <AiIcons.AiOutlineInfoCircle />,
+        path: "/MaterialManagement/Reports/DailyReports",
+        icon: <MdIcon.MdOutlineSummarize />,
       },
       {
         title: " Monthly Report",
-        path: "/materialmanagement/reports/monthlyreports",
-        icon: <AiIcons.AiOutlineInfoCircle />,
+        path: "/MaterialManagement/Reports/MonthlyReports",
+        icon: <MdIcon.MdOutlineSummarize />,
       },
     ],
   },
@@ -405,78 +404,76 @@ export const customerSidebar = [
     subNav: [
       {
         title: "Resize Sheets        ",
-        path: "/materialmanagement/storemanagement/resizesheets",
-        icon: <AiIcons.AiOutlineInfoCircle />,
+        path: "/MaterialManagement/StoreManagement/ResizeSheets",
+        icon: <MdIcon.MdOutlineOtherHouses />,
       },
       {
         title: "Move Store",
-        path: "/materialmanagement/storemanagement/movestore",
-        icon: <AiIcons.AiOutlineInfoCircle />,
+        // path: "/materialmanagement/storemanagement/movestore",
+        icon: <MdIcon.MdOutlineOtherHouses />,
         subNav: [
           {
             title: "Customer",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/new",
-            icon: <AiIcons.AiOutlineInfoCircle />,
+            path: "/MaterialManagement/StoreManagement/MoveStore/Customer",
+            icon: <AiIcons.AiOutlineArrowRight />,
           },
           {
             title: "Change Location",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/draftrvlist",
-
-            icon: <AiIcons.AiOutlineInfoCircle />,
+            path: "/MaterialManagement/StoreManagement/MoveStore/ChangeLocation",
+            icon: <AiIcons.AiOutlineArrowRight />,
           },
           {
             title: "All",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/draftrvlist",
+            path: "/MaterialManagement/StoreManagement/MoveStore/All",
 
-            icon: <AiIcons.AiOutlineInfoCircle />,
+            icon: <AiIcons.AiOutlineArrowRight />,
           },
         ],
       },
       {
         title: " Location List",
-        path: "/materialmanagement/storemanagement/locationlist",
-        icon: <AiIcons.AiOutlineInfoCircle />,
+        path: "/MaterialManagement/StoreManagement/LocationList",
+        icon: <BiIcons.BiPurchaseTag />,
       },
       {
         title: " Stock",
-        // path: "/materialmanagement/storemanagement/stock",
-        icon: <AiIcons.AiOutlineInfoCircle />,
+        icon: <BiIcons.BiPurchaseTag />,
         subNav: [
           {
             title: "Stock List",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/new",
-            icon: <AiIcons.AiOutlineInfoCircle />,
+            path: "/MaterialManagement/StoreManagement/Stock/StockList",
+            icon: <AiIcons.AiOutlineArrowRight />,
           },
           {
             title: "Stock Arrival",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/draftrvlist",
+            path: "/MaterialManagement/StoreManagement/Stock/StockArrival",
 
-            icon: <AiIcons.AiOutlineInfoCircle />,
+            icon: <AiIcons.AiOutlineArrowRight />,
           },
           {
             title: "Stock Dispatch",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/draftrvlist",
+            path: "/MaterialManagement/StoreManagement/Stock/StockDispatch",
 
-            icon: <AiIcons.AiOutlineInfoCircle />,
+            icon: <AiIcons.AiOutlineArrowRight />,
           },
           {
             title: "Stock Ledger",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/draftrvlist",
+            path: "/MaterialManagement/StoreManagement/Stock/StockLedger",
 
-            icon: <AiIcons.AiOutlineInfoCircle />,
+            icon: <AiIcons.AiOutlineArrowRight />,
           },
           {
             title: "Opening Stock",
-            // path: "/materialmanagement/receipt/customerjobwork/parts/draftrvlist",
+            path: "/MaterialManagement/StoreManagement/Stock/OpeningStock",
 
-            icon: <AiIcons.AiOutlineInfoCircle />,
+            icon: <AiIcons.AiOutlineArrowRight />,
           },
         ],
       },
       {
         title: " Location Stock        ",
-        path: "/materialmanagement/storemanagement/locationstock",
-        icon: <AiIcons.AiOutlineInfoCircle />,
+        path: "/MaterialManagement/StoreManagement/LocationStock",
+        icon: <BiIcons.BiPurchaseTag />,
       },
     ],
   },

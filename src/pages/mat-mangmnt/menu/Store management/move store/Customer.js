@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import MaterialMoverForm from "./MaterialMoverForm";
 
 function Customer() {
   return (
-    <div>Customer</div>
-  )
+    <div>
+      <MaterialMoverForm />
+    </div>
+  );
 }
 
-export default Customer
+export default Customer;
