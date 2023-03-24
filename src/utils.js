@@ -149,3 +149,144 @@ export function getVolume(obj, shape, para1, para2, para3) {
   }
   return dblVol;
 }
+
+export function get_Iv_DetailsEntry(
+  Scrap,
+  dblDP1,
+  dblDP2,
+  dblDP3,
+  Material,
+  Shape,
+  objShape,
+  objMaterialCode
+) {
+  let Details = "";
+  if (Scrap) return "Scrap Of " + Material;
+  else {
+    if (Shape === "Sheet") {
+      Details =
+        (dblDP1 + " " + objShape.DynamicPara1Unit + " X " + dblDP2) &
+        (" " +
+          objShape.DynamicPara2Unit +
+          " X " +
+          objMaterialCode.StaticPara1 +
+          " " +
+          objShape.StaticPara1Unit +
+          " ");
+    }
+    if (Shape === "Plate") {
+      Details =
+        dblDP1 +
+        " " +
+        objShape.DynamicPara1Unit +
+        " X " +
+        dblDP2 +
+        " " +
+        objShape.DynamicPara2Unit +
+        " X " +
+        objMaterialCode.StaticPara1 +
+        " " +
+        objShape.StaticPara1Unit +
+        " ";
+    }
+
+    if (Shape === "Tube Round") {
+      Details =
+        objMaterialCode.StaticPara1 +
+        " " +
+        objShape.StaticPara1Unit +
+        " Dia " +
+        objMaterialCode.StaticPara2 +
+        " " +
+        objShape.StaticPara2Unit +
+        " X " +
+        dblDP1 +
+        " " +
+        objShape.StaticPara1Unit;
+    }
+
+    if (Shape === "Tube Square") {
+      Details =
+        objMaterialCode.StaticPara1 +
+        " " +
+        objShape.StaticPara1Unit +
+        " X " +
+        objMaterialCode.StaticPara2 +
+        " " +
+        objShape.StaticPara2Unit +
+        " X " +
+        objMaterialCode.StaticPara3 +
+        " " +
+        objShape.StaticPara3Unit +
+        " X " +
+        dblDP1 +
+        " " +
+        objShape.StaticPara1Unit;
+    }
+
+    if (Shape === "Tube Rectangle") {
+      Details =
+        objMaterialCode.StaticPara1 +
+        " " +
+        objShape.StaticPara1Unit +
+        " X " +
+        objMaterialCode.StaticPara2 +
+        " " +
+        objShape.StaticPara2Unit +
+        " X " +
+        objMaterialCode.StaticPara3 +
+        " " +
+        objShape.StaticPara3Unit +
+        " X " +
+        dblDP1 +
+        " " +
+        objShape.DynamicPara1Unit;
+    }
+
+    if (Shape === "Strip") {
+      Details =
+        objMaterialCode.StaticPara1 +
+        " " +
+        objShape.StaticPara1Unit +
+        " X " +
+        dblDP1 +
+        " " +
+        objShape.DynamicPara1Unit;
+    }
+
+    if (Shape === "Tiles") {
+      Details =
+        objMaterialCode.StaticPara1 +
+        " " +
+        objShape.StaticPara1Unit +
+        " X " +
+        objMaterialCode.StaticPara2 +
+        " " +
+        objShape.StaticPara2Unit +
+        " X " +
+        objMaterialCode.StaticPara3 +
+        " " +
+        objShape.StaticPara3Unit;
+    }
+
+    if (Shape === "Block") {
+      Details =
+        dblDP1 +
+        " " +
+        objShape.DynamicPara1Unit +
+        " X " +
+        dblDP2 +
+        " " +
+        objShape.DynamicPara2Unit +
+        " X " +
+        dblDP3 +
+        " " +
+        objShape.DynamicPara3Unit;
+    }
+    if (Shape === "Units") {
+      Details = "Quantity";
+    }
+  }
+
+  return "Returning balance material " + Shape + " " + Material + " " + Details;
+}

@@ -12,6 +12,7 @@ const { endpoints } = require("../../../../api/constants");
 function ReturnNew() {
   let [custdata, setCustdata] = useState([]);
   let [custCode, setCustCode] = useState("");
+  let [custName, setCustName] = useState("");
 
   async function fetchData() {
     getRequest(endpoints.getCustomers, (data) => {
@@ -23,6 +24,8 @@ function ReturnNew() {
     e.preventDefault();
     const { value, name } = e.target;
     setCustCode(value);
+    let foundCustomer = custdata.filter((obj) => obj.Cust_Code === value);
+    setCustName(foundCustomer[0].Cust_name);
   };
 
   useEffect(() => {
@@ -50,11 +53,11 @@ function ReturnNew() {
       </div>
       <Tabs id="controlled-tab-example" className="mb-3 mt-3 tab_font">
         <Tab eventKey="mat_rece" title="Profiles Matireals">
-          <ProfilesMaterials custCode={custCode} />
+          <ProfilesMaterials custCode={custCode} custName={custName} />
         </Tab>
 
         <Tab eventKey="mat_retu" title="Parts">
-          <Parts custCode={custCode} />
+          <Parts custCode={custCode} custName={custName} />
         </Tab>
       </Tabs>
     </>
