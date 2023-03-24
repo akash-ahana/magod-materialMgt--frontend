@@ -21,19 +21,32 @@ function OutwordMaterialIssueVocher(props) {
 
   const handleShow = () => setShow(true);
 
+  let [formHeader, setFormHeader] = useState({
+    IV_No: location.state.selectData.IV_No,
+    IV_Date: "",
+    Customer: "",
+    CustGSTNo: "",
+    PkngDcNo: "",
+    TotalWeight: "",
+    TotalCalculatedWeight: "",
+  });
+
   function statusFormatter(cell, row, rowIndex, formatExtraData) {
     if (!cell) return;
     return dateToShort(cell);
   }
 
-  async function fetchOutwordData() {
+  async function fetchData() {
+    //header data
+
+    //grid data
     getRequest(endpoints.getOutwordMaterialVocher, (data) => {
       setOutData(data);
     });
   }
 
   useEffect(() => {
-    fetchOutwordData();
+    fetchData();
   }, []); //[inputPart]);
 
   const columns = [
@@ -63,15 +76,6 @@ function OutwordMaterialIssueVocher(props) {
     },
   ];
 
-  const getHeadings = () => {
-    return Object.keys(outData[0]);
-  };
-
-  let [formHeader, setFormHeader] = useState({
-    IvId: location.state.selectData.IV_No,
-    PkngDcNo: "",
-    TotalWeight: "",
-  });
   const InputHeaderEvent = (e) => {
     const { name, value } = e.target;
     setFormHeader({ ...formHeader, [name]: value });

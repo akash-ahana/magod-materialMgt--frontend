@@ -11,7 +11,11 @@ const { endpoints } = require("../../../../../api/constants");
 function PClosedRVList() {
   const nav = useNavigate();
 
+  let [custdata, setCustdata] = useState([]);
+
   const [tabledata, setTableData] = useState([]);
+  const [allData, setAllData] = useState([]);
+
   const [data, setData] = useState({
     CustDocuNo: "",
     Cust_Code: "",
@@ -26,15 +30,28 @@ function PClosedRVList() {
   });
 
   const fetchData = () => {
+    getRequest(endpoints.getCustomers, (data) => {
+      setCustdata(data);
+    });
+
     getRequest(endpoints.getPartsClosedMaterial, (data) => {
       setTableData(data);
-      //console.log("data = ", data);
+      setAllData(data);
     });
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  let changeCustomer = async (e) => {
+    e.preventDefault();
+    const { value, name } = e.target;
+
+    const found = allData.filter((obj) => obj.Cust_Code === value);
+    //console.log("table data = ", tabledata);
+    setTableData(found);
+  };
 
   // Process the returned date in the formatter
   function statusFormatter(cell, row, rowIndex, formatExtraData) {
@@ -105,6 +122,24 @@ function PClosedRVList() {
         <h4 className="form-title">Customer : Parts Receipt List Created</h4>
         <hr className="horizontal-line" />
         <div className="row">
+          <div className="col-md-7 mb-3">
+            <label className="form-label">Customer</label>
+            <select
+              className="ip-select"
+              name="customer"
+              onChange={changeCustomer}
+            >
+              <option value="" disabled selected>
+                Select Customer
+              </option>
+              {custdata.map((customer, index) => (
+                <option key={index} value={customer.Cust_Code}>
+                  {customer.Cust_name}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <div
             style={{ height: "420px", overflowY: "scroll" }}
             className="col-md-7 col-sm-12"
