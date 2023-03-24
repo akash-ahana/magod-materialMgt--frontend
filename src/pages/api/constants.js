@@ -64,6 +64,15 @@ export const endpoints = {
   insertMtrlStockList: `${API}/mtrlStockList/insertMtrlStockList`,
   checkStockAvailable: `${API}/mtrlStockList/checkStockAvailable`,
   deleteMtrlStockByRVNo: `${API}/mtrlStockList/deleteMtrlStockByRVNo`,
+  deleteMtrlStockByIVNo: `${API}/mtrlStockList/deleteMtrlStockByIVNo`,
+  updateIssueIVNo: `${API}/mtrlStockList/updateIssueIVNo`,
+
+  //material issue register
+  insertMaterialIssueRegister: `${API}/materialIssueRegister/insert`,
+  insertMtrlIssueDetails: `${API}/mtrlIssueDetails/insert`,
+
+  //material Return Details
+  insertmaterialReturnDetails: `${API}/materialReturnDetails/insert`,
 
   //return
   profileMaterialFirst: `${API}/return/profileMaterialFirst`,
@@ -71,15 +80,14 @@ export const endpoints = {
   profileMaterialThird: `${API}/return/profileMaterialThird`,
   partFirst: `${API}/return/partFirst`,
   partSecond: `${API}/return/partSecond`,
-
   //listing part
-  getReturnPendingList: `${API}/pendingDispatch/allPendingDispatchRouter?customer`,
-  getCustomerIVList: `${API}/pendingDispatch/customerIVlist`,
-  getSalesIVList: `${API}/pendingDispatch/SalesIVList`,
-  getCancelledList: `${API}/pendingDispatch/cancelledList`,
-  getCheckReturnPendingList: `${API}/pendingDispatch/checkPendingDispatchRouter`,
-  getOutwordMaterialVocher: `${API}/outwordMaterialIssue/allmtrlIssueDetailsRouter`,
-  updateOutwordMaterialVocher: `${API}/outwordMaterialIssue/updatemtrlIssueDetailsRouter`,
+  getReturnPendingList: `${API}/materialIssueRegister/allPendingDispatchRouter?customer`,
+  getCustomerIVList: `${API}/materialIssueRegister/customerIVlist`,
+  getSalesIVList: `${API}/materialIssueRegister/SalesIVList`,
+  getCancelledList: `${API}/materialIssueRegister/cancelledList`,
+  getCheckReturnPendingList: `${API}/materialIssueRegister/checkPendingDispatchRouter`,
+  getOutwordMaterialVocher: `${API}/mtrlIssueDetails/allmtrlIssueDetailsRouter`,
+  updateOutwordMaterialVocher: `${API}/mtrlIssueDetails/updatemtrlIssueDetailsRouter`,
 
   /*getCustCodeName: `${API}/customers/allcustcodename`,
   getCustomerDets: `${API}/customers/getcustomer`,

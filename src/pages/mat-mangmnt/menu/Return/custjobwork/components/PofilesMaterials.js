@@ -4,7 +4,8 @@ import Table from "react-bootstrap/Table";
 import CreateDCModal from "../../../../components/CreateDCModal";
 import BootstrapTable from "react-bootstrap-table-next";
 import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
-import { formatDate } from "../../../../../../utils";
+import { formatDate, get_Iv_DetailsEntry } from "../../../../../../utils";
+import CreateReturnNewModal from "../../../../components/CreateReturnNewModal";
 
 const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
@@ -13,13 +14,18 @@ function PofilesMaterials(props) {
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   const [show, setShow] = useState(false);
+  const [srlMaterialType, setSrlMaterialType] = useState("");
+  const [srlIVNO, setSrlIVNO] = useState("");
+
   let [firstTable, setFirstTable] = useState([]);
   let [secondTable, setSecondTable] = useState([]);
   let [thirdTable, setThirdTable] = useState([]);
+  let [objShape, setObjShape] = useState({});
+  let [objMaterial, setObjMaterial] = useState({});
 
   let [selectedSecond, setSelectedSecond] = useState({ selected: [] });
 
-  let [firstTableSingleRow, setFirstTableSingleRow] = useState({});
+  let [firstTableSelectedRow, setFirstTableSelectedRow] = useState([]);
 
   let [allData, setAllData] = useState([]);
 
@@ -219,12 +225,17 @@ function PofilesMaterials(props) {
     clickToSelect: true,
     selectColumnPosition: "right",
     bgColor: "#8A92F0",
-    onSelect: (row, isSelect) => {
+    onSelect: (row, isSelect, rowIndex) => {
       if (isSelect) {
-        //console.log("first table = ",firstTable)
+        //console.log("first table = ", firstTable);
         //console.log("second table = ",secondTable)
 
-        setFirstTableSingleRow(row);
+        //store selected row data
+        setFirstTableSelectedRow(
+          //firstTableSelectedRow.push.apply(firstTableSelectedRow, row)
+          [...firstTableSelectedRow, firstTable[rowIndex]]
+        );
+
         const newArray = allData.filter((obj) => {
           return (
             obj.RV_No === row.RV_No &&
@@ -248,7 +259,19 @@ function PofilesMaterials(props) {
         thirdTable.push.apply(thirdTable, newArray);
         setThirdTable(thirdTable);
       } else {
-        console.log("selected = ", selectedSecond);
+        //remove row in selectedTRow array
+        setFirstTableSelectedRow(
+          firstTableSelectedRow.filter((obj) => {
+            return (
+              obj.RV_No !== row.RV_No &&
+              obj.Mtrl_Code !== row.Mtrl_Code &&
+              obj.DynamicPara1 !== row.DynamicPara1 &&
+              obj.DynamicPara2 !== row.DynamicPara2
+            );
+          })
+        );
+
+        //console.log("selected = ", selectedSecond);
         //console.log("third table = ", thirdTable);
         let newData = thirdTable.filter((obj, index) => {
           return (
@@ -274,7 +297,7 @@ function PofilesMaterials(props) {
     selected: selectedSecond.selected,
     onSelect: (row, isSelect) => {
       if (isSelect) {
-        setFirstTableSingleRow(row);
+        //setFirstTableSingleRow(row);
         //console.log("third table = ", thirdTable);
         //console.log("row = ", row);
 
@@ -319,6 +342,10 @@ function PofilesMaterials(props) {
     },
   };
   let createReturnVoucher = async () => {
+    console.log("selected rows = ", firstTableSelectedRow);
+    console.log("second = ", secondTable);
+
+    get_Iv_DetailsEntry();
     if (thirdTable.length === 0) {
       toast.error("Select Material to return");
     } else {
@@ -345,14 +372,183 @@ function PofilesMaterials(props) {
           //get last 2 digit of year
           let yy = formatDate(new Date(), 6).toString().substring(2);
           let no = yy + "/" + series;
-          console.log("no = ", no);
+          //console.log("no = ", no);
+          //console.log("first = ", firstTable);
+          //console.log("selected rows = ", firstTableSelectedRow);
+          //console.log("second = ", secondTable);
+          //console.log("third = ", thirdTable);
+
+          let newRowMaterialIssueRegister = {
+            IV_No: no,
+            IV_Date: formatDate(new Date(), 5),
+            Cust_code: props.custCode,
+            Customer: props.custName,
+            CustCSTNo: "",
+            CustTINNo: "",
+            CustECCNo: "",
+            CustGSTNo: "",
+            EMail: "",
+            PkngDcNo: "",
+            PkngDCDate: null,
+            TotalWeight: thirdTable[0].TotalWeight,
+            TotalCalculatedWeight: thirdTable[0].TotalCalculatedWeight,
+            UpDated: 0,
+            IVStatus: "draft",
+            Dc_ID: 0,
+            Type: thirdTable[0].Type,
+          };
+          //insert first table
+          postRequest(
+            endpoints.insertMaterialIssueRegister,
+            newRowMaterialIssueRegister,
+            (data) => {
+              //console.log("data = ", data);
+              if (data.affectedRows !== 0) {
+                console.log("Record inserted 1 : materialIssueRegister");
+                //insert second table
+
+                for (let i = 0; i < firstTableSelectedRow.length; i++) {
+                  //find Qty
+                  const foundArray = thirdTable.filter((obj) => {
+                    return (
+                      obj.RV_No === firstTableSelectedRow[i].RV_No &&
+                      obj.Mtrl_Code === firstTableSelectedRow[i].Mtrl_Code &&
+                      obj.DynamicPara1 ===
+                        firstTableSelectedRow[i].DynamicPara1 &&
+                      obj.DynamicPara2 === firstTableSelectedRow[i].DynamicPara2
+                    );
+                  });
+                  //total instock - third table added rows
+                  let qty = foundArray.length;
+
+                  //find material description
+                  let url2 =
+                    endpoints.getRowByShape +
+                    "?shape=" +
+                    firstTableSelectedRow[i].Shape;
+                  getRequest(url2, async (data) => {
+                    setObjShape(data);
+                  });
+
+                  let url3 =
+                    endpoints.getRowByMtrlCode +
+                    "?code=" +
+                    firstTableSelectedRow[i].Mtrl_Code;
+                  getRequest(url3, async (data) => {
+                    setObjMaterial(data);
+                  });
+
+                  //console.log("Shape = ", objShape, " mtrl = ", objMaterial);
+
+                  let mtrlDescription =
+                    get_Iv_DetailsEntry(
+                      firstTableSelectedRow[i].Scrap,
+                      firstTableSelectedRow[i].DynamicPara1,
+                      firstTableSelectedRow[i].DynamicPara2,
+                      firstTableSelectedRow[i].DynamicPara3,
+                      firstTableSelectedRow[i].Material,
+                      firstTableSelectedRow[i].Shape,
+                      objShape,
+                      objMaterial
+                    ) +
+                    " ** " +
+                    firstTableSelectedRow[i].Cust_Docu_No;
+                  //console.log("desc = ", mtrlDescription);
+
+                  let newRowMtrlIssueDetails = {
+                    Iv_Id: data.insertId,
+                    Srl: i + 1,
+                    IV_Date: null,
+                    IV_No: "",
+                    Cust_Code: props.custCode,
+                    Customer: "",
+                    MtrlDescription: mtrlDescription,
+                    Mtrl_Code: firstTableSelectedRow[i].Mtrl_Code,
+                    Material: firstTableSelectedRow[i].Material,
+                    PkngDCNo: "",
+                    cust_docu_No: "",
+                    RV_No: "",
+                    RV_Srl: "",
+                    Qty: qty,
+                    TotalWeightCalculated:
+                      firstTableSelectedRow[i].TotalCalculatedWeight,
+                    TotalWeight: firstTableSelectedRow[i].TotalWeight,
+                    UpDated: 0,
+                    RvId: firstTableSelectedRow[i].RvID,
+                    Mtrl_Rv_id: firstTableSelectedRow[i].Mtrl_Rv_id,
+                  };
+                  console.log(
+                    "newRowMtrlIssueDetails : ",
+                    newRowMtrlIssueDetails
+                  );
+                  postRequest(
+                    endpoints.insertMtrlIssueDetails,
+                    newRowMtrlIssueDetails,
+                    async (data) => {
+                      //console.log("data = ", data);
+                      if (data.affectedRows !== 0) {
+                        console.log("Record inserted 1 : materialIssueDetails");
+                      } else {
+                        toast.error("Record Not Inserted");
+                      }
+                    }
+                  );
+                }
+              } else {
+                toast.error("Record Not Inserted");
+              }
+            }
+          );
+
+          //update mtrlStocklist by ivno and issue
+          for (let i = 0; i < thirdTable.length; i++) {
+            const mtrlstockData = {
+              Issue: 0,
+              Iv_No: no,
+              MtrlStockID: thirdTable[i].MtrlStockID,
+            };
+            postRequest(
+              endpoints.updateIssueIVNo,
+              mtrlstockData,
+              async (data) => {}
+            );
+          }
+
+          //insert into material Return Details
+          const inputDataDelete = {
+            IV_No: no,
+          };
+          postRequest(
+            endpoints.deleteMtrlStockByIVNo,
+            inputDataDelete,
+            async (data) => {}
+          );
+
+          //delete
+
+          //update the running no
+          const inputData = {
+            SrlType: "MaterialReturnIV",
+            Period: formatDate(new Date(), 6),
+            RunningNo: newNo,
+          };
+          postRequest(endpoints.updateRunningNo, inputData, async (data) => {});
+
+          setSrlMaterialType("material");
+          setSrlIVNO(no);
+          setShow(true);
         });
       });
     }
   };
   return (
     <>
-      <CreateDCModal show={show} setShow={setShow} />
+      <CreateReturnNewModal
+        show={show}
+        setShow={setShow}
+        srlMaterialType={srlMaterialType}
+        srlIVNO={srlIVNO}
+      />
 
       <div>
         <button
