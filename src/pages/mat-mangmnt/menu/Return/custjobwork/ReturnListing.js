@@ -1,45 +1,52 @@
 import React, { useState, useEffect } from "react";
-import {
-  CRVdata1,
-  CRVdata2,
-  CRVdata3,
-  outwarddata,
-} from "../../../components/Data";
-import Tables from "../../../../../components/Tables";
 import { dateToShort } from "../../../../../utils";
 import BootstrapTable from "react-bootstrap-table-next";
-import Table from "react-bootstrap/Table";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const { getRequest, postRequest } = require("../../../../api/apiinstance");
 const { endpoints } = require("../../../../api/constants");
 
 function ReturnListing(props) {
   const nav = useNavigate();
+
   const [data, setdata] = useState([]);
+  const [allData, setAllData] = useState([]);
+
   const [checkData, setCheckData] = useState([]);
   const [selectData, setSelectData] = useState();
 
+  const [checkboxVal, setCheckboxVal] = useState("off");
+  let [custdata, setCustdata] = useState([]);
+
   async function fetchData() {
+    getRequest(endpoints.getCustomers, (data) => {
+      setCustdata(data);
+    });
+
     if (props.type === "pendingDispatch") {
       getRequest(endpoints.getReturnPendingList, (data) => {
         setCheckData(data);
         setdata(data);
+        setAllData(data);
       });
     } else if (props.type === "returnSaleListing") {
       getRequest(endpoints.getSalesIVList, (data) => {
         setCheckData(data);
         setdata(data);
+        setAllData(data);
       });
     } else if (props.type === "customerIVList") {
       getRequest(endpoints.getCustomerIVList, (data) => {
         setCheckData(data);
         setdata(data);
+        setAllData(data);
       });
     } else if (props.type === "returnCancelled") {
       getRequest(endpoints.getCancelledList, (data) => {
         setCheckData(data);
         setdata(data);
+        setAllData(data);
       });
     }
   }
@@ -49,27 +56,6 @@ function ReturnListing(props) {
   }, []); //[inputPart]);
 
   let totalFetchData = checkData;
-
-  let changeCustomer = async (e) => {
-    e.preventDefault();
-    const { value, name } = e.target;
-
-    let filterData = totalFetchData.filter(
-      (Customer) => Customer.Customer == value
-    );
-    setdata(filterData);
-  };
-
-  let handleClick = async (e) => {
-    e.preventDefault();
-    const { value, name } = e.target;
-  };
-
-  function statusFormatter(cell, row, rowIndex, formatExtraData) {
-    if (!cell) return;
-    return dateToShort(cell);
-  }
-
   const columns = [
     {
       text: "IV No",
@@ -95,14 +81,57 @@ function ReturnListing(props) {
     },
   ];
 
-  let openClick = async (e) => {
+  let changeCustomer = async (e) => {
     e.preventDefault();
+    const { value, name } = e.target;
+
+    //console.log("all data = ", data);
+    const found = allData.filter((obj) => obj.Cust_code === value);
+    setdata(found);
+    //setCustdata(filterData);
+    setCheckboxVal("on");
+  };
+
+  let handleClick = async (e) => {
+    e.preventDefault();
+    const { value, name } = e.target;
+  };
+
+  function statusFormatter(cell, row, rowIndex, formatExtraData) {
+    if (!cell) return;
+    return dateToShort(cell);
+  }
+
+  let openClick = async (e) => {
+    //console.log("selected data = ", selectData);
+    console.log("data = ", selectData);
+    if (selectData && selectData.Type !== "Parts") {
+      nav(
+        "/materialmanagement/return/customerjobwork/OutwordMaterialIssueVocher",
+        {
+          state: { selectData },
+        }
+      );
+    } else if (selectData && selectData.Type === "Parts") {
+      nav("/materialmanagement/return/customerjobwork/OutwordPartIssueVocher", {
+        state: { selectData },
+      });
+    } else {
+      toast.error("Select IV");
+    }
+
+    /*e.preventDefault();
     nav(
       "/materialmanagement/return/customerjobwork/OutwordMaterialIssueVocher",
       {
         state: { selectData },
       }
-    );
+    );*/
+  };
+  let changeCheckbox = (e) => {
+    console.log("val = ", e.target.value);
+    setdata(allData);
+    setCheckboxVal("off");
   };
 
   const selectRow = {
@@ -112,10 +141,12 @@ function ReturnListing(props) {
     onSelect: (row, isSelect, rowIndex, e) => {
       console.log(row);
       setSelectData({
+        Iv_Id: row.Iv_Id,
         IV_No: row.IV_No,
         IV_Date: row.IV_Date,
         Customer: row.Customer,
         TotalWeight: row.TotalWeight,
+        TotalCalculatedWeight: row.TotalCalculatedWeight,
         Type: row.Type,
       });
     },
@@ -137,9 +168,9 @@ function ReturnListing(props) {
               Select Customer
             </option>
 
-            {checkData.map((pending, index) => (
-              <option key={index} value={pending.Cust_Code}>
-                {pending.Customer}
+            {custdata.map((customer, index) => (
+              <option key={index} value={customer.Cust_Code}>
+                {customer.Cust_name}
               </option>
             ))}
           </select>
@@ -154,9 +185,9 @@ function ReturnListing(props) {
             <input
               className="form-check-input mt-2"
               type="checkbox"
-              value=""
+              checked={checkboxVal === "on" ? true : false}
               id="flexCheckDefault"
-              onClick={handleClick}
+              onChange={changeCheckbox}
             />
             <label className="">Filter Customer</label>
           </div>

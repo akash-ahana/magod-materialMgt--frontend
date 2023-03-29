@@ -215,10 +215,6 @@ function App() {
                     path="OutwardMaterialIssueVocher"
                     element={<OutwordMaterialIssueVocher />}
                   />
-                  <Route
-                    path="OutwardPartIssueVocher"
-                    element={<OutwordPartIssueVocher />}
-                  />
                 </Route>
 
                 <Route path="cancelled" element={<ReturnCancelled />} />
@@ -234,6 +230,10 @@ function App() {
                 <Route
                   path="OutwordMaterialIssueVocher"
                   element={<OutwordMaterialIssueVocher />}
+                />
+                <Route
+                  path="OutwordPartIssueVocher"
+                  element={<OutwordPartIssueVocher />}
                 />
               </Route>
               <Route path="purchaseplannedforfuture">

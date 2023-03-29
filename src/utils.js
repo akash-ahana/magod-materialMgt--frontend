@@ -79,6 +79,11 @@ export function formatDate(dateObj, format) {
   } else if (format === 6) {
     //yyyy
     return curryear;
+  } else if (format === 7) {
+    // dd/Month/yyyy
+    return (
+      currdate + "/" + monthNames[parseInt(currmonth - 1)] + "/" + curryear
+    );
   }
 }
 

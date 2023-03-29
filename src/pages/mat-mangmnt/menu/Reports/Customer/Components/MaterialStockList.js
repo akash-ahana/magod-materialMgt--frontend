@@ -1,7 +1,119 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
+import BootstrapTable from "react-bootstrap-table-next";
+
+const { getRequest, postRequest } = require("../../../../../api/apiinstance");
+const { endpoints } = require("../../../../../api/constants");
 
 function MaterialStockList() {
+  const [data, setData] = useState([]);
+  const [grid1, setGrid1] = useState([]);
+  const [grid2, setGrid2] = useState([]);
+  const [grid3, setGrid3] = useState([]);
+
+  async function fetchData() {
+    getRequest(endpoints.getCustomerDetailsByMtrlStock, (data) => {
+      setData(data);
+      console.log("data = ", data);
+    });
+  }
+  useEffect(() => {
+    fetchData();
+  }, []); //[inputPart]);
+  let changeCustomerDropdown = async (e) => {
+    e.preventDefault();
+    const { value, name } = e.target;
+
+    await getRequest(
+      `${endpoints.getMaterialStockList1}Cust_Code=${value}`,
+      (data1) => {
+        setGrid1(data1);
+      }
+    );
+
+    await getRequest(
+      `${endpoints.getMaterialStockList2}Cust_Code=${value}`,
+      (data2) => {
+        console.log("before1", data2);
+        setGrid2(data2);
+      }
+    );
+
+    await getRequest(
+      `${endpoints.getMaterialStockList3}Cust_Code=${value}`,
+      (data3) => {
+        setGrid3(data3);
+        console.log("data:", data3);
+      }
+    );
+  };
+  console.log("after1", grid2);
+  const columns = [
+    {
+      text: "Material",
+      dataField: "Material",
+    },
+    {
+      text: "Qty",
+      dataField: "Qty",
+    },
+    {
+      text: "Wieght",
+      dataField: "Weight",
+    },
+    {
+      text: "Scarp Wieght",
+      dataField: "ScrapWeight",
+    },
+  ];
+  const columns1 = [
+    {
+      text: "Material Code",
+      dataField: "Mtrl_Code",
+    },
+    {
+      text: "Qty",
+      dataField: "Qty",
+    },
+    {
+      text: "Wieght",
+      dataField: "Weight",
+    },
+    {
+      text: "Scarp Wieght",
+      dataField: "ScrapWeight",
+    },
+  ];
+  const columns2 = [
+    {
+      text: "Para1",
+      dataField: "DynamicPara1",
+    },
+    {
+      text: "Para2",
+      dataField: "DynamicPara2",
+    },
+    {
+      text: "Qty",
+      dataField: "Qty",
+    },
+    {
+      text: "Locked",
+      dataField: "Locked",
+    },
+    {
+      text: "Scarp ",
+      dataField: "Scrap",
+    },
+    {
+      text: " Wieght",
+      dataField: "Weight",
+    },
+    {
+      text: "Scarp Wieght",
+      dataField: "ScrapWeight",
+    },
+  ];
   return (
     <div>
       {" "}
@@ -11,14 +123,23 @@ function MaterialStockList() {
         <h4 className="form-title">Customer Material Stock List</h4>
         <div className="row">
           <div className="col-md-1 mt-2">
-            <label className="">Location</label>
+            <label className="">Get Customer</label>
           </div>
           <div className="col-md-6 mt-2">
-            <select className="ip-select dropdown-field">
-              <option value="option 1">001</option>
-              <option value="option 1">002</option>
-              <option value="option 1">003</option>
-              <option value="option 1">004</option>
+            <select
+              className="ip-select"
+              name="pending"
+              onChange={changeCustomerDropdown}
+            >
+              <option value="" disabled selected>
+                Select Customer
+              </option>
+
+              {data.map((pending, index) => (
+                <option key={index} value={pending.Cust_Code}>
+                  {pending.Customer}
+                </option>
+              ))}
             </select>
           </div>
           <div className="col-md-2">
@@ -35,7 +156,16 @@ function MaterialStockList() {
             <div className="row">
               {" "}
               <div style={{ height: "200px", overflowY: "scroll" }}>
-                <Table bordered>
+                <BootstrapTable
+                  keyField="IV_No"
+                  columns={columns}
+                  data={grid1}
+                  striped
+                  hover
+                  condensed
+                  //selectRow={selectRow}
+                ></BootstrapTable>
+                {/* <Table bordered>
                   <thead
                     style={{
                       textAlign: "center",
@@ -64,13 +194,22 @@ function MaterialStockList() {
                       <td>asdfghj</td>
                     </tr>
                   </tbody>
-                </Table>
+                </Table> */}
               </div>
             </div>
             <div className="row">
               {" "}
               <div style={{ height: "200px", overflowY: "scroll" }}>
-                <Table bordered>
+                <BootstrapTable
+                  keyField="IV_No"
+                  columns={columns1}
+                  data={grid2}
+                  striped
+                  hover
+                  condensed
+                  //selectRow={selectRow}
+                ></BootstrapTable>
+                {/* <Table bordered>
                   <thead
                     style={{
                       textAlign: "center",
@@ -99,14 +238,23 @@ function MaterialStockList() {
                       <td>asdfghj</td>
                     </tr>
                   </tbody>
-                </Table>
+                </Table> */}
               </div>
             </div>
           </div>
 
           <div className="col-md-6 col-sm-12">
             <div style={{ height: "400px", overflowY: "scroll" }}>
-              <Table bordered>
+              <BootstrapTable
+                keyField="IV_No"
+                columns={columns2}
+                data={grid3}
+                striped
+                hover
+                condensed
+                //selectRow={selectRow}
+              ></BootstrapTable>
+              {/* <Table bordered>
                 <thead
                   style={{
                     textAlign: "center",
@@ -145,7 +293,7 @@ function MaterialStockList() {
                     <td>asdfghj</td>
                   </tr>
                 </tbody>
-              </Table>
+              </Table> */}
             </div>
           </div>
         </div>

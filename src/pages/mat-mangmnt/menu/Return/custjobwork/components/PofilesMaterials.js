@@ -15,7 +15,7 @@ function PofilesMaterials(props) {
 
   const [show, setShow] = useState(false);
   const [srlMaterialType, setSrlMaterialType] = useState("");
-  const [srlIVNO, setSrlIVNO] = useState("");
+  const [srlIVID, setSrlIVID] = useState("");
 
   let [firstTable, setFirstTable] = useState([]);
   let [secondTable, setSecondTable] = useState([]);
@@ -406,6 +406,7 @@ function PofilesMaterials(props) {
               if (data.affectedRows !== 0) {
                 console.log("Record inserted 1 : materialIssueRegister");
                 //insert second table
+                setSrlIVID(data.insertId);
 
                 for (let i = 0; i < firstTableSelectedRow.length; i++) {
                   //find Qty
@@ -535,7 +536,6 @@ function PofilesMaterials(props) {
           postRequest(endpoints.updateRunningNo, inputData, async (data) => {});
 
           setSrlMaterialType("material");
-          setSrlIVNO(no);
           setShow(true);
         });
       });
@@ -547,7 +547,7 @@ function PofilesMaterials(props) {
         show={show}
         setShow={setShow}
         srlMaterialType={srlMaterialType}
-        srlIVNO={srlIVNO}
+        srlIVID={srlIVID}
       />
 
       <div>
@@ -556,7 +556,7 @@ function PofilesMaterials(props) {
           style={{ width: "200px" }}
           onClick={createReturnVoucher}
         >
-          Create Return Vocher
+          Create Return Voucher
         </button>
       </div>
       <div className="row-md-12 table-data">

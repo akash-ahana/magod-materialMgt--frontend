@@ -10,7 +10,7 @@ function CreateReturnNewModal(props) {
   const handleClose = () => {
     if (props.srlMaterialType === "material") {
       let selectData = {
-        IV_No: props.srlIVNO,
+        Iv_Id: props.srlIVID,
       };
       nav(
         "/materialmanagement/return/customerjobwork/OutwordMaterialIssueVocher",
