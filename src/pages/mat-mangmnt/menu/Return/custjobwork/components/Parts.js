@@ -18,6 +18,9 @@ function Parts(props) {
 
   let [allData, setAllData] = useState([]);
 
+  let [rvNoval, setrvNoVal] = useState("");
+  let [custRefval, setCustRefVal] = useState("");
+
   const fetchData = () => {
     //console.log("props = ", props);
     if (props && props.custCode.length !== 0) {
@@ -113,9 +116,10 @@ function Parts(props) {
     //selected: selectRowSecond.selected,
     bgColor: "#8A92F0",
     onSelect: (row, isSelect) => {
-      //console.log("Row = ", row);
+      console.log("Row = ", row);
       //console.log("isselect = ", isSelect);
-
+      setrvNoVal(row.RV_No);
+      setCustRefVal(row.CustDocuNo);
       if (isSelect) {
         //update second table data
         let newData = allData.filter((obj, index) => {
@@ -297,16 +301,21 @@ function Parts(props) {
           <div className="row">
             <div className="col-md-4">
               <label className="">RV_No</label>
-              <input type="text" name="rvNo" />
+              <input type="text" name="rvNo" disabled value={rvNoval} />
             </div>
             <div className="col-md-7">
               <label className="">Customer Ref</label>
-              <input type="text" name="customerRef" />
+              <input
+                type="text"
+                name="customerRef"
+                disabled
+                value={custRefval}
+              />
             </div>
           </div>
           <div>
             <button className="button-style" style={{ width: "200px" }}>
-              Create Return Vocher
+              Create Return Voucher
             </button>
           </div>
           <div>

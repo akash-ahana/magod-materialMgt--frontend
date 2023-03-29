@@ -5,6 +5,7 @@ let API = "http://localhost:5001";
 export const endpoints = {
   //customers
   getCustomers: `${API}/customers/allcustomers`,
+  getCustomerByCustCode: `${API}/customers/getCustomerByCustCode`,
   //bom list
   getCustBomList: `${API}/custbomlist/allCustBomList`,
   //locations
@@ -48,6 +49,7 @@ export const endpoints = {
   insertPartReceiptDetails: `${API}/mtrlPartReceiptDetails/insertPartReceiptDetails`,
   updatePartReceiptDetails: `${API}/mtrlPartReceiptDetails/updatePartReceiptDetails`,
   deletePartReceiptDetails: `${API}/mtrlPartReceiptDetails/deletePartReceiptDetails`,
+  updateQtyReturnedPartReceiptDetails: `${API}/mtrlPartReceiptDetails/updateQtyReturnedPartReceiptDetails`,
 
   //Material Receipt Details
   getMtrlReceiptDetailsByRvID: `${API}/mtrlReceiptDetails/getMtrlReceiptDetailsByRvID`,
@@ -66,13 +68,12 @@ export const endpoints = {
   deleteMtrlStockByRVNo: `${API}/mtrlStockList/deleteMtrlStockByRVNo`,
   deleteMtrlStockByIVNo: `${API}/mtrlStockList/deleteMtrlStockByIVNo`,
   updateIssueIVNo: `${API}/mtrlStockList/updateIssueIVNo`,
-
-  //material issue register
-  insertMaterialIssueRegister: `${API}/materialIssueRegister/insert`,
-  insertMtrlIssueDetails: `${API}/mtrlIssueDetails/insert`,
+  updateIVNoNULL: `${API}/mtrlStockList/updateIVNoNULL`,
+  insertByReturnDetails: `${API}/mtrlStockList/insertByReturnDetails`,
 
   //material Return Details
   insertmaterialReturnDetails: `${API}/materialReturnDetails/insert`,
+  deleteByIVNOMaterialReturnDetails: `${API}/materialReturnDetails/deleteByIVNO`,
 
   //return
   profileMaterialFirst: `${API}/return/profileMaterialFirst`,
@@ -80,14 +81,41 @@ export const endpoints = {
   profileMaterialThird: `${API}/return/profileMaterialThird`,
   partFirst: `${API}/return/partFirst`,
   partSecond: `${API}/return/partSecond`,
-  //listing part
-  getReturnPendingList: `${API}/materialIssueRegister/allPendingDispatchRouter?customer`,
-  getCustomerIVList: `${API}/materialIssueRegister/customerIVlist`,
-  getSalesIVList: `${API}/materialIssueRegister/SalesIVList`,
-  getCancelledList: `${API}/materialIssueRegister/cancelledList`,
-  getCheckReturnPendingList: `${API}/materialIssueRegister/checkPendingDispatchRouter`,
-  getOutwordMaterialVocher: `${API}/mtrlIssueDetails/allmtrlIssueDetailsRouter`,
-  updateOutwordMaterialVocher: `${API}/mtrlIssueDetails/updatemtrlIssueDetailsRouter`,
+
+  //material issue register
+  insertMaterialIssueRegister: `${API}/materialIssueRegister/insert`,
+  updateDCWeight: `${API}/materialIssueRegister/updateDCWeight`,
+  updateStatusCancel: `${API}/materialIssueRegister/updateStatusCancel`,
+  updateStatusDCNoDCID: `${API}/materialIssueRegister/updateStatusDCNoDCID`,
+  getMaterialIssueRegisterRouterByIVID: `${API}/materialIssueRegister/getMaterialIssueRegisterRouterByIVID`,
+  //getAllReturnListing: `${API}/materialIssueRegister/getAllReturnListing?type=''`,
+  getReturnPendingList: `${API}/materialIssueRegister/getAllReturnListing?type=pending`,
+  getCustomerIVList: `${API}/materialIssueRegister/getAllReturnListing?type=customer`,
+  getSalesIVList: `${API}/materialIssueRegister/getAllReturnListing?type=sales`,
+  getCancelledList: `${API}/materialIssueRegister/getAllReturnListing?type=cancelled`,
+  //getCheckReturnPendingList: `${API}/materialIssueRegister/checkPendingDispatchRouter`,
+
+  insertMtrlIssueDetails: `${API}/mtrlIssueDetails/insert`,
+  getmtrlIssueDetailsByIVID: `${API}/mtrlIssueDetails/getmtrlIssueDetailsByIVID`,
+
+  //Reports
+  //Material Management StockList
+  getCustomerDetailsByMtrlStock: `${API}/mtrlStockList/getCustomerDetails`,
+  getMaterialStockList1: `${API}/customstocklist/materialStockList1?`,
+  getMaterialStockList2: `${API}/customstocklist/materialStockList2?`,
+  getMaterialStockList3: `${API}/customstocklist/materialStockList3?`,
+
+  //dc register
+  insertDCRegister: `${API}/dcregister/insert`,
+
+  //dc details
+  getLastInsertIDDCDetails: `${API}/dcdetails/getLastInsertID`,
+  insertDCDetails: `${API}/dcdetails/insert`,
+
+  //mtrl part issue details
+  getmtrlPartIssueDetailsByIVID: `${API}/mtrlPartIssueDetails/getmtrlPartIssueDetailsByIVID`,
+
+  //updateOutwordMaterialVocher: `${API}/mtrlIssueDetails/updatemtrlIssueDetailsRouter`,
 
   /*getCustCodeName: `${API}/customers/allcustcodename`,
   getCustomerDets: `${API}/customers/getcustomer`,

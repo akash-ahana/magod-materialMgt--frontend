@@ -52,7 +52,7 @@ function ReturnNew() {
         </div>
       </div>
       <Tabs id="controlled-tab-example" className="mb-3 mt-3 tab_font">
-        <Tab eventKey="mat_rece" title="Profiles Matireals">
+        <Tab eventKey="mat_rece" title="Profiles Material">
           <ProfilesMaterials custCode={custCode} custName={custName} />
         </Tab>
 

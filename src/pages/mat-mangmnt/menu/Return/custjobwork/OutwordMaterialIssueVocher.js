@@ -9,21 +9,31 @@ import { useLocation } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import { toast } from "react-toastify";
 import BootstrapTable from "react-bootstrap-table-next";
+import ReturnCancelIVModal from "../../../components/ReturnCancelIVModal";
+import CreateDCYesNoModal from "../../../components/CreateDCYesNoModal";
 
 const { getRequest, postRequest } = require("../../../../api/apiinstance");
 const { endpoints } = require("../../../../api/constants");
 
 function OutwordMaterialIssueVocher(props) {
   const [show, setShow] = useState(false);
+  const [showCreateDC, setShowCreateDC] = useState(false);
+
   const [outData, setOutData] = useState([]);
   const [upData, setUpData] = useState();
+
   const location = useLocation();
+
+  const [IVNOValue, setIVNOValue] = useState("");
+  const [IVIDValue, setIVIDValue] = useState("");
 
   const handleShow = () => setShow(true);
 
   let [formHeader, setFormHeader] = useState({
-    IV_No: location.state.selectData.IV_No,
+    Iv_Id: "",
+    IV_No: "",
     IV_Date: "",
+    Cust_code: "",
     Customer: "",
     CustGSTNo: "",
     PkngDcNo: "",
@@ -38,9 +48,33 @@ function OutwordMaterialIssueVocher(props) {
 
   async function fetchData() {
     //header data
+    let url =
+      endpoints.getMaterialIssueRegisterRouterByIVID +
+      "?id=" +
+      location.state.selectData.Iv_Id;
+    //console.log("url = ", url);
+    getRequest(url, (data) => {
+      setIVNOValue(data.IV_No);
+      setIVIDValue(data.Iv_Id);
+      setFormHeader({
+        Iv_Id: data.Iv_Id,
+        IV_No: data.IV_No,
+        IV_Date: data.IV_Date,
+        Cust_code: data.Cust_code,
+        Customer: data.Customer,
+        CustGSTNo: data.CustGSTNo,
+        PkngDcNo: data.PkngDcNo,
+        TotalWeight: data.TotalWeight,
+        TotalCalculatedWeight: data.TotalCalculatedWeight,
+      });
+    });
 
     //grid data
-    getRequest(endpoints.getOutwordMaterialVocher, (data) => {
+    let url1 =
+      endpoints.getmtrlIssueDetailsByIVID +
+      "?id=" +
+      location.state.selectData.Iv_Id;
+    getRequest(url1, (data) => {
       setOutData(data);
     });
   }
@@ -55,7 +89,7 @@ function OutwordMaterialIssueVocher(props) {
       dataField: "Srl",
     },
     {
-      text: "MtrlDescription",
+      text: "Description",
       dataField: "MtrlDescription",
     },
     {
@@ -67,30 +101,18 @@ function OutwordMaterialIssueVocher(props) {
       dataField: "Qty",
     },
     {
-      text: "TotalWeightCalculated",
-      dataField: "TotalWeightCalculated",
+      text: "Weight",
+      dataField: "TotalWeight",
     },
     {
-      text: "Wieght",
-      dataField: "TotalWeight",
+      text: "Total Weight",
+      dataField: "TotalWeightCalculated",
     },
   ];
 
   const InputHeaderEvent = (e) => {
     const { name, value } = e.target;
     setFormHeader({ ...formHeader, [name]: value });
-  };
-
-  const updateOutwordFunction = () => {
-    console.log("update formheader = ", formHeader);
-    postRequest(endpoints.updateOutwordMaterialVocher, formHeader, (data) => {
-      console.log("data = ", data);
-      if (data.affectedRows !== 0) {
-        toast.success("Record Updated Successfully");
-      } else {
-        toast.error("Record Not Updated");
-      }
-    });
   };
 
   const saveButtonState = (e) => {
@@ -100,7 +122,14 @@ function OutwordMaterialIssueVocher(props) {
     } else if (formHeader.TotalWeight.length == 0)
       toast.error("Please Enter TotalWeight");
     else {
-      updateOutwordFunction();
+      postRequest(endpoints.updateDCWeight, formHeader, (data) => {
+        //console.log("data = ", data);
+        if (data.affectedRows !== 0) {
+          toast.success("Record Updated Successfully");
+        } else {
+          toast.error("Record Not Updated");
+        }
+      });
     }
   };
 
@@ -112,10 +141,32 @@ function OutwordMaterialIssueVocher(props) {
       confirmButtonText: "okay",
     });
   };
+  let cancelIV = () => {
+    //console.log(IVNOValue, " and ", IVIDValue);
+
+    setShow(true);
+  };
+
+  let createDC = () => {
+    setShowCreateDC(true);
+  };
   return (
     <div>
-      <FormModal show={show} setShow={setShow} />
+      <ReturnCancelIVModal
+        show={show}
+        setShow={setShow}
+        IV_NO={IVNOValue}
+        IV_ID={IVIDValue}
+        type="sheets"
+      />
 
+      <CreateDCYesNoModal
+        showCreateDC={showCreateDC}
+        setShowCreateDC={setShowCreateDC}
+        formHeader={formHeader}
+        outData={outData}
+        type="sheets"
+      />
       <div>
         <h4 className="form-title">Outward Material Issue Vocher</h4>
         <hr className="horizontal-line" />
@@ -126,8 +177,8 @@ function OutwordMaterialIssueVocher(props) {
             <input
               type="text"
               name="IvId"
-              value={location.state.selectData.IV_No}
-              readOnly
+              value={formHeader.IV_No}
+              disabled
               onChange={InputHeaderEvent}
             />
           </div>
@@ -136,8 +187,8 @@ function OutwordMaterialIssueVocher(props) {
             <input
               type="text"
               name="IVDate"
-              value={statusFormatter(location.state.selectData.IV_Date)}
-              readOnly
+              value={statusFormatter(formHeader.IV_Date)}
+              disabled
             />
           </div>
           <div className="col-md-4">
@@ -152,8 +203,8 @@ function OutwordMaterialIssueVocher(props) {
             <input
               type="text"
               name="Customer"
-              value={location.state.selectData.Customer}
-              readOnly
+              value={formHeader.Customer}
+              disabled
             />
           </div>
           {/* <div className="col-md-8">
@@ -168,7 +219,7 @@ function OutwordMaterialIssueVocher(props) {
             </div> */}
 
           <div className="col-md-4">
-            <button className="button-style" onClick={getPop}>
+            <button className="button-style" onClick={cancelIV}>
               Cancel IV
             </button>
           </div>
@@ -176,12 +227,7 @@ function OutwordMaterialIssueVocher(props) {
         <div className="row">
           <div className="col-md-4">
             <label className="">GST No</label>
-            <input
-              type="text"
-              name="reference"
-              // value={formHeader.reference}
-              // onChange={InputHeaderEvent}
-            />
+            <input type="text" name="reference" disabled />
           </div>
           <div className="col-md-4">
             <label className="">DC No / Ph No</label>
@@ -193,7 +239,7 @@ function OutwordMaterialIssueVocher(props) {
             />
           </div>
           <div className="col-md-4">
-            <button className="button-style" onClick={handleShow}>
+            <button className="button-style" onClick={createDC}>
               Create DC
             </button>
           </div>
@@ -213,8 +259,8 @@ function OutwordMaterialIssueVocher(props) {
             <input
               type="text"
               name="Type"
-              value={location.state.selectData.TotalWeight}
-              readOnly
+              value={formHeader.TotalCalculatedWeight}
+              disabled
             />
           </div>
           <div className="col-md-4">
@@ -222,7 +268,7 @@ function OutwordMaterialIssueVocher(props) {
           </div>
         </div>
       </div>
-
+      <br></br>
       <div className="row">
         <div className="col-md-12 col-sm-12">
           <div
@@ -241,7 +287,6 @@ function OutwordMaterialIssueVocher(props) {
               //selectRow={selectRow}
             ></BootstrapTable>
           </div>
-          {/* {outData.length>0 &&  <Tables theadData={getHeadings()} tbodyData={outData} /> }                   */}
         </div>
       </div>
     </div>
