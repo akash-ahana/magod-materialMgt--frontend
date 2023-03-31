@@ -50,6 +50,7 @@ export const endpoints = {
   updatePartReceiptDetails: `${API}/mtrlPartReceiptDetails/updatePartReceiptDetails`,
   deletePartReceiptDetails: `${API}/mtrlPartReceiptDetails/deletePartReceiptDetails`,
   updateQtyReturnedPartReceiptDetails: `${API}/mtrlPartReceiptDetails/updateQtyReturnedPartReceiptDetails`,
+  updateQtyReturnedPartReceiptDetails1: `${API}/mtrlPartReceiptDetails/updateQtyReturnedPartReceiptDetails1`,
 
   //Material Receipt Details
   getMtrlReceiptDetailsByRvID: `${API}/mtrlReceiptDetails/getMtrlReceiptDetailsByRvID`,
@@ -107,6 +108,7 @@ export const endpoints = {
 
   //dc register
   insertDCRegister: `${API}/dcregister/insert`,
+  getDCRegisterByID: `${API}/dcregister/getDCRegisterByID`,
 
   //dc details
   getLastInsertIDDCDetails: `${API}/dcdetails/getLastInsertID`,
@@ -114,6 +116,7 @@ export const endpoints = {
 
   //mtrl part issue details
   getmtrlPartIssueDetailsByIVID: `${API}/mtrlPartIssueDetails/getmtrlPartIssueDetailsByIVID`,
+  insertPartIssueDetails: `${API}/mtrlPartIssueDetails/insert`,
 
   //updateOutwordMaterialVocher: `${API}/mtrlIssueDetails/updatemtrlIssueDetailsRouter`,
 

@@ -32,6 +32,7 @@ function CreateDCYesNoModal(props) {
         formHeader={props.formHeader}
         outData={props.outData}
         type={props.type}
+        getDCID={props.getDCID}
       />
       <Modal show={showCreateDC} onHide={handleNo}>
         <Modal.Header closeButton>
