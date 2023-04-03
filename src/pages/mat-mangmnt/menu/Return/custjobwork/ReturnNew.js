@@ -13,6 +13,10 @@ function ReturnNew() {
   let [custdata, setCustdata] = useState([]);
   let [custCode, setCustCode] = useState("");
   let [custName, setCustName] = useState("");
+  let [custCST, setCustCSTNo] = useState("");
+  let [custTIN, setCustTINNo] = useState("");
+  let [custECC, setCustECCNo] = useState("");
+  let [custGST, setCustGSTNo] = useState("");
 
   async function fetchData() {
     getRequest(endpoints.getCustomers, (data) => {
@@ -26,6 +30,10 @@ function ReturnNew() {
     setCustCode(value);
     let foundCustomer = custdata.filter((obj) => obj.Cust_Code === value);
     setCustName(foundCustomer[0].Cust_name);
+    setCustCSTNo(foundCustomer[0].CST_No);
+    setCustTINNo(foundCustomer[0].TIN_No);
+    setCustECCNo(foundCustomer[0].ECC_No);
+    setCustGSTNo(foundCustomer[0].GSTNo);
   };
 
   useEffect(() => {
@@ -53,11 +61,25 @@ function ReturnNew() {
       </div>
       <Tabs id="controlled-tab-example" className="mb-3 mt-3 tab_font">
         <Tab eventKey="mat_rece" title="Profiles Material">
-          <ProfilesMaterials custCode={custCode} custName={custName} />
+          <ProfilesMaterials
+            custCode={custCode}
+            custName={custName}
+            custCST={custCST}
+            custECC={custECC}
+            custGST={custGST}
+            custTIN={custTIN}
+          />
         </Tab>
 
         <Tab eventKey="mat_retu" title="Parts">
-          <Parts custCode={custCode} custName={custName} />
+          <Parts
+            custCode={custCode}
+            custName={custName}
+            custCST={custCST}
+            custECC={custECC}
+            custGST={custGST}
+            custTIN={custTIN}
+          />
         </Tab>
       </Tabs>
     </>

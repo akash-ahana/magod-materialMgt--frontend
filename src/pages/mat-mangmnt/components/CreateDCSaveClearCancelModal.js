@@ -4,11 +4,13 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { formatDate } from "../../../utils";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const { getRequest, postRequest } = require("../../api/apiinstance");
 const { endpoints } = require("../../api/constants");
 
 function CreateDCSaveClearCancelModal(props) {
+  const nav = useNavigate();
   const { show, setShow, handleShow } = props;
   const [pnno, setpnno] = useState("");
 
@@ -153,6 +155,8 @@ function CreateDCSaveClearCancelModal(props) {
                     console.log("material issue register Updated");
                   }
                 );
+                //send dc id to main page
+                props.getDCID(dc_id);
 
                 //update the running no
                 const inputData = {
@@ -167,6 +171,14 @@ function CreateDCSaveClearCancelModal(props) {
             });
             //insert dc details
           });
+          /*props.type === "parts"
+            ? nav(
+                "/materialmanagement/return/customerjobwork/OutwordPartIssueVocher"
+              )
+            : nav(
+                "/materialmanagement/return/customerjobwork/OutwordMaterialIssueVocher"
+              );*/
+
           toast.success("DC Created Successfully");
           setpnno("");
           setShow(false);

@@ -20,6 +20,12 @@ function CreateReturnNewModal(props) {
       );
     }
     if (props.srlMaterialType === "part") {
+      let selectData = {
+        Iv_Id: props.srlIVID,
+      };
+      nav("/materialmanagement/return/customerjobwork/OutwordPartIssueVocher", {
+        state: { selectData },
+      });
     }
     setShow(false);
   };
@@ -29,7 +35,7 @@ function CreateReturnNewModal(props) {
         <Modal.Header closeButton>
           <Modal.Title>IV No</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{props.srlIVNO}</Modal.Body>
+        <Modal.Body>{props.srlIVID}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             okay

@@ -15,35 +15,37 @@ function ReturnListing(props) {
 
   const [checkData, setCheckData] = useState([]);
   const [selectData, setSelectData] = useState();
+  const [checkboxDisable, setCheckboxDisable] = useState("on");
 
   const [checkboxVal, setCheckboxVal] = useState("off");
   let [custdata, setCustdata] = useState([]);
 
   async function fetchData() {
-    getRequest(endpoints.getCustomers, (data) => {
+    getRequest(endpoints.getCustomers, async (data) => {
       setCustdata(data);
     });
 
     if (props.type === "pendingDispatch") {
-      getRequest(endpoints.getReturnPendingList, (data) => {
+      getRequest(endpoints.getReturnPendingList, async (data) => {
         setCheckData(data);
         setdata(data);
         setAllData(data);
       });
     } else if (props.type === "returnSaleListing") {
-      getRequest(endpoints.getSalesIVList, (data) => {
+      getRequest(endpoints.getSalesIVList, async (data) => {
         setCheckData(data);
         setdata(data);
         setAllData(data);
       });
     } else if (props.type === "customerIVList") {
-      getRequest(endpoints.getCustomerIVList, (data) => {
+      getRequest(endpoints.getCustomerIVList, async (data) => {
         setCheckData(data);
         setdata(data);
         setAllData(data);
+        //console.log("data = ", data);
       });
     } else if (props.type === "returnCancelled") {
-      getRequest(endpoints.getCancelledList, (data) => {
+      getRequest(endpoints.getCancelledList, async (data) => {
         setCheckData(data);
         setdata(data);
         setAllData(data);
@@ -57,6 +59,12 @@ function ReturnListing(props) {
 
   let totalFetchData = checkData;
   const columns = [
+    {
+      text: "Iv_Id",
+      dataField: "Iv_Id",
+      hidden: true,
+    },
+
     {
       text: "IV No",
       dataField: "IV_No",
@@ -90,6 +98,7 @@ function ReturnListing(props) {
     setdata(found);
     //setCustdata(filterData);
     setCheckboxVal("on");
+    setCheckboxDisable("off");
   };
 
   let handleClick = async (e) => {
@@ -188,6 +197,7 @@ function ReturnListing(props) {
               checked={checkboxVal === "on" ? true : false}
               id="flexCheckDefault"
               onChange={changeCheckbox}
+              disabled={checkboxDisable === "on" ? true : false}
             />
             <label className="">Filter Customer</label>
           </div>
@@ -208,7 +218,7 @@ function ReturnListing(props) {
             className="col-md-12 col-sm-12"
           >
             <BootstrapTable
-              keyField="IV_No"
+              keyField="Iv_Id"
               columns={columns}
               data={data}
               striped

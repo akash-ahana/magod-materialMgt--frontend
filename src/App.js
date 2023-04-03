@@ -90,6 +90,8 @@ import StockArrival from "./pages/mat-mangmnt/menu/Store management/Stock/StockA
 import StockDispatch from "./pages/mat-mangmnt/menu/Store management/Stock/StockDispatch";
 import StockLedger from "./pages/mat-mangmnt/menu/Store management/Stock/StockLedger";
 import OpeningStock from "./pages/mat-mangmnt/menu/Store management/Stock/OpeningStock";
+import PrintMaterialDC from "./pages/mat-mangmnt/print/return/PrintMaterialDC";
+import PrintPartsDC from "./pages/mat-mangmnt/print/return/PrintPartsDC";
 
 function App() {
   return (
@@ -235,6 +237,8 @@ function App() {
                   path="OutwordPartIssueVocher"
                   element={<OutwordPartIssueVocher />}
                 />
+                <Route path="PrintMaterialDC" element={<PrintMaterialDC />} />
+                <Route path="PrintPartsDC" element={<PrintPartsDC />} />
               </Route>
               <Route path="purchaseplannedforfuture">
                 <Route index={true} element={<PurchasePlannedforfuture />} />

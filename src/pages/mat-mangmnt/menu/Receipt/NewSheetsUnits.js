@@ -27,12 +27,16 @@ function NewSheetsUnits(props) {
   const [boolVal3, setBoolVal3] = useState(true);
   //after clicking allot rv button
   const [boolVal4, setBoolVal4] = useState(false);
+  //falg for add to stock and remove stock
+  const [boolValStock, setBoolValStock] = useState("off");
 
   //after selecting material disable dynamic para 1 2 3
   const [boolPara1, setBoolPara1] = useState(false);
   const [boolPara2, setBoolPara2] = useState(false);
   const [boolPara3, setBoolPara3] = useState(false);
 
+  const [mtrlArray, setMtrlArray] = useState([]);
+  const [mtrlStock, setMtrlStock] = useState({});
   //after clicking inspected checkbox
   const [boolVal5, setBoolVal5] = useState(false);
 
@@ -51,7 +55,7 @@ function NewSheetsUnits(props) {
     reference: "",
     weight: "0",
     calcWeight: "0",
-    type: "Sheets",
+    type: props.type === "sheets" ? "Sheets" : "Units",
     address: "",
   });
 
@@ -784,6 +788,43 @@ function NewSheetsUnits(props) {
     clickToSelect: true,
     bgColor: "#8A92F0",
     onSelect: (row, isSelect, rowIndex, e) => {
+      console.log("Row = ", row);
+      const url1 = endpoints.getMtrlReceiptDetailsByID + "?id=" + row.id;
+      getRequest(url1, async (data2) => {
+        data2.forEach((obj) => {
+          obj.id = obj.Mtrl_Rv_id;
+          obj.mtrlRvId = obj.Mtrl_Rv_id;
+          obj.rvId = obj.RvID;
+          obj.srl = obj.Srl;
+          obj.custCode = obj.Cust_Code;
+          obj.mtrlCode = obj.Mtrl_Code;
+          obj.material = obj.Material;
+          obj.shapeMtrlId = obj.ShapeMtrlID;
+          obj.shapeID = obj.ShapeID;
+          obj.dynamicPara1 = obj.DynamicPara1;
+          obj.dynamicPara2 = obj.DynamicPara1;
+          obj.dynamicPara3 = obj.DynamicPara1;
+          obj.qty = obj.Qty;
+          obj.inspected = obj.Inspected;
+          obj.accepted = obj.Accepted;
+          obj.totalWeightCalculated = obj.TotalWeightCalculated;
+          obj.totalWeight = obj.TotalWeight;
+          obj.locationNo = obj.LocationNo;
+          obj.upDated = obj.UpDated;
+          obj.qtyAccepted = obj.QtyAccepted;
+          obj.qtyReceived = obj.QtyReceived;
+          obj.qtyRejected = obj.QtyRejected;
+          obj.qtyUsed = obj.QtyUsed;
+          obj.qtyReturned = obj.QtyReturned;
+        });
+        setMtrlArray(data2);
+        data2.map(async (obj) => {
+          if (obj.id == row.id) {
+            setMtrlStock(obj);
+          }
+        });
+      });
+
       setInputPart({
         // id: row.id,
         // partId: row.partId,
@@ -808,6 +849,71 @@ function NewSheetsUnits(props) {
   // const addToStock = () => {};
 
   // const removeToStock = () => {};
+  const addToStock = () => {
+    if (Object.keys(mtrlStock).length === 0) {
+      toast.error("Please Select Material");
+    } else {
+      const newRow = {
+        //mtrlStockId :
+        mtrlRvId: mtrlStock.Mtrl_Rv_id,
+        custCode: mtrlStock.Cust_Code,
+        customer: formHeader.customerName,
+        custDocuNo: "",
+        rvNo: formHeader.rvNo,
+        mtrlCode: mtrlStock.Mtrl_Code,
+        shapeID: mtrlStock.shapeID,
+        shape: "",
+        material: mtrlStock.material,
+        dynamicPara1: mtrlStock.dynamicPara1,
+        dynamicPara2: mtrlStock.dynamicPara2,
+        dynamicPara3: mtrlStock.dynamicPara3,
+        dynamicPara4: "0.00",
+        locked: 0,
+        scrap: 0,
+        issue: 0,
+        weight: formHeader.weight,
+        scrapWeight: "0.00",
+        srl: mtrlStock.Srl,
+        ivNo: "",
+        ncProgramNo: "",
+        locationNo: mtrlStock.locationNo,
+        qtyAccepted: mtrlStock.qtyAccepted,
+      };
+      console.log("newrow = ", newRow);
+      //console.log("before api");
+      postRequest(endpoints.insertMtrlStockList, newRow, async (data) => {
+        //console.log("data = ", data);
+        if (data.affectedRows !== 0) {
+          //enable remove stock buttons
+          toast.success("Stock Added Successfully");
+          //setBoolVal2(true);
+          //setBoolVal3(false);
+          setBoolValStock("on");
+        } else {
+          toast.error("Stock Not Added");
+        }
+      });
+    }
+  };
+
+  const removeStock = () => {
+    if (Object.keys(mtrlStock).length === 0) {
+      toast.error("Please Select Material");
+    } else {
+      postRequest(endpoints.deleteMtrlStockByRVNo, formHeader, async (data) => {
+        //console.log("data = ", data);
+        if (data.affectedRows !== 0) {
+          //enable remove stock buttons
+          toast.success("Stock Removed Successfully");
+          //setBoolVal2(false);
+          //setBoolVal3(true);
+          setBoolValStock("off");
+        } else {
+          toast.error("Stock Not Removed");
+        }
+      });
+    }
+  };
 
   return (
     <div>
@@ -1000,15 +1106,26 @@ function NewSheetsUnits(props) {
                 <button
                   className="button-style "
                   style={{ width: "120px" }}
-                  disabled={true}
+                  disabled={
+                    (props.type2 === "purchase" || props.type === "gas") &&
+                    boolValStock === "off"
+                      ? !boolVal4
+                      : true
+                  }
+                  onClick={addToStock}
                 >
                   Add to stock
                 </button>
                 <button
                   className="button-style "
                   style={{ width: "130px" }}
-                  disabled={true}
-                  // onClick={addToStock}
+                  disabled={
+                    (props.type2 === "purchase" || props.type === "gas") &&
+                    boolValStock === "on"
+                      ? !boolVal4
+                      : true
+                  }
+                  onClick={removeStock}
                 >
                   Remove stock
                 </button>
