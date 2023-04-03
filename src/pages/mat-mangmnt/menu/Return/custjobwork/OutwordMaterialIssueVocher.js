@@ -264,13 +264,13 @@ function OutwordMaterialIssueVocher(props) {
                 />
               </div>
               <div className="col-md-3">
-                <label className=""></label>
-                <input
+                <div className="mt-4 ms-3">{formHeader.IVStatus}</div>
+                {/* <input
                   type="text"
                   name="status"
                   value={formHeader.IVStatus}
                   disabled
-                />
+                /> */}
               </div>
               <div className="col-md-3">
                 <button className="button-style ms-1" onClick={saveButtonState}>
