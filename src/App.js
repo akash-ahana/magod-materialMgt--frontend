@@ -92,6 +92,7 @@ import StockLedger from "./pages/mat-mangmnt/menu/Store management/Stock/StockLe
 import OpeningStock from "./pages/mat-mangmnt/menu/Store management/Stock/OpeningStock";
 import PrintMaterialDC from "./pages/mat-mangmnt/print/return/PrintMaterialDC";
 import PrintPartsDC from "./pages/mat-mangmnt/print/return/PrintPartsDC";
+import ShopIssueIVList from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListService/ShopIssueIVList";
 
 function App() {
   return (
@@ -276,6 +277,7 @@ function App() {
               </Route>
               <Route path="IVListService">
                 <Route index={true} />
+                <Route index={true} element={<ShopIssueIVList />} />
                 <Route path="Issued">
                   <Route index={true} element={<ShopIssueIVListIssued />} />
                   <Route
