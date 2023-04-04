@@ -188,6 +188,8 @@ const PrintPartsDCTable = ({ formHeader, outData, custdata, dcRegister }) => (
         <Text style={styles.topspace}></Text>
         <Text style={styles.titleLeft1}></Text>
         <Text style={styles.titleMiddle2}>Total Items : {outData.length}</Text>
+        <Text style={styles.titleLeft1}></Text>
+        <Text style={styles.titleMiddle2}>Total Quantity : 0</Text>
       </View>
     </Page>
   </Document>

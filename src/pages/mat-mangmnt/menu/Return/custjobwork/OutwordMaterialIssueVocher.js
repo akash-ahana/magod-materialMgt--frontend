@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import BootstrapTable from "react-bootstrap-table-next";
+import cellEditFactory from "react-bootstrap-table2-editor";
 import ReturnCancelIVModal from "../../../components/ReturnCancelIVModal";
 import CreateDCYesNoModal from "../../../components/CreateDCYesNoModal";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +19,16 @@ function OutwordMaterialIssueVocher(props) {
   let [custdata, setCustdata] = useState({
     Address: "",
   });
+
+  //initial disable - print button
+  const [boolVal1, setBoolVal1] = useState(true);
+
+  //after clicking create dc
+  const [boolVal2, setBoolVal2] = useState(false);
+
+  //after clicking cancel dc
+  const [boolVal3, setBoolVal3] = useState(false);
+
   let [dcID, setdcID] = useState("");
   let [dcRegister, setdcRegister] = useState({});
 
@@ -105,22 +116,29 @@ function OutwordMaterialIssueVocher(props) {
     {
       text: "Description",
       dataField: "MtrlDescription",
+      editable: false,
     },
     {
       text: "Material",
       dataField: "Material",
+      editable: false,
     },
     {
       text: "Qty",
       dataField: "Qty",
+      editable: false,
     },
     {
       text: "Weight",
-      dataField: "TotalWeight",
+      dataField: "TotalWeightCalculated",
+      editable: false,
     },
     {
       text: "Total Weight",
-      dataField: "TotalWeightCalculated",
+      dataField: "TotalWeight",
+      // editable: (content, row, rowIndex, columnIndex) => {
+      //   console.log("content = ", content);
+      // },
     },
     {
       text: "Updated",
@@ -134,7 +152,15 @@ function OutwordMaterialIssueVocher(props) {
       ),
     },
   ];
-
+  function afterSaveCell(oldValue, newValue, row, column) {
+    //console.log("oldvalue = ", oldValue);
+    //console.log("newvalue = ", newValue);
+    //console.log("row = ", row);
+    setFormHeader({
+      ...formHeader,
+      TotalWeight: newValue,
+    });
+  }
   const InputHeaderEvent = (e) => {
     const { name, value } = e.target;
     setFormHeader({ ...formHeader, [name]: value });
@@ -142,20 +168,20 @@ function OutwordMaterialIssueVocher(props) {
 
   const saveButtonState = (e) => {
     e.preventDefault();
-    if (formHeader.PkngDcNo.length == 0) {
+    /*if (formHeader.PkngDcNo.length == 0) {
       toast.error("Please Select PkngDcNo");
     } else if (formHeader.TotalWeight.length == 0)
       toast.error("Please Enter TotalWeight");
-    else {
-      postRequest(endpoints.updateDCWeight, formHeader, (data) => {
-        //console.log("data = ", data);
-        if (data.affectedRows !== 0) {
-          toast.success("Record Updated Successfully");
-        } else {
-          toast.error("Record Not Updated");
-        }
-      });
-    }
+    else {*/
+    postRequest(endpoints.updateDCWeight, formHeader, (data) => {
+      //console.log("data = ", data);
+      if (data.affectedRows !== 0) {
+        toast.success("Record Updated Successfully");
+      } else {
+        toast.error("Record Not Updated");
+      }
+    });
+    //}
   };
 
   const getPop = () => {
@@ -168,12 +194,30 @@ function OutwordMaterialIssueVocher(props) {
   };
   let cancelIV = () => {
     //console.log(IVNOValue, " and ", IVIDValue);
-
     setShow(true);
+    setBoolVal2(true);
   };
 
   let createDC = () => {
-    setShowCreateDC(true);
+    console.log("outedata = ", outData);
+    let flag = 0;
+    outData.map((item) => {
+      if (
+        item.TotalWeight === 0 ||
+        item.TotalWeight === "0" ||
+        item.TotalWeight === "0.00" ||
+        item.TotalWeight === 0.0
+      ) {
+        toast.error("Serial Weight cannot be zero. Set Weight and try again");
+        flag = 1;
+      }
+    });
+    if (flag === 0) {
+      console.log("Valid");
+      setShowCreateDC(true);
+      //setBoolVal1(false);
+      //setBoolVal2(true);
+    }
   };
   let getDCID = async (data) => {
     console.log("get dc = ", data);
@@ -186,6 +230,10 @@ function OutwordMaterialIssueVocher(props) {
         //console.log("dc register data = ", data);
         setdcRegister(data);
       });
+
+      //button enable disable
+      setBoolVal1(false);
+      setBoolVal2(true);
 
       //fetch again dcno
       let url4 =
@@ -273,7 +321,11 @@ function OutwordMaterialIssueVocher(props) {
                 /> */}
               </div>
               <div className="col-md-3">
-                <button className="button-style ms-1" onClick={saveButtonState}>
+                <button
+                  className="button-style ms-1"
+                  onClick={saveButtonState}
+                  disabled={boolVal2 | boolVal3}
+                >
                   Save
                 </button>
               </div>
@@ -347,17 +399,29 @@ function OutwordMaterialIssueVocher(props) {
           </div>
           <div className="col-md-3">
             <div>
-              <button className="button-style" onClick={cancelIV}>
+              <button
+                className="button-style"
+                onClick={cancelIV}
+                disabled={boolVal2}
+              >
                 Cancel IV
               </button>
             </div>
             <div>
-              <button className="button-style" onClick={createDC}>
+              <button
+                className="button-style"
+                onClick={createDC}
+                disabled={boolVal2}
+              >
                 Create DC
               </button>
             </div>
             <div>
-              <button className="button-style" onClick={printDC}>
+              <button
+                className="button-style"
+                onClick={printDC}
+                disabled={boolVal1 | boolVal3}
+              >
                 Print DC
               </button>
             </div>
@@ -433,6 +497,11 @@ function OutwordMaterialIssueVocher(props) {
               condensed
               //pagination={paginationFactory()}
               //selectRow={selectRow}
+              cellEdit={cellEditFactory({
+                mode: "click",
+                blurToSave: true,
+                afterSaveCell,
+              })}
             ></BootstrapTable>
           </div>
         </div>

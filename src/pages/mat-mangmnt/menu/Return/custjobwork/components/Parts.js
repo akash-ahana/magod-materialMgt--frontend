@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Table from "react-bootstrap/Table";
-import CreateDCModal from "../../../../components/CreateDCModal";
 import BootstrapTable from "react-bootstrap-table-next";
-import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
-import { all } from "proxy-addr";
 import { formatDate } from "../../../../../../utils";
 import CreateReturnNewModal from "../../../../components/CreateReturnNewModal";
+import ReturnPartQtyCheckOk from "../../../../components/ReturnPartQtyCheckOk";
 
 const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
@@ -19,6 +16,7 @@ function Parts(props) {
   let [firstTableSelectedRow, setFirstTableSelectedRow] = useState([]);
   let [selectedSecond, setSelectedSecond] = useState({ selected: [] });
   const [srlIVID, setSrlIVID] = useState("");
+  const [IVNOVal, setIVNOVal] = useState("");
 
   const [show, setShow] = useState(false);
   const [srlMaterialType, setSrlMaterialType] = useState("");
@@ -120,11 +118,9 @@ function Parts(props) {
   const selectRowFirst = {
     mode: "checkbox",
     clickToSelect: true,
-    //selected: selectRowSecond.selected,
+    selectColumnPosition: "right",
     bgColor: "#8A92F0",
     onSelect: (row, isSelect, rowIndex) => {
-      //console.log("Row = ", row);
-      //console.log("isselect = ", isSelect);
       setrvNoVal(row.RV_No);
       setCustRefVal(row.CustDocuNo);
       if (isSelect) {
@@ -139,7 +135,7 @@ function Parts(props) {
         });
         setSecondTable(newData);
 
-        //console.log("All data  =", allData);
+        console.log("new data  =", newData);
         //prepare third table
         newData.forEach((item, i) => {
           //set second table default checkbox selection
@@ -154,7 +150,7 @@ function Parts(props) {
               item.QtyUsed >
             0
           ) {
-            item.PartIdNew = item.partId + "/**Ref: " + row.CustDocuNo;
+            item.PartIdNew = item.PartId + "/**Ref: " + row.CustDocuNo;
             if (item.QtyRejected > 0) {
               if (
                 item.QtyReceived - item.QtyReturned - item.QtyUsed >
@@ -282,9 +278,9 @@ function Parts(props) {
   };
 
   let createReturnVoucher = async () => {
-    console.log("selected rows = ", firstTableSelectedRow);
-    console.log("second = ", secondTable);
-    console.log("third = ", thirdTable);
+    //console.log("selected rows = ", firstTableSelectedRow);
+    //console.log("second = ", secondTable);
+    //console.log("third = ", thirdTable);
     if (thirdTable.length === 0) {
       toast.error("Select Material to return");
     } else {
@@ -311,6 +307,8 @@ function Parts(props) {
           //get last 2 digit of year
           let yy = formatDate(new Date(), 6).toString().substring(2);
           let no = yy + "/" + series;
+
+          setIVNOVal(no);
 
           let newRowMaterialIssueRegister = {
             IV_No: no,
@@ -392,12 +390,21 @@ function Parts(props) {
 
   return (
     <>
-      <CreateReturnNewModal
+      <ReturnPartQtyCheckOk
+        showOK={show}
+        setShowOK={setShow}
+        srlMaterialType={srlMaterialType}
+        srlIVID={srlIVID}
+        IVNOVal={IVNOVal}
+      />
+
+      {/* <CreateReturnNewModal
         show={show}
         setShow={setShow}
         srlMaterialType={srlMaterialType}
         srlIVID={srlIVID}
-      />
+        IVNOVal={IVNOVal}
+      /> */}
 
       <div className="row">
         <div className="col-md-2 col-sm-12">

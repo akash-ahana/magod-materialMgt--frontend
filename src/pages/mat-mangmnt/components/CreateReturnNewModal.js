@@ -35,7 +35,7 @@ function CreateReturnNewModal(props) {
         <Modal.Header closeButton>
           <Modal.Title>IV No</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{props.srlIVID}</Modal.Body>
+        <Modal.Body>{props.IVNOVal}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             okay
