@@ -118,6 +118,10 @@ export const endpoints = {
   getmtrlPartIssueDetailsByIVID: `${API}/mtrlPartIssueDetails/getmtrlPartIssueDetailsByIVID`,
   insertPartIssueDetails: `${API}/mtrlPartIssueDetails/insert`,
 
+  //shop floor issue
+  getPartIssueVoucherList: `${API}/shopFloorIssue/getPartIssueVoucherList`,
+  getMaterialIssueVoucherList: `${API}/shopFloorIssue/getMaterialIssueVoucherList`,
+
   //updateOutwordMaterialVocher: `${API}/mtrlIssueDetails/updatemtrlIssueDetailsRouter`,
 
   /*getCustCodeName: `${API}/customers/allcustcodename`,
