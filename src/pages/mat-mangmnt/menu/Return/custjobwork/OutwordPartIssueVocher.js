@@ -22,6 +22,15 @@ function OutwordPartIssueVocher(props) {
   let [custdata, setCustdata] = useState({
     Address: "",
   });
+  //initial disable - print button
+  const [boolVal1, setBoolVal1] = useState(true);
+
+  //after clicking create dc
+  const [boolVal2, setBoolVal2] = useState(false);
+
+  //after clicking cancel dc
+  const [boolVal3, setBoolVal3] = useState(false);
+
   let [dcID, setdcID] = useState("");
   let [dcRegister, setdcRegister] = useState({});
 
@@ -141,20 +150,20 @@ function OutwordPartIssueVocher(props) {
 
   const saveButtonState = (e) => {
     e.preventDefault();
-    if (formHeader.PkngDcNo.length == 0) {
+    /*if (formHeader.PkngDcNo.length == 0) {
       toast.error("Please Select PkngDcNo");
     } else if (formHeader.TotalWeight.length == 0)
       toast.error("Please Enter TotalWeight");
-    else {
-      postRequest(endpoints.updateDCWeight, formHeader, (data) => {
-        //console.log("data = ", data);
-        if (data.affectedRows !== 0) {
-          toast.success("Record Updated Successfully");
-        } else {
-          toast.error("Record Not Updated");
-        }
-      });
-    }
+    else {*/
+    postRequest(endpoints.updateDCWeight, formHeader, (data) => {
+      //console.log("data = ", data);
+      if (data.affectedRows !== 0) {
+        toast.success("Record Updated Successfully");
+      } else {
+        toast.error("Record Not Updated");
+      }
+    });
+    //}
   };
   function statusFormatter(cell, row, rowIndex, formatExtraData) {
     if (!cell) return;
@@ -163,10 +172,15 @@ function OutwordPartIssueVocher(props) {
   let cancelIV = () => {
     //console.log(IVNOValue, " and ", IVIDValue);
     setShow(true);
+    setBoolVal2(true);
   };
 
   let createDC = () => {
     setShowCreateDC(true);
+    setBoolVal1(false);
+    setBoolVal2(true);
+
+    //setShowCreateDC(true);
   };
   let getDCID = (data) => {
     console.log("get dc = ", data);
@@ -178,6 +192,18 @@ function OutwordPartIssueVocher(props) {
       getRequest(url3, (data) => {
         console.log("dc register data = ", data);
         setdcRegister(data);
+      });
+
+      //fetch again dcno
+      let url4 =
+        endpoints.getMaterialIssueRegisterRouterByIVID +
+        "?id=" +
+        location.state.selectData.Iv_Id;
+      getRequest(url4, async (data) => {
+        setFormHeader({
+          ...formHeader,
+          PkngDcNo: data.PkngDcNo,
+        });
       });
     }
   };
@@ -258,7 +284,11 @@ function OutwordPartIssueVocher(props) {
               </div>
 
               <div className="col-md-3">
-                <button className="button-style ms-1" onClick={saveButtonState}>
+                <button
+                  className="button-style ms-1"
+                  onClick={saveButtonState}
+                  disabled={boolVal2 | boolVal3}
+                >
                   Save
                 </button>
               </div>
@@ -332,17 +362,29 @@ function OutwordPartIssueVocher(props) {
           </div>
           <div className="col-md-3">
             <div>
-              <button className="button-style" onClick={cancelIV}>
+              <button
+                className="button-style"
+                onClick={cancelIV}
+                disabled={boolVal2}
+              >
                 Cancel IV
               </button>
             </div>
             <div>
-              <button className="button-style" onClick={createDC}>
+              <button
+                className="button-style"
+                onClick={createDC}
+                disabled={boolVal2}
+              >
                 Create DC
               </button>
             </div>
             <div>
-              <button className="button-style" onClick={printDC}>
+              <button
+                className="button-style"
+                onClick={printDC}
+                disabled={boolVal1 | boolVal3}
+              >
                 Print DC
               </button>
             </div>
