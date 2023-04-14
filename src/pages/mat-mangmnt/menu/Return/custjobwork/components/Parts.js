@@ -119,6 +119,7 @@ function Parts(props) {
     mode: "checkbox",
     clickToSelect: true,
     selectColumnPosition: "right",
+    selectionHeaderRenderer: () => "Select",
     bgColor: "#8A92F0",
     onSelect: (row, isSelect, rowIndex) => {
       setrvNoVal(row.RV_No);
@@ -210,6 +211,7 @@ function Parts(props) {
     clickToSelect: true,
     bgColor: "#8A92F0",
     selected: selectedSecond.selected,
+    selectionHeaderRenderer: () => "Select",
     onSelect: (row, isSelect) => {
       if (isSelect) {
         let newData = allData.filter((obj, index) => {

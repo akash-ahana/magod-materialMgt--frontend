@@ -51,6 +51,7 @@ export const endpoints = {
   deletePartReceiptDetails: `${API}/mtrlPartReceiptDetails/deletePartReceiptDetails`,
   updateQtyReturnedPartReceiptDetails: `${API}/mtrlPartReceiptDetails/updateQtyReturnedPartReceiptDetails`,
   updateQtyReturnedPartReceiptDetails1: `${API}/mtrlPartReceiptDetails/updateQtyReturnedPartReceiptDetails1`,
+  updateQtyIssuedPartReceiptDetails: `${API}/mtrlPartReceiptDetails/updateQtyIssuedPartReceiptDetails`,
 
   //Material Receipt Details
   getMtrlReceiptDetailsByRvID: `${API}/mtrlReceiptDetails/getMtrlReceiptDetailsByRvID`,
@@ -121,6 +122,31 @@ export const endpoints = {
   //shop floor issue
   getPartIssueVoucherList: `${API}/shopFloorIssue/getPartIssueVoucherList`,
   getMaterialIssueVoucherList: `${API}/shopFloorIssue/getMaterialIssueVoucherList`,
+  getProductionMaterialIssueParts: `${API}/shopFloorIssue/getProductionMaterialIssueParts`,
+  getProductionMaterialIssuePartsTable: `${API}/shopFloorIssue/getProductionMaterialIssuePartsTable`,
+  getShopMaterialIssueVoucher: `${API}/shopFloorIssue/getShopMaterialIssueVoucher`,
+  getShopMaterialIssueVoucherTable: `${API}/shopFloorIssue/getShopMaterialIssueVoucherTable`,
+  getShopFloorServicePartTable: `${API}/shopFloorIssue/getShopFloorServicePartTable`,
+  //for treeview
+  getShopFloorServiceTreeViewMachine: `${API}/shopFloorIssue/getShopFloorServiceTreeViewMachine`,
+  getShopFloorServiceTreeViewProcess: `${API}/shopFloorIssue/getShopFloorServiceTreeViewProcess`,
+  getShopFloorServiceTreeViewMtrlCode: `${API}/shopFloorIssue/getShopFloorServiceTreeViewMtrlCode`,
+  getShopFloorServiceTreeViewMtrlCodeClick: `${API}/shopFloorIssue/getShopFloorServiceTreeViewMtrlCodeClick`,
+
+  //shopfloorAllotment
+  getShopFloorAllotmentPartFirstTable: `${API}/shopfloorAllotment/getShopFloorAllotmentPartFirstTable`,
+  getShopFloorAllotmentPartFirstTableQtyAvl: `${API}/shopfloorAllotment/getShopFloorAllotmentPartFirstTableQtyAvl`,
+  getShopFloorAllotmentPartSecondTableIds: `${API}/shopfloorAllotment/getShopFloorAllotmentPartSecondTableIds`,
+
+  //shopfloorBOMIssueDetails
+  updateQtyReturnedShopfloorBOMIssueDetails: `${API}/shopfloorBOMIssueDetails/updateQtyReturnedShopfloorBOMIssueDetails`,
+
+  //ncprograms
+  updateQtyAllotedncprograms: `${API}/ncprograms/updateQtyAllotedncprograms`,
+  getRowByNCID: `${API}/ncprograms/getRowByNCID`,
+
+  //shopfloorPartIssueRegister
+  updateStatusShopfloorPartIssueRegister: `${API}/shopfloorPartIssueRegister/updateStatusShopfloorPartIssueRegister`,
 
   //updateOutwordMaterialVocher: `${API}/mtrlIssueDetails/updatemtrlIssueDetailsRouter`,
 

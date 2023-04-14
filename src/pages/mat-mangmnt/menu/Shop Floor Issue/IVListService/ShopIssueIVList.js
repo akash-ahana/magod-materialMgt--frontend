@@ -3,6 +3,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import Table from "react-bootstrap/Table";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../../../../utils";
+import { toast } from "react-toastify";
 
 const { getRequest, postRequest } = require("../../../../api/apiinstance");
 const { endpoints } = require("../../../../api/constants");
@@ -11,6 +12,7 @@ function ShopIssueIVList(props) {
   const nav = useNavigate();
   const [tableData, setTableData] = useState([]);
   const [rowData, setRowData] = useState({});
+  const [issueIDVal, setIssueIDVal] = useState("");
 
   const fetchData = () => {
     let url =
@@ -73,6 +75,8 @@ function ShopIssueIVList(props) {
     clickToSelect: true,
     bgColor: "#8A92F0",
     onSelect: (row, isSelect, rowIndex, e) => {
+      setIssueIDVal(row.IssueID);
+      console.log("row = ", row);
       setRowData({
         Cust_Name: row.Cust_Name,
         IV_No: row.IV_No,
@@ -88,6 +92,18 @@ function ShopIssueIVList(props) {
     },
   };
 
+  const openButton = () => {
+    if (issueIDVal === "") {
+      toast.error("Please select Part");
+    } else {
+      nav(
+        "/materialmanagement/shopfloorissue/ivlistservice/issued/shopmatissuevocher",
+        {
+          state: { issueIDVal },
+        }
+      );
+    }
+  };
   return (
     <div>
       <>
@@ -118,11 +134,7 @@ function ShopIssueIVList(props) {
                     <div className="row">
                       <div className="row justify-content-center mt-2">
                         <button
-                          onClick={() =>
-                            nav(
-                              "/materialmanagement/shopfloorissue/ivlistservice/issued/shopmatissuevocher"
-                            )
-                          }
+                          onClick={openButton}
                           className="button-style"
                           style={{ width: "120px" }}
                         >

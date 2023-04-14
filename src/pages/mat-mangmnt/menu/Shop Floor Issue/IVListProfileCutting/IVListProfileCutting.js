@@ -3,6 +3,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import Table from "react-bootstrap/Table";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../../../../utils";
+import { toast } from "react-toastify";
 
 const { getRequest, postRequest } = require("../../../../api/apiinstance");
 const { endpoints } = require("../../../../api/constants");
@@ -11,6 +12,7 @@ function IVListProfileCutting(props) {
   const nav = useNavigate();
   const [tableData, setTableData] = useState([]);
   const [rowData, setRowData] = useState({});
+  const [issueIDVal, setIssueIDVal] = useState("");
 
   const fetchData = () => {
     let url =
@@ -18,6 +20,7 @@ function IVListProfileCutting(props) {
         ? endpoints.getMaterialIssueVoucherList + "?status=Closed"
         : endpoints.getMaterialIssueVoucherList + "?status=Created";
     getRequest(url, (data) => {
+      console.log("table data = ", data);
       setTableData(data);
     });
   };
@@ -33,6 +36,7 @@ function IVListProfileCutting(props) {
     {
       text: "IssueID",
       dataField: "IssueID",
+      hidden: true,
     },
     {
       text: "IV No",
@@ -45,7 +49,7 @@ function IVListProfileCutting(props) {
     },
     {
       text: "NC Program No",
-      dataField: "NcId",
+      dataField: "NC_ProgramNo",
     },
     {
       text: "Qty Issued",
@@ -69,6 +73,7 @@ function IVListProfileCutting(props) {
     clickToSelect: true,
     bgColor: "#8A92F0",
     onSelect: (row, isSelect, rowIndex, e) => {
+      setIssueIDVal(row.IssueID);
       setRowData({
         Cust_Name: row.Cust_Name,
         IV_No: row.IV_No,
@@ -79,13 +84,25 @@ function IVListProfileCutting(props) {
         TaskNo: row.TaskNo,
         Mtrl_Code: row.Mtrl_Code,
         QtyIssued: row.QtyIssued,
-        QtyUsed: row.QtyUsed,
+        //QtyUsed: row.QtyUsed,
         QtyReturned: row.QtyReturned,
         //RV_Date: formatDate(new Date(row.RV_Date), 3), //dateToShort(row.RV_Date),
       });
     },
   };
 
+  const openButton = () => {
+    if (issueIDVal === "") {
+      toast.error("Please select Part");
+    } else {
+      nav(
+        "/materialmanagement/shopfloorissue/ivlistprofilecutting/closed/shopmatissuevocher",
+        {
+          state: { issueIDVal },
+        }
+      );
+    }
+  };
   return (
     <div>
       <>
@@ -116,11 +133,11 @@ function IVListProfileCutting(props) {
                     <div className="row">
                       <div className="row justify-content-center mt-2">
                         <button
-                          onClick={() =>
+                          onClick={openButton} /*() =>
                             nav(
                               "/materialmanagement/shopfloorissue/ivlistprofilecutting/closed/shopmatissuevocher"
                             )
-                          }
+                          }*/
                           className="button-style"
                           style={{ width: "120px" }}
                         >
@@ -132,12 +149,11 @@ function IVListProfileCutting(props) {
                           <label className="">Customer</label>
                         </div>
                         <div className="col-md-8" style={{ marginTop: "8px" }}>
-                          <select className="ip-select dropdown-field">
-                            <option value="option 1">001</option>
-                            <option value="option 1">002</option>
-                            <option value="option 1">003</option>
-                            <option value="option 1">004</option>
-                          </select>
+                          <input
+                            className="in-field"
+                            disabled
+                            value={rowData.Cust_Name}
+                          />
                         </div>
                       </div>
 
@@ -146,7 +162,11 @@ function IVListProfileCutting(props) {
                           <label className="">Issue Vr No</label>
                         </div>
                         <div className="col-md-8 ">
-                          <input className="in-field" />
+                          <input
+                            className="in-field"
+                            disabled
+                            value={rowData.IV_No}
+                          />
                         </div>
                       </div>
                       <div className="row">
@@ -156,8 +176,8 @@ function IVListProfileCutting(props) {
                         <div className="col-md-8 ">
                           <input
                             className="in-field"
-                            type="date"
-                            // onChange={(e) => setDate(e.target.value)}
+                            disabled
+                            value={rowData.Issue_date}
                           />
                         </div>
                       </div>
@@ -169,7 +189,8 @@ function IVListProfileCutting(props) {
                         <div className="col-md-8 ">
                           <input
                             className="in-field"
-                            // onChange={(e) => setDate(e.target.value)}
+                            disabled
+                            value={rowData.NC_ProgramNo}
                           />
                         </div>
                       </div>
@@ -178,7 +199,11 @@ function IVListProfileCutting(props) {
                           <label className="">Assembly Name</label>
                         </div>
                         <div className="col-md-8 ">
-                          <input className="in-field" />
+                          <input
+                            className="in-field"
+                            disabled
+                            value={rowData.AssyName}
+                          />
                         </div>
                       </div>
 
@@ -188,7 +213,11 @@ function IVListProfileCutting(props) {
                         </div>
 
                         <div className="col-md-8 ">
-                          <input className="in-field" />
+                          <input
+                            className="in-field"
+                            disabled
+                            value={rowData.Operation}
+                          />
                         </div>
                       </div>
                       <div className="row">
@@ -196,7 +225,11 @@ function IVListProfileCutting(props) {
                           <label className="">Material</label>
                         </div>
                         <div className="col-md-8 ">
-                          <input className="in-field" />
+                          <input
+                            className="in-field"
+                            disabled
+                            value={rowData.Mtrl_Code}
+                          />
                         </div>
                       </div>
                       <div className="row">
@@ -204,7 +237,11 @@ function IVListProfileCutting(props) {
                           <label className="">Alloted</label>
                         </div>
                         <div className="col-md-8 ">
-                          <input className="in-field" />
+                          <input
+                            className="in-field"
+                            disabled
+                            value={rowData.QtyIssued}
+                          />
                         </div>
                       </div>
                       <div className="row">
@@ -212,7 +249,7 @@ function IVListProfileCutting(props) {
                           <label className="">Used</label>
                         </div>
                         <div className="col-md-8 ">
-                          <input className="in-field" />
+                          <input className="in-field" disabled />
                         </div>
                       </div>
                       <div className="row">
@@ -220,7 +257,11 @@ function IVListProfileCutting(props) {
                           <label className="">Returned</label>
                         </div>
                         <div className="col-md-8 ">
-                          <input className="in-field" />
+                          <input
+                            className="in-field"
+                            disabled
+                            value={rowData.QtyReturned}
+                          />
                         </div>
                       </div>
                     </div>

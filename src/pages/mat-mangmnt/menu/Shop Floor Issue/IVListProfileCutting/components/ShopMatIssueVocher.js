@@ -1,7 +1,170 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import BootstrapTable from "react-bootstrap-table-next";
 import Table from "react-bootstrap/Table";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { formatDate } from "../../../../../../utils";
+
+const { getRequest, postRequest } = require("../../../../../api/apiinstance");
+const { endpoints } = require("../../../../../api/constants");
 
 function ShopMatIssueVocher() {
+  const nav = useNavigate();
+  const location = useLocation();
+  const [noDetails, setNoDetails] = useState(false);
+
+  const [tableData, setTableData] = useState([]);
+  let [formHeader, setFormHeader] = useState({
+    CustMtrl: "",
+    Cust_name: "",
+    IV_No: "",
+    IssueID: "",
+    Issue_date: "",
+    MProcess: "",
+    Machine: "",
+    Mtrl_Code: "",
+    NC_ProgramNo: "",
+    NcId: "",
+    Operation: "",
+    Para1: "",
+    Para2: "",
+    Para3: "",
+    Qty: "",
+    QtyIssued: "",
+    QtyReturned: "",
+    Remarks: "",
+    Status: "",
+    TaskNo: "",
+  });
+
+  const fetchData = async () => {
+    let url =
+      endpoints.getShopMaterialIssueVoucher +
+      "?id=" +
+      location.state.issueIDVal;
+    getRequest(url, async (data) => {
+      console.log("data = ", data);
+      //get cust name
+      // let url1 = endpoints.getCustomerByCustCode + "?code=" + data.Cust_Code;
+      // getRequest(url1, async (cdata) => {
+      setFormHeader({
+        CustMtrl: data.CustMtrl,
+        Cust_name: data.Cust_name,
+        IV_No: data.IV_No,
+        IssueID: data.IssueID,
+        Issue_date: formatDate(new Date(data.Issue_date), 3),
+        MProcess: data.MProcess,
+        Machine: data.Machine,
+        Mtrl_Code: data.Mtrl_Code,
+        NC_ProgramNo: data.NC_ProgramNo,
+        NcId: data.NcId,
+        Operation: data.Operation,
+        Para1: data.Para1,
+        Para2: data.Para2,
+        Para3: data.Para3,
+        Qty: data.Qty,
+        QtyIssued: data.QtyIssued,
+        QtyReturned: data.QtyReturned,
+        Remarks: data.Remarks,
+        Status: data.Status,
+        TaskNo: data.TaskNo,
+      });
+      //});
+    });
+    //get table data
+    let url2 =
+      endpoints.getShopMaterialIssueVoucherTable +
+      "?id=" +
+      location.state.issueIDVal;
+    getRequest(url2, (data) => {
+      console.log("table data = ", data);
+      setTableData(data);
+    });
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const columns = [
+    {
+      text: "Id",
+      dataField: "NcPgmMtrlId",
+      hidden: true,
+    },
+    {
+      text: "Shape Mtrl ID",
+      dataField: "ShapeMtrlID",
+    },
+    {
+      text: "Para1",
+      dataField: "Para1",
+    },
+    {
+      text: "Para2",
+      dataField: "Para2",
+    },
+    {
+      text: "Para3",
+      dataField: "Para3",
+    },
+    {
+      text: "Used",
+      dataField: "Used",
+      formatter: (celContent, row) => (
+        <div className="checkbox">
+          <lable>
+            <input type="checkbox" checked={row.Used == 1 ? true : false} />
+          </lable>
+        </div>
+      ),
+    },
+    {
+      text: "Rejected",
+      dataField: "Rejected",
+      formatter: (celContent, row) => (
+        <div className="checkbox">
+          <lable>
+            <input type="checkbox" checked={row.Rejected == 1 ? true : false} />
+          </lable>
+        </div>
+      ),
+    },
+    {
+      text: "Selected",
+      dataField: "Selected",
+      formatter: (celContent, row) => (
+        <div className="checkbox">
+          <lable>
+            <input type="checkbox" checked={row.Rejected == 2 ? true : false} />
+          </lable>
+        </div>
+      ),
+    },
+  ];
+
+  const checkboxChange = (e) => {
+    //console.log("change  val = ", e.target.checked);
+    if (e.target.checked === true) {
+      setNoDetails(true);
+    }
+    if (e.target.checked === false) {
+      setNoDetails(false);
+    }
+  };
+
+  const printButton = () => {
+    console.log("print = ", noDetails);
+    nav(
+      "/materialmanagement/shopfloorissue/ivlistprofilecutting/PrintIVListProfileCutting",
+      {
+        state: {
+          formHeader: formHeader,
+          tableData: tableData,
+          noDetails: noDetails,
+        },
+      }
+    );
+  };
   return (
     <div>
       <h4 className="form-title">Shop Material Issue Vocher</h4>
@@ -11,12 +174,12 @@ function ShopMatIssueVocher() {
           <div className="row">
             <div className="col-md-6">
               <label className="form-label"> IV No</label>
-              <input className="" />
+              <input className="" disabled value={formHeader.IV_No} />
             </div>
             <div className="col-md-6">
               {" "}
               <label className="form-label">&nbsp;</label>
-              <input className="" />
+              <input className="" disabled value={formHeader.Issue_date} />
             </div>
           </div>
           <div className="row">
@@ -24,37 +187,37 @@ function ShopMatIssueVocher() {
             <div className="col-md-6">
               {" "}
               <label className="form-label">Program No</label>
-              <input className="" />
+              <input className="" disabled value={formHeader.NC_ProgramNo} />
             </div>
             <div className="col-md-6">
               {" "}
               <label className="form-label">&nbsp;</label>
-              <input className="" />
+              <input className="" disabled value={formHeader.TaskNo} />
             </div>
           </div>
           <div className="row">
             {" "}
             <div className="col-md-12">
               <label className="form-label">Customer</label>
-              <input className="" />
+              <input className="" disabled value={formHeader.Cust_name} />
             </div>
           </div>
           <div className="row">
             {" "}
             <div className="col-md-6">
               <label className="form-label">Operation</label>
-              <input className="" />
+              <input className="" disabled value={formHeader.Operation} />
             </div>
             <div className="col-md-6">
               <label className="form-label">&nbsp;</label>
-              <input className="" />
+              <input className="" disabled value={formHeader.MProcess} />
             </div>
           </div>
           <div className="row">
             {" "}
             <div className="col-md-12">
               <label className="form-label">Sourse</label>
-              <input className="" />
+              <input className="" disabled value={formHeader.Remarks} />
             </div>
           </div>
         </div>
@@ -63,40 +226,40 @@ function ShopMatIssueVocher() {
           <div className="row">
             <div className="col-md-12">
               <label className="form-label">Material</label>
-              <input className="" />
+              <input className="" disabled value={formHeader.Mtrl_Code} />
             </div>
           </div>
           <div className="row">
             {" "}
             <div className="col-md-4">
               <label className="form-label">Dim</label>
-              <input className="" />
+              <input className="" disabled value={formHeader.Para1} />
             </div>
             <div className="col-md-4">
               <label className="form-label">X</label>
-              <input className="" />
+              <input className="" disabled value={formHeader.Para2} />
             </div>
             <div className="col-md-4">
               <label className="form-label">X</label>
-              <input className="" />
+              <input className="" disabled value={formHeader.Para3} />
             </div>
           </div>
           <div className="row">
             <div className="col-md-6">
               <label className="form-label">Machine</label>
-              <input className="" />
+              <input className="" disabled value={formHeader.Machine} />
             </div>
           </div>
           <div className="row">
             <div className="col-md-6">
               <label className="form-label">Qty Required</label>
-              <input className="" />
+              <input className="" disabled value={formHeader.Qty} />
             </div>
           </div>
           <div className="row">
             <div className="col-md-6">
               <label className="form-label">Qty Issued</label>
-              <input className="" />
+              <input className="" disabled value={formHeader.QtyIssued} />
             </div>
           </div>
         </div>
@@ -105,7 +268,9 @@ function ShopMatIssueVocher() {
           <div className="row mt-4">
             {" "}
             <div className="col-md-12">
-              <button className="button-style ">Print</button>
+              <button className="button-style " onClick={printButton}>
+                Print
+              </button>
             </div>
           </div>
           <div className="row mt-4">
@@ -122,7 +287,7 @@ function ShopMatIssueVocher() {
                 //   value={inputPart.upDated}
                 //disabled={boolVal3 | boolVal4}
                 //   disabled={true}
-                //   onChange={changeMaterialHandle}
+                onChange={checkboxChange}
               />
                <label className="">No Details</label>
             </div>
@@ -146,7 +311,18 @@ function ShopMatIssueVocher() {
           marginTop: "20px",
         }}
       >
-        <Table bordered>
+        <BootstrapTable
+          keyField="NcPgmMtrlId"
+          columns={columns}
+          data={tableData}
+          striped
+          hover
+          condensed
+          //pagination={paginationFactory()}
+          //selectRow={selectRow}
+        ></BootstrapTable>
+
+        {/* <Table bordered>
           <thead
             style={{
               textAlign: "center",
@@ -187,7 +363,7 @@ function ShopMatIssueVocher() {
               </td>
             </tr>
           </tbody>
-        </Table>
+        </Table> */}
       </div>
     </div>
   );

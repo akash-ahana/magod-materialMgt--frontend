@@ -1,18 +1,7 @@
 import React, { Fragment, useState } from "react";
-import {
-  PDFDownloadLink,
-  Page,
-  Text,
-  View,
-  Document,
-  StyleSheet,
-  PDFViewer,
-} from "@react-pdf/renderer";
+import { PDFViewer } from "@react-pdf/renderer";
 import PrintMaterialDCTable from "./PrintMaterialDCTable";
 import { useLocation } from "react-router-dom";
-
-const { getRequest, postRequest } = require("../../../api/apiinstance");
-const { endpoints } = require("../../../api/constants");
 
 function PrintMaterialDC() {
   const location = useLocation();

@@ -66,7 +66,7 @@ function PDraftRVList() {
         state: { id: data.RvID },
       });
     } else {
-      toast.error("Select Customer");
+      toast.error("Please select Table Row");
     }
   };
 
