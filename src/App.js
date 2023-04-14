@@ -93,6 +93,9 @@ import OpeningStock from "./pages/mat-mangmnt/menu/Store management/Stock/Openin
 import PrintMaterialDC from "./pages/mat-mangmnt/print/return/PrintMaterialDC";
 import PrintPartsDC from "./pages/mat-mangmnt/print/return/PrintPartsDC";
 import ShopIssueIVList from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListService/ShopIssueIVList";
+import PrintIVListServicePart from "./pages/mat-mangmnt/print/shopfloorissue/PrintIVListServicePart";
+import PrintIVListServicePartTable from "./pages/mat-mangmnt/print/shopfloorissue/PrintIVListServicePartTable";
+import PrintIVListProfileCutting from "./pages/mat-mangmnt/print/shopfloorissue/PrintIVListProfileCutting";
 
 function App() {
   return (
@@ -277,6 +280,14 @@ function App() {
               </Route>
               <Route path="IVListService">
                 <Route index={true} />
+                <Route
+                  path="PrintIVListServicePart"
+                  element={<PrintIVListServicePart />}
+                />
+                <Route
+                  path="PrintIVListServicePartTable"
+                  element={<PrintIVListServicePartTable />}
+                />
                 <Route index={true} element={<ShopIssueIVList />} />
                 <Route path="Issued">
                   <Route index={true} element={<ShopIssueIVListIssued />} />
@@ -296,6 +307,11 @@ function App() {
 
               <Route path="IVListProfileCutting">
                 <Route index={true} />
+                <Route
+                  path="PrintIVListProfileCutting"
+                  element={<PrintIVListProfileCutting />}
+                />
+
                 <Route path="Closed">
                   <Route
                     index={true}

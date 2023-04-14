@@ -112,6 +112,7 @@ function OutwordMaterialIssueVocher(props) {
     {
       text: "Srl",
       dataField: "Srl",
+      editable: false,
     },
     {
       text: "Description",

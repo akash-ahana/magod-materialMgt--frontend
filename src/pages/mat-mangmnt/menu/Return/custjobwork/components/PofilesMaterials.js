@@ -16,6 +16,7 @@ function PofilesMaterials(props) {
   const [show, setShow] = useState(false);
   const [srlMaterialType, setSrlMaterialType] = useState("");
   const [srlIVID, setSrlIVID] = useState("");
+  const [IVNOVal, setIVNOVal] = useState("");
 
   let [firstTable, setFirstTable] = useState([]);
   let [secondTable, setSecondTable] = useState([]);
@@ -224,6 +225,7 @@ function PofilesMaterials(props) {
     mode: "checkbox",
     clickToSelect: true,
     selectColumnPosition: "right",
+    selectionHeaderRenderer: () => "Issue",
     bgColor: "#8A92F0",
     onSelect: (row, isSelect, rowIndex) => {
       if (isSelect) {
@@ -377,6 +379,8 @@ function PofilesMaterials(props) {
           //console.log("selected rows = ", firstTableSelectedRow);
           //console.log("second = ", secondTable);
           //console.log("third = ", thirdTable);
+
+          setIVNOVal(no);
 
           let newRowMaterialIssueRegister = {
             IV_No: no,
@@ -548,6 +552,7 @@ function PofilesMaterials(props) {
         setShow={setShow}
         srlMaterialType={srlMaterialType}
         srlIVID={srlIVID}
+        IVNOVal={IVNOVal}
       />
 
       <div>

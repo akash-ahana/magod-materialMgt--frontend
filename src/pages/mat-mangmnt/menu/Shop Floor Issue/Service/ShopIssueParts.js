@@ -5,7 +5,7 @@ import ShopFloorMaterialAllotment from "./PartsComponents/ShopFloorMaterialAllot
 function ShopIssueParts() {
   return (
     <div>
-      <ShopFloorMaterialAllotment />
+      <ShopFloorMaterialAllotment type="Service" hasbom="1" formtype="Parts" />
     </div>
   );
 }
