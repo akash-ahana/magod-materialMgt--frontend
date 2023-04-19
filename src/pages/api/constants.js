@@ -52,6 +52,8 @@ export const endpoints = {
   updateQtyReturnedPartReceiptDetails: `${API}/mtrlPartReceiptDetails/updateQtyReturnedPartReceiptDetails`,
   updateQtyReturnedPartReceiptDetails1: `${API}/mtrlPartReceiptDetails/updateQtyReturnedPartReceiptDetails1`,
   updateQtyIssuedPartReceiptDetails: `${API}/mtrlPartReceiptDetails/updateQtyIssuedPartReceiptDetails`,
+  updateQtyIssuedPartReceiptDetails1: `${API}/mtrlPartReceiptDetails/updateQtyIssuedPartReceiptDetails1`,
+  updateQtyIssuedPartReceiptDetails2: `${API}/mtrlPartReceiptDetails/updateQtyIssuedPartReceiptDetails2`,
 
   //Material Receipt Details
   getMtrlReceiptDetailsByRvID: `${API}/mtrlReceiptDetails/getMtrlReceiptDetailsByRvID`,
@@ -139,14 +141,21 @@ export const endpoints = {
   getShopFloorAllotmentPartSecondTableIds: `${API}/shopfloorAllotment/getShopFloorAllotmentPartSecondTableIds`,
 
   //shopfloorBOMIssueDetails
+
+  insertShopfloorBOMIssueDetails: `${API}/shopfloorBOMIssueDetails/insertShopfloorBOMIssueDetails`,
   updateQtyReturnedShopfloorBOMIssueDetails: `${API}/shopfloorBOMIssueDetails/updateQtyReturnedShopfloorBOMIssueDetails`,
 
   //ncprograms
   updateQtyAllotedncprograms: `${API}/ncprograms/updateQtyAllotedncprograms`,
+  updateQtyAllotedncprograms1: `${API}/ncprograms/updateQtyAllotedncprograms1`,
   getRowByNCID: `${API}/ncprograms/getRowByNCID`,
 
   //shopfloorPartIssueRegister
   updateStatusShopfloorPartIssueRegister: `${API}/shopfloorPartIssueRegister/updateStatusShopfloorPartIssueRegister`,
+  insertShopfloorPartIssueRegister: `${API}/shopfloorPartIssueRegister/insertShopfloorPartIssueRegister`,
+
+  //shopfloorMaterialIssueRegister
+  getMaterialAllotmentTable1: `${API}/shopfloorUnitIssueRegister/getMaterialAllotmentTable1`,
 
   //updateOutwordMaterialVocher: `${API}/mtrlIssueDetails/updatemtrlIssueDetailsRouter`,
 

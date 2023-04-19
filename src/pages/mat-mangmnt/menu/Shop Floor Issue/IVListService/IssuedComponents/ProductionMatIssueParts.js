@@ -247,7 +247,11 @@ function ProductionMatIssueParts() {
             <input className="" value={formHeader.QtyReturned} disabled />
           </div>
           <div className="col-md-3">
-            <button className="button-style " onClick={cancelButton}>
+            <button
+              className="button-style "
+              onClick={cancelButton}
+              disabled={formHeader.Status === "Closed" ? true : false}
+            >
               Cancel
             </button>
           </div>
@@ -263,7 +267,11 @@ function ProductionMatIssueParts() {
           </div>
 
           <div className="col-md-3">
-            <button className="button-style " onClick={acceptReturn}>
+            <button
+              className="button-style "
+              onClick={acceptReturn}
+              disabled={formHeader.Status === "Closed" ? true : false}
+            >
               Accept Return
             </button>
           </div>

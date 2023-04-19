@@ -190,12 +190,21 @@ function ShopFloorMaterialAllotment(props) {
     if (ncid === "") {
       toast.error("Please select table row");
     } else {
-      nav(
-        "/materialmanagement/shopfloorissue/service/parts/shopfloorallotmentform",
-        {
-          state: { ncid },
-        }
-      );
+      if (props.formtype == "Parts") {
+        nav(
+          "/materialmanagement/shopfloorissue/service/parts/shopfloorallotmentform",
+          {
+            state: { ncid },
+          }
+        );
+      } else if (props.formtype == "Units") {
+        nav(
+          "/MaterialManagement/ShopFloorIssue/service/Units/MaterialAllotmentForm",
+          {
+            state: { ncid },
+          }
+        );
+      }
     }
   };
   return (

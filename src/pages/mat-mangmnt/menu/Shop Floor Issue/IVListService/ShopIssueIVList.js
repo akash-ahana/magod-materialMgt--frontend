@@ -35,6 +35,7 @@ function ShopIssueIVList(props) {
     {
       text: "IssueID",
       dataField: "IssueID",
+      hidden: true,
     },
     {
       text: "IV No",
