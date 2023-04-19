@@ -12,7 +12,7 @@ function ShopMatIssueVocher() {
   const nav = useNavigate();
   const location = useLocation();
   const [noDetails, setNoDetails] = useState(false);
-
+  console.log("location id = ", location.state.issueIDVal);
   const [tableData, setTableData] = useState([]);
   let [formHeader, setFormHeader] = useState({
     CustMtrl: "",

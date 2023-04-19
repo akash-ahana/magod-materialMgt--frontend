@@ -1,7 +1,10 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
+import { useLocation } from "react-router-dom";
 
 function ProductionMaterialIssueParts() {
+  const location = useLocation();
+  console.log("ID = ", location.state.id);
   return (
     <div>
       <h4 className="form-title">Production Material Issue :Parts</h4>

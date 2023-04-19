@@ -196,13 +196,13 @@ function IVListProfileCutting(props) {
                       </div>
                       <div className="row">
                         <div className="col-md-3 ">
-                          <label className="">Assembly Name</label>
+                          <label className="">Task No</label>
                         </div>
                         <div className="col-md-8 ">
                           <input
                             className="in-field"
                             disabled
-                            value={rowData.AssyName}
+                            value={rowData.TaskNo}
                           />
                         </div>
                       </div>

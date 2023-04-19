@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import BootstrapTable from "react-bootstrap-table-next";
 import { toast } from "react-toastify";
+import { formatDate } from "../../../../../../../utils";
 
 const {
   getRequest,
@@ -24,6 +25,7 @@ function MaterialAllotmentMain() {
   const [custBOMId, setCustBOMId] = useState([]);
   const [row2, setRow2] = useState({});
   const [issuenowval, setissuenowval] = useState("");
+  const [issueidval, setissueidval] = useState("");
   const [btnVisibility, setBtnVisibility] = useState(false);
 
   const fetchData = async () => {
@@ -198,6 +200,11 @@ function MaterialAllotmentMain() {
       dataField: "issueNow",
     },
   ];
+  // Process the returned date in the formatter
+  function statusFormatter(cell, row, rowIndex, formatExtraData) {
+    //return dateToShort(cell);
+    return formatDate(new Date(cell), 3);
+  }
 
   const columns2 = [
     {
@@ -212,6 +219,7 @@ function MaterialAllotmentMain() {
     {
       text: "RV Date",
       dataField: "RV_Date",
+      formatter: statusFormatter,
     },
     {
       text: "Received",
@@ -256,14 +264,143 @@ function MaterialAllotmentMain() {
     return style;
   };
 
-  const CreatePartsIssueVoucher = () => {
-    return 10;
+  const CreatePartsIssueVoucher = async () => {
+    //get running no and assign to RvNo
+    let yyyy = formatDate(new Date(), 6).toString();
+    const url =
+      endpoints.getRunningNo +
+      "?SrlType=ShopFloor_PartIssueVoucher&Period=" +
+      yyyy;
+    //console.log(url);
+    getRequest(url, async (data) => {
+      data.map((obj) => {
+        let newNo = parseInt(obj.Running_No) + 1;
+        console.log("newno = ", newNo);
+
+        //insert into shopfloorpartissueregister
+        let header1 = {
+          IV_No: newNo,
+          Issue_date: formatDate(new Date(), 2),
+          NC_ProgramNo: formHeader.NCProgramNo,
+          QtyIssued: issuenowval,
+          QtyReturned: 0,
+          QtyUsed: 0,
+          Ncid: formHeader.Ncid,
+        };
+        postRequest(
+          endpoints.insertShopfloorPartIssueRegister,
+          header1,
+          async (data) => {
+            if (data.affectedRows !== 0) {
+              //toast.success("Record Inserted Successfully");
+              //await delay(1000);
+              setissueidval(data.insertId);
+              console.log("data insert id = ", data.insertId);
+              //insert into shopfloorBOMIssueDetails
+              for (let i = 0; i < secondTable.length; i++) {
+                if (secondTable[i].issueNow > 0) {
+                  //console.log("NR = ", secondTable[i]);
+                  let header3 = {
+                    IV_ID: data.insertId,
+                    RV_Id: secondTable[i].RVId,
+                    PartReceipt_DetailsID: secondTable[i].Id,
+                    QtyIssued: secondTable[i].issueNow,
+                    QtyReturned: 0,
+                    QtyUsed: 0,
+                  };
+                  postRequest(
+                    endpoints.insertShopfloorBOMIssueDetails,
+                    header3,
+                    async (data) => {
+                      if (data.affectedRows !== 0) {
+                        //toast.success("Record Inserted Successfully");
+                      } else {
+                        //toast.error("Record Not Updated");
+                      }
+                    }
+                  );
+                }
+                //update mtrl part receipt details
+                // let header4 = {
+                //   Id: secondTable[i].Id,
+                //   Qty: secondTable[i].issueNow,
+                // };
+                // postRequest(
+                //   endpoints.updateQtyIssuedPartReceiptDetails1,
+                //   header4,
+                //   (data) => {
+                //     if (data.affectedRows !== 0) {
+                //       toast.success("Record updated Successfully");
+                //     } else {
+                //       toast.error("Record Not Updated");
+                //     }
+                //   }
+                // );
+
+                let header5 = {
+                  Id: secondTable[i].Id,
+                  Qty: secondTable[i].issueNow,
+                };
+                postRequest(
+                  endpoints.updateQtyIssuedPartReceiptDetails2,
+                  header5,
+                  async (data) => {
+                    if (data.affectedRows !== 0) {
+                      //toast.success("Record updated Successfully");
+                    } else {
+                      //toast.error("Record Not Updated");
+                    }
+                  }
+                );
+              }
+            } else {
+              //toast.error("Record Not Updated");
+            }
+
+            //update nc programs
+            let header2 = {
+              Id: formHeader.Ncid,
+              Qty: issuenowval,
+            };
+            postRequest(
+              endpoints.updateQtyAllotedncprograms1,
+              header2,
+              async (data) => {
+                if (data.affectedRows !== 0) {
+                  //toast.success("Record updated Successfully");
+                } else {
+                  //toast.error("Record Not Updated");
+                }
+              }
+            );
+
+            //update running no
+            const inputData = {
+              SrlType: "ShopFloor_PartIssueVoucher",
+              Period: formatDate(new Date(), 6),
+              RunningNo: newNo,
+            };
+            postRequest(endpoints.updateRunningNo, inputData, (data) => {});
+            console.log("Return id = ", issueidval);
+            //return data.insertId;
+          }
+        );
+      });
+    });
+
+    //let IssueID = 47272;
+
+    //return 10;
   };
-  const releaseProduction = () => {
-    let val = CreatePartsIssueVoucher();
-    console.log("return val = ", val);
+  const releaseProduction = async () => {
+    CreatePartsIssueVoucher();
+    await delay(2000);
+    console.log("return val = ", issueidval);
     nav(
-      "/materialmanagement/shopfloorissue/service/parts/productionmaterialissueparts"
+      "/materialmanagement/shopfloorissue/ivlistservice/issued/shopmatissuevocher",
+      {
+        state: { issueIDVal: issueidval },
+      }
     );
   };
   return (
