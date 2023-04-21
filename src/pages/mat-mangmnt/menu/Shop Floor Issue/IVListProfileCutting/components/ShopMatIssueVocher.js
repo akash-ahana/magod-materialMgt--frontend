@@ -11,7 +11,8 @@ const { endpoints } = require("../../../../../api/constants");
 function ShopMatIssueVocher() {
   const nav = useNavigate();
   const location = useLocation();
-  const [noDetails, setNoDetails] = useState(false);
+  const [noDetails, setNoDetails] = useState(0);
+  const [combineSheets, setCombineSheets] = useState("");
   console.log("location id = ", location.state.issueIDVal);
   const [tableData, setTableData] = useState([]);
   let [formHeader, setFormHeader] = useState({
@@ -145,25 +146,72 @@ function ShopMatIssueVocher() {
   const checkboxChange = (e) => {
     //console.log("change  val = ", e.target.checked);
     if (e.target.checked === true) {
-      setNoDetails(true);
+      setNoDetails(1);
     }
     if (e.target.checked === false) {
-      setNoDetails(false);
+      setNoDetails(0);
     }
   };
 
   const printButton = () => {
     console.log("print = ", noDetails);
-    nav(
-      "/materialmanagement/shopfloorissue/ivlistprofilecutting/PrintIVListProfileCutting",
-      {
-        state: {
-          formHeader: formHeader,
-          tableData: tableData,
-          noDetails: noDetails,
-        },
-      }
-    );
+    console.log("combine sheets = ", combineSheets);
+
+    // if (combineSheets.length > 0) {
+    //     setNoDetails(2);
+    //   const myArray = combineSheets.split("\n");
+    //   //console.log("combine sheets array = ", myArray);
+    //   let newTable = [];
+
+    //   for (let i = 0; i < myArray.length; i++) {
+    //     tableData.map((obj) => {
+    //       if (obj.ShapeMtrlID === myArray[i]) {
+    //         newTable.push(obj);
+    //       }
+    //     });
+    //   }
+    //   //console.log("new table = ", newTable);
+
+    //   nav(
+    //     "/materialmanagement/shopfloorissue/ivlistprofilecutting/PrintIVListProfileCutting",
+    //     {
+    //       state: {
+    //         formHeader: formHeader,
+    //         tableData: newTable,
+    //         noDetails: noDetails,
+    //       },
+    //     }
+    //   );
+    // }
+    if (noDetails === 1 && combineSheets.length > 0) {
+      nav(
+        "/materialmanagement/shopfloorissue/ivlistprofilecutting/PrintIVListProfileCutting",
+        {
+          state: {
+            formHeader: formHeader,
+            tableData: tableData,
+            noDetails: noDetails,
+            combineSheets: combineSheets,
+          },
+        }
+      );
+    } else {
+      nav(
+        "/materialmanagement/shopfloorissue/ivlistprofilecutting/PrintIVListProfileCutting",
+        {
+          state: {
+            formHeader: formHeader,
+            tableData: tableData,
+            noDetails: noDetails,
+            combineSheets: combineSheets,
+          },
+        }
+      );
+    }
+  };
+
+  const InputEventCombineShhet = (e) => {
+    setCombineSheets(e.target.value);
   };
   return (
     <div>
@@ -297,7 +345,11 @@ function ShopMatIssueVocher() {
               <label className="form-label">Combined Sheets</label>
               <div>
                 {" "}
-                <textarea style={{ height: "100px" }}></textarea>
+                <textarea
+                  style={{ height: "100px" }}
+                  onChange={InputEventCombineShhet}
+                  value={combineSheets}
+                ></textarea>
               </div>
             </div>
           </div>

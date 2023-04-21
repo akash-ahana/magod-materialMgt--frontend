@@ -67,7 +67,7 @@ function ShopFloorMaterialAllotment(props) {
           });
         });
       });
-      await delay(10000);
+      await delay(11000);
       setTreeData(data);
       //console.log("data = ", data);
     });
@@ -197,7 +197,7 @@ function ShopFloorMaterialAllotment(props) {
             state: { ncid },
           }
         );
-      } else if (props.formtype == "Units") {
+      } else if (props.formtype == "Units" || props.formtype == "Others") {
         nav(
           "/MaterialManagement/ShopFloorIssue/service/Units/MaterialAllotmentForm",
           {
