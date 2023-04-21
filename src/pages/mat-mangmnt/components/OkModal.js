@@ -3,14 +3,13 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 function OkModal(props) {
-  const { show, setShow, handleShow, modalMessage } = props;
+  const { show, setShow, handleShow, modalMessage, modalResponseok } = props;
 
-  const handleClose = () => setShow(false);
-  //OKModalValue("ok");
-
-  /*OKModalValue = () => {
+  const handleClose = () => {
+    modalResponseok("ok");
     setShow(false);
-  }*/
+  };
+
   return (
     <>
       <Modal show={show} onHide={handleClose}>

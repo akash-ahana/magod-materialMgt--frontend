@@ -354,3 +354,24 @@ body {
 /* .breadcrumb-item + .breadcrumb-item::before {
   content: ">" !important;
 } */
+
+   /* .rbt-input-main {
+    border: none !important;
+  }  */
+
+  .rbt-input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0px !important;
+    border-bottom: 1px solid black !important;
+    }
+    
+    
+    .rbt-input {
+    border-radius: 0px !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-bottom: 1px solid black !important;
+    }

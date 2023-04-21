@@ -19,8 +19,8 @@ function MaterialAllotmentMain() {
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   const [formHeader, setFormHeader] = useState({});
-  const [firstTable, setFirstTable] = useState([]);
-  const [secondTable, setSecondTable] = useState([]);
+  let [firstTable, setFirstTable] = useState([]);
+  let [secondTable, setSecondTable] = useState([]);
   const [custBOMIdArray, setCustBOMIdArray] = useState([]);
   const [custBOMId, setCustBOMId] = useState([]);
   const [row2, setRow2] = useState({});
@@ -101,6 +101,14 @@ function MaterialAllotmentMain() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    //if (firstTable.issueNow != 0) {
+    setFirstTable(firstTable);
+    setSecondTable(secondTable);
+    // }
+    console.log("use state call");
+  }, [firstTable, secondTable]);
+
   let issuenowchange = (e) => {
     setissuenowval(e.target.value);
     //console.log("change = ", e.target.value);
@@ -142,10 +150,10 @@ function MaterialAllotmentMain() {
             setQtyAvailable
         );
       } else {
-        firstTable.map((obj1) => {
+        firstTable = firstTable.map(async (obj1) => {
           obj1.issueNow = obj1.QtyPerAssy * setQtyAvailable;
           let flag = 0;
-          secondTable.map((obj2) => {
+          secondTable = secondTable.map((obj2) => {
             if (obj1.CustBOM_Id === obj2.CustBOM_Id && flag == 0) {
               obj2.issueNow = obj1.issueNow;
               flag = flag + 1;

@@ -12,6 +12,7 @@
     "react-bootstrap-table-next": "^4.0.3",
     "react-bootstrap-table2-editor": "^1.4.0",
     "react-bootstrap-table2-paginator": "^2.1.2",
+    "react-bootstrap-typeahead": "^6.1.2",
     "react-confirm-alert": "^3.0.6",
     "react-datepicker": "^4.10.0",
     "react-dom": "^18.2.0",
@@ -25,9 +26,9 @@
     "sweetalert2": "^11.7.1",
     "uuid": "^8.3.2"
   },
-  "overrides" : {
-    "@react-pdf/renderer" : {
-      "react" : "^18.0.0"
+  "overrides": {
+    "@react-pdf/renderer": {
+      "react": "^18.0.0"
     }
   },
   "scripts": {

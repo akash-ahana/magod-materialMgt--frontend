@@ -73,6 +73,7 @@ export const endpoints = {
   deleteMtrlStockByIVNo: `${API}/mtrlStockList/deleteMtrlStockByIVNo`,
   updateIssueIVNo: `${API}/mtrlStockList/updateIssueIVNo`,
   updateIVNoNULL: `${API}/mtrlStockList/updateIVNoNULL`,
+  updateMtrlStockLock: `${API}/mtrlStockList/updateMtrlStockLock`,
   insertByReturnDetails: `${API}/mtrlStockList/insertByReturnDetails`,
 
   //material Return Details
@@ -148,14 +149,21 @@ export const endpoints = {
   //ncprograms
   updateQtyAllotedncprograms: `${API}/ncprograms/updateQtyAllotedncprograms`,
   updateQtyAllotedncprograms1: `${API}/ncprograms/updateQtyAllotedncprograms1`,
+  updateQtyAllotedncprograms2: `${API}/ncprograms/updateQtyAllotedncprograms2`,
   getRowByNCID: `${API}/ncprograms/getRowByNCID`,
+
+  //ncprogrammtrlallotmentlist
+  insertncprogrammtrlallotmentlist: `${API}/ncprogrammtrlallotmentlist/insertncprogrammtrlallotmentlist`,
 
   //shopfloorPartIssueRegister
   updateStatusShopfloorPartIssueRegister: `${API}/shopfloorPartIssueRegister/updateStatusShopfloorPartIssueRegister`,
   insertShopfloorPartIssueRegister: `${API}/shopfloorPartIssueRegister/insertShopfloorPartIssueRegister`,
 
-  //shopfloorMaterialIssueRegister
+  //shopfloorUnitIssueRegister
   getMaterialAllotmentTable1: `${API}/shopfloorUnitIssueRegister/getMaterialAllotmentTable1`,
+
+  //shopfloorMaterialIssueRegister
+  insertShopfloorMaterialIssueRegister: `${API}/shopfloorMaterialIssueRegister/insertShopfloorMaterialIssueRegister`,
 
   //updateOutwordMaterialVocher: `${API}/mtrlIssueDetails/updatemtrlIssueDetailsRouter`,
 

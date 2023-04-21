@@ -91,59 +91,62 @@ const styles = StyleSheet.create({
   },
   rvNO: {
     width: "20%",
-    marginLeft: "10px",
     marginTop: "5px",
     fontSize: 10,
   },
   issued: {
-    width: "8%",
-    marginLeft: "5px",
+    width: "10%",
+    marginLeft: "20px",
     marginTop: "5px",
     fontSize: 10,
   },
   used: {
     width: "8%",
-    marginLeft: "5px",
+    marginLeft: "10px",
     marginTop: "5px",
     fontSize: 10,
   },
   returned: {
     width: "8%",
-    marginLeft: "5px",
+    marginLeft: "0px",
     marginTop: "5px",
     fontSize: 10,
   },
 
   partIDVal: {
-    width: "100%",
+    width: "15%",
     marginLeft: "10px",
     fontSize: 10,
     fontWeight: "bold",
-    textDecoration: "underline",
+    marginTop: "10px",
   },
   linegap2: {
     width: "15%",
   },
 
   rvNOVal: {
-    width: "43%",
-    marginLeft: "60px",
+    width: "40%",
+    marginLeft: "5px",
     fontSize: 10,
+    marginTop: "10px",
   },
   issuedVal: {
     width: "8%",
     marginLeft: "5px",
     fontSize: 10,
+    marginTop: "10px",
   },
   usedVal: {
     width: "8%",
     marginLeft: "5px",
     fontSize: 10,
+    marginTop: "10px",
   },
   returnedVal: {
     width: "8%",
     marginLeft: "5px",
     fontSize: 10,
+    marginTop: "10px",
   },
   issuedByReceivedBy: {
     width: "45%",
@@ -228,10 +231,10 @@ const PrintIVListServicePartTable = ({ formHeader, tableData }) => (
               <Text style={styles.issuedVal}>{item.QtyIssued}</Text>
               <Text style={styles.usedVal}>{item.QtyUsed}</Text>
               <Text style={styles.returnedVal}>{item.QtyReturned}</Text>
-              <Text style={styles.line3}>
+              {/* <Text style={styles.line3}>
                 {" "}
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________________________________________________________________________
-              </Text>
+              </Text> */}
               <Text style={styles.line2}>
                 _________________________________________________________________________________
               </Text>

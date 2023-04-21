@@ -34,3 +34,7 @@
   flex: 1 1 0px;
   width: 100%;
 }
+
+.rbt-input-hint-container input {
+border: none !important;
+}

@@ -147,12 +147,19 @@ const styles = StyleSheet.create({
   emptyWholeBlock: {
     width: "100%",
   },
+  combine: {
+    width: "100%",
+    marginLeft: "127px",
+    fontSize: 13,
+    fontWeight: "bold",
+    marginTop: "20px",
+  },
 });
 
-const PrintIVListProfileCuttingTable = ({
+const PrintIVListProfileCuttingTable2 = ({
   formHeader,
   tableData,
-  noDetails,
+  combineSheets,
 }) => (
   <Document>
     <Page size="A4" style={styles.page}>
@@ -188,45 +195,15 @@ const PrintIVListProfileCuttingTable = ({
           Process: {formHeader.MProcess}
         </Text>
         <Text style={styles.blockWhole}>Source : Custom</Text>
+
         <Text style={styles.line1}>
           _________________________________________________________________________________
         </Text>
-        <Text style={styles.blockWhole}>({noDetails})</Text>
-        {noDetails === "on"
-          ? () => {
-              return (
-                <>
-                  <Text style={styles.mtrlID}>Mtrl ID </Text>
-                  <Text style={styles.para1}>Para 1 </Text>
-                  <Text style={styles.para2}>Para 2 </Text>
-                  <Text style={styles.used}>Used </Text>
-                  <Text style={styles.reject}>Reject </Text>
+        <Text style={styles.combine}>{combineSheets}</Text>
+        <Text style={styles.line1}>
+          _________________________________________________________________________________
+        </Text>
 
-                  <Text style={styles.line2}>
-                    _________________________________________________________________________________
-                  </Text>
-                  {/* Table Row */}
-                  {tableData.map((item, index) => {
-                    return (
-                      <>
-                        <Text style={styles.mtrlVal}>{item.ShapeMtrlID}</Text>
-                        <Text style={styles.para1Val}>{item.Para1}</Text>
-                        <Text style={styles.para2Val}>{item.Para2}</Text>
-                        <Text style={styles.usedVal}>{item.Used}</Text>
-                        <Text style={styles.rejectVal}>{item.Rejected}</Text>
-                        {/* <Text style={styles.emptyBlock}></Text> */}
-                      </>
-                    );
-                  })}
-                  <Text style={styles.line1}>
-                    _________________________________________________________________________________
-                  </Text>
-                </>
-              );
-            }
-          : () => {
-              return <></>;
-            }}
         {/* Issue By & Received By */}
         <Text style={styles.issuedByReceivedBy}>Issued By and Time</Text>
         <Text style={styles.issuedByReceivedBy}>Received By and Time</Text>
@@ -241,4 +218,4 @@ const PrintIVListProfileCuttingTable = ({
   </Document>
 );
 
-export default PrintIVListProfileCuttingTable;
+export default PrintIVListProfileCuttingTable2;

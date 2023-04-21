@@ -6,6 +6,7 @@ import CreateYesNoModal from "../../../../components/CreateYesNoModal";
 import BootstrapTable from "react-bootstrap-table-next";
 import Table from "react-bootstrap/Table";
 import { formatDate } from "../../../../../../utils";
+import { Typeahead } from "react-bootstrap-typeahead"; // ES2015
 
 const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
@@ -13,6 +14,7 @@ const { endpoints } = require("../../../../../api/constants");
 function PNew() {
   const nav = useNavigate();
   const [show, setShow] = useState(false);
+  const [selected, setSelected] = useState([]);
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
   const currDate = new Date()
     .toJSON()
@@ -397,6 +399,29 @@ function PNew() {
       }
     );
   };
+
+  let dummydata = [
+    {
+      label: "Alabama",
+      population: 4780127,
+      capital: "Montgomery",
+      region: "South",
+    },
+    { label: "Alaska", population: 710249, capital: "Juneau", region: "West" },
+    {
+      label: "Arizona",
+      population: 6392307,
+      capital: "Phoenix",
+      region: "West",
+    },
+    {
+      label: "Arkansas",
+      population: 2915958,
+      capital: "Little Rock",
+      region: "South",
+    },
+  ];
+
   return (
     <div>
       <CreateYesNoModal
@@ -445,7 +470,7 @@ function PNew() {
         <div className="row">
           <div className="col-md-8">
             <label className="form-label">Customer</label>
-            <select
+            {/* <select
               className="ip-select"
               name="customer"
               onChange={changeCustomer}
@@ -459,7 +484,15 @@ function PNew() {
                   {customer.Cust_name}
                 </option>
               ))}
-            </select>
+            </select> */}
+
+            <Typeahead
+              id="basic-example"
+              onChange={setSelected}
+              options={dummydata}
+              placeholder="Choose a state..."
+              selected={selected}
+            />
           </div>
           <div className="col-md-4">
             <label className="">Weight</label>
