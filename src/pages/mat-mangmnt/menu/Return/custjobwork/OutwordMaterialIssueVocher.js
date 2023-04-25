@@ -357,7 +357,7 @@ function OutwordMaterialIssueVocher(props) {
                 />
               </div>
               <div className="col-md-6">
-                <label className="">DC No / Ph No</label>
+                <label className="">DC No / PN No</label>
                 <input
                   type="text"
                   name="PkngDcNo"

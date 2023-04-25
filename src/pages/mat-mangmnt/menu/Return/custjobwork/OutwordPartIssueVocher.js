@@ -12,7 +12,6 @@ const { endpoints } = require("../../../../api/constants");
 
 function OutwordPartIssueVocher(props) {
   const nav = useNavigate();
-
   const [show, setShow] = useState(false);
   const [showCreateDC, setShowCreateDC] = useState(false);
   let [custdata, setCustdata] = useState({
@@ -37,6 +36,7 @@ function OutwordPartIssueVocher(props) {
 
   const [IVNOValue, setIVNOValue] = useState("");
   const [IVIDValue, setIVIDValue] = useState("");
+  console.log("formtype :", location.state.propsType);
 
   let [formHeader, setFormHeader] = useState({
     Iv_Id: "",
@@ -172,13 +172,30 @@ function OutwordPartIssueVocher(props) {
   };
 
   let createDC = () => {
-    setShowCreateDC(true);
-    setBoolVal1(false);
-    setBoolVal2(true);
+    let flag = 0;
+    if (
+      formHeader.TotalWeight === 0 ||
+      formHeader.TotalWeight === "0" ||
+      formHeader.TotalWeight === "0.000" ||
+      formHeader.TotalWeight === 0.0
+    ) {
+      toast.error("Serial Weight cannot be zero. Set Weight and try again");
+      flag = 1;
+    }
+    if (flag === 0) {
+      console.log("Valid");
+      setShowCreateDC(true);
+      //setBoolVal1(false);
+      //setBoolVal2(true);
+    }
+
+    //setShowCreateDC(true);
+    //setBoolVal1(false);
+    //setBoolVal2(true);
 
     //setShowCreateDC(true);
   };
-  let getDCID = (data) => {
+  let getDCID = async (data) => {
     console.log("get dc = ", data);
     setdcID(data);
 
@@ -189,6 +206,10 @@ function OutwordPartIssueVocher(props) {
         console.log("dc register data = ", data);
         setdcRegister(data);
       });
+
+      //button enable disable
+      setBoolVal1(false);
+      setBoolVal2(true);
 
       //fetch again dcno
       let url4 =

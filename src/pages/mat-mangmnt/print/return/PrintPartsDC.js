@@ -26,6 +26,14 @@ function PrintPartsDC() {
     location.state.custdata
   );
 
+  let totalqty = () => {
+    let sum = 0;
+    for (let i = 0; i < location.state.outData; i++) {
+      sum = sum + location.state.outData[i].QtyReturned;
+    }
+    return sum;
+  };
+
   return (
     <Fragment>
       <PDFViewer width="1200" height="600" filename="somename.pdf">
@@ -37,6 +45,7 @@ function PrintPartsDC() {
           outData={location.state.outData}
           custdata={location.state.custdata}
           dcRegister={location.state.dcRegister}
+          totalqty={totalqty}
         />
       </PDFViewer>
     </Fragment>
