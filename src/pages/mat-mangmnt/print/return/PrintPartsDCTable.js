@@ -127,7 +127,13 @@ const styles = StyleSheet.create({
 
 //return <div>PrintMaterialDCTable</div>;
 //}
-const PrintPartsDCTable = ({ formHeader, outData, custdata, dcRegister }) => (
+const PrintPartsDCTable = ({
+  formHeader,
+  outData,
+  custdata,
+  dcRegister,
+  totalqty,
+}) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.tableContainer}>
@@ -189,7 +195,7 @@ const PrintPartsDCTable = ({ formHeader, outData, custdata, dcRegister }) => (
         <Text style={styles.titleLeft1}></Text>
         <Text style={styles.titleMiddle2}>Total Items : {outData.length}</Text>
         <Text style={styles.titleLeft1}></Text>
-        <Text style={styles.titleMiddle2}>Total Quantity : 0</Text>
+        <Text style={styles.titleMiddle2}>Total Quantity : {totalqty}</Text>
       </View>
     </Page>
   </Document>

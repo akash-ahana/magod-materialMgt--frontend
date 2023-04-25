@@ -10,6 +10,7 @@ const { endpoints } = require("../../../api/constants");
 
 function OpenButtonOpenSheetUnit() {
   const location = useLocation();
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   //initial disable all
   const [boolVal, setBoolVal] = useState(true);
@@ -123,7 +124,7 @@ function OpenButtonOpenSheetUnit() {
       const url1 =
         endpoints.getMtrlReceiptDetailsByRvID + "?id=" + location.state.id;
       getRequest(url1, (data2) => {
-        //console.log("data2  = ", data2);
+        console.log("table data  = ", data2);
         data2.forEach((obj) => {
           obj.id = obj.Mtrl_Rv_id;
           obj.rvId = obj.RvID;
@@ -243,7 +244,20 @@ function OpenButtonOpenSheetUnit() {
     //formHeader.ReceiptDate = formatDate(new Date(), 4);
   }, []);
 
-  const addToStock = () => {
+  function updateCount(cnt, callback) {
+    setTimeout(async () => {
+      mtrlArray.map((obj) => {
+        if (obj.Mtrl_Rv_id === mtrlStock.Mtrl_Rv_id) {
+          obj.UpDated = cnt;
+        }
+      });
+      await delay(500);
+      setMtrlArray(mtrlArray);
+      //console.log("mtrl arry = ", mtrlArray);
+      callback("hello");
+    }, 500);
+  }
+  const addToStock = async () => {
     if (Object.keys(mtrlStock).length === 0) {
       toast.error("Please Select Material");
     } else {
@@ -286,13 +300,40 @@ function OpenButtonOpenSheetUnit() {
         }
       });
 
+      //update updated status = 1
+      let updateObj = {
+        id: mtrlStock.Mtrl_Rv_id,
+        upDated: 1,
+      };
+      postRequest(
+        endpoints.updateMtrlReceiptDetailsUpdated,
+        updateObj,
+        async (data) => {
+          console.log("updated = 1");
+        }
+      );
+
+      updateCount(1, (nm) => {
+        //console.log("value updated");
+        console.log("mtrl arry = ", mtrlArray);
+        //setMtrlArray(mtrlArray);
+      });
+      // mtrlArray.filter((obj) => {
+      //   if (obj.Mtrl_Rv_id === mtrlStock.Mtrl_Rv_id) {
+      //     obj.UpDated = 1;
+      //   }
+      // });
+      // await delay(200);
+
+      // setMtrlArray(mtrlArray);
+
       //console.log("input part ", inputPart);
       //console.log("formheader ", formHeader);
-      //console.log("mtrlstock ", mtrlStock);
+      //console.log("mtrlstock ", mtrlArray);
     }
   };
 
-  const removeStock = () => {
+  const removeStock = async () => {
     if (Object.keys(mtrlStock).length === 0) {
       toast.error("Please Select Material");
     } else {
@@ -306,6 +347,31 @@ function OpenButtonOpenSheetUnit() {
         } else {
           toast.error("Stock Not Removed");
         }
+      });
+
+      //update updated status = 1
+      let updateObj = {
+        id: mtrlStock.Mtrl_Rv_id,
+        upDated: 0,
+      };
+      postRequest(
+        endpoints.updateMtrlReceiptDetailsUpdated,
+        updateObj,
+        async (data) => {
+          console.log("updated = 0");
+        }
+      );
+      // mtrlArray.filter((obj) => {
+      //   if (obj.Mtrl_Rv_id === mtrlStock.Mtrl_Rv_id) {
+      //     obj.UpDated = 0;
+      //   }
+      // });
+      // await delay(200);
+      // setMtrlArray(mtrlArray);
+      updateCount(0, (nm) => {
+        //console.log("value updated");
+        console.log("mtrl arry = ", mtrlArray);
+        //setMtrlArray(mtrlArray);
       });
     }
   };

@@ -19,7 +19,8 @@ function ReturnListing(props) {
 
   const [checkboxVal, setCheckboxVal] = useState("off");
   let [custdata, setCustdata] = useState([]);
-
+  let [propsType, setPropsType] = useState(props.type);
+  //console.log("listing form type = ", propsType);
   async function fetchData() {
     getRequest(endpoints.getCustomers, async (data) => {
       setCustdata(data);
@@ -118,12 +119,12 @@ function ReturnListing(props) {
       nav(
         "/materialmanagement/return/customerjobwork/OutwordMaterialIssueVocher",
         {
-          state: { selectData },
+          state: { selectData, propsType },
         }
       );
     } else if (selectData && selectData.Type === "Parts") {
       nav("/materialmanagement/return/customerjobwork/OutwordPartIssueVocher", {
-        state: { selectData },
+        state: { selectData, propsType },
       });
     } else {
       toast.error("Select IV");
