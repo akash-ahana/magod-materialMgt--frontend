@@ -76,7 +76,11 @@ export const endpoints = {
   updateIssueIVNo: `${API}/mtrlStockList/updateIssueIVNo`,
   updateIVNoNULL: `${API}/mtrlStockList/updateIVNoNULL`,
   updateMtrlStockLock: `${API}/mtrlStockList/updateMtrlStockLock`,
+  updateMtrlStockLock1: `${API}/mtrlStockList/updateMtrlStockLock1`,
+  updateMtrlStockLock2: `${API}/mtrlStockList/updateMtrlStockLock2`,
+  updateMtrlStockLock3: `${API}/mtrlStockList/updateMtrlStockLock3`,
   insertByReturnDetails: `${API}/mtrlStockList/insertByReturnDetails`,
+  insertByMtrlStockID: `${API}/mtrlStockList/insertByMtrlStockID`,
 
   //material Return Details
   insertmaterialReturnDetails: `${API}/materialReturnDetails/insert`,
@@ -138,6 +142,10 @@ export const endpoints = {
   getShopFloorServiceTreeViewMtrlCode: `${API}/shopFloorIssue/getShopFloorServiceTreeViewMtrlCode`,
   getShopFloorServiceTreeViewMtrlCodeClick: `${API}/shopFloorIssue/getShopFloorServiceTreeViewMtrlCodeClick`,
 
+  //shopFloorReturn
+  getFirstTableShopFloorReturn: `${API}/shopFloorReturn/getFirstMainTable`,
+  getSecondTableShopFloorReturn: `${API}/shopFloorReturn/getSecondMainTable`,
+
   //shopfloorAllotment
   getShopFloorAllotmentPartFirstTable: `${API}/shopfloorAllotment/getShopFloorAllotmentPartFirstTable`,
   getShopFloorAllotmentPartFirstTableQtyAvl: `${API}/shopfloorAllotment/getShopFloorAllotmentPartFirstTableQtyAvl`,
@@ -156,6 +164,7 @@ export const endpoints = {
 
   //ncprogrammtrlallotmentlist
   insertncprogrammtrlallotmentlist: `${API}/ncprogrammtrlallotmentlist/insertncprogrammtrlallotmentlist`,
+  updatencprogrammtrlallotmentlistReturnStock: `${API}/ncprogrammtrlallotmentlist/updatencprogrammtrlallotmentlistReturnStock`,
 
   //shopfloorPartIssueRegister
   updateStatusShopfloorPartIssueRegister: `${API}/shopfloorPartIssueRegister/updateStatusShopfloorPartIssueRegister`,
@@ -166,6 +175,7 @@ export const endpoints = {
 
   //shopfloorMaterialIssueRegister
   insertShopfloorMaterialIssueRegister: `${API}/shopfloorMaterialIssueRegister/insertShopfloorMaterialIssueRegister`,
+  updateShopfloorMaterialIssueRegisterQtyReturnedAddOne: `${API}/shopfloorMaterialIssueRegister/updateShopfloorMaterialIssueRegisterQtyReturnedAddOne`,
 
   //updateOutwordMaterialVocher: `${API}/mtrlIssueDetails/updatemtrlIssueDetailsRouter`,
 
