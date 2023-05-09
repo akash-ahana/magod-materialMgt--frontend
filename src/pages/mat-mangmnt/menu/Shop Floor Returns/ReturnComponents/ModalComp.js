@@ -3,8 +3,13 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
-function ModalComp({ open, setOpen, setShow }) {
+function ModalComp({ open, setOpen, setShow, row, scrapModal }) {
   const handleClose = () => {
+    scrapModal({});
+    setOpen(false);
+  };
+  const handleYes = () => {
+    scrapModal(row);
     setOpen(false);
   };
 
@@ -18,7 +23,7 @@ function ModalComp({ open, setOpen, setShow }) {
           <Form>The Material will be altered as SCRAP, Continue?</Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleYes}>
             yes
           </Button>
           <Button variant="primary" onClick={handleClose}>

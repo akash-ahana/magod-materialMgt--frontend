@@ -69,8 +69,17 @@ function PNew() {
   });
 
   async function fetchCustData() {
-    getRequest(endpoints.getCustomers, (data) => {
+    getRequest(endpoints.getCustomers, async (data) => {
+      //for (let row in data) {
+      //  row.label = row.Cust_name;
+      // }
+      data.map(async (obj) => {
+        obj["label"] = obj.Cust_name;
+      });
+      await delay(500);
+      //console.log("cust data before = ", data);
       setCustdata(data);
+      //console.log("cust data after = ", custdata);
     });
     //console.log("data = ", custdata);
   }
@@ -490,7 +499,7 @@ function PNew() {
               id="basic-example"
               onChange={setSelected}
               options={dummydata}
-              placeholder="Choose a state..."
+              placeholder="Select Customer"
               selected={selected}
             />
           </div>

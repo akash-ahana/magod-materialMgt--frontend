@@ -301,7 +301,7 @@ function MaterialAllotmentMain() {
           async (data) => {
             if (data.affectedRows !== 0) {
               //toast.success("Record Inserted Successfully");
-              //await delay(1000);
+              await delay(100);
               setissueidval(data.insertId);
               console.log("data insert id = ", data.insertId);
               //insert into shopfloorBOMIssueDetails
@@ -389,6 +389,7 @@ function MaterialAllotmentMain() {
               RunningNo: newNo,
             };
             postRequest(endpoints.updateRunningNo, inputData, (data) => {});
+
             console.log("Return id = ", issueidval);
             //return data.insertId;
           }
@@ -402,7 +403,7 @@ function MaterialAllotmentMain() {
   };
   const releaseProduction = async () => {
     CreatePartsIssueVoucher();
-    await delay(2000);
+    await delay(5000);
     console.log("return val = ", issueidval);
     nav(
       "/materialmanagement/shopfloorissue/ivlistservice/issued/shopmatissuevocher",

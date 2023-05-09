@@ -6,6 +6,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import TreeView from "react-treeview";
 import "react-treeview/react-treeview.css";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
@@ -25,7 +26,7 @@ function ShopFloorMaterialAllotment(props) {
       props.type +
       "&hasbom=" +
       props.hasbom;
-    getRequest(url1, async (data) => {
+    await getRequest(url1, async (data) => {
       console.log("table data = ", data);
       setTableData(data);
       //setAllData(data);
@@ -36,8 +37,8 @@ function ShopFloorMaterialAllotment(props) {
       props.type +
       "&hasbom=" +
       props.hasbom;
-    getRequest(url2, async (data) => {
-      data.forEach((item) => {
+    await getRequest(url2, async (data) => {
+      data.forEach(async (item) => {
         let url3 =
           endpoints.getShopFloorServiceTreeViewProcess +
           "?type=" +
@@ -47,9 +48,9 @@ function ShopFloorMaterialAllotment(props) {
           "&machine=" +
           item.machine +
           "&tree=1";
-        getRequest(url3, async (data1) => {
+        await getRequest(url3, async (data1) => {
           item["process"] = data1;
-          data1.forEach((item1) => {
+          data1.forEach(async (item1) => {
             let url4 =
               endpoints.getShopFloorServiceTreeViewMtrlCode +
               "?type=" +
@@ -61,15 +62,19 @@ function ShopFloorMaterialAllotment(props) {
               "&process=" +
               item1.MProcess +
               "&tree=1";
-            getRequest(url4, async (data2) => {
+            await getRequest(url4, async (data2) => {
               item1["material"] = data2;
             });
           });
         });
       });
-      await delay(11000);
+      if (props.formtype === "Parts") {
+        await delay(5000);
+      } else {
+        await delay(11000);
+      }
       setTreeData(data);
-      //console.log("data = ", data);
+      console.log("data = ", data);
     });
   };
   useEffect(() => {
