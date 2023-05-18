@@ -1,32 +1,195 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
-import UpdateStockModal from "./UpdateStockModal";
+import { toast } from "react-toastify";
+import BootstrapTable from "react-bootstrap-table-next";
+
+const { getRequest, postRequest } = require("../../../../api/apiinstance");
+const { endpoints } = require("../../../../api/constants");
 
 function StockArrival() {
+  const [firstTable, setFirstTable] = useState([]);
+  const [secondTable, setSecondTable] = useState([]);
+  const [thirdTable, setThirdTable] = useState([]);
+
+  const [dateVal, setDateVal] = useState("1988-01-01");
   const [open, setOpen] = useState();
   const handleOpen = () => {
     setOpen(true);
   };
+
+  const fetchData = async () => {};
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const InputEvent = (e) => {
+    const { name, value } = e.target;
+    console.log("value = ", value);
+    setDateVal(value);
+  };
+
+  const columns1 = [
+    {
+      text: "id",
+      dataField: "id",
+      hidden: true,
+    },
+    {
+      text: "RV_No",
+      dataField: "RV_No",
+    },
+    {
+      text: "CustDocuNo",
+      dataField: "CustDocuNo",
+    },
+    {
+      text: "Material",
+      dataField: "Material",
+    },
+    {
+      text: "Calculated Weight",
+      dataField: "TotalWeightCalculated",
+    },
+    {
+      text: "Total Weight",
+      dataField: "TotalWeight",
+    },
+  ];
+
+  const columns2 = [
+    {
+      text: "id",
+      dataField: "id",
+      hidden: true,
+    },
+    {
+      text: "RV_No",
+      dataField: "RV_No",
+    },
+    {
+      text: "Srl",
+      dataField: "Srl",
+    },
+    {
+      text: "Calculated Weight",
+      dataField: "TotalWeightCalculated",
+    },
+    {
+      text: "Total Weight",
+      dataField: "TotalWeight",
+    },
+  ];
+  const columns3 = [
+    {
+      text: "id",
+      dataField: "id",
+      hidden: true,
+    },
+    {
+      text: "RV_No",
+      dataField: "RV_No",
+    },
+    {
+      text: "CustDocuNo",
+      dataField: "CustDocuNo",
+    },
+    {
+      text: "Material",
+      dataField: "Material",
+    },
+    {
+      text: "Total Weight",
+      dataField: "WeightIN",
+    },
+  ];
+
+  const loadData = () => {
+    //first table
+    const url1 = endpoints.getStockArrivalFirstTable + "?date=" + dateVal;
+    getRequest(url1, (data) => {
+      for (let i = 0; i < data.length; i++) {
+        data[i].id = i + 1;
+      }
+      setFirstTable(data);
+      console.log("first table = ", data);
+    });
+
+    //second table
+    const url2 = endpoints.getStockArrivalSecondTable + "?date=" + dateVal;
+    getRequest(url2, (data) => {
+      for (let i = 0; i < data.length; i++) {
+        data[i].id = i + 1;
+      }
+      setSecondTable(data);
+      console.log("second table = ", data);
+    });
+
+    //third table
+    const url3 = endpoints.getStockArrivalThirdTable + "?date=" + dateVal;
+    getRequest(url3, (data) => {
+      for (let i = 0; i < data.length; i++) {
+        data[i].id = i + 1;
+      }
+      setThirdTable(data);
+      console.log("third table = ", data);
+    });
+  };
+
+  const updateLedger = () => {
+    let flag = 0;
+    for (let i = 0; i < secondTable.length; i++) {
+      if (secondTable[i].TotalWeight <= 0) {
+        flag = 1;
+      }
+    }
+    if (flag == 1) {
+      toast.error("Update Receipt Weight before updating stock ledger");
+    } else {
+      let flag1 = 0;
+      for (let i = 0; i < firstTable.length; i++) {
+        //insertStockArrivalMtrlReceiptList
+        let paraData1 = {
+          Rv_Date: dateVal,
+          RV_No: firstTable[i].RV_No,
+          CustDocuNo: firstTable[i].CustDocuNo,
+          Material: firstTable[i].Material,
+          WeightIN: firstTable[i].TotalWeight,
+        };
+        postRequest(
+          endpoints.insertStockArrivalMtrlReceiptList,
+          paraData1,
+          (data) => {
+            flag1 = 1;
+          }
+        );
+      }
+      if (flag1 == 1) {
+        toast.success("Stock Ledger is Updated");
+        loadData();
+      }
+    }
+  };
   return (
     <div>
       {" "}
-      <UpdateStockModal open={open} setOpen={setOpen} />
-      <h4 className="form-title">Stock Arrival Updater Form </h4>
-      <hr className="horizontal-line" />
+      <h4 className="title">Stock Arrival Updater Form </h4>
       <div className="row">
         <div className="col-md-1"></div>
         <div className="col-md-2">
           <label>Stock Date</label>
-          <input type="date" />
+          <input type="date" name="date" onChange={InputEvent} />
         </div>
         <div className="col-md-2">
-          <button className="button-style">Load Data</button>
+          <button className="button-style" onClick={loadData}>
+            Load Data
+          </button>
         </div>
         <div className="col-md-4">
           <button
             className="button-style"
             style={{ width: "200px" }}
-            onClick={handleOpen}
+            onClick={updateLedger}
           >
             Update Stock Ledger
           </button>
@@ -37,107 +200,45 @@ function StockArrival() {
           {" "}
           <div className="row">
             <div style={{ height: "200px", overflowY: "scroll" }}>
-              <Table bordered>
-                <thead
-                  style={{
-                    textAlign: "center",
-                    position: "sticky",
-                    top: "-1px",
-                  }}
-                >
-                  <tr>
-                    <th>RV No</th>
-                    <th>Cust Docu No</th>
-                    <th>Material</th>
-                    <th>Caluclated Weight</th>
-                    <th>Total Weight</th>
-                  </tr>
-                </thead>
-
-                <tbody className="tablebody">
-                  <tr
-                  // onClick={() => selectedRowFn(item, key)}
-                  // className={
-                  //   key === selectedRow?.index ? "selcted-row-clr" : ""
-                  // }
-                  >
-                    <td>asdfghj</td>
-                    <td>asdfghj</td>
-                    <td>asdfghj</td>
-                    <td>asdfghj</td>
-                    <td>asdfghj</td>
-                  </tr>
-                </tbody>
-              </Table>
+              <BootstrapTable
+                keyField="id"
+                columns={columns1}
+                data={firstTable}
+                striped
+                hover
+                condensed
+                //selectRow={selectRow1}
+                headerClasses="header-class"
+              ></BootstrapTable>
             </div>
           </div>
           <div className="row">
             <div style={{ height: "200px", overflowY: "scroll" }}>
-              <Table bordered>
-                <thead
-                  style={{
-                    textAlign: "center",
-                    position: "sticky",
-                    top: "-1px",
-                  }}
-                >
-                  <tr>
-                    <th>RV No</th>
-                    <th>Srl</th>
-                    <th>Caluclated Weight</th>
-                    <th>Total Weight</th>
-                  </tr>
-                </thead>
-
-                <tbody className="tablebody">
-                  <tr
-                  // onClick={() => selectedRowFn(item, key)}
-                  // className={
-                  //   key === selectedRow?.index ? "selcted-row-clr" : ""
-                  // }
-                  >
-                    <td>asdfghj</td>
-                    <td>asdfghj</td>
-                    <td>asdfghj</td>
-                    <td>asdfghj</td>
-                  </tr>
-                </tbody>
-              </Table>
+              <BootstrapTable
+                keyField="id"
+                columns={columns2}
+                data={secondTable}
+                striped
+                hover
+                condensed
+                //selectRow={selectRow1}
+                headerClasses="header-class"
+              ></BootstrapTable>{" "}
             </div>
           </div>
         </div>
         <div className="col-md-5">
           <div style={{ height: "400px", overflowY: "scroll" }}>
-            <Table bordered>
-              <thead
-                style={{
-                  textAlign: "center",
-                  position: "sticky",
-                  top: "-1px",
-                }}
-              >
-                <tr>
-                  <th>RV No</th>
-                  <th>Cust Docu No</th>
-                  <th>Material</th>
-                  <th>Weight</th>
-                </tr>
-              </thead>
-
-              <tbody className="tablebody">
-                <tr
-                // onClick={() => selectedRowFn(item, key)}
-                // className={
-                //   key === selectedRow?.index ? "selcted-row-clr" : ""
-                // }
-                >
-                  <td>asdfghj</td>
-                  <td>asdfghj</td>
-                  <td>asdfghj</td>
-                  <td>asdfghj</td>
-                </tr>
-              </tbody>
-            </Table>
+            <BootstrapTable
+              keyField="id"
+              columns={columns3}
+              data={thirdTable}
+              striped
+              hover
+              condensed
+              //selectRow={selectRow1}
+              headerClasses="header-class"
+            ></BootstrapTable>
           </div>
         </div>
       </div>

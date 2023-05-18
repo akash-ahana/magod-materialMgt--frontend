@@ -4,8 +4,7 @@ import Table from "react-bootstrap/Table";
 function UnitsIssueToProduction() {
   return (
     <div>
-      <h4 className="form-title">Shop Material Issue Vocher</h4>
-      <hr className="horizontal-line" />
+      <h4 className="title">Shop Material Issue Vocher</h4>
       <div className="row">
         <div className="col-md-4">
           <div className="row">

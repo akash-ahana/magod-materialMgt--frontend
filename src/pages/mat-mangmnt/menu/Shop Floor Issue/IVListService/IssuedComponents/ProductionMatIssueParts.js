@@ -211,8 +211,7 @@ function ProductionMatIssueParts() {
         tableData={tableData}
       />
       <OkModal show={show} setShow={setShow} modalMessage={modalMessage} />
-      <h4 className="form-title">Production Material Issue :Parts</h4>
-      <hr className="horizontal-line" />
+      <h4 className="title">Production Material Issue :Parts</h4>
       <div className="table_top_style">
         <div className="row">
           <div className="col-md-3">
@@ -296,6 +295,7 @@ function ProductionMatIssueParts() {
             condensed
             //pagination={paginationFactory()}
             //selectRow={selectRow}
+            headerClasses="header-class"
           ></BootstrapTable>
         </div>
       </div>

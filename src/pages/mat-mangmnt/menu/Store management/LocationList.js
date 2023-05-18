@@ -1,50 +1,225 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
+import { toast } from "react-toastify";
+import BootstrapTable from "react-bootstrap-table-next";
 import LocationLisModal from "./LocationLisModal";
+import YesNoModal from "../../components/YesNoModal";
+
+const { getRequest, postRequest } = require("../../../api/apiinstance");
+const { endpoints } = require("../../../api/constants");
 
 function LocationList(props) {
   const [open, setOpen] = useState();
+  const [show, setShow] = useState(false);
+  const [btnState, setBtnState] = useState("");
+  const [shape, setShape] = useState([]);
+  const [tableData, setTableData] = useState([]);
+  const [selectedRow, setSelectedRow] = useState({});
+  const [formHeader, setFormHeader] = useState({
+    location: "",
+    storage: "",
+    capacity: "",
+  });
+
+  const fetchData = async () => {
+    //load shapes
+    getRequest(endpoints.getAllShapeNames, async (data) => {
+      setShape(data);
+    });
+
+    getRequest(endpoints.getMaterialLocationList, (data) => {
+      for (let i = 0; i < data.length; i++) {
+        data[i].id = i + 1;
+      }
+      setTableData(data);
+      console.log("table data = ", data);
+    });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const handleOpen = () => {
     setOpen(true);
   };
+  const InputEvent = (e) => {
+    const { value, name } = e.target;
+    setFormHeader((preValue) => {
+      //console.log(preValue)
+      return {
+        ...preValue,
+        [name]: value,
+      };
+    });
+
+    if (btnState === "save") {
+      //update
+    }
+  };
+  const deleteButton = () => {
+    //console.log("form header = ", formHeader);
+    //console.log("selected row = ", selectedRow);
+    let url1 =
+      endpoints.getLocationListMtrlStockCount +
+      "?location=" +
+      selectedRow.LocationNo;
+    getRequest(url1, async (data) => {
+      console.log("count = " + data.count);
+      if (data.count > 0) {
+        toast.error(
+          selectedRow.LocationNo +
+            " has material in it. Clear / move material before deleting the storage loaction"
+        );
+      } else {
+        setShow(true);
+      }
+    });
+  };
+  const modalResponse = (msg) => {
+    console.log("msg = ", msg);
+    if (msg === "yes") {
+      let paraData1 = {
+        LocationNo: selectedRow.LocationNo,
+      };
+      postRequest(endpoints.deleteMaterialLocationList, paraData1, (data) => {
+        console.log("Location Deleted");
+        toast.success("Location Deleted");
+        getRequest(endpoints.getMaterialLocationList, (data) => {
+          for (let i = 0; i < data.length; i++) {
+            data[i].id = i + 1;
+          }
+          setTableData(data);
+        });
+      });
+    }
+  };
+  const addButton = () => {
+    setBtnState("add");
+    setFormHeader((preValue) => {
+      return {
+        location: "",
+        storage: "",
+        capacity: "",
+      };
+    });
+
+    //insert black row in table
+    tableData.push({
+      Capacity: "",
+      CapacityUtilised: 0,
+      CurrentCapacity: 0,
+      LocationNo: "",
+      StorageType: "",
+      id: tableData.length + 1,
+    });
+    setTableData(tableData);
+  };
+  const saveButton = () => {
+    setBtnState("save");
+
+    //update
+    let paraData1 = {
+      LocationNo: selectedRow.LocationNo,
+      StorageType: formHeader.storage,
+      Capacity: formHeader.capacity,
+    };
+    postRequest(endpoints.updateMaterialLocationList, paraData1, (data) => {
+      console.log("Location Updated");
+      toast.success("Location Updated");
+      getRequest(endpoints.getMaterialLocationList, (data) => {
+        for (let i = 0; i < data.length; i++) {
+          data[i].id = i + 1;
+        }
+        setTableData(data);
+        //console.log("table data = ", data);
+      });
+    });
+  };
+  const insertData = () => {
+    console.log("blur");
+    if (btnState === "add") {
+      let paraData1 = {
+        LocationNo: formHeader.location,
+        StorageType: formHeader.storage,
+        Capacity: formHeader.capacity,
+      };
+      postRequest(endpoints.insertMaterialLocationList, paraData1, (data) => {
+        getRequest(endpoints.getMaterialLocationList, (data) => {
+          for (let i = 0; i < data.length; i++) {
+            data[i].id = i + 1;
+          }
+          setTableData(data);
+        });
+      });
+
+      setBtnState("");
+    }
+  };
+  const columns = [
+    {
+      text: "id",
+      dataField: "id",
+      hidden: true,
+    },
+    {
+      text: "LocationNo",
+      dataField: "LocationNo",
+    },
+    {
+      text: "StorageType",
+      dataField: "StorageType",
+    },
+    {
+      text: "Capacity",
+      dataField: "Capacity",
+    },
+    {
+      text: "CapacityUtilised",
+      dataField: "CapacityUtilised",
+    },
+  ];
+  const selectRow = {
+    mode: "radio",
+    clickToSelect: true,
+    bgColor: "#98A8F8",
+    onSelect: (row, isSelect, rowIndex, e) => {
+      if (isSelect) {
+        console.log("row = ", row);
+        setSelectedRow(row);
+        setFormHeader((preValue) => {
+          return {
+            location: row.LocationNo,
+            storage: row.StorageType,
+            capacity: row.Capacity,
+          };
+        });
+      }
+    },
+  };
   return (
     <div>
+      <YesNoModal
+        show={show}
+        setShow={setShow}
+        message="Do you want to remove this location?"
+        modalResponse={modalResponse}
+      />
       <LocationLisModal open={open} setOpen={setOpen} />
-      <h4 className="form-title">Material Storage Location Manager</h4>
-      <hr className="horizontal-line" />
+      <h4 className="title">Material Storage Location Manager</h4>
       <div className="row">
         <div className="col-md-7">
-          <div style={{ height: "200px", overflowY: "scroll" }}>
-            <Table bordered>
-              <thead
-                style={{
-                  textAlign: "center",
-                  position: "sticky",
-                  top: "-1px",
-                }}
-              >
-                <tr>
-                  <th>Location No</th>
-                  <th>Storage Type</th>
-                  <th>Capacity</th>
-                  <th>Capacity Utilized</th>
-                </tr>
-              </thead>
-
-              <tbody className="tablebody">
-                <tr
-                // onClick={() => selectedRowFn(item, key)}
-                // className={
-                //   key === selectedRow?.index ? "selcted-row-clr" : ""
-                // }
-                >
-                  <td>asdfghj</td>
-                  <td>asdfghj</td>
-                  <td>asdfghj</td>
-                  <td>asdfghj</td>
-                </tr>
-              </tbody>
-            </Table>
+          <div style={{ height: "450px", overflowY: "scroll" }}>
+            <BootstrapTable
+              keyField="id"
+              columns={columns}
+              data={tableData}
+              striped
+              hover
+              condensed
+              selectRow={selectRow}
+              headerClasses="header-class"
+            ></BootstrapTable>
           </div>
         </div>
         <div className="col-md-5">
@@ -61,7 +236,9 @@ function LocationList(props) {
                         <input
                           className="in-field"
                           type="text"
-                          name="unitWeight"
+                          name="location"
+                          value={formHeader.location}
+                          onChange={InputEvent}
                         />
                       </div>
                     </div>
@@ -72,13 +249,19 @@ function LocationList(props) {
                       <div className="col-md-8" style={{ marginTop: "8px" }}>
                         <select
                           className="ip-select dropdown-field"
-                          name="partId"
+                          name="storage"
+                          onChange={InputEvent}
+                          defaultValue={formHeader.storage}
+                          value={formHeader.storage}
                         >
-                          {/* {mtrlDetails.map((part, index) => (
-                            <option key={index} value={part.PartId}>
-                              {part.PartId}
+                          <option value="" disabled selected>
+                            Select Shape
+                          </option>
+                          {shape.map((sh, index) => (
+                            <option key={index} value={sh.Shape}>
+                              {sh.Shape}
                             </option>
-                          ))} */}
+                          ))}
                         </select>
                       </div>
                     </div>
@@ -91,8 +274,10 @@ function LocationList(props) {
                         <input
                           className="in-field"
                           type="text"
-                          name="qtyReceived"
-                          //value={tempVal}
+                          name="capacity"
+                          value={formHeader.capacity}
+                          onChange={InputEvent}
+                          onBlur={insertData}
                         />
                       </div>
                     </div>
@@ -101,16 +286,24 @@ function LocationList(props) {
               </div>
             </div>
             <div className="row justify-content-center mt-3">
-              <button className="button-style " style={{ width: "120px" }}>
+              <button
+                className="button-style "
+                style={{ width: "120px" }}
+                onClick={addButton}
+              >
                 Add
               </button>
-              <button className="button-style " style={{ width: "120px" }}>
+              <button
+                className="button-style "
+                style={{ width: "120px" }}
+                onClick={deleteButton}
+              >
                 Delete
               </button>
               <button
                 className="button-style "
                 style={{ width: "120px", marginBottom: "20PX" }}
-                onClick={handleOpen}
+                onClick={saveButton}
               >
                 Save
               </button>

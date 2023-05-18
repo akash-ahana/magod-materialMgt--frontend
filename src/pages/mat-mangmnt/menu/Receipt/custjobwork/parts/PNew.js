@@ -479,7 +479,7 @@ function PNew() {
         <div className="row">
           <div className="col-md-8">
             <label className="form-label">Customer</label>
-            {/* <select
+            <select
               className="ip-select"
               name="customer"
               onChange={changeCustomer}
@@ -493,15 +493,15 @@ function PNew() {
                   {customer.Cust_name}
                 </option>
               ))}
-            </select> */}
+            </select>
 
-            <Typeahead
+            {/* <Typeahead
               id="basic-example"
               onChange={setSelected}
               options={dummydata}
               placeholder="Select Customer"
               selected={selected}
-            />
+            /> */}
           </div>
           <div className="col-md-4">
             <label className="">Weight</label>

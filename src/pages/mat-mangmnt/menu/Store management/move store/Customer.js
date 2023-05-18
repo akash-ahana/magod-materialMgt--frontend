@@ -4,7 +4,7 @@ import MaterialMoverForm from "./MaterialMoverForm";
 function Customer() {
   return (
     <div>
-      <MaterialMoverForm />
+      <MaterialMoverForm type="customer" />
     </div>
   );
 }

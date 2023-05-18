@@ -74,7 +74,7 @@ function ShopIssueIVList(props) {
   const selectRow = {
     mode: "radio",
     clickToSelect: true,
-    bgColor: "#8A92F0",
+    bgColor: "#98A8F8",
     onSelect: (row, isSelect, rowIndex, e) => {
       setIssueIDVal(row.IssueID);
       console.log("row = ", row);
@@ -108,8 +108,7 @@ function ShopIssueIVList(props) {
   return (
     <div>
       <>
-        <h4 className="form-title">Parts Issue Vouchers List</h4>
-        <hr className="horizontal-line" />
+        <h4 className="title">Parts Issue Vouchers List</h4>
         <div className="row">
           <div className="col-md-7 col-sm-12">
             <div style={{ height: "420px", overflowY: "scroll" }}>
@@ -123,6 +122,7 @@ function ShopIssueIVList(props) {
                 condensed
                 //pagination={paginationFactory()}
                 selectRow={selectRow}
+                headerClasses="header-class"
               ></BootstrapTable>
             </div>
           </div>

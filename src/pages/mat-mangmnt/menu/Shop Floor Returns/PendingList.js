@@ -142,7 +142,7 @@ function PendingList(props) {
   const selectRow1 = {
     mode: "radio",
     clickToSelect: true,
-    bgColor: "#8A92F0",
+    bgColor: "#98A8F8",
     onSelect: (row, isSelect, rowIndex, e) => {
       console.log("first row = ", row);
       setSelectedSecondTableRows([]);
@@ -169,7 +169,7 @@ function PendingList(props) {
   const selectRow2 = {
     mode: "checkbox",
     clickToSelect: true,
-    bgColor: "#8A92F0",
+    bgColor: "#98A8F8",
     onSelect: (row, isSelect, rowIndex, e) => {
       if (isSelect) {
         setSecondTableRow(row);
@@ -305,6 +305,7 @@ function PendingList(props) {
             );
           }
         });
+        toast.success("Return to Stock Completed");
       }
     }
   };
@@ -382,6 +383,7 @@ function PendingList(props) {
           }
         );
       }
+      toast.success("Return as Scrap Completed");
     } else {
       console.log("no data");
     }
@@ -402,8 +404,7 @@ function PendingList(props) {
         row={secondTableRow}
         resizeModal={resizeModal}
       />
-      <h4 className="form-title">Shop Floor Material Issue List</h4>
-      <hr className="horizontal-line" />
+      <h4 className="title">Shop Floor Material Issue List</h4>
       <div className="row">
         <div className="col-md-3">
           <h4 className="form-title">Shop Floor Material Return Form</h4>
@@ -427,7 +428,10 @@ function PendingList(props) {
                 nav(
                   "/materialmanagement/shoopfloorreturns/pendinglist/resizeandreturn/materialsplitter",
                   {
-                    state: { secondTableRow: selectedSecondTableRows },
+                    state: {
+                      secondTableRow: selectedSecondTableRows,
+                      type: "return",
+                    },
                   }
                 );
               }
@@ -464,6 +468,7 @@ function PendingList(props) {
               hover
               condensed
               selectRow={selectRow1}
+              headerClasses="header-class"
             ></BootstrapTable>
           </div>
         </div>
@@ -477,6 +482,7 @@ function PendingList(props) {
               hover
               condensed
               selectRow={selectRow2}
+              headerClasses="header-class"
             ></BootstrapTable>
           </div>
         </div>

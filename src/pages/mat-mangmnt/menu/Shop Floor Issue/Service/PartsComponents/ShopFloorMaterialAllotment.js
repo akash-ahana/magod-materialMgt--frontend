@@ -185,7 +185,7 @@ function ShopFloorMaterialAllotment(props) {
   const selectRow = {
     mode: "radio",
     clickToSelect: true,
-    bgColor: "#8A92F0",
+    bgColor: "#98A8F8",
     onSelect: (row, isSelect, rowIndex, e) => {
       setncid(row.Ncid);
     },
@@ -214,8 +214,7 @@ function ShopFloorMaterialAllotment(props) {
   };
   return (
     <div>
-      <h4 className="form-title">Shop Floor Material Allotment</h4>
-      <hr className="horizontal-line" />
+      <h4 className="title">Shop Floor Material Allotment</h4>
       <div className="row-md-6 justify-content-center mt-1 mb-2">
         <h4 style={{ marginLeft: "30px" }}>{props.formtype}</h4>
         <button
@@ -288,6 +287,7 @@ function ShopFloorMaterialAllotment(props) {
               condensed
               //pagination={paginationFactory()}
               selectRow={selectRow}
+              headerClasses="header-class"
             ></BootstrapTable>
           </div>
         </div>

@@ -84,6 +84,9 @@ export function formatDate(dateObj, format) {
     return (
       currdate + "/" + monthNames[parseInt(currmonth - 1)] + "/" + curryear
     );
+  } else if (format === 8) {
+    //mm
+    return currmonth;
   }
 }
 

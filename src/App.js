@@ -96,6 +96,10 @@ import ShopIssueIVList from "./pages/mat-mangmnt/menu/Shop Floor Issue/IVListSer
 import PrintIVListServicePart from "./pages/mat-mangmnt/print/shopfloorissue/PrintIVListServicePart";
 import PrintIVListServicePartTable from "./pages/mat-mangmnt/print/shopfloorissue/PrintIVListServicePartTable";
 import PrintIVListProfileCutting from "./pages/mat-mangmnt/print/shopfloorissue/PrintIVListProfileCutting";
+import PrintDailyReportReceipt from "./pages/mat-mangmnt/print/report/PrintDailyReportReceipt";
+import PrintReportStockList from "./pages/mat-mangmnt/print/report/PrintReportStockList";
+import PrintReportFullStockListTable from "./pages/mat-mangmnt/print/report/PrintReportFullStockListTable";
+import PrintReportFullStockList from "./pages/mat-mangmnt/print/report/PrintReportFullStockList";
 
 function App() {
   return (
@@ -360,6 +364,19 @@ function App() {
               </Route>
               <Route path="DailyReports" element={<DailyReport />} />
               <Route path="MonthlyReports" element={<MonthlyReport />} />
+
+              <Route
+                path="PrintDailyReportReceipt"
+                element={<PrintDailyReportReceipt />}
+              />
+              <Route
+                path="PrintReportStockList"
+                element={<PrintReportStockList />}
+              />
+              <Route
+                path="PrintReportFullStockList"
+                element={<PrintReportFullStockList />}
+              />
             </Route>
             <Route path="StoreManagement">
               <Route index={true} element={<StoreManagement />} />

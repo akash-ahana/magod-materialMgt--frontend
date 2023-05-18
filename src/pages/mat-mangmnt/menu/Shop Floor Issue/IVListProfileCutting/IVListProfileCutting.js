@@ -71,7 +71,7 @@ function IVListProfileCutting(props) {
   const selectRow = {
     mode: "radio",
     clickToSelect: true,
-    bgColor: "#8A92F0",
+    bgColor: "#98A8F8",
     onSelect: (row, isSelect, rowIndex, e) => {
       setIssueIDVal(row.IssueID);
       setRowData({
@@ -106,8 +106,7 @@ function IVListProfileCutting(props) {
   return (
     <div>
       <>
-        <h4 className="form-title">Material Issue Vouchers List</h4>
-        <hr className="horizontal-line" />
+        <h4 className="title">Material Issue Vouchers List</h4>
         <div className="row">
           <div className="col-md-7 col-sm-12">
             <div style={{ height: "400px", overflowY: "scroll" }}>
@@ -121,6 +120,7 @@ function IVListProfileCutting(props) {
                 condensed
                 //pagination={paginationFactory()}
                 selectRow={selectRow}
+                headerClasses="header-class"
               ></BootstrapTable>
             </div>
           </div>

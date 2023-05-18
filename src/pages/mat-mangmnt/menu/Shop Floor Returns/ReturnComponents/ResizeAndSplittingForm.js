@@ -17,8 +17,14 @@ function ResizeAndSplittingForm() {
   const [formHeader, setFormHeader] = useState({
     materialCode: location.state.secondTableRow[0].Mtrl_Code,
     quantity: location.state.secondTableRow.length,
-    para1: location.state.secondTableRow[0].Para1,
-    para2: location.state.secondTableRow[0].Para2,
+    para1:
+      location.state.type == "storeresize"
+        ? location.state.secondTableRow[0].DynamicPara1
+        : location.state.secondTableRow[0].Para1,
+    para2:
+      location.state.type == "storeresize"
+        ? location.state.secondTableRow[0].DynamicPara2
+        : location.state.secondTableRow[0].Para2,
   });
   const [tableData, setTableData] = useState([]);
   const [selectedRow, setSelectedRow] = useState({});
@@ -68,7 +74,7 @@ function ResizeAndSplittingForm() {
   const selectRow = {
     mode: "radio",
     clickToSelect: true,
-    bgColor: "#8A92F0",
+    bgColor: "#98A8F8",
     onSelect: (row, isSelect, rowIndex, e) => {
       setSelectedRow(row);
     },
@@ -103,11 +109,6 @@ function ResizeAndSplittingForm() {
 
   const changeHandler = (e) => {
     const { value, name } = e.target;
-
-    // var numberPattern = /^[0-9]+$/;
-    // if (!row.scrapWeight.match(numberPattern)) {
-    //   toast.error("Enter Numeric Value");
-    // }
 
     const newArray = tableData.map((p) =>
       p.MtrlStock_ID === tableData.length
@@ -204,88 +205,118 @@ function ResizeAndSplittingForm() {
   const modalYesNoResponse = (msg) => {
     console.log("msg = ", msg);
     if (msg == "yes") {
-      for (let i = 0; i < location.state.secondTableRow.length; i++) {
-        if (location.state.secondTableRow[i].Rejected === 1) {
-          //return the sheet
-          let paraData1 = {
-            id: location.state.secondTableRow[i].IssueID,
-          };
-          postRequest(
-            endpoints.updateShopfloorMaterialIssueRegisterQtyReturnedAddOne,
-            paraData1,
-            (data) => {
-              console.log("rejected : updated shopfloorregisterqtyreturned");
-            }
-          );
+      if (location.state.type == "return") {
+        for (let i = 0; i < location.state.secondTableRow.length; i++) {
+          if (location.state.secondTableRow[i].Rejected === 1) {
+            //return the sheet
+            let paraData1 = {
+              id: location.state.secondTableRow[i].IssueID,
+            };
+            postRequest(
+              endpoints.updateShopfloorMaterialIssueRegisterQtyReturnedAddOne,
+              paraData1,
+              (data) => {
+                console.log("rejected : updated shopfloorregisterqtyreturned");
+              }
+            );
 
-          //Set issued less by one
-          let paraData2 = {
-            Id: location.state.secondTableRow[i].NcID,
-            Qty: 1,
+            //Set issued less by one
+            let paraData2 = {
+              Id: location.state.secondTableRow[i].NcID,
+              Qty: 1,
+            };
+            postRequest(
+              endpoints.updateQtyAllotedncprograms,
+              paraData2,
+              (data) => {
+                console.log("rejected : updated qtyallotted ncprograms");
+              }
+            );
+          }
+          if (location.state.secondTableRow[i].Used === 1) {
+            //return the sheet
+            let paraData1 = {
+              id: location.state.secondTableRow[i].IssueID,
+            };
+            postRequest(
+              endpoints.updateShopfloorMaterialIssueRegisterQtyReturnedAddOne,
+              paraData1,
+              (data) => {
+                console.log("used : updated shopfloorregisterqtyreturned");
+              }
+            );
+          }
+
+          //update stock list
+          let paraData3 = {
+            LocationNo: "ScrapYard",
+            MtrlStockID: location.state.secondTableRow[i].ShapeMtrlID,
+          };
+          postRequest(endpoints.updateMtrlStockLock3, paraData3, (data) => {
+            console.log("updated stock list");
+          });
+
+          //updatencprogrammtrlallotmentlistReturnStock
+          let paraData4 = {
+            id: location.state.secondTableRow[i].NcPgmMtrlId,
           };
           postRequest(
-            endpoints.updateQtyAllotedncprograms,
-            paraData2,
+            endpoints.updatencprogrammtrlallotmentlistReturnStock,
+            paraData4,
             (data) => {
-              console.log("rejected : updated qtyallotted ncprograms");
+              console.log("updated ncprogrammtrlallotmentreturnstock");
             }
           );
         }
-        if (location.state.secondTableRow[i].Used === 1) {
-          //return the sheet
-          let paraData1 = {
-            id: location.state.secondTableRow[i].IssueID,
+
+        //insert mtrl stock list
+        for (let i = 0; i < tableData.length; i++) {
+          let paraData3 = {
+            DynamicPara1: tableData[i].DynamicPara1,
+            DynamicPara2: tableData[i].DynamicPara2,
+            DynamicPara3: 0,
+            LocationNo: tableData[i].Location,
+            Weight: tableData[i].Weight,
+            MtrlStockID:
+              location.state.secondTableRow[0].ShapeMtrlID + "/P" + (i + 1),
+            MtrlStockIDNew: location.state.secondTableRow[0].ShapeMtrlID,
           };
-          postRequest(
-            endpoints.updateShopfloorMaterialIssueRegisterQtyReturnedAddOne,
-            paraData1,
-            (data) => {
-              console.log("used : updated shopfloorregisterqtyreturned");
-            }
-          );
+          postRequest(endpoints.insertByMtrlStockID, paraData3, (data) => {
+            console.log("inserted stock list");
+          });
+        }
+        toast.success("Spliting done Successfully");
+        nav("/materialmanagement/ShoopFloorReturns/PendingList");
+      } else if (location.state.type == "storeresize") {
+        //insert mtrl stock list
+        for (let i = 0; i < tableData.length; i++) {
+          let paraData3 = {
+            DynamicPara1: tableData[i].DynamicPara1,
+            DynamicPara2: tableData[i].DynamicPara2,
+            DynamicPara3: 0,
+            LocationNo: tableData[i].Location,
+            Weight: tableData[i].Weight,
+            MtrlStockID:
+              location.state.secondTableRow[0].ShapeMtrlID + "/P" + (i + 1),
+            MtrlStockIDNew: location.state.secondTableRow[0].ShapeMtrlID,
+          };
+          postRequest(endpoints.insertByMtrlStockID, paraData3, (data) => {
+            console.log("inserted stock list");
+          });
         }
 
         //update stock list
-        let paraData3 = {
-          LocationNo: "ScrapYard",
-          MtrlStockID: location.state.secondTableRow[i].ShapeMtrlID,
-        };
-        postRequest(endpoints.updateMtrlStockLock3, paraData3, (data) => {
-          console.log("updated stock list");
-        });
-
-        //updatencprogrammtrlallotmentlistReturnStock
-        let paraData4 = {
-          id: location.state.secondTableRow[i].NcPgmMtrlId,
-        };
-        postRequest(
-          endpoints.updatencprogrammtrlallotmentlistReturnStock,
-          paraData4,
-          (data) => {
-            console.log("updated ncprogrammtrlallotmentreturnstock");
-          }
-        );
-      }
-
-      //insert mtrl stock list
-      for (let i = 0; i < tableData.length; i++) {
-        let paraData3 = {
-          DynamicPara1: tableData[i].DynamicPara1,
-          DynamicPara2: tableData[i].DynamicPara2,
-          DynamicPara3: 0,
-          LocationNo: tableData[i].Location,
-          Weight: tableData[i].Weight,
-          MtrlStockID:
-            location.state.secondTableRow[0].ShapeMtrlID + "/P" + (i + 1),
-          MtrlStockIDNew: location.state.secondTableRow[0].ShapeMtrlID,
-        };
-        postRequest(endpoints.insertByMtrlStockID, paraData3, (data) => {
-          console.log("inserted stock list");
-        });
+        for (let i = 0; i < location.state.secondTableRow.length; i++) {
+          let paraData3 = {
+            LocationNo: "ScrapYard",
+            MtrlStockID: location.state.secondTableRow[i].ShapeMtrlID,
+          };
+          postRequest(endpoints.updateMtrlStockLock3, paraData3, (data) => {
+            console.log("updated stock list");
+          });
+        }
       }
     }
-    toast.success("Spliting done Successfully");
-    nav("/materialmanagement/ShoopFloorReturns/PendingList");
   };
   return (
     <div>
@@ -295,8 +326,7 @@ function ResizeAndSplittingForm() {
         message="Do you wish to split the material as indicated and save it. Changes once done cannot be undone"
         modalResponse={modalYesNoResponse}
       />
-      <h4 className="form-title">Material Resize and Splitting Form</h4>
-      <hr className="horizontal-line" />
+      <h4 className="title">Material Resize and Splitting Form</h4>
       <div className="table_top_style">
         <div className="row">
           <div className="col-md-9">
@@ -366,6 +396,7 @@ function ResizeAndSplittingForm() {
                 hover
                 condensed
                 selectRow={selectRow}
+                headerClasses="header-class"
               ></BootstrapTable>
             </div>
           </div>
