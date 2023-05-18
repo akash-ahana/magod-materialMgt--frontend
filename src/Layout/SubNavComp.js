@@ -14,8 +14,9 @@ const SidebarLink = styled.div`
   font-size: 13px;
 
   &:hover {
-    background: #707075;
-    border-left: 4px solid #707075;
+    /* background: #707075; */
+    // border-left: 4px solid #707075;
+    border-left: 4px solid #263159;
     cursor: pointer;
     color: #ffffff;
   }
@@ -95,7 +96,7 @@ const SubMenuComp = ({ item, sidebar }) => {
         item?.subNav.map((subNav1, index) => {
           return (
             <>
-            <FirstNestMenu  key={index} subNav1={subNav1} subnav={subnav}/>
+              <FirstNestMenu key={index} subNav1={subNav1} subnav={subnav} />
               {/* <NavLink
                 to={subNav1.path}
                 key={index}
@@ -122,10 +123,6 @@ const SubMenuComp = ({ item, sidebar }) => {
                     
                 })}
               */}
-
-
-
-
             </>
           );
         })}

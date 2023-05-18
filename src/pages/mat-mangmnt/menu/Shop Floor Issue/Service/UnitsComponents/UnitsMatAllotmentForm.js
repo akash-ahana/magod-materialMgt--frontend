@@ -129,7 +129,7 @@ function UnitsMatAllotmentForm() {
   const selectRow1 = {
     mode: "checkbox",
     clickToSelect: true,
-    bgColor: "#8A92F0",
+    bgColor: "#98A8F8",
     onSelect: (row, isSelect, rowIndex, e) => {
       if (isSelect) {
         setFirstTableRow([...firstTableRow, row]);
@@ -151,7 +151,7 @@ function UnitsMatAllotmentForm() {
   const selectRow2 = {
     mode: "checkbox",
     clickToSelect: true,
-    bgColor: "#8A92F0",
+    bgColor: "#98A8F8",
     onSelect: (row, isSelect, rowIndex, e) => {
       if (isSelect) {
         //setSecondTableRow([...secondTableRow, row]);
@@ -398,8 +398,7 @@ function UnitsMatAllotmentForm() {
       />
 
       <div>
-        <h4 className="form-title">Material Allotment Form</h4>
-        <hr className="horizontal-line" />
+        <h4 className="title">Material Allotment Form</h4>
 
         <div className="row">
           <div className="col-md-6">
@@ -515,6 +514,7 @@ function UnitsMatAllotmentForm() {
                 condensed
                 //pagination={paginationFactory()
                 selectRow={selectRow1}
+                headerClasses="header-class"
               ></BootstrapTable>
             </div>
           </div>
@@ -535,6 +535,7 @@ function UnitsMatAllotmentForm() {
                 condensed
                 //pagination={paginationFactory()
                 selectRow={selectRow2}
+                headerClasses="header-class"
               ></BootstrapTable>
             </div>
           </div>

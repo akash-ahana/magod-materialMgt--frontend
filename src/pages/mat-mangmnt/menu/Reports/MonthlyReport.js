@@ -1,23 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
+import BootstrapTable from "react-bootstrap-table-next";
 import MonthlyMatPurDetails from "./MonthlyMatPurDetails";
 import MonthlyMatSalesDetails from "./MonthlyMatSalesDetails";
 import MonthlyMatPurSummary from "./MonthlyMatPurSummary";
 import MonthlyMatHandlingSummary from "./MonthlyMatHandlingSummary";
 import MonthlyMatSalesSummary from "./MonthlyMatSalesSummary";
+import { formatDate } from "../../../../utils";
+
+const { getRequest, postRequest } = require("../../../api/apiinstance");
+const { endpoints } = require("../../../api/constants");
 
 function MonthlyReport() {
+  const [firstTab, setFirstTab] = useState([]);
+  const [secondTab, setSecondTab] = useState([]);
+  const [thirdTab, setThirdTab] = useState([]);
+  const [fourthTab, setFourthTab] = useState([]);
+  const [fifthTab, setFifthTab] = useState([]);
+
+  const [dateVal, setDateVal] = useState("1988-01-01");
+  const [monthval, setMonthVal] = useState(0);
+  const [yearval, setYearVal] = useState(1900);
+  const InputEvent = (e) => {
+    const { name, value } = e.target;
+    console.log("value = ", value);
+    console.log("year = ", formatDate(new Date(value), 6));
+    console.log("month = ", formatDate(new Date(value), 8));
+    setDateVal(value);
+    setMonthVal(formatDate(new Date(value), 8));
+    setYearVal(formatDate(new Date(value), 6));
+  };
   return (
     <div>
       {" "}
-      <h4 className="form-title">Raw Material Daily Report</h4>
-      <hr className="horizontal-line" />
+      <h4 className="title">Raw Material Daily Report</h4>
       <div className="row">
         <div className="col-md-1"></div>
         <div className="col-md-2">
           <label>Select Month</label>
-          <input type="date" />
+          <input type="date" name="date" onChange={InputEvent} />
         </div>
         <div className="col-md-2">
           <button className="button-style">Load Data</button>

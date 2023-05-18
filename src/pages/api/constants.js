@@ -8,14 +8,20 @@ export const endpoints = {
   getCustomerByCustCode: `${API}/customers/getCustomerByCustCode`,
   //bom list
   getCustBomList: `${API}/custbomlist/allCustBomList`,
+
   //locations
   getMaterialLocationList: `${API}/materiallocationlist/allMaterialLocationList`,
+  deleteMaterialLocationList: `${API}/materiallocationlist/deleteMaterialLocationList`,
+  updateMaterialLocationList: `${API}/materiallocationlist/updateMaterialLocationList`,
+  insertMaterialLocationList: `${API}/materiallocationlist/insertMaterialLocationList`,
+
   //mtrl data
   getMtrlData: `${API}/mtrlData/allmtrldata`,
   getRowByMtrlCode: `${API}/mtrlData/getRowByMtrlCode`,
 
   //shape data
   getRowByShape: `${API}/shapes/getRowByShape`,
+  getAllShapeNames: `${API}/shapes/getAllShapeNames`,
 
   getPartsCreatedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Created&type2=Parts`,
   getPartsOpenedMaterial: `${API}/materialReceiptRegister/getByTypeMaterialReceiptRegister?type1=Received&type2=Parts`,
@@ -152,7 +158,6 @@ export const endpoints = {
   getShopFloorAllotmentPartSecondTableIds: `${API}/shopfloorAllotment/getShopFloorAllotmentPartSecondTableIds`,
 
   //shopfloorBOMIssueDetails
-
   insertShopfloorBOMIssueDetails: `${API}/shopfloorBOMIssueDetails/insertShopfloorBOMIssueDetails`,
   updateQtyReturnedShopfloorBOMIssueDetails: `${API}/shopfloorBOMIssueDetails/updateQtyReturnedShopfloorBOMIssueDetails`,
 
@@ -176,6 +181,40 @@ export const endpoints = {
   //shopfloorMaterialIssueRegister
   insertShopfloorMaterialIssueRegister: `${API}/shopfloorMaterialIssueRegister/insertShopfloorMaterialIssueRegister`,
   updateShopfloorMaterialIssueRegisterQtyReturnedAddOne: `${API}/shopfloorMaterialIssueRegister/updateShopfloorMaterialIssueRegisterQtyReturnedAddOne`,
+
+  //store
+  getResizeMtrlStockList: `${API}/storeMng/getResizeMtrlStockList`,
+  getMoveStoreMtrlStockByCustomer: `${API}/storeMng/getMoveStoreMtrlStockByCustomer`,
+  getMoveStoreMtrlStockByLocation: `${API}/storeMng/getMoveStoreMtrlStockByLocation`,
+  getMoveStoreMtrlStockByAll: `${API}/storeMng/getMoveStoreMtrlStockByAll`,
+  updateMtrlstockLocationByMtrlStockId: `${API}/storeMng/updateMtrlstockLocationByMtrlStockId`,
+  getLocationListMtrlStockCount: `${API}/storeMng/getLocationListMtrlStockCount`,
+  getStockListByCustCodeFirst: `${API}/storeMng/getStockListByCustCodeFirst`,
+  getStockListByCustCodeSecond: `${API}/storeMng/getStockListByCustCodeSecond`,
+  getStockListByCustCodeThird: `${API}/storeMng/getStockListByCustCodeThird`,
+  getStockArrivalFirstTable: `${API}/storeMng/getStockArrivalFirstTable`,
+  getStockArrivalSecondTable: `${API}/storeMng/getStockArrivalSecondTable`,
+  getStockArrivalThirdTable: `${API}/storeMng/getStockArrivalThirdTable`,
+  insertStockArrivalMtrlReceiptList: `${API}/storeMng/insertStockArrivalMtrlReceiptList`,
+  getStockDispatchFirstTable: `${API}/storeMng/getStockDispatchFirstTable`,
+  getStockDispatchSecondTable: `${API}/storeMng/getStockDispatchSecondTable`,
+  getStockDispatchThirdTable: `${API}/storeMng/getStockDispatchThirdTable`,
+  insertStockDispatchMtrlSales: `${API}/storeMng/insertStockDispatchMtrlSales`,
+
+  //report
+  getDailyReportMaterialReceipt1: `${API}/report/getDailyReportMaterialReceipt1`,
+  getDailyReportMaterialReceipt2: `${API}/report/getDailyReportMaterialReceipt2`,
+  getDailyReportMaterialDispatch: `${API}/report/getDailyReportMaterialDispatch`,
+  getDailyReportMaterialSales: `${API}/report/getDailyReportMaterialSales`,
+  getDailyReportMaterialPurchase: `${API}/report/getDailyReportMaterialPurchase`,
+
+  getMonthlyReportMaterialPurchaseDetails: `${API}/report/getMonthlyReportMaterialPurchaseDetails`,
+
+  getPartListInStockAndProcess: `${API}/report/getPartListInStockAndProcess`,
+  getPartListReceiptAndUsageFirst: `${API}/report/getPartListReceiptAndUsageFirst`,
+  getPartListReceiptAndUsageSecond: `${API}/report/getPartListReceiptAndUsageSecond`,
+  getPartListReceiptAndUsageThird: `${API}/report/getPartListReceiptAndUsageThird`,
+  getPartListReceiptAndUsageFourth: `${API}/report/getPartListReceiptAndUsageFourth`,
 
   //updateOutwordMaterialVocher: `${API}/mtrlIssueDetails/updatemtrlIssueDetailsRouter`,
 

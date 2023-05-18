@@ -215,8 +215,7 @@ function ShopMatIssueVocher() {
   };
   return (
     <div>
-      <h4 className="form-title">Shop Material Issue Vocher</h4>
-      <hr className="horizontal-line" />
+      <h4 className="title">Shop Material Issue Vocher</h4>
       <div className="row">
         <div className="col-md-4">
           <div className="row">
@@ -372,6 +371,7 @@ function ShopMatIssueVocher() {
           condensed
           //pagination={paginationFactory()}
           //selectRow={selectRow}
+          headerClasses="header-class"
         ></BootstrapTable>
 
         {/* <Table bordered>

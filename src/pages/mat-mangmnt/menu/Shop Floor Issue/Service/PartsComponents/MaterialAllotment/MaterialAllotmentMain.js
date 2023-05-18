@@ -103,8 +103,8 @@ function MaterialAllotmentMain() {
 
   useEffect(() => {
     //if (firstTable.issueNow != 0) {
-    setFirstTable(firstTable);
-    setSecondTable(secondTable);
+    //setFirstTable(firstTable);
+    //setSecondTable(secondTable);
     // }
     console.log("use state call");
   }, [firstTable, secondTable]);
@@ -161,11 +161,11 @@ function MaterialAllotmentMain() {
           });
         });
 
-        //await delay(1000);
+        await delay(1000);
         console.log("new first table = ", firstTable);
         console.log("new second table = ", secondTable);
-        setFirstTable(firstTable);
-        setSecondTable(secondTable);
+        setFirstTable(firstTable.filter((obj) => obj.issueNow >= 0));
+        setSecondTable(secondTable.filter((obj) => obj.issueNow >= 0));
       }
     }
   };
@@ -249,7 +249,7 @@ function MaterialAllotmentMain() {
   const selectRow1 = {
     mode: "radio",
     clickToSelect: true,
-    bgColor: "#8A92F0",
+    bgColor: "#98A8F8",
     onSelect: (row, isSelect, rowIndex, e) => {
       setCustBOMId(row.CustBOM_Id);
     },
@@ -258,7 +258,7 @@ function MaterialAllotmentMain() {
   const selectRow2 = {
     mode: "radio",
     clickToSelect: true,
-    bgColor: "#8A92F0",
+    bgColor: "#98A8F8",
     onSelect: (row, isSelect, rowIndex, e) => {
       setRow2(row);
     },
@@ -267,7 +267,7 @@ function MaterialAllotmentMain() {
   const rowStyle2 = (row, rowIndex) => {
     const style = {};
     if (row.CustBOM_Id === custBOMId) {
-      style.backgroundColor = "#C0F59F";
+      style.backgroundColor = "#98A8F8";
     }
     return style;
   };
@@ -392,6 +392,13 @@ function MaterialAllotmentMain() {
 
             console.log("Return id = ", issueidval);
             //return data.insertId;
+
+            nav(
+              "/materialmanagement/shopfloorissue/ivlistservice/issued/shopmatissuevocher",
+              {
+                state: { issueIDVal: data.insertId },
+              }
+            );
           }
         );
       });
@@ -403,20 +410,19 @@ function MaterialAllotmentMain() {
   };
   const releaseProduction = async () => {
     CreatePartsIssueVoucher();
-    await delay(5000);
+    /*await delay(5000);
     console.log("return val = ", issueidval);
     nav(
       "/materialmanagement/shopfloorissue/ivlistservice/issued/shopmatissuevocher",
       {
         state: { issueIDVal: issueidval },
       }
-    );
+    );*/
   };
   return (
     <div>
       <div>
-        <h4 className="form-title">Material Allotment Form</h4>
-        <hr className="horizontal-line" />
+        <h4 className="title">Material Allotment Form</h4>
 
         <div className="row">
           <div className="col-md-4">
@@ -504,6 +510,7 @@ function MaterialAllotmentMain() {
           condensed
           //pagination={paginationFactory()
           selectRow={selectRow1}
+          headerClasses="header-class"
         ></BootstrapTable>
       </div>
 
@@ -530,6 +537,7 @@ function MaterialAllotmentMain() {
               rowStyle={rowStyle2}
               //pagination={paginationFactory()}
               selectRow={selectRow2}
+              headerClasses="header-class"
             ></BootstrapTable>
           </div>
         </div>

@@ -31,9 +31,12 @@ function FirstNestMenu({ subNav1, subnav }) {
     display: flex;
     align-items: center;
     text-decoration: none;
-    font-size: 12px;
+    font-size: 13px;
+    // background-color: #707075;
+
     &:hover {
-      background-color: #707075;
+      /* background-color: #707075; */
+      background-color: #5956f3;
       cursor: pointer;
       color: #ffffff;
     }

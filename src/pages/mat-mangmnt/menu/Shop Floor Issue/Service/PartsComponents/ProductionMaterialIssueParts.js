@@ -7,8 +7,7 @@ function ProductionMaterialIssueParts() {
   console.log("ID = ", location.state.id);
   return (
     <div>
-      <h4 className="form-title">Production Material Issue :Parts</h4>
-      <hr className="horizontal-line" />
+      <h4 className="title">Production Material Issue :Parts</h4>
       <div className="table_top_style">
         <form action="">
           <div className="row">
