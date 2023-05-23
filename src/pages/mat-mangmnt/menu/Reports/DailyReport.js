@@ -227,6 +227,40 @@ function DailyReport() {
       },
     });
   };
+  const printInvoice = async () => {
+    //first find out the unique type
+    var invType = [...new Set(secondTab.map((item) => item.DC_InvType))];
+    invType = invType.sort();
+    //console.log("type = ", invType.sort());
+
+    //calculate material purchase details
+    var fullTable = [];
+    for (let i = 0; i < invType.length; i++) {
+      let tot = 0;
+      var tempdata = [];
+      for (let j = 0; j < secondTab.length; j++) {
+        if (invType[i] === secondTab[j].DC_InvType) {
+          tempdata.push(secondTab[j]);
+          tot = tot + parseFloat(secondTab[j].SrlWt);
+        }
+      }
+      let obj = {
+        material: invType[i],
+        totwt: tot,
+        data: tempdata,
+      };
+      fullTable.push(obj);
+    }
+    await delay(300);
+    console.log("fullTable = ", fullTable);
+
+    nav("/materialmanagement/Reports/PrintDailyReportInvoice", {
+      state: {
+        tableData: fullTable,
+        date: dateVal,
+      },
+    });
+  };
   return (
     <div>
       {" "}
@@ -251,7 +285,10 @@ function DailyReport() {
           </button>
         </div>
         <div className="col-md-2">
-          <button className="button-style"> Print Invoice Dispatch</button>
+          <button className="button-style" onClick={printInvoice}>
+            {" "}
+            Print Invoice Dispatch
+          </button>
         </div>
       </div>
       <div className="row mt-4">
