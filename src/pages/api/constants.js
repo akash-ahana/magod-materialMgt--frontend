@@ -200,6 +200,8 @@ export const endpoints = {
   getStockDispatchSecondTable: `${API}/storeMng/getStockDispatchSecondTable`,
   getStockDispatchThirdTable: `${API}/storeMng/getStockDispatchThirdTable`,
   insertStockDispatchMtrlSales: `${API}/storeMng/insertStockDispatchMtrlSales`,
+  getLocationStockSecond: `${API}/storeMng/getLocationStockSecond`,
+  getLocationStockThird: `${API}/storeMng/getLocationStockThird`,
 
   //report
   getDailyReportMaterialReceipt1: `${API}/report/getDailyReportMaterialReceipt1`,
@@ -209,6 +211,10 @@ export const endpoints = {
   getDailyReportMaterialPurchase: `${API}/report/getDailyReportMaterialPurchase`,
 
   getMonthlyReportMaterialPurchaseDetails: `${API}/report/getMonthlyReportMaterialPurchaseDetails`,
+  getMonthlyReportMaterialSalesSummary: `${API}/report/getMonthlyReportMaterialSalesSummary`,
+  getMonthlyReportMaterialPurchaseSummary: `${API}/report/getMonthlyReportMaterialPurchaseSummary`,
+  getMonthlyReportMaterialSalesDetails: `${API}/report/getMonthlyReportMaterialSalesDetails`,
+  getMonthlyReportMaterialHandlingSummary: `${API}/report/getMonthlyReportMaterialHandlingSummary`,
 
   getPartListInStockAndProcess: `${API}/report/getPartListInStockAndProcess`,
   getPartListReceiptAndUsageFirst: `${API}/report/getPartListReceiptAndUsageFirst`,

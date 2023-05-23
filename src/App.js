@@ -100,6 +100,8 @@ import PrintDailyReportReceipt from "./pages/mat-mangmnt/print/report/PrintDaily
 import PrintReportStockList from "./pages/mat-mangmnt/print/report/PrintReportStockList";
 import PrintReportFullStockListTable from "./pages/mat-mangmnt/print/report/PrintReportFullStockListTable";
 import PrintReportFullStockList from "./pages/mat-mangmnt/print/report/PrintReportFullStockList";
+import PrintMonthlyReport from "./pages/mat-mangmnt/print/report/PrintMonthlyReport";
+import PrintDailyReportInvoice from "./pages/mat-mangmnt/print/report/PrintDailyReportInvoice";
 
 function App() {
   return (
@@ -369,6 +371,15 @@ function App() {
                 path="PrintDailyReportReceipt"
                 element={<PrintDailyReportReceipt />}
               />
+              <Route
+                path="PrintDailyReportInvoice"
+                element={<PrintDailyReportInvoice />}
+              />
+              <Route
+                path="PrintMonthlyReport"
+                element={<PrintMonthlyReport />}
+              />
+
               <Route
                 path="PrintReportStockList"
                 element={<PrintReportStockList />}
