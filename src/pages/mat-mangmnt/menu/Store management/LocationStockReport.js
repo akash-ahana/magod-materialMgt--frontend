@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
-import Table from "react-bootstrap/Table";
 import BootstrapTable from "react-bootstrap-table-next";
+import { useNavigate } from "react-router-dom";
 
 const { getRequest, postRequest } = require("../../../api/apiinstance");
 const { endpoints } = require("../../../api/constants");
 
 function LocationStockReport() {
+  const nav = useNavigate();
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+
   let [custdata, setCustdata] = useState([]);
   let [locdata, setLocdata] = useState([]);
   let [firstTable, setFirstTable] = useState([]);
   let [secondTable, setSecondTable] = useState([]);
+  let [secondTableAll, setSecondTableAll] = useState([]);
   let [thirdTable, setThirdTable] = useState([]);
+  let [custCode, setCustCode] = useState("-1");
 
   let [selectedfirstRow, setSelectedFirstRow] = useState({
     LocationNo: "",
@@ -43,6 +48,105 @@ function LocationStockReport() {
     fetchCustData();
   }, []);
 
+  const changeCustomer = (e) => {
+    const { name, value } = e.target;
+    setCustCode(value);
+  };
+  const radioButtonChanged = async (e) => {
+    const { name, value } = e.target;
+    console.log("name = ", name, " value = ", value);
+    if (value === "all") {
+      setSecondTable(secondTableAll);
+      setCustCode("-1");
+    }
+    if (value === "customer") {
+      if (custCode !== "-1") {
+        let newArray = secondTableAll.filter(
+          (item) => item.Cust_Code === custCode
+        );
+        setSecondTable(newArray);
+      }
+    }
+  };
+
+  const summaryReport = async () => {
+    //find the unique name of customers
+    var custnames = [...new Set(secondTable.map((item) => item.Customer))];
+    custnames = custnames.sort();
+
+    //calculate material purchase details
+    var fullTable = [];
+    for (let i = 0; i < custnames.length; i++) {
+      let tot1wt = 0,
+        tot1swt = 0,
+        tot1qty = 0;
+      let tot2wt = 0,
+        tot2swt = 0,
+        tot2qty = 0;
+      var raw = [];
+      var scrap = [];
+      for (let j = 0; j < secondTable.length; j++) {
+        if (custnames[i] === secondTable[j].Customer) {
+          if (secondTable[j].Scrap === 0) {
+            raw.push(secondTable[j]);
+            tot1wt = tot1wt + parseFloat(secondTable[j].Weight);
+            tot1swt = tot1swt + parseFloat(secondTable[j].SWeight);
+            tot1qty = tot1qty + parseFloat(secondTable[j].Quantity);
+          } else {
+            scrap.push(secondTable[j]);
+            tot2wt = tot2wt + parseFloat(secondTable[j].Weight);
+            tot2swt = tot2swt + parseFloat(secondTable[j].SWeight);
+            tot2qty = tot2qty + parseFloat(secondTable[j].Quantity);
+          }
+        }
+      }
+      let obj = {
+        customer: custnames[i],
+        rawMaterial: raw,
+        scrapMaterial: scrap,
+        tot1wt: tot1wt,
+        tot1swt: tot1swt,
+        tot1qty: tot1qty,
+        tot2wt: tot2wt,
+        tot2swt: tot2swt,
+        tot2qty: tot2qty,
+        rawlength: raw.length,
+        scraplength: scrap.length,
+      };
+      fullTable.push(obj);
+    }
+    await delay(300);
+    console.log("fullTable = ", fullTable);
+
+    nav("/materialmanagement/StoreManagement/PrintLocationStockSummaryReport", {
+      state: {
+        formHeader: selectedfirstRow,
+        tableData: fullTable,
+      },
+    });
+  };
+
+  const detailsReport = async () => {
+    let tot1 = 0,
+      tot2 = 0;
+    for (let i = 0; i < thirdTable.length; i++) {
+      tot1 = tot1 + parseFloat(thirdTable[i].Weight);
+      tot2 = tot2 + parseFloat(thirdTable[i].ScrapWeight);
+    }
+    let tabletotal = {
+      qty: thirdTable.length,
+      tot1: tot1,
+      tot2: tot2,
+    };
+    await delay(300);
+    nav("/materialmanagement/StoreManagement/PrintLocationStockDetailReport", {
+      state: {
+        formHeader: selectedSecondRow,
+        tableData: thirdTable,
+        tabletotal: tabletotal,
+      },
+    });
+  };
   const columns1 = [
     {
       text: "#",
@@ -146,7 +250,13 @@ function LocationStockReport() {
         for (let i = 0; i < data.length; i++) {
           data[i].id = i + 1;
         }
-        setSecondTable(data);
+        setSecondTableAll(data);
+        if (custCode !== "-1") {
+          let newArray = data.filter((item) => item.Cust_Code === custCode);
+          setSecondTable(newArray);
+        } else {
+          setSecondTable(data);
+        }
         console.log("second table = ", data);
       });
     },
@@ -197,7 +307,7 @@ function LocationStockReport() {
               <select
                 className="ip-select"
                 name="customer"
-                //onChange={changeCustomer}
+                onChange={changeCustomer}
                 // disabled={boolVal1}
               >
                 <option value="" disabled selected>
@@ -266,10 +376,11 @@ function LocationStockReport() {
                     type="radio"
                     id="flexCheckDefault"
                     name="updated"
+                    value="all"
                     //   value={inputPart.upDated}
                     //disabled={boolVal3 | boolVal4}
                     //   disabled={true}
-                    //   onChange={changeMaterialHandle}
+                    onChange={radioButtonChanged}
                   />
                   <label className="">All</label>
                 </div>
@@ -285,6 +396,8 @@ function LocationStockReport() {
                     type="radio"
                     id="flexCheckDefault"
                     name="updated"
+                    onChange={radioButtonChanged}
+                    value="customer"
                     //   value={inputPart.upDated}
                     //disabled={boolVal3 | boolVal4}
                     //   disabled={true}
@@ -296,10 +409,18 @@ function LocationStockReport() {
             </div>
             <div className="col-md-8">
               <div className="row justify-content-center mt-3">
-                <button className="button-style " style={{ width: "160px" }}>
+                <button
+                  className="button-style "
+                  style={{ width: "160px" }}
+                  onClick={summaryReport}
+                >
                   Summary Report
                 </button>
-                <button className="button-style " style={{ width: "160px" }}>
+                <button
+                  className="button-style "
+                  style={{ width: "160px" }}
+                  onClick={detailsReport}
+                >
                   Details Report
                 </button>
               </div>
