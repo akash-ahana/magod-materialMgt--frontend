@@ -102,6 +102,8 @@ import PrintReportFullStockListTable from "./pages/mat-mangmnt/print/report/Prin
 import PrintReportFullStockList from "./pages/mat-mangmnt/print/report/PrintReportFullStockList";
 import PrintMonthlyReport from "./pages/mat-mangmnt/print/report/PrintMonthlyReport";
 import PrintDailyReportInvoice from "./pages/mat-mangmnt/print/report/PrintDailyReportInvoice";
+import PrintLocationStockDetailReport from "./pages/mat-mangmnt/print/store/PrintLocationStockDetailReport";
+import PrintLocationStockSummaryReport from "./pages/mat-mangmnt/print/store/PrintLocationStockSummaryReport";
 
 function App() {
   return (
@@ -390,6 +392,15 @@ function App() {
               />
             </Route>
             <Route path="StoreManagement">
+              <Route
+                path="PrintLocationStockDetailReport"
+                element={<PrintLocationStockDetailReport />}
+              />
+              <Route
+                path="PrintLocationStockSummaryReport"
+                element={<PrintLocationStockSummaryReport />}
+              />
+
               <Route index={true} element={<StoreManagement />} />
               <Route path="ResizeSheets">
                 <Route index={true} element={<ResizeSheets />} />
