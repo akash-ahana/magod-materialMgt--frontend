@@ -466,11 +466,11 @@ function UnitsMatAllotmentForm() {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-7">
+          <div className="col-md-5">
             <label className="">Source</label>
             <input className="" value={formHeader.CustMtrl} disabled />
           </div>
-          <div className="col-md-5">
+          <div className="col-md-7">
             <button
               className="button-style "
               //   disabled={true}
@@ -492,6 +492,14 @@ function UnitsMatAllotmentForm() {
               onClick={issueToProduction}
             >
               Issue to Production
+            </button>
+            <button
+              className="button-style "
+              id="btnclose"
+              type="submit"
+              onClick={() => nav("/materialmanagement")}
+            >
+              Close
             </button>
           </div>
         </div>

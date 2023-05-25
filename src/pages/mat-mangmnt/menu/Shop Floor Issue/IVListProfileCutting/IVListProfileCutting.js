@@ -131,7 +131,7 @@ function IVListProfileCutting(props) {
                 <div className="col-md-12 col-sm-12">
                   <div className="ip-box form-bg">
                     <div className="row">
-                      <div className="row justify-content-center mt-2">
+                      <div className="col-6">
                         <button
                           onClick={openButton} /*() =>
                             nav(
@@ -142,6 +142,16 @@ function IVListProfileCutting(props) {
                           style={{ width: "120px" }}
                         >
                           Open
+                        </button>
+                      </div>
+                      <div className="col-6">
+                        <button
+                          className=" button-style "
+                          id="btnclose"
+                          type="submit"
+                          onClick={() => nav("/materialmanagement")}
+                        >
+                          Close
                         </button>
                       </div>
                       <div className="row">

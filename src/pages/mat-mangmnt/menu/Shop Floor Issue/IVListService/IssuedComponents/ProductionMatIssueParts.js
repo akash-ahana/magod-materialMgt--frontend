@@ -280,6 +280,16 @@ function ProductionMatIssueParts() {
             <label className="form-label">Customer</label>
             <input className="" value={formHeader.Cust_name} disabled />
           </div>
+          <div className="col-md-3">
+            <button
+              className="button-style "
+              id="btnclose"
+              type="submit"
+              onClick={() => nav("/materialmanagement")}
+            >
+              Close
+            </button>{" "}
+          </div>
         </div>
       </div>
       <div>

@@ -164,8 +164,7 @@ function ReturnListing(props) {
 
   return (
     <>
-      <h4 className="form-title">Material Return Issue Vocher</h4>
-      <hr className="horizontal-line" />
+      <h4 className="title">Material Return Issue Vocher</h4>
       <div className="row">
         <div className="col-md-8">
           <label className="form-label">Select Customer</label>
@@ -204,11 +203,21 @@ function ReturnListing(props) {
           </div>
         </div>
         <div className="col-md-4">
-          <div className="col-md-6 mt-2">
+          <div className="col-md-4 mt-2">
             <button className="button-style" onClick={openClick}>
               Open IV
             </button>
           </div>
+        </div>
+        <div className="col-md-4 mt-2">
+          <button
+            className="button-style "
+            id="btnclose"
+            type="submit"
+            onClick={() => nav("/materialmanagement")}
+          >
+            Close
+          </button>
         </div>
       </div>
 

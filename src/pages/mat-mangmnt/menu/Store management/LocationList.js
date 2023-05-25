@@ -4,11 +4,13 @@ import { toast } from "react-toastify";
 import BootstrapTable from "react-bootstrap-table-next";
 import LocationLisModal from "./LocationLisModal";
 import YesNoModal from "../../components/YesNoModal";
+import { useNavigate } from "react-router-dom";
 
 const { getRequest, postRequest } = require("../../../api/apiinstance");
 const { endpoints } = require("../../../api/constants");
 
 function LocationList(props) {
+  const nav = useNavigate();
   const [open, setOpen] = useState();
   const [show, setShow] = useState(false);
   const [btnState, setBtnState] = useState("");
@@ -287,25 +289,33 @@ function LocationList(props) {
             </div>
             <div className="row justify-content-center mt-3">
               <button
-                className="button-style "
-                style={{ width: "120px" }}
+                className="button-style col-md-3"
+                style={{ width: "100px" }}
                 onClick={addButton}
               >
                 Add
               </button>
               <button
-                className="button-style "
-                style={{ width: "120px" }}
+                className="button-style col-md-3"
+                style={{ width: "100px" }}
                 onClick={deleteButton}
               >
                 Delete
               </button>
               <button
-                className="button-style "
-                style={{ width: "120px", marginBottom: "20PX" }}
+                className="button-style col-md-3"
+                style={{ width: "100px", marginBottom: "20PX" }}
                 onClick={saveButton}
               >
                 Save
+              </button>
+              <button
+                className="button-style col-md-3"
+                id="btnclose"
+                type="submit"
+                onClick={() => nav("/materialmanagement")}
+              >
+                Close
               </button>
             </div>
           </div>

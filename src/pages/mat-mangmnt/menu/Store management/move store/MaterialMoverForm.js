@@ -4,11 +4,13 @@ import ChangeLocationModal from "./ChangeLocationModal";
 import { toast } from "react-toastify";
 import BootstrapTable from "react-bootstrap-table-next";
 import YesNoModal from "../../../components/YesNoModal";
+import { useNavigate } from "react-router-dom";
 
 const { getRequest, postRequest } = require("../../../../api/apiinstance");
 const { endpoints } = require("../../../../api/constants");
 
 function MaterialMoverForm(props) {
+  const nav = useNavigate();
   const [open, setOpen] = useState();
   let [locationData, setLocationData] = useState([]);
 
@@ -251,30 +253,40 @@ function MaterialMoverForm(props) {
 
       <div className="row">
         <div className="row ">
-          <div className="col-md-3"></div>
-          <div className="col-md-6 ">
+          <div className="col-md-2"></div>
+          <div className="col-md-8 ">
             <div
               className="row justify-content-center"
               style={{ border: "1px solid gray" }}
             >
               {" "}
               <div className="row ">
-                <div className="col-md-4">
+                <div className="col-md-3">
                   <button className="button-style" onClick={loadData}>
                     Load Data
                   </button>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-3">
                   <button className="button-style" onClick={selectButton}>
                     Select
                   </button>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-3">
                   <button
                     className="button-style"
                     onClick={changeLocationButton}
                   >
                     Change Location
+                  </button>
+                </div>
+                <div className="col-md-3">
+                  <button
+                    className="button-style "
+                    id="btnclose"
+                    type="submit"
+                    onClick={() => nav("/materialmanagement")}
+                  >
+                    Close
                   </button>
                 </div>
               </div>
@@ -344,7 +356,7 @@ function MaterialMoverForm(props) {
               </div>
             </div>
           </div>
-          <div className="col-md-3"></div>
+          <div className="col-md-2"></div>
         </div>
       </div>
 

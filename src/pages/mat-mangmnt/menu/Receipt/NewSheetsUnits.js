@@ -925,8 +925,7 @@ function NewSheetsUnits(props) {
       />
 
       <div>
-        <h4 className="form-title">Material Receipt Voucher</h4>
-        <hr className="horizontal-line" />
+        <h4 className="title">Material Receipt Voucher</h4>
 
         <div className="row">
           <div className="col-md-3">
@@ -1056,6 +1055,14 @@ function NewSheetsUnits(props) {
               onClick={deleteRVButtonState}
             >
               Delete RV
+            </button>
+            <button
+              className="button-style "
+              id="btnclose"
+              type="submit"
+              onClick={() => nav("/materialmanagement")}
+            >
+              Close
             </button>
           </div>
           <div className="col-md-4">

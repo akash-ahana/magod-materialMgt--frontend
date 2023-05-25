@@ -136,10 +136,18 @@ function ShopIssueIVList(props) {
                       <div className="row justify-content-center mt-2">
                         <button
                           onClick={openButton}
-                          className="button-style"
+                          className="col-md-6 button-style"
                           style={{ width: "120px" }}
                         >
                           Open
+                        </button>
+                        <button
+                          className="col-md-6 button-style "
+                          id="btnclose"
+                          type="submit"
+                          onClick={() => nav("/materialmanagement")}
+                        >
+                          Close
                         </button>
                       </div>
                       <div className="row">

@@ -361,7 +361,7 @@ function LocationStockReport() {
           </div>
         </div>
 
-        <div className="col-md-6">
+        <div className="col-md-8">
           <h8>Show Stock</h8>
           <div className="row">
             <div className="col-md-4">
@@ -410,18 +410,26 @@ function LocationStockReport() {
             <div className="col-md-8">
               <div className="row justify-content-center mt-3">
                 <button
-                  className="button-style "
+                  className="button-style col-md-3 "
                   style={{ width: "160px" }}
                   onClick={summaryReport}
                 >
                   Summary Report
                 </button>
                 <button
-                  className="button-style "
+                  className="button-style col-md-3"
                   style={{ width: "160px" }}
                   onClick={detailsReport}
                 >
                   Details Report
+                </button>
+                <button
+                  className="button-style col-md-3"
+                  id="btnclose"
+                  type="submit"
+                  onClick={() => nav("/materialmanagement")}
+                >
+                  Close
                 </button>
               </div>
             </div>

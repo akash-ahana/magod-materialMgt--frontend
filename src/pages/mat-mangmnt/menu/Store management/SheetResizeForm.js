@@ -83,7 +83,7 @@ function SheetResizeForm() {
       {" "}
       <h4 className="title">Sheet Resize Form</h4>
       <div className="row">
-        <div className="col-md-9">
+        <div className="col-md-8">
           <label className="form-label">Customer</label>
           <select
             className="ip-select"
@@ -121,6 +121,16 @@ function SheetResizeForm() {
             }
           >
             Resize
+          </button>
+        </div>
+        <div className="col-md-2">
+          <button
+            className="button-style "
+            id="btnclose"
+            type="submit"
+            onClick={() => nav("/materialmanagement")}
+          >
+            Close
           </button>
         </div>
       </div>

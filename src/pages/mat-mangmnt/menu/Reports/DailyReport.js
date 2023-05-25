@@ -266,28 +266,26 @@ function DailyReport() {
       {" "}
       <h4 className="title">Raw Material Daily Report</h4>
       <div className="row">
-        <div className="col-md-1"></div>
         <div className="col-md-2">
           <label>Select Month</label>
           <input type="date" name="date" onChange={InputEvent} />
         </div>
-        <div className="col-md-2">
+        <div className="col-md-10">
           <button className="button-style" onClick={loadData}>
             Load Data
           </button>
-        </div>
-        <div className="col-md-2">
           <button className="button-style">Save Data</button>
-        </div>
-        <div className="col-md-2">
           <button className="button-style" onClick={printReceipt}>
             Print Receipt Report
           </button>
-        </div>
-        <div className="col-md-2">
           <button className="button-style" onClick={printInvoice}>
-            {" "}
             Print Invoice Dispatch
+          </button>
+          <button
+            className="button-style "
+            onClick={() => nav("/materialmanagement")}
+          >
+            Close
           </button>
         </div>
       </div>

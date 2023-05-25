@@ -3,11 +3,13 @@ import Table from "react-bootstrap/Table";
 import { toast } from "react-toastify";
 import BootstrapTable from "react-bootstrap-table-next";
 import UpdateStockModal from "./UpdateStockModal";
+import { useNavigate } from "react-router-dom";
 
 const { getRequest, postRequest } = require("../../../../api/apiinstance");
 const { endpoints } = require("../../../../api/constants");
 
 function StockDispatch() {
+  const nav = useNavigate();
   const [firstTable, setFirstTable] = useState([]);
   const [secondTable, setSecondTable] = useState([]);
   const [secondTableAll, setSecondTableAll] = useState([]);
@@ -211,13 +213,23 @@ function StockDispatch() {
             Load Data
           </button>
         </div>
-        <div className="col-md-4">
+        <div className="col-md-3">
           <button
             className="button-style"
             style={{ width: "200px" }}
             onClick={updateLedger}
           >
             Update Stock Ledger
+          </button>
+        </div>
+        <div className="col-md-3">
+          <button
+            className="button-style "
+            id="btnclose"
+            type="submit"
+            onClick={() => nav("/materialmanagement")}
+          >
+            Close
           </button>
         </div>
       </div>

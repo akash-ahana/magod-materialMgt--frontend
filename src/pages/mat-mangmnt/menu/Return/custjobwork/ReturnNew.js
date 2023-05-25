@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import ProfilesMaterials from "../custjobwork/components/PofilesMaterials";
@@ -10,6 +11,7 @@ const { getRequest, postRequest } = require("../../../../api/apiinstance");
 const { endpoints } = require("../../../../api/constants");
 
 function ReturnNew() {
+  const nav = useNavigate();
   let [custdata, setCustdata] = useState([]);
   let [custCode, setCustCode] = useState("");
   let [custName, setCustName] = useState("");
@@ -42,8 +44,7 @@ function ReturnNew() {
 
   return (
     <>
-      <h4 className="form-title">Customer Material Information</h4>
-      <hr className="horizontal-line" />
+      <h4 className="title">Customer Material Information</h4>
       <div className="row">
         <div className="col-md-8">
           <label className="form-label">Select Customer</label>
@@ -57,6 +58,16 @@ function ReturnNew() {
               </option>
             ))}
           </select>
+        </div>
+        <div className="col-md-4 text-center">
+          <button
+            className="button-style "
+            id="btnclose"
+            type="submit"
+            onClick={() => nav("/materialmanagement")}
+          >
+            Close
+          </button>
         </div>
       </div>
       <Tabs id="controlled-tab-example" className="mb-3 mt-3 tab_font">

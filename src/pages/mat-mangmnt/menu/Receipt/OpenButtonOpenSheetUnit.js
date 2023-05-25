@@ -9,6 +9,7 @@ const { getRequest, postRequest } = require("../../../api/apiinstance");
 const { endpoints } = require("../../../api/constants");
 
 function OpenButtonOpenSheetUnit() {
+  const nav = useNavigate();
   const location = useLocation();
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
@@ -471,8 +472,7 @@ function OpenButtonOpenSheetUnit() {
   return (
     <div>
       <div>
-        <h4 className="form-title">Material Receipt Voucher</h4>
-        <hr className="horizontal-line" />
+        <h4 className="title">Material Receipt Voucher</h4>
 
         <div className="row">
           <div className="col-md-3">
@@ -585,6 +585,14 @@ function OpenButtonOpenSheetUnit() {
               disabled={boolVal}
             >
               Delete RV
+            </button>
+            <button
+              className="button-style "
+              id="btnclose"
+              type="submit"
+              onClick={() => nav("/materialmanagement")}
+            >
+              Close
             </button>
           </div>
           <div className="col-md-4">

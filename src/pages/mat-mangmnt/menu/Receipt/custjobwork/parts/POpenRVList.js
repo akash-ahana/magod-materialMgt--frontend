@@ -117,8 +117,7 @@ function POpenRVList() {
   return (
     <div>
       <>
-        <h4 className="form-title">Customer : Parts Receipt List Received</h4>
-        <hr className="horizontal-line" />
+        <h4 className="title">Customer : Parts Receipt List Received</h4>
         <div className="row">
           <div className="col-md-7 mb-3">
             <label className="form-label">Customer</label>
@@ -137,7 +136,16 @@ function POpenRVList() {
               ))}
             </select>
           </div>
-
+          <div className="col-md-5 text-center">
+            <button
+              className="button-style "
+              id="btnclose"
+              type="submit"
+              onClick={() => nav("/materialmanagement")}
+            >
+              Close
+            </button>
+          </div>
           <div
             style={{ height: "420px", overflowY: "scroll" }}
             className="col-md-7 col-sm-12"

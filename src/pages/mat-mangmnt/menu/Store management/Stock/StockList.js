@@ -375,6 +375,16 @@ function StockList(props) {
               Full Stock
             </button>
           </div>
+          <div className="col-md-2">
+            <button
+              className="button-style "
+              id="btnclose"
+              type="submit"
+              onClick={() => nav("/materialmanagement")}
+            >
+              Close
+            </button>
+          </div>
         </div>
 
         <hr className="horizontal-line mt-4" />

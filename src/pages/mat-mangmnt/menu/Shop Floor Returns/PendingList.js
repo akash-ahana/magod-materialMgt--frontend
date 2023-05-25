@@ -410,15 +410,13 @@ function PendingList(props) {
           <h4 className="form-title">Shop Floor Material Return Form</h4>
           {/* <button className="button-style ">custname</button> */}
         </div>
-        <div className="col-md-2">
+        <div className="col-md-9">
           <button className="button-style mt-0" onClick={returnScrap}>
             Return As Scrap
           </button>
           <button className="button-style" onClick={returnToStock}>
             Return To Stock
           </button>
-        </div>
-        <div className="col-md-2">
           <button
             className="button-style mt-0"
             onClick={() => {
@@ -438,6 +436,14 @@ function PendingList(props) {
             }}
           >
             Resize and Return
+          </button>
+          <button
+            className="button-style "
+            id="btnclose"
+            type="submit"
+            onClick={() => nav("/materialmanagement")}
+          >
+            Close
           </button>
         </div>
       </div>
