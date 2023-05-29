@@ -92,9 +92,20 @@ function PurchaseUnitsOpenRVList() {
   return (
     <div>
       <>
-        <h4 className="form-title">Magod : Units Receipt List Received</h4>
-        <hr className="horizontal-line" />
+        <h4 className="title">Magod : Units Receipt List Received</h4>
         <div className="row">
+          <div className="col-md-7 text-center"></div>
+          <div className="col-md-5 mb-2 text-center">
+            <button
+              className="button-style "
+              id="btnclose"
+              type="submit"
+              onClick={() => nav("/materialmanagement")}
+            >
+              Close
+            </button>
+          </div>
+
           <div
             style={{ height: "420px", overflowY: "scroll" }}
             className="col-md-7 col-sm-12"

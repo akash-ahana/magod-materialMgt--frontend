@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import ProfilesMaterials from "../custjobwork/components/PofilesMaterials";
 import Parts from "./components/Parts";
 import BootstrapTable from "react-bootstrap-table-next";
+import { Typeahead } from "react-bootstrap-typeahead";
 
 const { getRequest, postRequest } = require("../../../../api/apiinstance");
 const { endpoints } = require("../../../../api/constants");
 
 function ReturnNew() {
+  const nav = useNavigate();
   let [custdata, setCustdata] = useState([]);
   let [custCode, setCustCode] = useState("");
   let [custName, setCustName] = useState("");
@@ -20,15 +23,21 @@ function ReturnNew() {
 
   async function fetchData() {
     getRequest(endpoints.getCustomers, (data) => {
+      for (let i = 0; i < data.length; i++) {
+        data[i].label = data[i].Cust_name;
+      }
+
       setCustdata(data);
     });
   }
 
   let changeCustomer = async (e) => {
-    e.preventDefault();
-    const { value, name } = e.target;
-    setCustCode(value);
-    let foundCustomer = custdata.filter((obj) => obj.Cust_Code === value);
+    //e.preventDefault();
+    //const { value, name } = e.target;
+    setCustCode(e[0].Cust_Code);
+    let foundCustomer = custdata.filter(
+      (obj) => obj.Cust_Code === e[0].Cust_Code
+    );
     setCustName(foundCustomer[0].Cust_name);
     setCustCSTNo(foundCustomer[0].CST_No);
     setCustTINNo(foundCustomer[0].TIN_No);
@@ -42,12 +51,11 @@ function ReturnNew() {
 
   return (
     <>
-      <h4 className="form-title">Customer Material Information</h4>
-      <hr className="horizontal-line" />
+      <h4 className="title">Customer Material Information</h4>
       <div className="row">
         <div className="col-md-8">
           <label className="form-label">Select Customer</label>
-          <select className="ip-select" onChange={changeCustomer}>
+          {/* <select className="ip-select" onChange={changeCustomer}>
             <option value="" disabled selected>
               Select Customer
             </option>
@@ -56,7 +64,24 @@ function ReturnNew() {
                 {customer.Cust_name}
               </option>
             ))}
-          </select>
+          </select> */}
+          <Typeahead
+            id="basic-example"
+            name="customer"
+            options={custdata}
+            placeholder="Select Customer"
+            onChange={(label) => changeCustomer(label)}
+          />
+        </div>
+        <div className="col-md-4 text-center">
+          <button
+            className="button-style "
+            id="btnclose"
+            type="submit"
+            onClick={() => nav("/materialmanagement")}
+          >
+            Close
+          </button>
         </div>
       </div>
       <Tabs id="controlled-tab-example" className="mb-3 mt-3 tab_font">

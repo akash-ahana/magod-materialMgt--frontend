@@ -3,6 +3,7 @@ import { dateToShort } from "../../../../../utils";
 import BootstrapTable from "react-bootstrap-table-next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Typeahead } from "react-bootstrap-typeahead";
 
 const { getRequest, postRequest } = require("../../../../api/apiinstance");
 const { endpoints } = require("../../../../api/constants");
@@ -23,6 +24,10 @@ function ReturnListing(props) {
   //console.log("listing form type = ", propsType);
   async function fetchData() {
     getRequest(endpoints.getCustomers, async (data) => {
+      for (let i = 0; i < data.length; i++) {
+        data[i].label = data[i].Cust_name;
+      }
+
       setCustdata(data);
     });
 
@@ -91,11 +96,11 @@ function ReturnListing(props) {
   ];
 
   let changeCustomer = async (e) => {
-    e.preventDefault();
-    const { value, name } = e.target;
+    //e.preventDefault();
+    //const { value, name } = e.target;
 
     //console.log("all data = ", data);
-    const found = allData.filter((obj) => obj.Cust_code === value);
+    const found = allData.filter((obj) => obj.Cust_code === e[0].Cust_Code);
     setdata(found);
     //setCustdata(filterData);
     setCheckboxVal("on");
@@ -164,12 +169,11 @@ function ReturnListing(props) {
 
   return (
     <>
-      <h4 className="form-title">Material Return Issue Vocher</h4>
-      <hr className="horizontal-line" />
+      <h4 className="title">Material Return Issue Vocher</h4>
       <div className="row">
         <div className="col-md-8">
           <label className="form-label">Select Customer</label>
-          <select
+          {/* <select
             className="ip-select"
             name="pending"
             onChange={changeCustomer}
@@ -183,7 +187,14 @@ function ReturnListing(props) {
                 {customer.Cust_name}
               </option>
             ))}
-          </select>
+          </select> */}
+          <Typeahead
+            id="basic-example"
+            name="customer"
+            options={custdata}
+            placeholder="Select Customer"
+            onChange={(label) => changeCustomer(label)}
+          />
         </div>
       </div>
       <div className="row">
@@ -204,11 +215,21 @@ function ReturnListing(props) {
           </div>
         </div>
         <div className="col-md-4">
-          <div className="col-md-6 mt-2">
+          <div className="col-md-4 mt-2">
             <button className="button-style" onClick={openClick}>
               Open IV
             </button>
           </div>
+        </div>
+        <div className="col-md-4 mt-2">
+          <button
+            className="button-style "
+            id="btnclose"
+            type="submit"
+            onClick={() => nav("/materialmanagement")}
+          >
+            Close
+          </button>
         </div>
       </div>
 

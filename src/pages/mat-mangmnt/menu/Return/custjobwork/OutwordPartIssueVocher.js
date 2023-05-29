@@ -265,8 +265,7 @@ function OutwordPartIssueVocher(props) {
       />
 
       <div>
-        <h4 className="form-title">Outward Material Issue Vocher</h4>
-        <hr className="horizontal-line" />
+        <h4 className="title">Outward Material Issue Vocher</h4>
 
         <div className="row">
           <div className="col-md-12">
@@ -403,6 +402,16 @@ function OutwordPartIssueVocher(props) {
                 disabled={boolVal1 | boolVal3}
               >
                 Print DC
+              </button>
+            </div>
+            <div>
+              <button
+                className="button-style mb-2"
+                id="btnclose"
+                type="submit"
+                onClick={() => nav("/materialmanagement")}
+              >
+                Close
               </button>
             </div>
           </div>

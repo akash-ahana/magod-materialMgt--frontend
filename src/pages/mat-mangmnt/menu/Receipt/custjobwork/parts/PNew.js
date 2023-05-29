@@ -70,9 +70,9 @@ function PNew() {
 
   async function fetchCustData() {
     getRequest(endpoints.getCustomers, async (data) => {
-      //for (let row in data) {
-      //  row.label = row.Cust_name;
-      // }
+      for (let i = 0; i < data.length; i++) {
+        data[i].label = data[i].Cust_name;
+      }
       data.map(async (obj) => {
         obj["label"] = obj.Cust_name;
       });
@@ -90,17 +90,16 @@ function PNew() {
   }, []); //[inputPart]);
 
   let changeCustomer = async (e) => {
-    e.preventDefault();
-    const { value, name } = e.target;
+    //e.preventDefault();
+    //const { value, name } = e.target;
 
-    const found = custdata.find((obj) => obj.Cust_Code === value);
-    //setCustDetailVal(found.Address);
+    //const found = custdata.find((obj) => obj.Cust_Code === value);
+    const found = custdata.find((obj) => obj.Cust_Code === e[0].Cust_Code);
 
     setFormHeader((preValue) => {
       //console.log(preValue)
       return {
         ...preValue,
-        [name]: value,
         customerName: found.Cust_name,
         customer: found.Cust_Code,
         address: found.Address,
@@ -111,7 +110,7 @@ function PNew() {
     //const foundPart = mtrlDetails.filter((obj) => obj.Cust_code == value);
     //setMtrlDetails(foundPart);
     getRequest(endpoints.getCustBomList, (data) => {
-      const foundPart = data.filter((obj) => obj.Cust_code == value);
+      const foundPart = data.filter((obj) => obj.Cust_code == e[0].Cust_Code);
       setMtrlDetails(foundPart);
     });
   };
@@ -440,8 +439,7 @@ function PNew() {
         allotRVYesButton={allotRVYesButton}
       />
       <div>
-        <h4 className="form-title">Customer Parts Receipt Voucher</h4>
-        <hr className="horizontal-line" />
+        <h4 className="title">Customer Parts Receipt Voucher</h4>
 
         <div className="row">
           <div className="col-md-3">
@@ -479,7 +477,7 @@ function PNew() {
         <div className="row">
           <div className="col-md-8">
             <label className="form-label">Customer</label>
-            <select
+            {/* <select
               className="ip-select"
               name="customer"
               onChange={changeCustomer}
@@ -493,15 +491,15 @@ function PNew() {
                   {customer.Cust_name}
                 </option>
               ))}
-            </select>
+            </select> */}
 
-            {/* <Typeahead
+            <Typeahead
               id="basic-example"
-              onChange={setSelected}
-              options={dummydata}
+              //onChange={setSelected}
+              options={custdata}
               placeholder="Select Customer"
-              selected={selected}
-            /> */}
+              onChange={(label) => changeCustomer(label)}
+            />
           </div>
           <div className="col-md-4">
             <label className="">Weight</label>
@@ -561,6 +559,14 @@ function PNew() {
               onClick={deleteRVButtonState}
             >
               Delete RV
+            </button>
+            <button
+              className="button-style "
+              id="btnclose"
+              type="submit"
+              onClick={() => nav("/materialmanagement")}
+            >
+              Close
             </button>
           </div>
           <div className="col-md-4">

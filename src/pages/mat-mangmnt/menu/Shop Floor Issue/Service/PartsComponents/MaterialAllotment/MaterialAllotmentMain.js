@@ -487,7 +487,6 @@ function MaterialAllotmentMain() {
             <input className="" value="Customer" disabled />
           </div>
 
-          <div className="col-md-3"></div>
           <div className="col-md-3">
             <label className="">Issue Now</label>
             <input
@@ -496,6 +495,16 @@ function MaterialAllotmentMain() {
               value={issuenowval}
               onBlur={issuenowonblur}
             />
+          </div>
+          <div className="col-md-3">
+            <button
+              className="button-style "
+              id="btnclose"
+              type="submit"
+              onClick={() => nav("/materialmanagement")}
+            >
+              Close
+            </button>
           </div>
         </div>
       </div>

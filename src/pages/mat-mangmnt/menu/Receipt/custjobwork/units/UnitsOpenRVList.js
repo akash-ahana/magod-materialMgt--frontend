@@ -4,6 +4,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { dateToShort, formatDate } from "../../../../../../utils";
 import { useNavigate } from "react-router-dom";
+import { Typeahead } from "react-bootstrap-typeahead";
 
 const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
@@ -31,6 +32,10 @@ function UnitsOpenRVList() {
 
   const fetchData = () => {
     getRequest(endpoints.getCustomers, (data) => {
+      for (let i = 0; i < data.length; i++) {
+        data[i].label = data[i].Cust_name;
+      }
+
       setCustdata(data);
     });
 
@@ -45,10 +50,10 @@ function UnitsOpenRVList() {
   }, []);
 
   let changeCustomer = async (e) => {
-    e.preventDefault();
-    const { value, name } = e.target;
+    // e.preventDefault();
+    // const { value, name } = e.target;
 
-    const found = allData.filter((obj) => obj.Cust_Code === value);
+    const found = allData.filter((obj) => obj.Cust_Code === e[0].Cust_Code);
     //console.log("table data = ", tabledata);
     setTableData(found);
   };
@@ -110,12 +115,11 @@ function UnitsOpenRVList() {
   return (
     <div>
       <>
-        <h4 className="form-title">Customer : Units Receipt List Received</h4>
-        <hr className="horizontal-line" />
+        <h4 className="title">Customer : Units Receipt List Received</h4>
         <div className="row">
           <div className="col-md-7 mb-3">
             <label className="form-label">Customer</label>
-            <select
+            {/* <select
               className="ip-select"
               name="customer"
               onChange={changeCustomer}
@@ -128,9 +132,25 @@ function UnitsOpenRVList() {
                   {customer.Cust_name}
                 </option>
               ))}
-            </select>
+            </select> */}
+            <Typeahead
+              id="basic-example"
+              name="customer"
+              options={custdata}
+              placeholder="Select Customer"
+              onChange={(label) => changeCustomer(label)}
+            />
           </div>
-
+          <div className="col-md-5 text-center">
+            <button
+              className="button-style "
+              id="btnclose"
+              type="submit"
+              onClick={() => nav("/materialmanagement")}
+            >
+              Close
+            </button>
+          </div>
           <div
             style={{ height: "420px", overflowY: "scroll" }}
             className="col-md-7 col-sm-12"

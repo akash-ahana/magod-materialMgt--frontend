@@ -318,6 +318,15 @@ function ShopMatIssueVocher() {
               <button className="button-style " onClick={printButton}>
                 Print
               </button>
+
+              <button
+                className="button-style "
+                id="btnclose"
+                type="submit"
+                onClick={() => nav("/materialmanagement")}
+              >
+                Close
+              </button>
             </div>
           </div>
           <div className="row mt-4">

@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import CreateYesNoModal from "../../components/CreateYesNoModal";
 import { useNavigate } from "react-router-dom";
 import BootstrapTable from "react-bootstrap-table-next";
+import { Typeahead } from "react-bootstrap-typeahead";
 
 const { getRequest, postRequest } = require("../../../api/apiinstance");
 const { endpoints } = require("../../../api/constants");
@@ -161,6 +162,13 @@ function NewSheetsUnits(props) {
 
   async function fetchData() {
     getRequest(endpoints.getCustomers, (data) => {
+      if (props.type2 === "purchase") {
+        data = data.filter((obj) => obj.Cust_Code == 0);
+      }
+      //Cust_Code == 0
+      for (let i = 0; i < data.length; i++) {
+        data[i].label = data[i].Cust_name;
+      }
       setCustdata(data);
     });
     getRequest(endpoints.getMaterialLocationList, (data) => {
@@ -182,6 +190,30 @@ function NewSheetsUnits(props) {
   // }, [formHeader]); //[inputPart]);
 
   let changeCustomer = async (e) => {
+    //e.preventDefault();
+    //const { value, name } = e.target;
+
+    const found = custdata.find((obj) => obj.Cust_Code === e[0].Cust_Code);
+    //setCustDetailVal(found.Address);
+
+    setFormHeader((preValue) => {
+      //console.log(preValue)
+      return {
+        ...preValue,
+        //[name]: value,
+        customerName: found.Cust_name,
+        customer: found.Cust_Code,
+        address: found.Address,
+      };
+    });
+
+    // getRequest(endpoints.getCustBomList, (data) => {
+    //   const foundPart = data.filter((obj) => obj.Cust_code == value);
+    //   setMtrlDetails(foundPart);
+    // });
+  };
+
+  let changeCustomer1 = async (e) => {
     e.preventDefault();
     const { value, name } = e.target;
 
@@ -925,8 +957,7 @@ function NewSheetsUnits(props) {
       />
 
       <div>
-        <h4 className="form-title">Material Receipt Voucher</h4>
-        <hr className="horizontal-line" />
+        <h4 className="title">Material Receipt Voucher</h4>
 
         <div className="row">
           <div className="col-md-3">
@@ -964,36 +995,47 @@ function NewSheetsUnits(props) {
         <div className="row">
           <div className="col-md-8">
             <label className="form-label">Customer</label>
-            <select
-              className="ip-select"
-              name="customer"
-              disabled={props.type2 === "purchase" ? true : boolVal2}
-              onChange={changeCustomer}
-            >
-              {props.type2 === "purchase" ? (
-                ""
-              ) : (
-                <option value="" disabled selected>
-                  Select Customer
-                </option>
-              )}
+            {props.type2 !== "purchase" ? (
+              <Typeahead
+                id="basic-example"
+                name="customer"
+                options={custdata}
+                //disabled={props.type2 === "purchase" ? true : boolVal2}
+                placeholder="Select Customer"
+                onChange={(label) => changeCustomer(label)}
+              />
+            ) : (
+              <select
+                className="ip-select"
+                name="customer"
+                disabled={props.type2 === "purchase" ? true : boolVal2}
+                onChange={changeCustomer1}
+              >
+                {props.type2 === "purchase" ? (
+                  ""
+                ) : (
+                  <option value="" disabled selected>
+                    Select Customer
+                  </option>
+                )}
 
-              {props.type2 === "purchase"
-                ? custdata.map((customer, index) =>
-                    customer.Cust_Code == 0 ? (
+                {props.type2 === "purchase"
+                  ? custdata.map((customer, index) =>
+                      customer.Cust_Code == 0 ? (
+                        <option key={index} value={customer.Cust_Code}>
+                          {customer.Cust_name}
+                        </option>
+                      ) : (
+                        ""
+                      )
+                    )
+                  : custdata.map((customer, index) => (
                       <option key={index} value={customer.Cust_Code}>
                         {customer.Cust_name}
                       </option>
-                    ) : (
-                      ""
-                    )
-                  )
-                : custdata.map((customer, index) => (
-                    <option key={index} value={customer.Cust_Code}>
-                      {customer.Cust_name}
-                    </option>
-                  ))}
-            </select>
+                    ))}
+              </select>
+            )}
           </div>
           <div className="col-md-4">
             <label className="">Weight</label>
@@ -1056,6 +1098,14 @@ function NewSheetsUnits(props) {
               onClick={deleteRVButtonState}
             >
               Delete RV
+            </button>
+            <button
+              className="button-style "
+              id="btnclose"
+              type="submit"
+              onClick={() => nav("/materialmanagement")}
+            >
+              Close
             </button>
           </div>
           <div className="col-md-4">

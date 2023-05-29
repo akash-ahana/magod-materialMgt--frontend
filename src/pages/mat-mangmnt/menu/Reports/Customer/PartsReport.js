@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import PartsInStockAndProcess from "./Components/PartsInStockAndProcess";
 import ReceiptAndUsage from "./Components/ReceiptAndUsage";
+import { Typeahead } from "react-bootstrap-typeahead";
 
 const { getRequest, postRequest } = require("../../../../api/apiinstance");
 const { endpoints } = require("../../../../api/constants");
 
 function PartsReport() {
+  const nav = useNavigate();
   let [custdata, setCustdata] = useState([]);
   let [custCode, setCustCode] = useState("");
 
   async function fetchData() {
     getRequest(endpoints.getCustomers, (data) => {
+      for (let i = 0; i < data.length; i++) {
+        data[i].label = data[i].Cust_name;
+      }
+
       setCustdata(data);
     });
   }
@@ -22,20 +29,19 @@ function PartsReport() {
   }, []);
 
   let changeCustomer = async (e) => {
-    e.preventDefault();
-    const { value, name } = e.target;
-    console.log("value = ", value);
-    setCustCode(value);
+    //e.preventDefault();
+    //const { value, name } = e.target;
+    //console.log("value = ", value);
+    setCustCode(e[0].Cust_Code);
   };
 
   return (
     <>
-      <h4 className="form-title">Customer Parts Stock</h4>
-      <hr className="horizontal-line" />
+      <h4 className="title">Customer Parts Stock</h4>
       <div className="row">
         <div className="col-md-8">
           <label className="form-label">Select Customer</label>
-          <select className="ip-select" onChange={changeCustomer}>
+          {/* <select className="ip-select" onChange={changeCustomer}>
             <option value="" disabled selected>
               Select Customer
             </option>
@@ -44,7 +50,24 @@ function PartsReport() {
                 {customer.Cust_name}
               </option>
             ))}
-          </select>
+          </select> */}
+          <Typeahead
+            id="basic-example"
+            name="customer"
+            options={custdata}
+            placeholder="Select Customer"
+            onChange={(label) => changeCustomer(label)}
+          />
+        </div>
+        <div className="col-md-4">
+          <button
+            className="button-style "
+            id="btnclose"
+            type="submit"
+            onClick={() => nav("/materialmanagement")}
+          >
+            Close
+          </button>
         </div>
       </div>
       <Tabs id="controlled-tab-example" className="mb-3 mt-3 tab_font">

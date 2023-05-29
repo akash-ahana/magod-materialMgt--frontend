@@ -3,6 +3,7 @@ import Table from "react-bootstrap/Table";
 import BootstrapTable from "react-bootstrap-table-next";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { Typeahead } from "react-bootstrap-typeahead";
 
 const { getRequest, postRequest } = require("../../../api/apiinstance");
 const { endpoints } = require("../../../api/constants");
@@ -15,7 +16,11 @@ function SheetResizeForm() {
 
   async function fetchData() {
     getRequest(endpoints.getCustomers, async (data) => {
-      console.log("cust data = ", custdata);
+      for (let i = 0; i < data.length; i++) {
+        data[i].label = data[i].Cust_name;
+      }
+
+      //console.log("cust data = ", custdata);
       setCustdata(data);
     });
   }
@@ -52,9 +57,9 @@ function SheetResizeForm() {
   ];
 
   const changeCustomer = (e) => {
-    e.preventDefault();
-    const { value, name } = e.target;
-    let url1 = endpoints.getResizeMtrlStockList + "?code=" + value;
+    //e.preventDefault();
+    //const { value, name } = e.target;
+    let url1 = endpoints.getResizeMtrlStockList + "?code=" + e[0].Cust_Code;
 
     getRequest(url1, (data) => {
       setTabledata(data);
@@ -83,9 +88,9 @@ function SheetResizeForm() {
       {" "}
       <h4 className="title">Sheet Resize Form</h4>
       <div className="row">
-        <div className="col-md-9">
+        <div className="col-md-8">
           <label className="form-label">Customer</label>
-          <select
+          {/* <select
             className="ip-select"
             name="customer"
             onChange={changeCustomer}
@@ -99,7 +104,14 @@ function SheetResizeForm() {
                 {customer.Cust_name}
               </option>
             ))}
-          </select>
+          </select> */}
+          <Typeahead
+            id="basic-example"
+            name="customer"
+            options={custdata}
+            placeholder="Select Customer"
+            onChange={(label) => changeCustomer(label)}
+          />
         </div>
         <div className="col-md-2">
           <button
@@ -121,6 +133,16 @@ function SheetResizeForm() {
             }
           >
             Resize
+          </button>
+        </div>
+        <div className="col-md-2">
+          <button
+            className="button-style "
+            id="btnclose"
+            type="submit"
+            onClick={() => nav("/materialmanagement")}
+          >
+            Close
           </button>
         </div>
       </div>

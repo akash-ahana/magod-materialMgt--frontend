@@ -374,7 +374,14 @@ function ResizeAndSplittingForm() {
             />
           </div>
           <div className="col-md-3 mt-2">
-            <button className="button-style ">Cancel</button>
+            <button
+              className="button-style "
+              id="btnclose"
+              type="submit"
+              onClick={() => nav("/materialmanagement")}
+            >
+              Close
+            </button>
           </div>
         </div>
       </div>

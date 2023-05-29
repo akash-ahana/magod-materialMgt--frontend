@@ -3,6 +3,7 @@ import Table from "react-bootstrap/Table";
 import { toast } from "react-toastify";
 import BootstrapTable from "react-bootstrap-table-next";
 import { useNavigate } from "react-router-dom";
+import { Typeahead } from "react-bootstrap-typeahead";
 
 const { getRequest, postRequest } = require("../../../../api/apiinstance");
 const { endpoints } = require("../../../../api/constants");
@@ -32,6 +33,10 @@ function StockList(props) {
   const fetchData = async () => {
     //fetch customer
     getRequest(endpoints.getCustomers, async (data) => {
+      for (let i = 0; i < data.length; i++) {
+        data[i].label = data[i].Cust_name;
+      }
+
       setCustdata(data);
 
       //set customer 0
@@ -88,14 +93,17 @@ function StockList(props) {
     fetchData();
   }, []);
 
-  const customerChange = (e) => {
-    const { name, value } = e.target;
-    setCustCode(value);
-    console.log("cust code = ", value);
+  const changeCustomer = (e) => {
+    //const { name, value } = e.target;
+    setCustCode(e[0].Cust_Code);
+    //console.log("cust code = ", value);
 
-    let url1 = endpoints.getStockListByCustCodeFirst + "?code=" + value;
-    let url2 = endpoints.getStockListByCustCodeSecond + "?code=" + value;
-    let url3 = endpoints.getStockListByCustCodeThird + "?code=" + value;
+    let url1 =
+      endpoints.getStockListByCustCodeFirst + "?code=" + e[0].Cust_Code;
+    let url2 =
+      endpoints.getStockListByCustCodeSecond + "?code=" + e[0].Cust_Code;
+    let url3 =
+      endpoints.getStockListByCustCodeThird + "?code=" + e[0].Cust_Code;
     //first table
     getRequest(url1, (data) => {
       for (let i = 0; i < data.length; i++) {
@@ -126,7 +134,7 @@ function StockList(props) {
     });
 
     //set customer data
-    const found = custdata.find((obj) => obj.Cust_Code === value);
+    const found = custdata.find((obj) => obj.Cust_Code === e[0].Cust_Code);
     setCustomerDetails(() => {
       return {
         customerName: found.Cust_name,
@@ -351,7 +359,7 @@ function StockList(props) {
           <div
             className={props.type === "customer" ? "col-md-6 mt-2" : "d-none"}
           >
-            <select
+            {/* <select
               className="ip-select dropdown-field"
               onChange={customerChange}
             >
@@ -363,7 +371,14 @@ function StockList(props) {
                   {customer.Cust_name}
                 </option>
               ))}
-            </select>
+            </select> */}
+            <Typeahead
+              id="basic-example"
+              name="customer"
+              options={custdata}
+              placeholder="Select Customer"
+              onChange={(label) => changeCustomer(label)}
+            />
           </div>
           <div className="col-md-2">
             <button className="button-style" onClick={selectedStock}>
@@ -373,6 +388,16 @@ function StockList(props) {
           <div className="col-md-2">
             <button className="button-style" onClick={fullStock}>
               Full Stock
+            </button>
+          </div>
+          <div className="col-md-2">
+            <button
+              className="button-style "
+              id="btnclose"
+              type="submit"
+              onClick={() => nav("/materialmanagement")}
+            >
+              Close
             </button>
           </div>
         </div>

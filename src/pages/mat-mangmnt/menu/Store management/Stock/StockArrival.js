@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import { toast } from "react-toastify";
 import BootstrapTable from "react-bootstrap-table-next";
+import { useNavigate } from "react-router-dom";
 
 const { getRequest, postRequest } = require("../../../../api/apiinstance");
 const { endpoints } = require("../../../../api/constants");
 
 function StockArrival() {
+  const nav = useNavigate();
   const [firstTable, setFirstTable] = useState([]);
   const [secondTable, setSecondTable] = useState([]);
   const [thirdTable, setThirdTable] = useState([]);
@@ -185,13 +187,23 @@ function StockArrival() {
             Load Data
           </button>
         </div>
-        <div className="col-md-4">
+        <div className="col-md-3">
           <button
             className="button-style"
             style={{ width: "200px" }}
             onClick={updateLedger}
           >
             Update Stock Ledger
+          </button>
+        </div>
+        <div className="col-md-3">
+          <button
+            className="button-style "
+            id="btnclose"
+            type="submit"
+            onClick={() => nav("/materialmanagement")}
+          >
+            Close
           </button>
         </div>
       </div>

@@ -4,11 +4,14 @@ import ChangeLocationModal from "./ChangeLocationModal";
 import { toast } from "react-toastify";
 import BootstrapTable from "react-bootstrap-table-next";
 import YesNoModal from "../../../components/YesNoModal";
+import { useNavigate } from "react-router-dom";
+import { Typeahead } from "react-bootstrap-typeahead";
 
 const { getRequest, postRequest } = require("../../../../api/apiinstance");
 const { endpoints } = require("../../../../api/constants");
 
 function MaterialMoverForm(props) {
+  const nav = useNavigate();
   const [open, setOpen] = useState();
   let [locationData, setLocationData] = useState([]);
 
@@ -24,10 +27,18 @@ function MaterialMoverForm(props) {
 
   const fetchData = async () => {
     getRequest(endpoints.getCustomers, async (data) => {
+      for (let i = 0; i < data.length; i++) {
+        data[i].label = data[i].Cust_name;
+      }
+
       setCustdata(data);
     });
 
     getRequest(endpoints.getMaterialLocationList, (data) => {
+      for (let i = 0; i < data.length; i++) {
+        data[i].label = data[i].LocationNo;
+      }
+
       setLocationData(data);
     });
   };
@@ -42,18 +53,20 @@ function MaterialMoverForm(props) {
   };
 
   const changeCustomer = async (e) => {
-    const { value, name } = e.target;
-    setSelectedCustomer(value);
+    //const { value, name } = e.target;
+    setSelectedCustomer(e[0].Cust_Code);
   };
   const changeLocation = async (e) => {
-    const { value, name } = e.target;
-    setSelectedLocation(value);
-    setMsg("Are you sure you want to shift a material " + value + "?");
+    //const { value, name } = e.target;
+    setSelectedLocation(e[0].LocationNo);
+    setMsg(
+      "Are you sure you want to shift a material " + e[0].LocationNo + "?"
+    );
   };
 
   const fromLocationEvent = async (e) => {
-    const { value, name } = e.target;
-    setFromLocation(value);
+    //const { value, name } = e.target;
+    setFromLocation(e[0].LocationNo);
     //setMsg("Are you sure you want to shift a material " + value + "?");
   };
 
@@ -251,30 +264,40 @@ function MaterialMoverForm(props) {
 
       <div className="row">
         <div className="row ">
-          <div className="col-md-3"></div>
-          <div className="col-md-6 ">
+          <div className="col-md-2"></div>
+          <div className="col-md-8 ">
             <div
               className="row justify-content-center"
               style={{ border: "1px solid gray" }}
             >
               {" "}
               <div className="row ">
-                <div className="col-md-4">
+                <div className="col-md-3">
                   <button className="button-style" onClick={loadData}>
                     Load Data
                   </button>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-3">
                   <button className="button-style" onClick={selectButton}>
                     Select
                   </button>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-3">
                   <button
                     className="button-style"
                     onClick={changeLocationButton}
                   >
                     Change Location
+                  </button>
+                </div>
+                <div className="col-md-3">
+                  <button
+                    className="button-style "
+                    id="btnclose"
+                    type="submit"
+                    onClick={() => nav("/materialmanagement")}
+                  >
+                    Close
                   </button>
                 </div>
               </div>
@@ -283,7 +306,7 @@ function MaterialMoverForm(props) {
                   className={props.type === "location" ? "col-md-6" : "d-none"}
                 >
                   <label className="form-label">From Location</label>
-                  <select
+                  {/* <select
                     className="ip-select"
                     name="customer"
                     onChange={fromLocationEvent}
@@ -297,12 +320,19 @@ function MaterialMoverForm(props) {
                         {location.LocationNo}
                       </option>
                     ))}
-                  </select>
+                  </select> */}
+                  <Typeahead
+                    id="basic-example"
+                    name="location"
+                    options={locationData}
+                    placeholder="Select Location"
+                    onChange={(label) => fromLocationEvent(label)}
+                  />
                 </div>
 
                 <div className="col-md-6">
                   <label className="form-label">To Location</label>
-                  <select
+                  {/* <select
                     className="ip-select"
                     name="customer"
                     onChange={changeLocation}
@@ -316,7 +346,14 @@ function MaterialMoverForm(props) {
                         {location.LocationNo}
                       </option>
                     ))}
-                  </select>
+                  </select> */}
+                  <Typeahead
+                    id="basic-example"
+                    name="location"
+                    options={locationData}
+                    placeholder="Select Location"
+                    onChange={(label) => changeLocation(label)}
+                  />
                 </div>
               </div>
               <div className="row   ">
@@ -325,7 +362,7 @@ function MaterialMoverForm(props) {
                   style={{ marginBottom: "15px" }}
                 >
                   <label className="form-label">Customer</label>
-                  <select
+                  {/* <select
                     className="ip-select"
                     name="customer"
                     onChange={changeCustomer}
@@ -339,12 +376,19 @@ function MaterialMoverForm(props) {
                         {customer.Cust_name}
                       </option>
                     ))}
-                  </select>
+                  </select> */}
+                  <Typeahead
+                    id="basic-example"
+                    name="customer"
+                    options={custdata}
+                    placeholder="Select Customer"
+                    onChange={(label) => changeCustomer(label)}
+                  />
                 </div>
               </div>
             </div>
           </div>
-          <div className="col-md-3"></div>
+          <div className="col-md-2"></div>
         </div>
       </div>
 

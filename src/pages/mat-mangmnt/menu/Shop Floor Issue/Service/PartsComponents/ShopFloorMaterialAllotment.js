@@ -69,9 +69,9 @@ function ShopFloorMaterialAllotment(props) {
         });
       });
       if (props.formtype === "Parts") {
-        await delay(5000);
+        await delay(7000);
       } else {
-        await delay(11000);
+        await delay(13000);
       }
       setTreeData(data);
       console.log("data = ", data);
@@ -224,6 +224,14 @@ function ShopFloorMaterialAllotment(props) {
           // disabled={boolVal1 | boolVal4}
         >
           Allot Material
+        </button>
+        <button
+          className="button-style ms-2"
+          id="btnclose"
+          type="submit"
+          onClick={() => nav("/materialmanagement")}
+        >
+          Close
         </button>
       </div>
       <div className="row mt-4">
