@@ -5,6 +5,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import LocationLisModal from "./LocationLisModal";
 import YesNoModal from "../../components/YesNoModal";
 import { useNavigate } from "react-router-dom";
+import { Typeahead } from "react-bootstrap-typeahead";
 
 const { getRequest, postRequest } = require("../../../api/apiinstance");
 const { endpoints } = require("../../../api/constants");
@@ -26,6 +27,10 @@ function LocationList(props) {
   const fetchData = async () => {
     //load shapes
     getRequest(endpoints.getAllShapeNames, async (data) => {
+      for (let i = 0; i < data.length; i++) {
+        data[i].label = data[i].Shape;
+      }
+
       setShape(data);
     });
 
@@ -59,6 +64,21 @@ function LocationList(props) {
       //update
     }
   };
+  const InputEventShape = (e) => {
+    //const { value, name } = e.target;
+    setFormHeader((preValue) => {
+      //console.log(preValue)
+      return {
+        ...preValue,
+        storage: e[0].Cust_Code,
+      };
+    });
+
+    if (btnState === "save") {
+      //update
+    }
+  };
+
   const deleteButton = () => {
     //console.log("form header = ", formHeader);
     //console.log("selected row = ", selectedRow);
@@ -249,7 +269,7 @@ function LocationList(props) {
                         <label className="">Storage Type</label>
                       </div>
                       <div className="col-md-8" style={{ marginTop: "8px" }}>
-                        <select
+                        {/* <select
                           className="ip-select dropdown-field"
                           name="storage"
                           onChange={InputEvent}
@@ -264,7 +284,14 @@ function LocationList(props) {
                               {sh.Shape}
                             </option>
                           ))}
-                        </select>
+                        </select> */}
+                        <Typeahead
+                          id="basic-example"
+                          name="storage"
+                          options={shape}
+                          placeholder="Select Shape"
+                          onChange={(label) => InputEventShape(label)}
+                        />
                       </div>
                     </div>
 

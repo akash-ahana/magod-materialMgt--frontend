@@ -3,6 +3,7 @@ import { dateToShort, formatDate } from "../../../../../../utils";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { useNavigate } from "react-router-dom";
+import { Typeahead } from "react-bootstrap-typeahead";
 
 const { getRequest, postRequest } = require("../../../../../api/apiinstance");
 const { endpoints } = require("../../../../../api/constants");
@@ -29,6 +30,9 @@ export default function SheetsDraftRVList() {
 
   const fetchData = () => {
     getRequest(endpoints.getCustomers, (data) => {
+      for (let i = 0; i < data.length; i++) {
+        data[i].label = data[i].Cust_name;
+      }
       setCustdata(data);
     });
 
@@ -43,10 +47,10 @@ export default function SheetsDraftRVList() {
   }, []);
 
   let changeCustomer = async (e) => {
-    e.preventDefault();
-    const { value, name } = e.target;
+    //e.preventDefault();
+    //const { value, name } = e.target;
 
-    const found = allData.filter((obj) => obj.Cust_Code === value);
+    const found = allData.filter((obj) => obj.Cust_Code === e[0].Cust_Code);
     //console.log("table data = ", tabledata);
     setTableData(found);
   };
@@ -112,7 +116,7 @@ export default function SheetsDraftRVList() {
         <div className="row">
           <div className="col-md-7 mb-3">
             <label className="form-label">Customer</label>
-            <select
+            {/* <select
               className="ip-select"
               name="customer"
               onChange={changeCustomer}
@@ -125,7 +129,14 @@ export default function SheetsDraftRVList() {
                   {customer.Cust_name}
                 </option>
               ))}
-            </select>
+            </select> */}
+            <Typeahead
+              id="basic-example"
+              name="customer"
+              options={custdata}
+              placeholder="Select Customer"
+              onChange={(label) => changeCustomer(label)}
+            />
           </div>
           <div className="col-md-5 text-center">
             <button

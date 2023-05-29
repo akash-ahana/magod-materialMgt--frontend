@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import { useNavigate } from "react-router-dom";
+import { Typeahead } from "react-bootstrap-typeahead";
 
 const { getRequest, postRequest } = require("../../../api/apiinstance");
 const { endpoints } = require("../../../api/constants");
@@ -33,6 +34,9 @@ function LocationStockReport() {
 
   async function fetchCustData() {
     getRequest(endpoints.getCustomers, async (data) => {
+      for (let i = 0; i < data.length; i++) {
+        data[i].label = data[i].Cust_name;
+      }
       setCustdata(data);
     });
     getRequest(endpoints.getMaterialLocationList, async (data) => {
@@ -49,8 +53,8 @@ function LocationStockReport() {
   }, []);
 
   const changeCustomer = (e) => {
-    const { name, value } = e.target;
-    setCustCode(value);
+    //const { name, value } = e.target;
+    setCustCode(e[0].Cust_Code);
   };
   const radioButtonChanged = async (e) => {
     const { name, value } = e.target;
@@ -304,7 +308,7 @@ function LocationStockReport() {
           <div className="row">
             <div className="col-md-12">
               <label className="form-label"> Select Customer</label>
-              <select
+              {/* <select
                 className="ip-select"
                 name="customer"
                 onChange={changeCustomer}
@@ -318,7 +322,14 @@ function LocationStockReport() {
                     {customer.Cust_name}
                   </option>
                 ))}
-              </select>
+              </select> */}
+              <Typeahead
+                id="basic-example"
+                name="customer"
+                options={custdata}
+                placeholder="Select Customer"
+                onChange={(label) => changeCustomer(label)}
+              />
             </div>
             <div className="col-md-6">
               <label className="form-label"> Location</label>
