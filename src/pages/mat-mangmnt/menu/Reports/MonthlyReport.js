@@ -316,7 +316,7 @@ function MonthlyReport() {
       <div className="row">
         <div className="col-md-1"></div>
         <div className="col-md-2">
-          <label>Select Month</label>
+          <label className="form-label">Select Month</label>
           <input
             type="date"
             name="date"

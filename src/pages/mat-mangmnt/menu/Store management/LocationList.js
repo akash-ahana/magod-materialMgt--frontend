@@ -70,7 +70,7 @@ function LocationList(props) {
       //console.log(preValue)
       return {
         ...preValue,
-        storage: e[0].Cust_Code,
+        storage: e[0].Shape,
       };
     });
 
@@ -289,7 +289,7 @@ function LocationList(props) {
                           id="basic-example"
                           name="storage"
                           options={shape}
-                          placeholder="Select Shape"
+                          placeholder="Select Storage Type"
                           onChange={(label) => InputEventShape(label)}
                         />
                       </div>

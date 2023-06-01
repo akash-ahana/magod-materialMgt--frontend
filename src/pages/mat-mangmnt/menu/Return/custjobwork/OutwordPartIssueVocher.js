@@ -303,7 +303,13 @@ function OutwordPartIssueVocher(props) {
                 <button
                   className="button-style ms-1"
                   onClick={saveButtonState}
-                  disabled={boolVal2 | boolVal3}
+                  disabled={
+                    boolVal2 |
+                    boolVal3 |
+                    (location.state.propsType === "customerIVList")
+                      ? true
+                      : false
+                  }
                 >
                   Save
                 </button>
@@ -381,7 +387,11 @@ function OutwordPartIssueVocher(props) {
               <button
                 className="button-style"
                 onClick={cancelIV}
-                disabled={boolVal2}
+                disabled={
+                  boolVal2 | (location.state.propsType === "customerIVList")
+                    ? true
+                    : false
+                }
               >
                 Cancel IV
               </button>
@@ -390,7 +400,11 @@ function OutwordPartIssueVocher(props) {
               <button
                 className="button-style"
                 onClick={createDC}
-                disabled={boolVal2}
+                disabled={
+                  boolVal2 | (location.state.propsType === "customerIVList")
+                    ? true
+                    : false
+                }
               >
                 Create DC
               </button>
@@ -399,7 +413,13 @@ function OutwordPartIssueVocher(props) {
               <button
                 className="button-style"
                 onClick={printDC}
-                disabled={boolVal1 | boolVal3}
+                disabled={
+                  boolVal1 |
+                  boolVal3 |
+                  (location.state.propsType === "customerIVList")
+                    ? true
+                    : false
+                }
               >
                 Print DC
               </button>
