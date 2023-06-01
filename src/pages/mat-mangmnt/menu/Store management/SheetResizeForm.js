@@ -118,15 +118,18 @@ function SheetResizeForm() {
             className="button-style"
             onClick={
               () =>
-                nav(
-                  "/materialmanagement/shoopfloorreturns/pendinglist/resizeandreturn/materialsplitter",
-                  {
-                    state: {
-                      secondTableRow: selectedTableRows,
-                      type: "storeresize",
-                    },
-                  }
-                )
+                selectedTableRows.length !== 0
+                  ? nav(
+                      "/materialmanagement/shoopfloorreturns/pendinglist/resizeandreturn/materialsplitter",
+                      {
+                        state: {
+                          secondTableRow: selectedTableRows,
+                          type: "storeresize",
+                        },
+                      }
+                    )
+                  : toast.error("Please select the row first")
+
               // nav(
               //   "/MaterialManagement/StoreManagement/ResizeSheets/MaterialResizeAndSplittingForm"
               // )

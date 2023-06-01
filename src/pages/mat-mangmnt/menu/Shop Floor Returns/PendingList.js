@@ -25,6 +25,7 @@ function PendingList(props) {
   const handleOpen1 = () => setOpen1(true);
 
   const [firstTable, setFirstTable] = useState([]);
+  const [firstRowSelected, setFirstRowSelected] = useState([]);
   const [firstTableAll, setFirstTableAll] = useState([]);
   const [secondTable, setSecondTable] = useState([]);
   const [secondTableRow, setSecondTableRow] = useState({});
@@ -37,9 +38,28 @@ function PendingList(props) {
       //console.log("table data = ", data);
       setFirstTable(data);
       setFirstTableAll(data);
+      let newobj = {
+        IV_No: 0,
+        IssueID: 0,
+        Issue_date: "2021-07-07T18:30:00.000Z",
+        Machine: "Machine",
+        NC_ProgramNo: "0",
+        NcId: 0,
+        QtyIssued: 0,
+        QtyReturned: 0,
+        Remarks: null,
+        Status: "Created",
+        cust_name: "",
+        mtrl_code: "",
+        shape: null,
+      };
+      //let uniqueData = [];
+      //uniqueData = uniqueData.push(newobj);
       const uniqueData = [
+        newobj,
         ...new Map(data.map((item) => [item["Machine"], item])).values(),
       ];
+      console.log("tree data = ", uniqueData);
       setTreeData(uniqueData);
       //console.log("unique = ", arrayUniqueByKey);
     });
@@ -145,6 +165,7 @@ function PendingList(props) {
     bgColor: "#98A8F8",
     onSelect: (row, isSelect, rowIndex, e) => {
       console.log("first row = ", row);
+      setFirstRowSelected(row);
       setSelectedSecondTableRows([]);
       let url1 = endpoints.getSecondTableShopFloorReturn + "?id=" + row.IssueID;
       getRequest(url1, (data) => {
@@ -186,9 +207,43 @@ function PendingList(props) {
     },
   };
 
+  function tableRefresh() {
+    //reset first table
+    getRequest(endpoints.getFirstTableShopFloorReturn, (data) => {
+      setFirstTable(data);
+      setFirstTableAll(data);
+      console.log("first table refresh");
+    });
+
+    //reset second table data
+    let row = firstRowSelected;
+    setSelectedSecondTableRows([]);
+    let url1 = endpoints.getSecondTableShopFloorReturn + "?id=" + row.IssueID;
+    getRequest(url1, (data) => {
+      data.forEach((sheet) => {
+        if (sheet.NCPara1 <= sheet.Para1 && sheet.NCPara2 <= sheet.Para2) {
+          sheet.RemPara1 = sheet.Para1 - sheet.NCPara1;
+          sheet.RemPara2 = sheet.Para2 - sheet.NCPara2;
+        } else if (
+          sheet.NCPara2 <= sheet.Para1 &&
+          sheet.NCPara1 <= sheet.Para2
+        ) {
+          sheet.RemPara1 = sheet.Para1 - sheet.NCPara2;
+          sheet.RemPara2 = sheet.Para2 - sheet.NCPara1;
+        }
+      });
+      console.log("second table refresh");
+      setSecondTable(data);
+    });
+  }
+
   const treeViewclickMachine = (machine) => {
-    const newTable = firstTableAll.filter((obj) => obj.Machine === machine);
-    setFirstTable(newTable);
+    if (machine === "Machine") {
+      setFirstTable(firstTableAll);
+    } else {
+      const newTable = firstTableAll.filter((obj) => obj.Machine === machine);
+      setFirstTable(newTable);
+    }
   };
 
   const returnToStock = () => {
@@ -303,6 +358,8 @@ function PendingList(props) {
                 console.log("updated ncprogrammtrlallotmentreturnstock");
               }
             );
+
+            tableRefresh();
           }
         });
         toast.success("Return to Stock Completed");
@@ -382,6 +439,8 @@ function PendingList(props) {
             console.log("updated ncprogrammtrlallotmentreturnstock");
           }
         );
+
+        tableRefresh();
       }
       toast.success("Return as Scrap Completed");
     } else {

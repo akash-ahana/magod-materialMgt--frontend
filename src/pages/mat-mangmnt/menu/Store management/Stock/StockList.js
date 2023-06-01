@@ -269,7 +269,18 @@ function StockList(props) {
     }
     await delay(1500);
 
-    nav("/materialmanagement/Reports/PrintReportStockList", {
+    const state = {
+      tableData: thirdTable,
+      customerDetails: customerDetails,
+      totalweight1: tw1,
+      totqty1: tq1,
+      totalweight2: tw2,
+      totqty2: tq2,
+    };
+
+    console.log("state = ", state);
+
+    /*    nav("/materialmanagement/Reports/PrintReportStockList", {
       state: {
         tableData: thirdTable,
         customerDetails: customerDetails,
@@ -278,7 +289,7 @@ function StockList(props) {
         totalweight2: tw2,
         totqty2: tq2,
       },
-    });
+    });*/
   };
 
   const fullStock = async () => {
@@ -354,7 +365,7 @@ function StockList(props) {
           <div
             className={props.type === "customer" ? "col-md-1 mt-2" : "d-none"}
           >
-            <label className="">Customer</label>
+            <label className="form-label">Customer</label>
           </div>
           <div
             className={props.type === "customer" ? "col-md-6 mt-2" : "d-none"}

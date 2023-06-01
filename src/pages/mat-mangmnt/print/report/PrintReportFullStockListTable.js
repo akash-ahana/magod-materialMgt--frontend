@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   para: {
-    width: "12%",
+    width: "10%",
     marginLeft: "5px",
     marginTop: "2px",
     fontSize: 8,
@@ -122,10 +122,11 @@ const PrintReportFullStockListTable = ({
             <>
               <Text style={styles.title1}>{item.material}</Text>
               <Text style={styles.material}>Material</Text>
-              <Text style={styles.para}>Para1</Text>
-              <Text style={styles.para}>Para2</Text>
+              <Text style={styles.para}>Width</Text>
+              <Text style={styles.para}>Length</Text>
               <Text style={styles.para}>Qty</Text>
               <Text style={styles.para}>Weight</Text>
+              <Text style={styles.para}>Status</Text>
               <Text style={styles.line1}>
                 _________________________________________________________________________________________
               </Text>
@@ -137,8 +138,8 @@ const PrintReportFullStockListTable = ({
                     <Text style={styles.para}>{item.DynamicPara1}</Text>
                     <Text style={styles.para}>{item.DynamicPara2}</Text>
                     <Text style={styles.para}>{item.Qty}</Text>
+                    <Text style={styles.para}>{item.Weight}</Text>
                     <Text style={styles.para}>
-                      {item.Weight}
                       {item.Locked !== 0 ? " Locked" : ""}
                     </Text>
                   </>
@@ -171,10 +172,11 @@ const PrintReportFullStockListTable = ({
             <>
               <Text style={styles.title1}>{item.material}</Text>
               <Text style={styles.material}>Material</Text>
-              <Text style={styles.para}>Para1</Text>
-              <Text style={styles.para}>Para2</Text>
+              <Text style={styles.para}>Width</Text>
+              <Text style={styles.para}>Length</Text>
               <Text style={styles.para}>Qty</Text>
               <Text style={styles.para}>Weight</Text>
+              <Text style={styles.para}>Status</Text>
               <Text style={styles.line1}>
                 _________________________________________________________________________________________
               </Text>
@@ -186,8 +188,8 @@ const PrintReportFullStockListTable = ({
                     <Text style={styles.para}>{item.DynamicPara1}</Text>
                     <Text style={styles.para}>{item.DynamicPara2}</Text>
                     <Text style={styles.para}>{item.Qty}</Text>
+                    <Text style={styles.para}>{item.Weight}</Text>
                     <Text style={styles.para}>
-                      {item.Weight}
                       {item.Locked !== 0 ? " Locked" : ""}
                     </Text>
                   </>

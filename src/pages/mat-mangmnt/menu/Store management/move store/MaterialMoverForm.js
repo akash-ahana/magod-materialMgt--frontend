@@ -134,6 +134,13 @@ function MaterialMoverForm(props) {
           paraData1,
           (data) => {
             console.log("Location updated");
+            loadData();
+
+            selectedRows.map((obj) => {
+              obj.LocationNo = selectedLocation;
+            });
+
+            setSelectedRows(selectedRows);
           }
         );
       }
@@ -164,7 +171,7 @@ function MaterialMoverForm(props) {
       formatter: (celContent, row) => (
         <div className="checkbox">
           <lable>
-            <input type="checkbox" checked={row.Locked == 1 ? true : false} />
+            <input type="checkbox" checked={row.Locked !== 0 ? true : false} />
           </lable>
         </div>
       ),
@@ -175,7 +182,7 @@ function MaterialMoverForm(props) {
       formatter: (celContent, row) => (
         <div className="checkbox">
           <lable>
-            <input type="checkbox" checked={row.Scrap == 1 ? true : false} />
+            <input type="checkbox" checked={row.Scrap !== 0 ? true : false} />
           </lable>
         </div>
       ),

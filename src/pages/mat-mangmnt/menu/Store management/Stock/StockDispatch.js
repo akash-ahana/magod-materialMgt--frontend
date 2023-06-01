@@ -205,7 +205,7 @@ function StockDispatch() {
       <div className="row">
         <div className="col-md-1"></div>
         <div className="col-md-2">
-          <label>Stock Date</label>
+          <label className="form-label">Stock Date</label>
           <input type="date" name="date" onChange={InputEvent} />
         </div>
         <div className="col-md-2">

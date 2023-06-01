@@ -373,7 +373,7 @@ function LocationStockReport() {
         </div>
 
         <div className="col-md-8">
-          <h8>Show Stock</h8>
+          <h8 className="form-label">Show Stock</h8>
           <div className="row">
             <div className="col-md-4">
               <div className="row">
