@@ -477,4 +477,6 @@ li.nav-item {
 
   .header-class{
     background-color: #808080;
+    position: sticky;
+    top: -1px;
   }

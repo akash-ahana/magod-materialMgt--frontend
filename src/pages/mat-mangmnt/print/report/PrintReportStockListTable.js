@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
 
 //return <div>PrintMaterialDCTable</div>;
 //}
-const PrintReportFullStockListTable = ({
+const PrintReportStockListTable = ({
   customerDetails,
   tableData,
   scrapFlag,
@@ -208,4 +208,4 @@ const PrintReportFullStockListTable = ({
   </Document>
 );
 
-export default PrintReportFullStockListTable;
+export default PrintReportStockListTable;
