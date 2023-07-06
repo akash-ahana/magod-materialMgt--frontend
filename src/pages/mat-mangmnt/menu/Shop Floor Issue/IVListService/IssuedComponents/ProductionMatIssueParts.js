@@ -121,56 +121,62 @@ function ProductionMatIssueParts() {
     },
   ];
 
+  const modalResponseok = (msg) => {
+    console.log("msg = ", msg);
+    if (msg === "ok") {
+      for (let i = 0; i < tableData.length; i++) {
+        let update1 = {
+          Id: tableData[i].PartReceipt_DetailsID,
+          Qty: tableData[i].QtyIssued,
+        };
+        //update QtyIssue mtrlpartreceiptdetails
+        postRequest(
+          endpoints.updateQtyIssuedPartReceiptDetails,
+          update1,
+          (data) => {
+            console.log("update1");
+          }
+        );
+
+        //shopfloorbomissuedetails set qtyreturn = qtyissue
+        let update2 = {
+          Id: tableData[i].Id,
+        };
+        postRequest(
+          endpoints.updateQtyReturnedShopfloorBOMIssueDetails,
+          update2,
+          (data) => {
+            console.log("update2");
+          }
+        );
+      }
+
+      //update ncprogram qtyalloated
+      let update3 = {
+        Id: formHeader.NcId,
+        Qty: formHeader.QtyIssued,
+      };
+      postRequest(endpoints.updateQtyAllotedncprograms, update3, (data) => {
+        console.log("update3");
+      });
+
+      //update shopfloorpartissueregiser stats closed
+      let update4 = {
+        Id: formHeader.IssueID,
+        status: "Cancelled",
+      };
+      postRequest(
+        endpoints.updateStatusShopfloorPartIssueRegister,
+        update4,
+        (data) => {
+          console.log("update4");
+        }
+      );
+      toast.success("Parts Cancelled Successfully");
+    }
+  };
   const cancelButton = () => {
     setShow(true);
-    for (let i = 0; i < tableData.length; i++) {
-      let update1 = {
-        Id: tableData[i].PartReceipt_DetailsID,
-        Qty: tableData[i].QtyIssued,
-      };
-      //update QtyIssue mtrlpartreceiptdetails
-      postRequest(
-        endpoints.updateQtyIssuedPartReceiptDetails,
-        update1,
-        (data) => {
-          console.log("update1");
-        }
-      );
-
-      //shopfloorbomissuedetails set qtyreturn = qtyissue
-      let update2 = {
-        Id: tableData[i].Id,
-      };
-      postRequest(
-        endpoints.updateQtyReturnedShopfloorBOMIssueDetails,
-        update2,
-        (data) => {
-          console.log("update2");
-        }
-      );
-    }
-
-    //update ncprogram qtyalloated
-    let update3 = {
-      Id: formHeader.NcId,
-      Qty: formHeader.QtyIssued,
-    };
-    postRequest(endpoints.updateQtyAllotedncprograms, update3, (data) => {
-      console.log("update3");
-    });
-
-    //update shopfloorpartissueregiser stats closed
-    let update4 = {
-      Id: formHeader.IssueID,
-      status: "Cancelled",
-    };
-    postRequest(
-      endpoints.updateStatusShopfloorPartIssueRegister,
-      update4,
-      (data) => {
-        console.log("update4");
-      }
-    );
   };
 
   const acceptReturn = () => {
@@ -210,7 +216,12 @@ function ProductionMatIssueParts() {
         formHeader={formHeader}
         tableData={tableData}
       />
-      <OkModal show={show} setShow={setShow} modalMessage={modalMessage} />
+      <OkModal
+        show={show}
+        setShow={setShow}
+        modalMessage={modalMessage}
+        modalResponseok={modalResponseok}
+      />
       <h4 className="title">Production Material Issue :Parts</h4>
       <div className="table_top_style">
         <div className="row">

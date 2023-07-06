@@ -201,7 +201,7 @@ function StockDispatch() {
     <div>
       {" "}
       <UpdateStockModal open={open} setOpen={setOpen} />
-      <h4 className="title">Stock Arrival Updater Form </h4>
+      <h4 className="title">Stock Dispatch Updated Form </h4>
       <div className="row">
         <div className="col-md-1"></div>
         <div className="col-md-2">

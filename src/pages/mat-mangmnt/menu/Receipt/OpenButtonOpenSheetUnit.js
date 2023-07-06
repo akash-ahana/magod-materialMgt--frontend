@@ -245,6 +245,10 @@ function OpenButtonOpenSheetUnit() {
     //formHeader.ReceiptDate = formatDate(new Date(), 4);
   }, []);
 
+  // useEffect(() => {
+  //   console.log("use state mtrlarray");
+  // }, [mtrlArray]);
+
   function updateCount(cnt, callback) {
     setTimeout(async () => {
       mtrlArray.map((obj) => {
@@ -314,19 +318,26 @@ function OpenButtonOpenSheetUnit() {
         }
       );
 
-      updateCount(1, (nm) => {
-        //console.log("value updated");
-        console.log("mtrl arry = ", mtrlArray);
-        //setMtrlArray(mtrlArray);
-      });
-      // mtrlArray.filter((obj) => {
-      //   if (obj.Mtrl_Rv_id === mtrlStock.Mtrl_Rv_id) {
-      //     obj.UpDated = 1;
-      //   }
+      // updateCount(1, (nm) => {
+      //   console.log("value updated");
+      //   console.log("mtrl arry = ", mtrlArray);
+      //   setMtrlArray(mtrlArray);
       // });
-      // await delay(200);
+      //console.log("prev mtrlArray = ", mtrlArray);
+      //console.log("prev mtrlStock = ", mtrlStock);
 
-      // setMtrlArray(mtrlArray);
+      for (let i = 0; i < mtrlArray.length; i++) {
+        if (mtrlArray[i].Mtrl_Rv_id == mtrlStock.Mtrl_Rv_id) {
+          mtrlArray[i].upDated = 1;
+          //console.log("Its Updated");
+        }
+      }
+      await delay(500);
+      let newArray = mtrlArray;
+      console.log("mtrle new array = ", newArray);
+      setMtrlArray([]);
+      await delay(200);
+      setMtrlArray(newArray);
 
       //console.log("input part ", inputPart);
       //console.log("formheader ", formHeader);
@@ -362,18 +373,21 @@ function OpenButtonOpenSheetUnit() {
           console.log("updated = 0");
         }
       );
-      // mtrlArray.filter((obj) => {
-      //   if (obj.Mtrl_Rv_id === mtrlStock.Mtrl_Rv_id) {
-      //     obj.UpDated = 0;
-      //   }
-      // });
-      // await delay(200);
-      // setMtrlArray(mtrlArray);
-      updateCount(0, (nm) => {
-        //console.log("value updated");
-        console.log("mtrl arry = ", mtrlArray);
-        //setMtrlArray(mtrlArray);
-      });
+      //console.log("prev mtrlArray = ", mtrlArray);
+      //console.log("prev mtrlStock = ", mtrlStock);
+
+      for (let i = 0; i < mtrlArray.length; i++) {
+        if (mtrlArray[i].Mtrl_Rv_id == mtrlStock.Mtrl_Rv_id) {
+          mtrlArray[i].upDated = 0;
+          //console.log("Its Updated");
+        }
+      }
+      await delay(500);
+      let newArray = mtrlArray;
+      console.log("mtrle new array = ", newArray);
+      setMtrlArray([]);
+      await delay(200);
+      setMtrlArray(newArray);
     }
   };
 
@@ -431,7 +445,7 @@ function OpenButtonOpenSheetUnit() {
       formatter: (celContent, row) => (
         <div className="checkbox">
           <lable>
-            <input type="checkbox" checked={row.UpDated == 1 ? true : false} />
+            <input type="checkbox" checked={row.upDated == 1 ? true : false} />
           </lable>
         </div>
       ),
