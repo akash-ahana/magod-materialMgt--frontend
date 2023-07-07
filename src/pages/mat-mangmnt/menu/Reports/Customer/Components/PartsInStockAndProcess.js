@@ -76,7 +76,10 @@ function PartsInStockAndProcess(props) {
   return (
     <div>
       <div className="row-md-6 justify-content-center mt-1 mb-2">
-        <h5>Issued : Issued for Production</h5>
+        <h5>
+          Issued : Issued for Production &nbsp;&nbsp;&nbsp;&nbsp; Used : Used in
+          Production{" "}
+        </h5>
       </div>
       <div className="row mt-4">
         <div className="col-md-2">

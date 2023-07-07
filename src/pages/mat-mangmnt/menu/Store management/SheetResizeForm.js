@@ -59,12 +59,14 @@ function SheetResizeForm() {
   const changeCustomer = (e) => {
     //e.preventDefault();
     //const { value, name } = e.target;
-    let url1 = endpoints.getResizeMtrlStockList + "?code=" + e[0].Cust_Code;
+    if (e.length !== 0) {
+      let url1 = endpoints.getResizeMtrlStockList + "?code=" + e[0].Cust_Code;
 
-    getRequest(url1, (data) => {
-      setTabledata(data);
-      //console.log("api call = ", data);
-    });
+      getRequest(url1, (data) => {
+        setTabledata(data);
+        //console.log("api call = ", data);
+      });
+    }
   };
 
   const selectRow = {

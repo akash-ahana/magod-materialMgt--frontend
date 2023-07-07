@@ -415,7 +415,7 @@ function PurchasePartsNew() {
       (data) => {
         if (data.affectedRows !== 0) {
           toast.success("Record is Deleted");
-          nav("/materialmanagement/receipt/customerjobwork/parts/new", {
+          nav("/materialmanagement/receipt/purchase/parts/new", {
             replace: true,
           });
           window.location.reload();

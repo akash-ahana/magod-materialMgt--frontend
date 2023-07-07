@@ -94,54 +94,61 @@ function StockList(props) {
   }, []);
 
   const changeCustomer = (e) => {
-    //const { name, value } = e.target;
-    setCustCode(e[0].Cust_Code);
-    //console.log("cust code = ", value);
+    //console.log("e = ", e);
+    if (e.length !== 0) {
+      setCustCode(e[0].Cust_Code);
 
-    let url1 =
-      endpoints.getStockListByCustCodeFirst + "?code=" + e[0].Cust_Code;
-    let url2 =
-      endpoints.getStockListByCustCodeSecond + "?code=" + e[0].Cust_Code;
-    let url3 =
-      endpoints.getStockListByCustCodeThird + "?code=" + e[0].Cust_Code;
-    //first table
-    getRequest(url1, (data) => {
-      for (let i = 0; i < data.length; i++) {
-        data[i].id = i + 1;
-      }
-      setFirstTable(data);
-      console.log("first table = ", data);
-    });
+      let url1 =
+        endpoints.getStockListByCustCodeFirst + "?code=" + e[0].Cust_Code;
+      let url2 =
+        endpoints.getStockListByCustCodeSecond + "?code=" + e[0].Cust_Code;
+      let url3 =
+        endpoints.getStockListByCustCodeThird + "?code=" + e[0].Cust_Code;
+      //first table
+      getRequest(url1, (data) => {
+        for (let i = 0; i < data.length; i++) {
+          data[i].id = i + 1;
+        }
+        setFirstTable(data);
+        console.log("first table = ", data);
+      });
 
-    //second table
-    getRequest(url2, (data) => {
-      for (let i = 0; i < data.length; i++) {
-        data[i].id = i + 1;
-      }
-      setSecondAllData(data);
-      //setFirstTable(data);
-      console.log("second table = ", data);
-    });
+      //second table
+      getRequest(url2, (data) => {
+        for (let i = 0; i < data.length; i++) {
+          data[i].id = i + 1;
+        }
+        setSecondAllData(data);
+        //setFirstTable(data);
+        console.log("second table = ", data);
+      });
 
-    //third table
-    getRequest(url3, (data) => {
-      for (let i = 0; i < data.length; i++) {
-        data[i].id = i + 1;
-      }
-      //setFirstTable(data);
-      setThirdAllData(data);
-      console.log("third table = ", data);
-    });
+      //third table
+      getRequest(url3, (data) => {
+        for (let i = 0; i < data.length; i++) {
+          data[i].id = i + 1;
+        }
+        //setFirstTable(data);
+        setThirdAllData(data);
+        console.log("third table = ", data);
+      });
 
-    //set customer data
-    const found = custdata.find((obj) => obj.Cust_Code === e[0].Cust_Code);
-    setCustomerDetails(() => {
-      return {
-        customerName: found.Cust_name,
-        city: found.City,
-        address: found.Address,
-      };
-    });
+      //set customer data
+      const found = custdata.find((obj) => obj.Cust_Code === e[0].Cust_Code);
+      setCustomerDetails(() => {
+        return {
+          customerName: found.Cust_name,
+          city: found.City,
+          address: found.Address,
+        };
+      });
+    } else {
+      setFirstTable([]);
+      setSecondTable([]);
+      setThirdTable([]);
+      setSecondAllData([]);
+      setThirdAllData([]);
+    }
   };
 
   const columns1 = [
@@ -267,29 +274,30 @@ function StockList(props) {
         tw2 = tw2 + parseFloat(thirdTable[i].Weight);
       }
     }
-    await delay(1500);
+    await delay(300);
 
-    const state = {
-      tableData: thirdTable,
-      customerDetails: customerDetails,
-      totalweight1: tw1,
-      totqty1: tq1,
-      totalweight2: tw2,
-      totqty2: tq2,
-    };
+    const scrapDataTbl = thirdTable.filter((item, index) => {
+      return item.Scrap !== 0;
+    });
 
-    console.log("state = ", state);
+    const tblDataTbl = thirdTable.filter((item, index) => {
+      return item.Scrap === 0;
+    });
+    await delay(300);
 
-    /*    nav("/materialmanagement/Reports/PrintReportStockList", {
+    nav("/materialmanagement/Reports/PrintReportStockList", {
       state: {
-        tableData: thirdTable,
+        //tableData: thirdTable,
         customerDetails: customerDetails,
         totalweight1: tw1,
         totqty1: tq1,
         totalweight2: tw2,
         totqty2: tq2,
+        tableData: tblDataTbl,
+        scrapData: scrapDataTbl,
+        scrapFlag: scrapDataTbl.length,
       },
-    });*/
+    });
   };
 
   const fullStock = async () => {
