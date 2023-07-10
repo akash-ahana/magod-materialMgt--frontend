@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
@@ -24,13 +24,55 @@ const SidebarWrap = styled.div`
 
 const SidebarComp = () => {
   const location = useLocation();
+  const [newSideBarData, setNewSideBarData] = useState(customerSidebar)
+  const [accessSideBarData, setAccessSideBarData] = useState([])
 
+  let [lazerUser, setLazerUser] = useState(
+    JSON.parse(localStorage.getItem("LazerUser"))
+  );
   const [sidebar, setSidebar] = useState(true);
 
   function showSidebar() {
     setSidebar(!sidebar);
   }
+  console.log(lazerUser.data.access)
+  useEffect(() => {
+  function filterSidebarData(data, accessPaths) {
+    const filterSidebar = [];
+    let previousMenu = null;
 
+    data.forEach((element) => {
+      if (element.subNav) {
+        const subNavFiltered = filterSidebarData(element.subNav, accessPaths);
+        element.subNav = subNavFiltered;
+        if (subNavFiltered.length > 0 || accessPaths.includes(element.path)) {
+          // if(element.path)
+          //   element.path = element.path.toLowerCase();
+
+          filterSidebar.push(element);
+        }
+      } else {
+        if (element.title === "Previous Menu") {
+          previousMenu = element;
+        } else if (accessPaths.includes(element.path)) {
+          // if(element.path)
+          //   element.path = element.path.toLowerCase();
+          filterSidebar.push(element);
+        }
+      }
+    });
+    if (previousMenu) {
+      filterSidebar.push(previousMenu);
+    }
+    return filterSidebar;
+  }
+  
+  const filterSidebar = filterSidebarData(newSideBarData, lazerUser.data.access);
+  console.log(filterSidebar);
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    setAccessSideBarData(filterSidebar)
+    // setAccessSideBarData(quotationSidebar)
+  },[])
   return (
     <>
       <nav className={sidebar ? "side-nav" : '"side-nav '}>
@@ -53,7 +95,9 @@ const SidebarComp = () => {
 
           {(location.pathname.startsWith("/admin")
             ? adminSidebar
-            : customerSidebar
+            : location.pathname.startsWith("/materialmanagement")
+            ? accessSideBarData
+            : null
           ).map((item, index) => {
             return <SubMenuComp item={item} key={index} sidebar={sidebar} />;
           })}
