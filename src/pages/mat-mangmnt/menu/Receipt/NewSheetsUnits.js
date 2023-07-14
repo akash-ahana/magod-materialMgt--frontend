@@ -961,7 +961,7 @@ function NewSheetsUnits(props) {
 
         <div className="row">
           <div className="col-md-3">
-            <label className="">Receipt Date</label>
+            <label className="form-label">Receipt Date</label>
             <input
               type="text"
               name="receiptDate"
@@ -970,11 +970,11 @@ function NewSheetsUnits(props) {
             />
           </div>
           <div className="col-md-3">
-            <label className="">RV No</label>
+            <label className="form-label">RV No</label>
             <input type="text" name="rvNo" value={formHeader.rvNo} readOnly />
           </div>
           <div className="col-md-3">
-            <label className="">RV Date</label>
+            <label className="form-label">RV Date</label>
             <input
               type="text"
               name="rvDate"
@@ -983,7 +983,7 @@ function NewSheetsUnits(props) {
             />
           </div>
           <div className="col-md-3">
-            <label className="">status</label>
+            <label className="form-label">Status</label>
             <input
               type="text"
               name="status"
@@ -1038,7 +1038,7 @@ function NewSheetsUnits(props) {
             )}
           </div>
           <div className="col-md-4">
-            <label className="">Weight</label>
+            <label className="form-label">Weight</label>
             <input
               type="text"
               name="weight"
@@ -1052,7 +1052,7 @@ function NewSheetsUnits(props) {
 
         <div className="row">
           <div className="col-md-8">
-            <label className="">Reference</label>
+            <label className="form-label">Reference</label>
             <input
               type="text"
               name="reference"
@@ -1062,7 +1062,7 @@ function NewSheetsUnits(props) {
             />
           </div>
           <div className="col-md-4">
-            <label className="">Calculated Weight</label>
+            <label className="form-label">Calculated Weight</label>
             <input
               type="text"
               name="calculatedWeight"
@@ -1073,11 +1073,11 @@ function NewSheetsUnits(props) {
           </div>
         </div>
 
-        <div className="row mt-4">
+        <div className="row">
           <div className="col-md-8 justify-content-center">
             <button
               className="button-style"
-              style={{ width: "196px" }}
+              // style={{ width: "120px" }}
               onClick={saveButtonState}
               disabled={boolVal4}
             >
@@ -1085,7 +1085,7 @@ function NewSheetsUnits(props) {
             </button>
             <button
               className="button-style"
-              style={{ width: "196px" }}
+              // style={{ width: "150px" }}
               disabled={boolVal1 | boolVal4}
               onClick={allotRVButtonState}
             >
@@ -1093,7 +1093,7 @@ function NewSheetsUnits(props) {
             </button>
             <button
               className="button-style"
-              style={{ width: "196px" }}
+              // style={{ width: "196px" }}
               disabled={boolVal1 | boolVal4}
               onClick={deleteRVButtonState}
             >
@@ -1108,11 +1108,14 @@ function NewSheetsUnits(props) {
               Close
             </button>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4 mb-3 mt-3">
             <label className="form-label"></label>
             <textarea
-              style={{ height: "110px" }}
-              className="form-control"
+             id="exampleFormControlTextarea1"
+             rows="4"
+             style={{ width: "360px" }}
+             
+              // className="form-control"
               value={formHeader.address}
               readOnly
             ></textarea>
@@ -1129,6 +1132,7 @@ function NewSheetsUnits(props) {
                 hover
                 condensed
                 selectRow={selectRow}
+                headerClasses="header-class "
               ></BootstrapTable>
             </div>
 
@@ -1144,7 +1148,7 @@ function NewSheetsUnits(props) {
               <div className="row justify-content-center mt-2">
                 <button
                   className="button-style "
-                  style={{ width: "260px" }}
+                  style={{ width: "155px" }}
                   //onClick={addNewPart}
                   disabled={boolVal1 | boolVal4}
                   onClick={addNewMaterial}
@@ -1155,7 +1159,7 @@ function NewSheetsUnits(props) {
               <div className="row justify-content-center mt-2">
                 <button
                   className="button-style "
-                  style={{ width: "120px" }}
+                  style={{ width: "155px" }}
                   disabled={
                     (props.type2 === "purchase" || props.type === "gas") &&
                     boolValStock === "off"
@@ -1168,7 +1172,7 @@ function NewSheetsUnits(props) {
                 </button>
                 <button
                   className="button-style "
-                  style={{ width: "130px" }}
+                  style={{ width: "155px" }}
                   disabled={
                     (props.type2 === "purchase" || props.type === "gas") &&
                     boolValStock === "on"
@@ -1181,15 +1185,16 @@ function NewSheetsUnits(props) {
                 </button>
               </div>
               <div className="row">
-                <div className="col-md-12 col-sm-12">
+              
                   <div className="ip-box form-bg">
+                  <p className="form-title-deco mt-2"><h5>Serial Details</h5></p>
                     <div className="row">
-                      <p className="form-title-deco">Serial Details</p>
+                     
 
-                      <div className="col-md-3 ">
-                        <label className="">Part ID</label>
+                      <div className="col-md-4 ">
+                        <label className="form-label">Part ID</label>
                       </div>
-                      <div className="col-md-6" style={{ marginTop: "8px" }}>
+                      <div className="col-md-8" style={{ marginTop: "8px" }}>
                         <select
                           className="ip-select dropdown-field"
                           onChange={changeMtrl}
@@ -1249,13 +1254,13 @@ function NewSheetsUnits(props) {
                       </div>
                     </div>
 
-                    <div className="row">
-                      <div className="col-md-3">
-                        <label className="">{para1Label}</label>
+                    <div className="row mt-3">
+                      <div className="col-md-4">
+                        <label className="form-label">{para1Label}</label>
                       </div>
-                      <div className="col-md-4 ">
+                      <div className="col-md-8 ">
                         <input
-                          className="in-field"
+                          className="in-fields"
                           name="dynamicPara1"
                           value={inputPart.dynamicPara1}
                           disabled={boolVal3 | boolVal4 | boolPara1 | boolVal5}
@@ -1263,16 +1268,16 @@ function NewSheetsUnits(props) {
                         />
                       </div>
                       <div className="col-md-3">
-                        <label className="">{unitLabel1}</label>
+                        <label className="form-label">{unitLabel1}</label>
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-md-3">
-                        <label className="">{para2Label}</label>
+                      <div className="col-md-4">
+                        <label className="form-label">{para2Label}</label>
                       </div>
-                      <div className="col-md-4 ">
+                      <div className="col-md-8 ">
                         <input
-                          className="in-field"
+                          className="in-fields"
                           name="dynamicPara2"
                           value={inputPart.dynamicPara2}
                           onChange={changeMaterialHandle}
@@ -1280,16 +1285,16 @@ function NewSheetsUnits(props) {
                         />
                       </div>
                       <div className="col-md-3">
-                        <label className="">{unitLabel2}</label>
+                        <label className="form-label">{unitLabel2}</label>
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-md-3">
-                        <label className="">{para3Label}</label>
+                      <div className="col-md-4">
+                        <label className="form-label">{para3Label}</label>
                       </div>
-                      <div className="col-md-4 ">
+                      <div className="col-md-8 ">
                         <input
-                          className="in-field"
+                          className="in-fields"
                           name="dynamicPara3"
                           value={inputPart.dynamicPara3}
                           onChange={changeMaterialHandle}
@@ -1297,16 +1302,14 @@ function NewSheetsUnits(props) {
                         />
                       </div>
                       <div className="col-md-3">
-                        <label className="">{unitLabel3}</label>
+                        <label className="form-label">{unitLabel3}</label>
                       </div>
                     </div>
-                    <div className="col-md-12 ">
-                      <p className="form-title-deco">Quantity Details</p>
+                   
+                      <p className="form-title-deco"><h5>Quantity Details</h5></p>
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">Received</label>
-                        </div>
-                        <div className="col-md-4 ">
+                        <div className="col-md-6 col-sm-12">
+                          <label className="form-label">Received</label>
                           <input
                             className="in-field"
                             name="qtyReceived"
@@ -1315,13 +1318,13 @@ function NewSheetsUnits(props) {
                             onChange={changeMaterialHandle}
                           />
                         </div>
-                        <div className="col-md-4">
-                          <div
-                            className="col-md-12 mt-2"
-                            style={{ display: "flex", gap: "5px" }}
-                          >
+                        
+                        <div className="col-md-6 col-sm-12">
+                          <div className="row">
+                            
+                            <div className="col-md-4 col-sm-12 mt-2">
                             <input
-                              className="form-check-input mt-2"
+                              className="checkBoxStyle mt-2"
                               type="checkbox"
                               id="flexCheckDefault"
                               name="inspected"
@@ -1331,16 +1334,25 @@ function NewSheetsUnits(props) {
                               }*/
                               disabled={boolVal3 | boolVal4}
                               onChange={changeMaterialHandle}
-                            />
-                             <label className="">Inspected</label>
+                            />  
+                            </div>
+                            <div className="col-md-8 col-sm-12">
+                            <label className="form-label">Inspected</label>
+                            </div>
+
                           </div>
-                        </div>
+                         
+                            
+                          </div>
                       </div>
+
+
+
+
+                 
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">Accepted</label>
-                        </div>
-                        <div className="col-md-4 ">
+                        <div className="col-md-6 col-sm-12">
+                          <label className="form-label">Accepted</label>
                           <input
                             className="in-field"
                             name="qtyAccepted"
@@ -1349,13 +1361,13 @@ function NewSheetsUnits(props) {
                             onChange={changeMaterialHandle}
                           />
                         </div>
-                        <div className="col-md-4">
-                          <div
-                            className="col-md-12 mt-2"
-                            style={{ display: "flex", gap: "5px" }}
-                          >
+                        
+                        <div className="col-md-6 col-sm-12">
+                        <div className="row">
+                            
+                            <div className="col-md-4 col-sm-12 mt-2">
                             <input
-                              className="form-check-input mt-2"
+                              className="checkBoxStyle mt-2"
                               type="checkbox"
                               id="flexCheckDefault"
                               name="updated"
@@ -1363,17 +1375,18 @@ function NewSheetsUnits(props) {
                               //disabled={boolVal3 | boolVal4}
                               disabled={true}
                               onChange={changeMaterialHandle}
-                            />
-                             <label className="">Updated</label>
+                            /> 
+                            </div>
+                            <div className="col-md-8 col-sm-12">
+                            <label className="form-label">Updated</label>
+                            </div>
                           </div>
                         </div>
                       </div>
 
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">Wt Calculated 2</label>
-                        </div>
-                        <div className="col-md-4 ">
+                        <div className="col-md-6">
+                          <label className="form-label">Wt Calculated 2</label>
                           <input
                             className="in-field"
                             name="totalWeightCalculated"
@@ -1381,12 +1394,11 @@ function NewSheetsUnits(props) {
                             disabled={true}
                           />
                         </div>
+                        
                       </div>
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">Weight</label>
-                        </div>
-                        <div className="col-md-4 ">
+                        <div className="col-md-6">
+                          <label className="form-label">Weight</label>
                           <input
                             className="in-field"
                             name="totalWeight"
@@ -1397,10 +1409,8 @@ function NewSheetsUnits(props) {
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-3 ">
-                          <label className="">Location</label>
-                        </div>
-                        <div className="col-md-6" style={{ marginTop: "8px" }}>
+                        <div className="col-md-6 ">
+                          <label className="form-label">Location</label>
                           <select
                             className="ip-select dropdown-field"
                             onChange={changeMaterialHandle}
@@ -1423,20 +1433,19 @@ function NewSheetsUnits(props) {
                           </select>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="row justify-content-center mt-2">
+               <div className="row justify-content-center mt-3 mb-4">
                 <button
                   className="button-style "
-                  style={{ width: "120px" }}
+                  style={{ width: "155px" }}
                   disabled={boolVal3 | boolVal4}
                   onClick={handleDelete}
                 >
-                  Delete Serial
+                  Delete
                 </button>
               </div>
+                  </div>               
+              </div>
+             
             </div>
           </div>
         </div>
