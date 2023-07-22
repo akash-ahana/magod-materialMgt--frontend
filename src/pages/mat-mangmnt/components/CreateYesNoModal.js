@@ -3,12 +3,14 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import { formatDate } from "../../../utils";
+import { useNavigate } from "react-router-dom";
 const { getRequest, postRequest } = require("../../api/apiinstance");
 const { endpoints } = require("../../api/constants");
 
 function CreateYesNoModal(props) {
   const { show, setShow, formHeader, allotRVYesButton } = props;
   const handleNo = () => setShow(false);
+  const nav = useNavigate();
 
   const handleYes = () => {
     formHeader.status = "Received";
@@ -60,6 +62,7 @@ function CreateYesNoModal(props) {
           (data) => {
             if (data.affectedRows !== 0) {
               toast.success("Record Updated Successfully");
+              ///MaterialManagement/Receipt/Purchase/Parts/New
             } else {
               toast.error("Record Not Updated");
             }

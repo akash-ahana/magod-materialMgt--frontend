@@ -27,7 +27,7 @@ function UnitsMatAllotmentForm() {
 
   const [show, setShow] = useState(false);
   const [showok, setShowok] = useState(false);
-  const [messageok, setmessageok] = useState("");
+  let [messageok, setmessageok] = useState("");
 
   const fetchData = async () => {
     //get formHeader data
@@ -60,6 +60,11 @@ function UnitsMatAllotmentForm() {
       getRequest(url3, async (data2) => {
         console.log("table data = ", data2);
         setFirstTable(data2);
+        if (data2.length == 0) {
+          toast.warning(
+            "There is no material to alttot for this program. Check if you have added the material to customer stock?"
+          );
+        }
       });
     });
   };
@@ -330,6 +335,7 @@ function UnitsMatAllotmentForm() {
                 //console.log("Return id = ", issueidval);
                 //return data.insertId;
 
+                console.log("insertid again = ", data.insertId);
                 if (data.insertId > 0) {
                   //open popup modal
                   let series = "";
@@ -341,12 +347,13 @@ function UnitsMatAllotmentForm() {
                     series = series + "0";
                   }
                   series = series + "" + newNo;
-                  console.log("");
-                  await delay(500);
+                  console.log("Issue Voucner number is created : " + series);
+                  //await delay(500);
                   setmessageok("Issue Voucner number is created : " + series);
-                  setmessageok("Issue Voucner number is created : " + series);
-                  await delay(500);
-                  setmessageok("Issue Voucner number is created : " + series);
+                  messageok = "Issue Voucner number is created : " + series;
+                  //setmessageok("Issue Voucner number is created : " + series);
+                  //await delay(500);
+                  //setmessageok("Issue Voucner number is created : " + series);
 
                   setShowok(true);
                 }
@@ -490,6 +497,7 @@ function UnitsMatAllotmentForm() {
               className="button-style "
               //   disabled={true}
               onClick={issueToProduction}
+              style={{ width: "185px" }}
             >
               Issue to Production
             </button>
