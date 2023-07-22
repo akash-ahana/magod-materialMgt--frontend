@@ -134,7 +134,7 @@ a {
   color: #000000;
   font-size: 14px;
 }
-.button-style {
+.button-style{
   width: 155px;
   height: 38px;
   border: none;
@@ -342,7 +342,6 @@ label {
   text-decoration: none;
 }
 
-
 .css-4pdmu4-MuiBreadcrumbs-ol {
   margin-top: 18px !important;
   font-size: 16px !important;
@@ -466,17 +465,22 @@ li.nav-item {
   font-size: 14px !important;
 }
 
-
 .title {
   text-align: center;
   height: 34px;
   color: white;
   background-color: #2b3a55;
   border-radius: 10px 10px 0px 0px;
-  }
+}
 
-  .header-class{
-    background-color: #808080;
-    position: sticky;
-    top: -1px;
-  }
+.header-class {
+  font-size: 17px;
+  background-color: gray;
+  color: white;
+  position: sticky;
+  top: -1px;
+  text-transform: capitalize;
+}
+table {
+  border-spacing: "0px" !important;
+}
