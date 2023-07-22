@@ -119,7 +119,7 @@ function ReturnListing(props) {
 
   let openClick = async (e) => {
     //console.log("selected data = ", selectData);
-    console.log("data = ", selectData);
+    console.log("data = ", selectData, "propType = ", propsType);
     if (selectData && selectData.Type !== "Parts") {
       nav(
         "/materialmanagement/return/customerjobwork/OutwordMaterialIssueVocher",

@@ -288,7 +288,7 @@ function OutwordMaterialIssueVocher(props) {
         getDCID={getDCID}
       />
       <div>
-        <h4 className="title">Outward Material Issue Vocher</h4>
+        <h4 className="title">Outward Material Issue Voucher</h4>
 
         <div className="row">
           <div className="col-md-12">
@@ -329,6 +329,8 @@ function OutwordMaterialIssueVocher(props) {
                     boolVal2 |
                     boolVal3 |
                     (location.state.propsType === "customerIVList")
+                      ? true
+                      : false | (location.state.propsType === "returnCancelled")
                       ? true
                       : false
                   }
@@ -412,6 +414,8 @@ function OutwordMaterialIssueVocher(props) {
                 disabled={
                   boolVal2 | (location.state.propsType === "customerIVList")
                     ? true
+                    : false | (location.state.propsType === "returnCancelled")
+                    ? true
                     : false
                 }
               >
@@ -424,6 +428,8 @@ function OutwordMaterialIssueVocher(props) {
                 onClick={createDC}
                 disabled={
                   boolVal2 | (location.state.propsType === "customerIVList")
+                    ? true
+                    : false | (location.state.propsType === "returnCancelled")
                     ? true
                     : false
                 }
@@ -439,6 +445,8 @@ function OutwordMaterialIssueVocher(props) {
                   boolVal1 |
                   boolVal3 |
                   (location.state.propsType === "customerIVList")
+                    ? true
+                    : false | (location.state.propsType === "returnCancelled")
                     ? true
                     : false
                 }
