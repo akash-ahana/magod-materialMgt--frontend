@@ -63,7 +63,7 @@ function SheetsOpenRVList() {
   const openButtonClick = () => {
     //console.log("data = ", data);
     //console.log("button click : ");
-    nav("/materialmanagement/receipt/openbuttonopensheetunit", {
+    nav("/MaterialManagement/Receipt/OpenButtonOpenSheetUnit", {
       state: { id: data.RvID },
     });
   };
@@ -92,6 +92,7 @@ function SheetsOpenRVList() {
     {
       text: "RV No",
       dataField: "RV_No",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "RV Date",
@@ -234,7 +235,7 @@ function SheetsOpenRVList() {
                       </div>
                       <div className="row">
                         <div className="col-md-4 mt-1 ">
-                          <label className="form-label">Cust Docu No</label>
+                          <label className="form-label" style={{whiteSpace:"nowrap"}}>Cust Docu No</label>
                         </div>
 
                         <div className="col-md-8 ">

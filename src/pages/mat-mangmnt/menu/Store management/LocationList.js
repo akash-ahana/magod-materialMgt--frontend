@@ -230,7 +230,7 @@ function LocationList(props) {
       <LocationLisModal open={open} setOpen={setOpen} />
       <h4 className="title">Material Storage Location Manager</h4>
       <div className="row">
-        <div className="col-md-7">
+        <div className="col-md-7 col-sm-12">
           <div style={{ height: "450px", overflowY: "scroll" }}>
             <BootstrapTable
               keyField="id"
@@ -244,17 +244,17 @@ function LocationList(props) {
             ></BootstrapTable>
           </div>
         </div>
-        <div className="col-md-5">
+        <div className="col-md-5 col-sm-12">
           <div className="ip-box form-bg">
-            <div className="row">
-              <div className="col-md-12 col-sm-12">
-                <div className="ip-box form-bg">
-                  <div className="row">
+           
+             
+              
+                
                     <div className="row">
-                      <div className="col-md-4 ">
-                        <label className="">Location No/Name</label>
+                      <div className="col-md-5 ">
+                        <label className="form-label" style={{whiteSpace:"nowrap"}}>Location No/Name</label>
                       </div>
-                      <div className="col-md-8 ">
+                      <div className="col-md-7 ">
                         <input
                           className="in-field"
                           type="text"
@@ -265,10 +265,10 @@ function LocationList(props) {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-md-4 ">
-                        <label className="">Storage Type</label>
+                      <div className="col-md-5 mt-2 ">
+                        <label className="form-label">Storage Type</label>
                       </div>
-                      <div className="col-md-8" style={{ marginTop: "8px" }}>
+                      <div className="col-md-7" style={{ marginTop: "8px" }}>
                         {/* <select
                           className="ip-select dropdown-field"
                           name="storage"
@@ -291,15 +291,16 @@ function LocationList(props) {
                           options={shape}
                           placeholder="Select Storage Type"
                           onChange={(label) => InputEventShape(label)}
+                          className="in-field"
                         />
                       </div>
                     </div>
 
                     <div className="row">
-                      <div className="col-md-4 ">
-                        <label className="">Storage Capacity</label>
+                      <div className="col-md-5 ">
+                        <label className="form-label">Storage Capacity</label>
                       </div>
-                      <div className="col-md-8 ">
+                      <div className="col-md-7 ">
                         <input
                           className="in-field"
                           type="text"
@@ -310,40 +311,49 @@ function LocationList(props) {
                         />
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row justify-content-center mt-3">
+                 
+              
+             
+            
+            <div className="row mt-3 mb-3">
+              <div className="col-md-3 col-sm-12">
               <button
-                className="button-style col-md-3"
+                className="button-style "
                 style={{ width: "100px" }}
                 onClick={addButton}
               >
                 Add
               </button>
+              </div>
+              <div className="col-md-3 col-sm-12">
               <button
-                className="button-style col-md-3"
+                className="button-style"
                 style={{ width: "100px" }}
                 onClick={deleteButton}
               >
                 Delete
               </button>
+              </div>
+              <div className="col-md-3 col-sm-12">
               <button
-                className="button-style col-md-3"
-                style={{ width: "100px", marginBottom: "20PX" }}
+                className="button-style "
+                style={{ width: "100px" }}
                 onClick={saveButton}
               >
                 Save
               </button>
+              </div>
+              <div className="col-md-3 col-sm-12">
               <button
-                className="button-style col-md-3"
+                className="button-style"
+                style={{ width: "100px" }}
                 id="btnclose"
                 type="submit"
                 onClick={() => nav("/materialmanagement")}
               >
                 Close
               </button>
+              </div>        
             </div>
           </div>
         </div>

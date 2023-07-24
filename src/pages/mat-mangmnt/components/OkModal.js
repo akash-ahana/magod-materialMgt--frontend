@@ -19,7 +19,7 @@ function OkModal(props) {
         <Modal.Body>{modalMessage}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            okay
+            Ok
           </Button>
         </Modal.Footer>
       </Modal>

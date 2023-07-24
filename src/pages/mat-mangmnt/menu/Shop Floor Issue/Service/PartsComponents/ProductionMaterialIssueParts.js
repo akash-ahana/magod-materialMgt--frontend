@@ -64,7 +64,7 @@ function ProductionMaterialIssueParts() {
         <div
           style={{ height: "400px", overflowY: "scroll", marginTop: "30px" }}
         >
-          <Table bordered>
+          <Table striped>
             <thead
               style={{
                 textAlign: "center",

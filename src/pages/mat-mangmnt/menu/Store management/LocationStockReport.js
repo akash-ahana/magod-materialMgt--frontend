@@ -303,7 +303,7 @@ function LocationStockReport() {
       <h4 className="title">Location Stock Report</h4>
       <div className="row">
         <div className="col-md-4">
-          <h4 className="form-title"> Stock Viewer</h4>
+          <h4 className="form-title"> <u>Stock Viewer</u></h4>
 
           <div className="row">
             <div className="col-md-12">
@@ -419,29 +419,37 @@ function LocationStockReport() {
               </div>
             </div>
             <div className="col-md-8">
-              <div className="row justify-content-center mt-3">
+              <div className="row  mt-3">
+                <div className="col-md-4 col-sm-12">
                 <button
-                  className="button-style col-md-3 "
-                  style={{ width: "160px" }}
+                  className="button-style "
+                 // style={{ width: "155px" }}
                   onClick={summaryReport}
                 >
                   Summary Report
                 </button>
+                </div>
+                <div className="col-md-4 col-sm-12">
                 <button
-                  className="button-style col-md-3"
-                  style={{ width: "160px" }}
+                  className="button-style "
+                 // style={{ width: "155px" }}
                   onClick={detailsReport}
                 >
                   Details Report
                 </button>
+                </div>
+                <div className="col-md-4 col-sm-12">
                 <button
-                  className="button-style col-md-3"
+                  className="button-style"
+                 // style={{ width: "155px" }}
                   id="btnclose"
                   type="submit"
                   onClick={() => nav("/materialmanagement")}
+                  
                 >
                   Close
                 </button>
+                </div>  
               </div>
             </div>
 
@@ -468,10 +476,12 @@ function LocationStockReport() {
             </div>
             <div
               className="col-md-4 mt-2"
-              style={{ display: "flex", gap: "5px" }}
+              
             >
-              <input
-                className="form-check-input mt-2"
+              <div className="row">
+                <div className="col-md-1 col-sm-12">
+                <input
+                className="form-check-input mt-3"
                 type="checkbox"
                 id="flexCheckDefault"
                 name="updated"
@@ -481,7 +491,13 @@ function LocationStockReport() {
                 //   disabled={true}
                 //   onChange={changeMaterialHandle}
               />
-              <label className="">Scrap</label>
+                </div>
+                <div className="col-md-8 col-sm-12">
+                <label className="form-label mt-1">Scrap</label>
+                </div>
+
+              </div>
+              
             </div>
           </div>
         </div>

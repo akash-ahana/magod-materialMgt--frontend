@@ -76,7 +76,7 @@ export const customerSidebar = [
             subNav: [
               {
                 title: "New",
-                path: "/MaterialManagement/Receipt/CustomerJobWork/Units/new",
+                path: "/MaterialManagement/Receipt/CustomerJobWork/Units/New",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
@@ -395,7 +395,7 @@ export const customerSidebar = [
     ],
   },
   {
-    title: "Store Managemen",
+    title: "Store Management",
     // path: "/customer",
     icon: <SiIcon.SiMaterialdesignicons />,
     iconClosed: <RiIcons.RiArrowDownSFill />,

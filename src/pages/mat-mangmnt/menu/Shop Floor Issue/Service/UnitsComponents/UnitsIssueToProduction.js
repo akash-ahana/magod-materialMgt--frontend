@@ -52,7 +52,7 @@ function UnitsIssueToProduction() {
           <div className="row">
             {" "}
             <div className="col-md-12">
-              <label className="form-label">Sourse</label>
+              <label className="form-label">Source</label>
               <input className="" />
             </div>
           </div>
@@ -114,7 +114,7 @@ function UnitsIssueToProduction() {
               style={{ display: "flex", gap: "5px" }}
             >
               <input
-                className="form-check-input mt-2"
+                className="form-check-input mt-3"
                 type="checkbox"
                 id="flexCheckDefault"
                 name="updated"
@@ -123,7 +123,7 @@ function UnitsIssueToProduction() {
                 //   disabled={true}
                 //   onChange={changeMaterialHandle}
               />
-               <label className="">No Details</label>
+               <label className="form-label mt-1">No Details</label>
             </div>
           </div>
           <div className="row mt-4">
@@ -145,8 +145,8 @@ function UnitsIssueToProduction() {
           marginTop: "20px",
         }}
       >
-        <Table bordered>
-          <thead
+        <Table striped  className="table-data border">
+          <thead  className="tableHeaderBGColor"
             style={{
               textAlign: "center",
               position: "sticky",

@@ -365,7 +365,7 @@ function UnitsMatAllotmentForm() {
   let modalResponseok = async (data) => {
     if (data === "ok") {
       nav(
-        "/materialmanagement/shopfloorissue/ivlistprofilecutting/closed/shopmatissuevocher",
+        "/MaterialManagement/ShopFloorIssue/IVListProfileCutting/Closed/ShopMatIssueVoucher",
         {
           state: { issueIDVal: issueidval },
         }
@@ -402,7 +402,7 @@ function UnitsMatAllotmentForm() {
 
         <div className="row">
           <div className="col-md-6">
-            <label className="">Task No</label>
+            <label className="form-label">Task No</label>
             <input type="text" value={formHeader.TaskNo} disabled />
           </div>
           <div className="col-md-6">
@@ -414,93 +414,111 @@ function UnitsMatAllotmentForm() {
         <div className="row">
           <div className="col-md-6">
             <div style={{ marginBottom: "9px" }}>
-              <label className="">NC Program No</label>
-              <input className="" value={formHeader.NCProgramNo} disabled />
+              <label className="form-label">NC Program No</label>
+              <input className="form-label" value={formHeader.NCProgramNo} disabled />
             </div>
           </div>
           <div className="col-md-6">
             <div style={{ marginBottom: "9px" }}>
-              <label className="">Material Code</label>
-              <input className="" value={formHeader.Mtrl_Code} disabled />
+              <label className="form-label">Material Code</label>
+              <input className="form-label" value={formHeader.Mtrl_Code} disabled />
             </div>
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-3">
-            <label className="">Priorty</label>
-            <input className="" value={formHeader.Priority} disabled />
+            <label className="form-label">Priority</label>
+            <input className="form-label" value={formHeader.Priority} disabled />
           </div>
           <div className="col-md-3">
-            <label className="">Para 1</label>
-            <input className="" value={formHeader.Para1} disabled />
+            <label className="form-label">Para 1</label>
+            <input className="form-label" value={formHeader.Para1} disabled />
           </div>
 
           <div className="col-md-3">
-            <label className="">Machine</label>
-            <input className="" value={formHeader.Machine} disabled />
+            <label className="form-label">Machine</label>
+            <input className="form-label" value={formHeader.Machine} disabled />
           </div>
           <div className="col-md-3">
-            <label className="">Quantity</label>
-            <input className="" value={formHeader.Qty} disabled />
+            <label className="form-label">Quantity</label>
+            <input className="form-label" value={formHeader.Qty} disabled />
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-3">
-            <label className="">Status</label>
-            <input className="" value={formHeader.PStatus} disabled />
+            <label className="form-label">Status</label>
+            <input className="form-label" value={formHeader.PStatus} disabled />
           </div>
           <div className="col-md-3">
-            <label className="">Para 2</label>
-            <input className="" value={formHeader.Para2} disabled />
+            <label className="form-label">Para 2</label>
+            <input className="form-label" value={formHeader.Para2} disabled />
           </div>
 
           <div className="col-md-3">
-            <label className="">Process</label>
-            <input className="" value={formHeader.MProcess} disabled />
+            <label className="form-label">Process</label>
+            <input className="form-label" value={formHeader.MProcess} disabled />
           </div>
           <div className="col-md-3">
-            <label className="">Alloted</label>
-            <input className="" value={formHeader.QtyAllotted} disabled />
+            <label className="form-label">Alloted</label>
+            <input className="form-label" value={formHeader.QtyAllotted} disabled />
           </div>
         </div>
         <div className="row">
-          <div className="col-md-5">
-            <label className="">Source</label>
-            <input className="" value={formHeader.CustMtrl} disabled />
+          <div className="col-md-4">
+            <label className="form-label">Source</label>
+            <input className="form-label" value={formHeader.CustMtrl} disabled />
           </div>
-          <div className="col-md-7">
+          <div className="col-md-8">
+            <div className="row">
+            <div className="col-md-3 col-sm-12">
             <button
               className="button-style "
               //   disabled={true}
               onClick={allotMaterial}
+              style={{width:"180px"}}
             >
               Allot Material
             </button>
+            </div>
+            <div className="col-md-3 col-sm-12">
             <button
               className="button-style "
               onClick={CancelAllotMaterial}
+              style={{width:"180px"}}
               //   disabled={true}
               //   onClick={addToStock}
             >
               Cancel Allot
             </button>
+            </div>
+            <div className="col-md-3 col-sm-12">
             <button
               className="button-style "
               //   disabled={true}
               onClick={issueToProduction}
+              style={{width:"180px"}}
             >
               Issue to Production
             </button>
+            </div>
+            <div className="col-md-3 col-sm-12">
             <button
               className="button-style "
               id="btnclose"
               type="submit"
               onClick={() => nav("/materialmanagement")}
+              style={{width:"180px"}}
             >
               Close
             </button>
+            </div>
+            </div>
+            
+           
+            
+            
           </div>
         </div>
 

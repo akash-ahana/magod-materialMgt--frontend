@@ -159,7 +159,6 @@ code {
 }
 
 .dashboard-link {
-  font-family: cursive;
   text-decoration: none;
   color: black;
   font-size: 22px;
@@ -383,7 +382,7 @@ body {
       margin: 0 px !important;
      
     }
-    .in-fields {
+    .in-field {
       height: 35px;
     
       /* margin-top: 10px; */

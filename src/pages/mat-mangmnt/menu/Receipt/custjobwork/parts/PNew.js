@@ -124,22 +124,27 @@ function PNew() {
     {
       text: "Part Id",
       dataField: "partId",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Unit Wt",
       dataField: "unitWeight",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Qty Received",
       dataField: "qtyReceived",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Qty Accepted",
       dataField: "qtyAccepted",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Qty Rejected",
       dataField: "qtyRejected",
+      headerStyle: { whiteSpace: "nowrap" },
     },
   ];
 
@@ -399,7 +404,7 @@ function PNew() {
       (data) => {
         if (data.affectedRows !== 0) {
           toast.success("Record is Deleted");
-          nav("/materialmanagement/receipt/customerjobwork/parts/new", {
+          nav("/MaterialManagement/Receipt/CustomerJobWork/Parts/New", {
             replace: true,
           });
           window.location.reload();
@@ -575,7 +580,7 @@ function PNew() {
             <textarea
               id="exampleFormControlTextarea1"
               rows="4"
-              style={{ width: "360px" }}
+              style={{ width: "330px" }}
               //className="form-control"
               value={formHeader.address}
               readOnly

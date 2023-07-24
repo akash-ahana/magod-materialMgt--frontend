@@ -37,10 +37,12 @@ function StockDispatch() {
     {
       text: "Invoice No",
       dataField: "Inv_No",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "PN No",
       dataField: "DC_No",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Customer",
@@ -49,6 +51,7 @@ function StockDispatch() {
     {
       text: "Inv Type",
       dataField: "DC_InvType",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Material",
@@ -57,6 +60,7 @@ function StockDispatch() {
     {
       text: "Total Weight",
       dataField: "DC_Srl_Wt",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
   ];
 
@@ -81,10 +85,12 @@ function StockDispatch() {
     {
       text: "Unit Weight",
       dataField: "Unit_Wt",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Srl Weight",
       dataField: "DC_Srl_Wt",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
   ];
 
@@ -97,10 +103,12 @@ function StockDispatch() {
     {
       text: "Inv Type",
       dataField: "DC_InvType",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Invoice No",
       dataField: "Inv_No",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Customer",
@@ -109,6 +117,7 @@ function StockDispatch() {
     {
       text: "Total Weight",
       dataField: "WeightOut",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
   ];
   const loadData = () => {
@@ -208,7 +217,7 @@ function StockDispatch() {
           <label className="form-label">Stock Date</label>
           <input type="date" name="date" onChange={InputEvent} />
         </div>
-        <div className="col-md-2">
+        <div className="col-md-3">
           <button className="button-style" onClick={loadData}>
             Load Data
           </button>
@@ -250,7 +259,7 @@ function StockDispatch() {
               ></BootstrapTable>{" "}
             </div>
           </div>
-          <div className="row">
+          <div className="row mt-3">
             <div style={{ height: "200px", overflowY: "scroll" }}>
               <BootstrapTable
                 keyField="id"

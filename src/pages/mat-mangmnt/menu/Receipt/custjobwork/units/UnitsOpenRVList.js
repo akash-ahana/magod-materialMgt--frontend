@@ -66,7 +66,7 @@ function UnitsOpenRVList() {
 
   const openButtonClick = () => {
     //console.log("data = ", data);
-    nav("/materialmanagement/receipt/openbuttonopensheetunit", {
+    nav("/MaterialManagement/Receipt/OpenButtonOpenSheetUnit", {
       state: { id: data.RvID },
     });
     //console.log("button click : ");
@@ -238,7 +238,7 @@ function UnitsOpenRVList() {
                       </div>
                       <div className="row">
                         <div className="col-md-4 mt-1">
-                          <label className="form-label">Cust Docu No</label>
+                          <label className="form-label" style={{whiteSpace:"nowrap"}}>Cust Docu No</label>
                         </div>
 
                         <div className="col-md-8 ">

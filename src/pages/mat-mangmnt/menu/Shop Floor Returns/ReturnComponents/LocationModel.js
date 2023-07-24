@@ -58,7 +58,7 @@ function LocationModel({ show, setShow, scrapModal }) {
             <div className="row mt-2">
               {" "}
               <div className="col-md-11 ">
-                <label className="">Scrap Weight</label>
+                <label className="form-label">Scrap Weight</label>
                 <input
                   type="text"
                   name="scrapWeight"
@@ -68,7 +68,7 @@ function LocationModel({ show, setShow, scrapModal }) {
                  {" "}
               </div>{" "}
               <div className="col-md-12 ">
-                <label className="">Location</label>{" "}
+                <label className="form-label">Location</label>{" "}
               </div>{" "}
               <div className="col-md-11" style={{ marginTop: "8px" }}>
                 {" "}

@@ -13,7 +13,7 @@ function CreateReturnNewModal(props) {
         Iv_Id: props.srlIVID,
       };
       nav(
-        "/materialmanagement/return/customerjobwork/OutwordMaterialIssueVocher",
+        "/MaterialManagement/Return/CustomerJobWork/OutwordMaterialIssueVoucher",
         {
           state: { selectData },
         }
@@ -23,7 +23,7 @@ function CreateReturnNewModal(props) {
       let selectData = {
         Iv_Id: props.srlIVID,
       };
-      nav("/materialmanagement/return/customerjobwork/OutwordPartIssueVocher", {
+      nav("/MaterialManagement/Return/CustomerJobWork/OutwordPartIssueVoucher", {
         state: { selectData },
       });
     }
@@ -38,7 +38,7 @@ function CreateReturnNewModal(props) {
         <Modal.Body>{props.IVNOVal}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            okay
+            Ok
           </Button>
         </Modal.Footer>
       </Modal>

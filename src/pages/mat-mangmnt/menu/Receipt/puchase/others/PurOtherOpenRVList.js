@@ -43,7 +43,7 @@ function PurOtherOpenRVList() {
   const openButtonClick = () => {
     //console.log("data = ", data);
     //console.log("button click : ");
-    nav("/materialmanagement/receipt/openbuttonopensheetunit", {
+    nav("/MaterialManagement/Receipt/OpenButtonOpenSheetUnit", {
       state: { id: data.RvID },
     });
   };
@@ -72,6 +72,7 @@ function PurOtherOpenRVList() {
     {
       text: "RV No",
       dataField: "RV_No",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "RV Date",

@@ -67,6 +67,7 @@ function ReceiptAndUsage(props) {
     {
       text: "Part ID",
       dataField: "PartId",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Received",
@@ -91,6 +92,7 @@ function ReceiptAndUsage(props) {
     {
       text: "Returned Unused",
       dataField: "QtyReturned",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
   ];
   const columns3 = [
@@ -204,7 +206,7 @@ function ReceiptAndUsage(props) {
   };
 
   return (
-    <div>
+    <div className="mt-3">
       <div className="row">
         <div className="col-md-5">
           {" "}
@@ -222,7 +224,7 @@ function ReceiptAndUsage(props) {
           </div>
         </div>
         <div className="col-md-7">
-          <div className="row">
+         
             <div style={{ height: "375px", overflow: "scroll" }}>
               <BootstrapTable
                 keyField="id"
@@ -235,10 +237,10 @@ function ReceiptAndUsage(props) {
                 headerClasses="header-class"
               ></BootstrapTable>
             </div>
-          </div>
-          <div className="row">
+         
+          <div className="row mt-3">
             <div className="col-md-6">
-              <div style={{ height: "375px", overflow: "scroll" }}>
+              <div style={{ height: "375px", overflowX: "scroll",overflowY: "scroll" }}>
                 <BootstrapTable
                   keyField="id"
                   columns={columns3}
@@ -252,7 +254,7 @@ function ReceiptAndUsage(props) {
               </div>
             </div>
             <div className="col-md-6">
-              <div style={{ height: "375px", overflow: "scroll" }}>
+              <div style={{ height: "375px",  overflowX: "scroll",overflowY: "scroll"}}>
                 <BootstrapTable
                   keyField="id"
                   columns={columns4}

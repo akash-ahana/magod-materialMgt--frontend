@@ -1113,7 +1113,7 @@ function NewSheetsUnits(props) {
             <textarea
              id="exampleFormControlTextarea1"
              rows="4"
-             style={{ width: "360px" }}
+             style={{ width: "320px" }}
              
               // className="form-control"
               value={formHeader.address}
@@ -1156,8 +1156,10 @@ function NewSheetsUnits(props) {
                   Add Serial
                 </button>
               </div>
-              <div className="row justify-content-center mt-2">
-                <button
+            
+                <div className="row  justify-content-center">
+                  <div className="col-md-6 col-sm-12">
+                  <button
                   className="button-style "
                   style={{ width: "155px" }}
                   disabled={
@@ -1170,7 +1172,9 @@ function NewSheetsUnits(props) {
                 >
                   Add to stock
                 </button>
-                <button
+                  </div>
+                  <div className="col-md-6 col-sm-12">
+                  <button
                   className="button-style "
                   style={{ width: "155px" }}
                   disabled={
@@ -1183,7 +1187,12 @@ function NewSheetsUnits(props) {
                 >
                   Remove stock
                 </button>
-              </div>
+                  </div>
+
+                </div>
+                
+               
+             
               <div className="row">
               
                   <div className="ip-box form-bg">
@@ -1386,7 +1395,7 @@ function NewSheetsUnits(props) {
 
                       <div className="row">
                         <div className="col-md-6">
-                          <label className="form-label">Wt Calculated 2</label>
+                          <label className="form-label" style={{whiteSpace:"nowrap"}}>Wt Calculated 2</label>
                           <input
                             className="in-field"
                             name="totalWeightCalculated"

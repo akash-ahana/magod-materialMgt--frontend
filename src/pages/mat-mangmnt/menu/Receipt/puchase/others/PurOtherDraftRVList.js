@@ -44,7 +44,7 @@ export default function PurOtherDraftRVList() {
   const openButtonClick = () => {
     //console.log("data = ", data);
     //console.log("button click : ");
-    nav("/materialmanagement/receipt/openbuttondraftsheetunit", {
+    nav("/MaterialManagement/Receipt/OpenButtonDraftSheetUnit", {
       state: { id: data.RvID, type: "sheets" },
     });
   };
@@ -73,6 +73,7 @@ export default function PurOtherDraftRVList() {
     {
       text: "RV No",
       dataField: "RV_No",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "RV Date",
