@@ -477,6 +477,13 @@ export const customerSidebar = [
       },
     ],
   },
+  {
+    title: "Previous Menu",
+    path: "/home",
+    icon: <MdIcon.MdPreview />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+  },
 ];
 
 export const adminSidebar = [
@@ -493,6 +500,7 @@ export const adminSidebar = [
       },
     ],
   },
+ 
   {
     title: "Users",
     icon: <FaIcon.FaUsers />,
