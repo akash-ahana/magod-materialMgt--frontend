@@ -135,22 +135,27 @@ function PurchasePartsNew() {
     {
       text: "Part Id",
       dataField: "partId",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Unit Wt",
       dataField: "unitWeight",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Qty Received",
       dataField: "qtyReceived",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Qty Accepted",
       dataField: "qtyAccepted",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Qty Rejected",
       dataField: "qtyRejected",
+      headerStyle: { whiteSpace: "nowrap" },
     },
   ];
 

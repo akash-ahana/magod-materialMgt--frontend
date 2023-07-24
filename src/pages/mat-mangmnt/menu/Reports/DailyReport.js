@@ -109,6 +109,7 @@ function DailyReport() {
     {
       text: "Receipt Details",
       dataField: "",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Quantity",
@@ -117,10 +118,12 @@ function DailyReport() {
     {
       text: "Weight Caluclated",
       dataField: "totalweightcalculated",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Actual Weight",
       dataField: "totalWeight",
+      headerStyle: { whiteSpace: "nowrap" },
     },
   ];
 
@@ -205,10 +208,12 @@ function DailyReport() {
     {
       text: "Calculated Weight",
       dataField: "TotalWeightCalculated",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Actual Weight",
       dataField: "TotalWeight",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Quantity",

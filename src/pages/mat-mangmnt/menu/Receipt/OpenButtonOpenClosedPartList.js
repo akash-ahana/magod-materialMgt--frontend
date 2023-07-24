@@ -114,22 +114,27 @@ function OpenButtonOpenClosedPartList() {
     {
       text: "Part Id",
       dataField: "PartId",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Unit Wt",
       dataField: "UnitWt",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Qty Received",
       dataField: "QtyReceived",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Qty Accepted",
       dataField: "QtyAccepted",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Qty Rejected",
       dataField: "QtyRejected",
+      headerStyle: { whiteSpace: "nowrap" },
     },
   ];
 
@@ -140,7 +145,7 @@ function OpenButtonOpenClosedPartList() {
 
         <div className="row">
           <div className="col-md-3">
-            <label className="">Receipt Date</label>
+            <label className="form-label">Receipt Date</label>
             <input
               type="text"
               name="receiptDate"
@@ -149,11 +154,11 @@ function OpenButtonOpenClosedPartList() {
             />
           </div>
           <div className="col-md-3">
-            <label className="">RV No</label>
+            <label className="form-label">RV No</label>
             <input type="text" name="rvNo" value={formHeader.RV_No} readOnly />
           </div>
           <div className="col-md-3">
-            <label className="">RV Date</label>
+            <label className="form-label">RV Date</label>
             <input
               type="text"
               name="rvDate"
@@ -162,7 +167,7 @@ function OpenButtonOpenClosedPartList() {
             />
           </div>
           <div className="col-md-3">
-            <label className="">status</label>
+            <label className="form-label">Status</label>
             <input
               type="text"
               name="status"
@@ -186,7 +191,7 @@ function OpenButtonOpenClosedPartList() {
             </select>
           </div>
           <div className="col-md-4">
-            <label className="">Weight</label>
+            <label className="form-label">Weight</label>
             <input
               type="text"
               name="weight"
@@ -197,7 +202,7 @@ function OpenButtonOpenClosedPartList() {
         </div>
         <div className="row">
           <div className="col-md-8">
-            <label className="">Reference</label>
+            <label className="form-label">Reference</label>
             <input
               type="text"
               name="reference"
@@ -206,7 +211,7 @@ function OpenButtonOpenClosedPartList() {
             />
           </div>
           <div className="col-md-4">
-            <label className="">Calculated Weight</label>
+            <label className="form-label">Calculated Weight</label>
             <input
               type="text"
               name="calculatedWeight"
@@ -218,28 +223,36 @@ function OpenButtonOpenClosedPartList() {
 
         <div className="row mt-4">
           <div className="col-md-8 justify-content-center">
-            <button
+            <div className="row">
+              <div className="col-md-3 col-sm-12">
+              <button
               className="button-style"
-              style={{ width: "196px" }}
+           
               disabled={boolVal}
             >
               Save
             </button>
-            <button
+              </div>
+              <div className="col-md-3 col-sm-12">
+              <button
               className="button-style"
-              style={{ width: "196px" }}
+         
               disabled={boolVal}
             >
               Allot RV No
             </button>
-            <button
+              </div>
+              <div className="col-md-3 col-sm-12">
+              <button
               className="button-style"
-              style={{ width: "196px" }}
+             
               disabled={boolVal}
             >
               Delete RV
             </button>
-            <button
+              </div>
+              <div className="col-md-3 col-sm-12">
+              <button
               className="button-style "
               id="btnclose"
               type="submit"
@@ -247,12 +260,20 @@ function OpenButtonOpenClosedPartList() {
             >
               Close
             </button>
+              </div>
+
+            </div>
+            
+            
+           
+            
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4 mb-3">
             <label className="form-label"></label>
             <textarea
-              style={{ height: "110px" }}
-              className="form-control"
+             id="exampleFormControlTextarea1"
+             rows="4"
+             style={{ width: "330px" }}
               value={formHeader.address}
               readOnly
             ></textarea>
@@ -271,27 +292,28 @@ function OpenButtonOpenClosedPartList() {
             striped
             hover
             condensed
+            headerClasses="header-class "
             //selectRow={selectRow}
           ></BootstrapTable>
         </div>
         <div className="col-md-6 col-sm-12">
           <div className="ip-box form-bg">
-            <div className="row">
-              <div className="col-md-12 col-sm-12">
-                <div className="ip-box form-bg">
-                  <div className="row">
+        
+            
+               
+                 
                     <div className="row justify-content-center mt-1 mb-2">
                       <button
                         className="button-style "
-                        style={{ width: "120px" }}
+                        style={{ width: "155px" }}
                         disabled={boolVal}
                       >
                         Add New
                       </button>
                     </div>
                     <div className="row">
-                      <div className="col-md-3 ">
-                        <label className="">Part ID</label>
+                      <div className="col-md-4 mt-1 ">
+                        <label className="form-label">Part ID</label>
                       </div>
                       <div className="col-md-8" style={{ marginTop: "8px" }}>
                         <select
@@ -312,8 +334,8 @@ function OpenButtonOpenClosedPartList() {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-md-3 ">
-                        <label className="">Unit Wt</label>
+                      <div className="col-md-4 mt-1 ">
+                        <label className="form-label">Unit Wt</label>
                       </div>
                       <div className="col-md-8 ">
                         <input
@@ -326,8 +348,8 @@ function OpenButtonOpenClosedPartList() {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-md-3 ">
-                        <label className="">Qty Received</label>
+                      <div className="col-md-4 mt-1 ">
+                        <label className="form-label">Qty Received</label>
                       </div>
                       <div className="col-md-8 ">
                         <input
@@ -341,8 +363,8 @@ function OpenButtonOpenClosedPartList() {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-md-3 ">
-                        <label className="">Qty Accepted</label>
+                      <div className="col-md-4 mt-1 ">
+                        <label className="form-label">Qty Accepted</label>
                       </div>
                       <div className="col-md-8 ">
                         <input
@@ -355,8 +377,8 @@ function OpenButtonOpenClosedPartList() {
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-md-3 ">
-                        <label className="">Qty Rejected</label>
+                      <div className="col-md-4 mt-1 ">
+                        <label className="form-label">Qty Rejected</label>
                       </div>
                       <div className="col-md-8 ">
                         <input
@@ -367,14 +389,14 @@ function OpenButtonOpenClosedPartList() {
                         />
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row justify-content-center mt-3">
+                  
+             
+             
+           
+            <div className="row justify-content-center mt-3 mb-4">
               <button
                 className="button-style "
-                style={{ width: "120px" }}
+                style={{ width: "155px" }}
                 disabled={boolVal}
               >
                 Delete

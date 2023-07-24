@@ -45,7 +45,7 @@ function PurchasePartsDraftRVList() {
     //console.log("data = ", data);
     //console.log("button click : ");
     if (data && data.RvID !== "") {
-      nav("/materialmanagement/receipt/openbuttondraftpartlist", {
+      nav("/MaterialManagement/Receipt/OpenButtonDraftPartList", {
         state: { id: data.RvID },
       });
     } else {
@@ -195,7 +195,7 @@ function PurchasePartsDraftRVList() {
                       </div>
                       <div className="row">
                         <div className="col-md-4 mt-1">
-                          <label className="form-label">Cust Docu No</label>
+                          <label className="form-label" style={{whiteSpace:"nowrap"}}>Cust Docu No</label>
                         </div>
 
                         <div className="col-md-8 ">

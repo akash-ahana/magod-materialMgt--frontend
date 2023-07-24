@@ -186,7 +186,7 @@ function StockArrival() {
           <label className="form-label">Stock Date</label>
           <input type="date" name="date" onChange={InputEvent} />
         </div>
-        <div className="col-md-2">
+        <div className="col-md-3">
           <button className="button-style" onClick={loadData}>
             Load Data
           </button>
@@ -228,7 +228,7 @@ function StockArrival() {
               ></BootstrapTable>
             </div>
           </div>
-          <div className="row">
+          <div className="row mt-3">
             <div style={{ height: "200px", overflowY: "scroll" }}>
               <BootstrapTable
                 keyField="id"

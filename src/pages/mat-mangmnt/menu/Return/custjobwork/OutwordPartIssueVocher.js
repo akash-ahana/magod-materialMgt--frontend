@@ -271,7 +271,7 @@ function OutwordPartIssueVocher(props) {
           <div className="col-md-12">
             <div className="row">
               <div className="col-md-3">
-                <label className="">IV No</label>
+                <label className="form-label">IV No</label>
                 <input
                   type="text"
                   name="IvId"
@@ -281,7 +281,7 @@ function OutwordPartIssueVocher(props) {
                 />
               </div>
               <div className="col-md-3">
-                <label className="">Date</label>
+                <label className="form-label">Date</label>
                 <input
                   type="text"
                   name="IVDate"
@@ -290,13 +290,13 @@ function OutwordPartIssueVocher(props) {
                 />
               </div>
               <div className="col-md-3">
-                <label className=""></label>
-                <input
+                <label className=" form-label mt-4 ms-3">{formHeader.IVStatus}</label>
+                {/* <input
                   type="text"
                   name="status"
-                  value={formHeader.IVStatus}
+                  value=
                   disabled
-                />
+                /> */}
               </div>
 
               <div className="col-md-3">
@@ -335,7 +335,7 @@ function OutwordPartIssueVocher(props) {
             </div>
             <div className="row">
               <div className="col-md-6">
-                <label className="">GST No</label>
+                <label className="form-label">GST No</label>
                 <input
                   type="text"
                   name="CSTNo"
@@ -344,7 +344,7 @@ function OutwordPartIssueVocher(props) {
                 />
               </div>
               <div className="col-md-6">
-                <label className="">DC No / Ph No</label>
+                <label className="form-label">DC No / Ph No</label>
                 <input
                   type="text"
                   name="PkngDcNo"
@@ -355,7 +355,7 @@ function OutwordPartIssueVocher(props) {
             </div>
             <div className="row">
               <div className="col-md-6">
-                <label className="">Weight</label>
+                <label className="form-label">Weight</label>
                 <input
                   type="text"
                   name="TotalWeight"
@@ -364,7 +364,7 @@ function OutwordPartIssueVocher(props) {
                 />
               </div>
               <div className="col-md-6">
-                <label className="">Calculated Weight</label>
+                <label className="form-label">Calculated Weight</label>
                 <input
                   type="text"
                   name="Type"
@@ -374,12 +374,12 @@ function OutwordPartIssueVocher(props) {
               </div>
             </div>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-3 mt-3">
             <label className="form-label"></label>
             <textarea
-              style={{ height: "110px" }}
-              className="form-control"
-              rowSpane="3"
+              id="exampleFormControlTextarea1"
+              rows="4  "
+              style={{ width: "240px" }}
               value={custdata.Address}
               readOnly
             ></textarea>
@@ -462,7 +462,7 @@ function OutwordPartIssueVocher(props) {
         </div>
         {/* <div className="row">
           <div className="col-md-4">
-            <label className="">GST No</label>
+            <label className="form-label">GST No</label>
             <input
               type="text"
               name="CSTNo"
@@ -471,7 +471,7 @@ function OutwordPartIssueVocher(props) {
             />
           </div>
           <div className="col-md-4">
-            <label className="">DC No / Ph No</label>
+            <label className="form-label">DC No / Ph No</label>
             <input
               type="text"
               name="PkngDcNo"
@@ -487,7 +487,7 @@ function OutwordPartIssueVocher(props) {
         </div>
         <div className="row">
           <div className="col-md-4">
-            <label className="">Weight</label>
+            <label className="form-label">Weight</label>
             <input
               type="text"
               name="TotalWeight"
@@ -497,7 +497,7 @@ function OutwordPartIssueVocher(props) {
           </div>
 
           <div className="col-md-4">
-            <label className="">Calculated Weight</label>
+            <label className="form-label">Calculated Weight</label>
             <input
               type="text"
               name="Type"
@@ -517,6 +517,7 @@ function OutwordPartIssueVocher(props) {
         <div className="col-md-12 col-sm-12">
           <div style={{ height: "420px", overflowY: "scroll" }}>
             <BootstrapTable
+              headerClasses="header-class "
               keyField="IV_No"
               //keyField="id"
               columns={columns}

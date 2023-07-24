@@ -230,6 +230,7 @@ function StockList(props) {
     {
       text: "Scrap Weight",
       dataField: "ScrapWeight",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
   ];
   const selectRow1 = {
@@ -370,6 +371,7 @@ function StockList(props) {
         <h4 className="title">Material Stock List</h4>
         {/* <h4 className="form-title">Customer Material Stock List</h4> */}
         <div className="row">
+          <div className="col-md-6 col-sm-12">
           <div
             className={props.type === "customer" ? "col-md-1 mt-2" : "d-none"}
           >
@@ -397,19 +399,23 @@ function StockList(props) {
               options={custdata}
               placeholder="Select Customer"
               onChange={(label) => changeCustomer(label)}
+              
             />
           </div>
-          <div className="col-md-2">
+          </div>
+         
+         
+          <div className="col-md-2 col-sm-12">
             <button className="button-style" onClick={selectedStock}>
               Selected Stock
             </button>
           </div>
-          <div className="col-md-2">
+          <div className="col-md-2 col-sm-12">
             <button className="button-style" onClick={fullStock}>
               Full Stock
             </button>
           </div>
-          <div className="col-md-2">
+          <div className="col-md-2 col-sm-12">
             <button
               className="button-style "
               id="btnclose"
@@ -439,7 +445,7 @@ function StockList(props) {
                 ></BootstrapTable>
               </div>
             </div>
-            <div className="row">
+            <div className="row mt-3">
               {" "}
               <div style={{ height: "200px", overflowY: "scroll" }}>
                 <BootstrapTable

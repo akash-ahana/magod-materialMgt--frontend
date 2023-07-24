@@ -62,10 +62,10 @@ function ResizeModal({ open1, setOpen1, row, resizeModal }) {
           <Form>
             <div className="row">
               <div className="col-md-2 mt-5">
-                <label className="">Para1</label>
+                <label className="form-label">Para1</label>
               </div>
-              <div className="col-md-3 ">
-                <label>Previous</label>
+              <div className="col-md-3 mt-3 ">
+                <label><b>Previous</b></label>
                 <input
                   className="in-field"
                   name="Para1"
@@ -73,8 +73,8 @@ function ResizeModal({ open1, setOpen1, row, resizeModal }) {
                   disabled
                 />
               </div>
-              <div className="col-md-3 ">
-                <label>Resize To</label>
+              <div className="col-md-3 mt-3 ">
+                <label><b>Resize To</b></label>
                 <input
                   className="in-field"
                   name="ReminderPara1"
@@ -89,8 +89,8 @@ function ResizeModal({ open1, setOpen1, row, resizeModal }) {
               </div> */}
             </div>
             <div className="row">
-              <div className="col-md-2  mt-3">
-                <label className="">Para2</label>
+              <div className="col-md-2 mt-2">
+                <label className="form-label">Para2</label>
               </div>
               <div className="col-md-3 ">
                 <input
@@ -117,7 +117,7 @@ function ResizeModal({ open1, setOpen1, row, resizeModal }) {
             <div className="row mt-2">
               {" "}
               <div className="col-md-12 ">
-                <label className="">Location</label>{" "}
+                <label className="form-label">Location</label>{" "}
               </div>{" "}
               <div className="col-md-11" style={{ marginTop: "8px" }}>
                 {" "}

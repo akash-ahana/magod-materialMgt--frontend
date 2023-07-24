@@ -67,7 +67,7 @@ function POpenRVList() {
     //console.log("data = ", data);
     //console.log("button click : ");
     if (data && data.RvID !== "") {
-      nav("/materialmanagement/receipt/openbuttonopenclosedpartlist", {
+    nav("/MaterialManagement/Receipt/OpenButtonOpenClosedPartList", {
         state: { id: data.RvID },
       });
     } else {

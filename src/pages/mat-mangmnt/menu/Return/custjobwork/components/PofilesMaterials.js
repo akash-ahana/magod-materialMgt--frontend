@@ -564,7 +564,7 @@ function PofilesMaterials(props) {
           Create Return Voucher
         </button>
       </div>
-      <div className="row-md-12 table-data">
+      <div className="row-md-12 table-data mt-3">
         <div style={{ height: "400px", overflowY: "scroll" }}>
           <BootstrapTable
             keyField="id"
@@ -574,13 +574,12 @@ function PofilesMaterials(props) {
             hover
             condensed
             selectRow={selectRowFirst}
+            headerClasses="header-class "
           ></BootstrapTable>
         </div>
       </div>
-      <div className="mat-reci mt-3">
-        <div className="ip-box">
-          <div className="row">
-            <div className="col-md-6 table-data">
+      <div className="row mt-3">
+            <div className="col-md-6 col-sm-12">
               <div style={{ height: "400px", overflowY: "scroll" }}>
                 <BootstrapTable
                   keyField="MtrlStockID"
@@ -590,10 +589,11 @@ function PofilesMaterials(props) {
                   hover
                   condensed
                   selectRow={selectRowSecond}
+                  headerClasses="header-class "
                 ></BootstrapTable>
               </div>
             </div>
-            <div className="col-md-6 table-data">
+            <div className="col-md-6 col-sm-12">
               <div style={{ height: "400px", overflowY: "scroll" }}>
                 <BootstrapTable
                   keyField="MtrlStockID"
@@ -602,12 +602,13 @@ function PofilesMaterials(props) {
                   striped
                   hover
                   condensed
+                  headerClasses="header-class "
                 ></BootstrapTable>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+     
+      
     </>
   );
 }
