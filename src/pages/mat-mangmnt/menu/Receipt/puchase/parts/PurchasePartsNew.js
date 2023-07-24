@@ -30,6 +30,7 @@ function PurchasePartsNew() {
   const [boolVal3, setBoolVal3] = useState(true);
   //after clicking allot rv button
   const [boolVal4, setBoolVal4] = useState(false);
+  //const [boolVal4, setBoolVal4] = useState(false);
 
   const [partUniqueId, setPartUniqueId] = useState();
   const [partArray, setPartArray] = useState([]);
@@ -398,6 +399,9 @@ function PurchasePartsNew() {
     setFormHeader(data);
     //console.log("formheader = ", formHeader);
     setBoolVal4(true);
+
+    //window.location.reload();
+    //nav("/MaterialManagement/Receipt/Purchase/Parts/New");
     //console.log("formheader = ", formHeader);
     //formHeader = data;
     //formHeader.rvNo = data.rvNo;
@@ -537,16 +541,16 @@ function PurchasePartsNew() {
             </button>
             <button
               className="button-style"
-              // style={{ width: "196px" }}
-              disabled={boolVal1}
+              style={{ width: "196px" }}
+              disabled={boolVal1 | boolVal4}
               onClick={allotRVButtonState}
             >
               Allot RV No
             </button>
             <button
               className="button-style"
-              // style={{ width: "196px" }}
-              disabled={boolVal1}
+              style={{ width: "196px" }}
+              disabled={boolVal1 | boolVal4}
               onClick={deleteRVButtonState}
             >
               Delete RV

@@ -409,7 +409,11 @@ function MaterialAllotmentMain() {
     //return 10;
   };
   const releaseProduction = async () => {
-    CreatePartsIssueVoucher();
+    if (issuenowval.length == 0) {
+      toast.warning("Please enter Issue Now Value");
+    } else {
+      CreatePartsIssueVoucher();
+    }
     /*await delay(5000);
     console.log("return val = ", issueidval);
     nav(

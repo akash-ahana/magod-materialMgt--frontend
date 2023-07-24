@@ -308,6 +308,8 @@ function OutwordPartIssueVocher(props) {
                     boolVal3 |
                     (location.state.propsType === "customerIVList")
                       ? true
+                      : false | (location.state.propsType === "returnCancelled")
+                      ? true
                       : false
                   }
                 >
@@ -390,6 +392,8 @@ function OutwordPartIssueVocher(props) {
                 disabled={
                   boolVal2 | (location.state.propsType === "customerIVList")
                     ? true
+                    : false | (location.state.propsType === "returnCancelled")
+                    ? true
                     : false
                 }
               >
@@ -402,6 +406,8 @@ function OutwordPartIssueVocher(props) {
                 onClick={createDC}
                 disabled={
                   boolVal2 | (location.state.propsType === "customerIVList")
+                    ? true
+                    : false | (location.state.propsType === "returnCancelled")
                     ? true
                     : false
                 }
@@ -417,6 +423,8 @@ function OutwordPartIssueVocher(props) {
                   boolVal1 |
                   boolVal3 |
                   (location.state.propsType === "customerIVList")
+                    ? true
+                    : false | (location.state.propsType === "returnCancelled")
                     ? true
                     : false
                 }
