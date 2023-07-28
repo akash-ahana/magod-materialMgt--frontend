@@ -122,7 +122,7 @@ function SheetResizeForm() {
               () =>
                 selectedTableRows.length !== 0
                   ? nav(
-                      "/materialmanagement/shoopfloorreturns/pendinglist/resizeandreturn/materialsplitter",
+                      "/MaterialManagement/ShoopFloorReturns/PendingList/ResizeAndReturn/MaterialSplitter",
                       {
                         state: {
                           secondTableRow: selectedTableRows,
@@ -145,7 +145,7 @@ function SheetResizeForm() {
             className="button-style "
             id="btnclose"
             type="submit"
-            onClick={() => nav("/materialmanagement")}
+            onClick={() => nav("/MaterialManagement")}
           >
             Close
           </button>
