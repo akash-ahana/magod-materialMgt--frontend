@@ -494,7 +494,7 @@ function PendingList(props) {
                 toast.error("Select Material to return to Stock");
               } else {
                 nav(
-                  "/materialmanagement/shoopfloorreturns/pendinglist/resizeandreturn/materialsplitter",
+                  "/MaterialManagement/ShoopFloorReturns/PendingList/ResizeAndReturn/MaterialSplitter",
                   {
                     state: {
                       secondTableRow: selectedSecondTableRows,

@@ -393,7 +393,7 @@ function LocationStockReport() {
                     //   disabled={true}
                     onChange={radioButtonChanged}
                   />
-                  <label className="">All</label>
+                  <label className="form-label">All</label>
                 </div>
               </div>
               <div className="row">
@@ -414,7 +414,7 @@ function LocationStockReport() {
                     //   disabled={true}
                     //   onChange={changeMaterialHandle}
                   />
-                  <label className="">Customer</label>
+                  <label className="form-label">Customer</label>
                 </div>
               </div>
             </div>

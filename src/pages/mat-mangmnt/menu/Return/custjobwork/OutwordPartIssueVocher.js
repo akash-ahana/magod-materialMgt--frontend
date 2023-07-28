@@ -227,7 +227,7 @@ function OutwordPartIssueVocher(props) {
   let printDC = () => {
     //console.log("First formheader = ", formHeader, " outdata = ", outData);
     if (dcID !== "" && dcID !== 0) {
-      nav("/materialmanagement/return/customerjobwork/PrintPartsDC", {
+      nav("/MaterialManagement/Return/CustomerJobWork/PrintPartsDC", {
         //formHeader: formHeader,
         //outData: outData,
         state: {
