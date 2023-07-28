@@ -34,6 +34,7 @@ function LocationList(props) {
       setShape(data);
     });
 
+    console.log("shapes", shape);
     getRequest(endpoints.getMaterialLocationList, (data) => {
       for (let i = 0; i < data.length; i++) {
         data[i].id = i + 1;
@@ -70,7 +71,7 @@ function LocationList(props) {
       //console.log(preValue)
       return {
         ...preValue,
-        storage: e[0].Shape,
+        storage: e[0]?.Shape,
       };
     });
 
@@ -246,30 +247,28 @@ function LocationList(props) {
         </div>
         <div className="col-md-5 col-sm-12">
           <div className="ip-box form-bg">
-           
-             
-              
-                
-                    <div className="row">
-                      <div className="col-md-5 ">
-                        <label className="form-label" style={{whiteSpace:"nowrap"}}>Location No/Name</label>
-                      </div>
-                      <div className="col-md-7 ">
-                        <input
-                          className="in-field"
-                          type="text"
-                          name="location"
-                          value={formHeader.location}
-                          onChange={InputEvent}
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-5 mt-2 ">
-                        <label className="form-label">Storage Type</label>
-                      </div>
-                      <div className="col-md-7" style={{ marginTop: "8px" }}>
-                        {/* <select
+            <div className="row">
+              <div className="col-md-5 ">
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  Location No/Name
+                </label>
+              </div>
+              <div className="col-md-7 ">
+                <input
+                  className="in-field"
+                  type="text"
+                  name="location"
+                  value={formHeader.location}
+                  onChange={InputEvent}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-5 mt-2 ">
+                <label className="form-label">Storage Type</label>
+              </div>
+              <div className="col-md-7" style={{ marginTop: "8px" }}>
+                {/* <select
                           className="ip-select dropdown-field"
                           name="storage"
                           onChange={InputEvent}
@@ -285,75 +284,76 @@ function LocationList(props) {
                             </option>
                           ))}
                         </select> */}
-                        <Typeahead
-                          id="basic-example"
-                          name="storage"
-                          options={shape}
-                          placeholder="Select Storage Type"
-                          onChange={(label) => InputEventShape(label)}
-                          className="in-field"
-                        />
-                      </div>
-                    </div>
+                {shape.length > 0 ? (
+                  <Typeahead
+                    id="basic-example"
+                    name="storage"
+                    options={shape}
+                    placeholder="Select Storage Type"
+                    onChange={(label) => InputEventShape(label)}
+                    className="in-field"
+                  />
+                ) : (
+                  <p>Loading storage types...</p>
+                )}
+              </div>
+            </div>
 
-                    <div className="row">
-                      <div className="col-md-5 ">
-                        <label className="form-label">Storage Capacity</label>
-                      </div>
-                      <div className="col-md-7 ">
-                        <input
-                          className="in-field"
-                          type="text"
-                          name="capacity"
-                          value={formHeader.capacity}
-                          onChange={InputEvent}
-                          onBlur={insertData}
-                        />
-                      </div>
-                    </div>
-                 
-              
-             
-            
+            <div className="row">
+              <div className="col-md-5 ">
+                <label className="form-label">Storage Capacity</label>
+              </div>
+              <div className="col-md-7 ">
+                <input
+                  className="in-field"
+                  type="text"
+                  name="capacity"
+                  value={formHeader.capacity}
+                  onChange={InputEvent}
+                  onBlur={insertData}
+                />
+              </div>
+            </div>
+
             <div className="row mt-3 mb-3">
               <div className="col-md-3 col-sm-12">
-              <button
-                className="button-style "
-                style={{ width: "100px" }}
-                onClick={addButton}
-              >
-                Add
-              </button>
+                <button
+                  className="button-style "
+                  style={{ width: "100px" }}
+                  onClick={addButton}
+                >
+                  Add
+                </button>
               </div>
               <div className="col-md-3 col-sm-12">
-              <button
-                className="button-style"
-                style={{ width: "100px" }}
-                onClick={deleteButton}
-              >
-                Delete
-              </button>
+                <button
+                  className="button-style"
+                  style={{ width: "100px" }}
+                  onClick={deleteButton}
+                >
+                  Delete
+                </button>
               </div>
               <div className="col-md-3 col-sm-12">
-              <button
-                className="button-style "
-                style={{ width: "100px" }}
-                onClick={saveButton}
-              >
-                Save
-              </button>
+                <button
+                  className="button-style "
+                  style={{ width: "100px" }}
+                  onClick={saveButton}
+                >
+                  Save
+                </button>
               </div>
               <div className="col-md-3 col-sm-12">
-              <button
-                className="button-style"
-                style={{ width: "100px" }}
-                id="btnclose"
-                type="submit"
-                onClick={() => nav("/materialmanagement")}
-              >
-                Close
-              </button>
-              </div>        
+                <button
+                  className="button-style"
+                  style={{ width: "100px" }}
+                  id="btnclose"
+                  type="submit"
+                  onClick={() => nav("/materialmanagement")}
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </div>
