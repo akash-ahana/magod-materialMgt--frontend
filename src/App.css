@@ -37,8 +37,8 @@ a {
   color: #ffffff;
 }
 .logo {
-  height: 54px;
-  width: 36px;
+  height: 54px !important;
+  width: 36px !important;
   /* padding-left: 3vh; */
   /* margin-top: -2vh; */
   margin-top: 1vh;
@@ -478,9 +478,9 @@ li.nav-item {
   background-color: gray;
   color: white;
   position: sticky;
-  top: -1px;
+  /* top: -1px; */
   text-transform: capitalize;
+ 
 }
-table {
-  border-spacing: "0px" !important;
-}
+
+

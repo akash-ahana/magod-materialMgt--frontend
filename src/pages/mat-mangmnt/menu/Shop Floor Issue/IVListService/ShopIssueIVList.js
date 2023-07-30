@@ -36,35 +36,44 @@ function ShopIssueIVList(props) {
       text: "IssueID",
       dataField: "IssueID",
       hidden: true,
+  
     },
     {
       text: "IV No",
       dataField: "IV_No",
+      headerStyle: { whiteSpace: 'nowrap' },
+     
     },
     {
       text: "Issue Date",
       dataField: "Issue_date",
       formatter: statusFormatter,
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Task No",
       dataField: "TaskNo",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "NC Program No",
       dataField: "NcId",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Qty Issued",
       dataField: "QtyIssued",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Qty Used",
       dataField: "QtyUsed",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Qty Returned",
       dataField: "QtyReturned",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Remarks",
@@ -129,15 +138,15 @@ function ShopIssueIVList(props) {
 
           <div className="col-md-5 col-sm-12">
             <div className="ip-box form-bg">
-              <div className="row">
-                <div className="col-md-12 col-sm-12">
-                  <div className="ip-box form-bg">
-                    <div className="row">
+             
+               
+                 
+                  
                       <div className="row justify-content-center mt-2">
                         <button
                           onClick={openButton}
                           className="col-md-6 button-style"
-                          style={{ width: "120px" }}
+                           style={{ width: "155px" }}
                         >
                           Open
                         </button>
@@ -146,13 +155,14 @@ function ShopIssueIVList(props) {
                           id="btnclose"
                           type="submit"
                           onClick={() => nav("/materialmanagement")}
+                          style={{ width: "155px" }}
                         >
                           Close
                         </button>
                       </div>
                       <div className="row">
-                        <div className="col-md-3 ">
-                          <label className="">Customer</label>
+                        <div className="col-md-4 mt-3">
+                          <label className="form-label">Customer</label>
                         </div>
                         <div className="col-md-8">
                           <input
@@ -164,8 +174,8 @@ function ShopIssueIVList(props) {
                       </div>
 
                       <div className="row">
-                        <div className="col-md-3 ">
-                          <label className="">Issue Vr No</label>
+                        <div className="col-md-4 mt-2">
+                          <label className="form-label">Issue Vr No</label>
                         </div>
                         <div className="col-md-8 ">
                           <input
@@ -176,8 +186,8 @@ function ShopIssueIVList(props) {
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-3 ">
-                          <label className="">Vr Date</label>
+                        <div className="col-md-4 mt-2">
+                          <label className="form-label">Vr Date</label>
                         </div>
                         <div className="col-md-8 ">
                           <input
@@ -189,8 +199,8 @@ function ShopIssueIVList(props) {
                       </div>
 
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">Program No</label>
+                        <div className="col-md-4 mt-2">
+                          <label className="form-label">Program No</label>
                         </div>
                         <div className="col-md-8 ">
                           <input
@@ -201,8 +211,8 @@ function ShopIssueIVList(props) {
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-3 ">
-                          <label className="">Assembly Name</label>
+                        <div className="col-md-4 mt-2">
+                          <label className="form-label" style={{whiteSpace:"nowrap"}}>Assembly Name</label>
                         </div>
                         <div className="col-md-8 ">
                           <input
@@ -214,8 +224,8 @@ function ShopIssueIVList(props) {
                       </div>
 
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">Operation</label>
+                        <div className="col-md-4 mt-2">
+                          <label className="form-label">Operation</label>
                         </div>
 
                         <div className="col-md-8 ">
@@ -227,8 +237,8 @@ function ShopIssueIVList(props) {
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-3 ">
-                          <label className="">Material</label>
+                        <div className="col-md-4 mt-2">
+                          <label className="form-label">Material</label>
                         </div>
                         <div className="col-md-8 ">
                           <input
@@ -239,8 +249,8 @@ function ShopIssueIVList(props) {
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">Alloted</label>
+                        <div className="col-md-4 mt-2">
+                          <label className="form-label">Alloted</label>
                         </div>
                         <div className="col-md-8 ">
                           <input
@@ -250,11 +260,11 @@ function ShopIssueIVList(props) {
                           />
                         </div>
                       </div>
-                      <div className="row">
-                        <div className="col-md-3 ">
-                          <label className="">Returned</label>
+                      <div className="row mb-4 ">
+                        <div className="col-md-4 mt-2">
+                          <label className="form-label">Returned</label>
                         </div>
-                        <div className="col-md-8 ">
+                        <div className="col-md-8  ">
                           <input
                             className="in-field"
                             disabled
@@ -262,10 +272,10 @@ function ShopIssueIVList(props) {
                           />
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                    
+                 
+               
+              
             </div>
           </div>
         </div>

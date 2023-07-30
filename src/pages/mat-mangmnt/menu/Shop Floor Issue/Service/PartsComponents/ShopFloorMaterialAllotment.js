@@ -198,6 +198,7 @@ function ShopFloorMaterialAllotment(props) {
       if (props.formtype == "Parts") {
         nav(
           "/materialmanagement/shopfloorissue/service/parts/shopfloorallotmentform", //MaterialAllotmentMain
+
           {
             state: { ncid },
           }
@@ -219,7 +220,7 @@ function ShopFloorMaterialAllotment(props) {
         <h4 style={{ marginLeft: "30px" }}>{props.formtype}</h4>
         <button
           className="button-style "
-          style={{ width: "120px", margin: "0px" }}
+          style={{ width: "155px" }}
           onClick={allotMaterial}
           // disabled={boolVal1 | boolVal4}
         >
@@ -227,6 +228,7 @@ function ShopFloorMaterialAllotment(props) {
         </button>
         <button
           className="button-style ms-2"
+          style={{ width: "155px" }}
           id="btnclose"
           type="submit"
           onClick={() => nav("/materialmanagement")}

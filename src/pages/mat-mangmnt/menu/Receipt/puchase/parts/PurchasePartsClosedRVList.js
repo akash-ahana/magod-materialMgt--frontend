@@ -46,7 +46,7 @@ function PurchasePartsClosedRVList() {
     //console.log("data = ", data);
     //console.log("button click : ");
     if (data && data.RvID !== "") {
-      nav("/materialmanagement/receipt/openbuttonopenclosedpartlist", {
+      nav("/MaterialManagement/Receipt/OpenButtonOpenClosedPartList", {
         state: { id: data.RvID },
       });
     } else {
@@ -202,7 +202,7 @@ function PurchasePartsClosedRVList() {
                       </div>
                       <div className="row">
                         <div  className="col-md-4 mt-1 ">
-                          <label className="form-label">Cust Docu No</label>
+                          <label className="form-label" style={{whiteSpace:"nowrap"}}>Cust Docu No</label>
                         </div>
 
                         <div className="col-md-8 ">

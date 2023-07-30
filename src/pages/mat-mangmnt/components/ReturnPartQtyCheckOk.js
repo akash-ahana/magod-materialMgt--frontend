@@ -29,7 +29,7 @@ function ReturnPartQtyCheckOk(props) {
         <Modal.Body>Qty Check Ok</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            okay
+            Ok
           </Button>
         </Modal.Footer>
       </Modal>

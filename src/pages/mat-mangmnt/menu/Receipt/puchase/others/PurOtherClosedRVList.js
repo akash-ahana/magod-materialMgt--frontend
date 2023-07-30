@@ -46,7 +46,7 @@ function PurOtherClosedRVList() {
     //console.log("data = ", data);
     //console.log("button click : ");
     if (data && data.RvID !== "") {
-      nav("/materialmanagement/receipt/openbuttonclosedsheetunit", {
+      nav("/MaterialManagement/Receipt/OpenButtonClosedSheetUnit", {
         state: { id: data.RvID },
       });
     } else {
@@ -81,6 +81,7 @@ function PurOtherClosedRVList() {
       text: "RV No",
       dataField: "RV_No",
       sort: true,
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "RV Date",

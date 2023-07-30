@@ -254,7 +254,7 @@ function OutwordMaterialIssueVocher(props) {
   let printDC = () => {
     //console.log("First formheader = ", formHeader, " outdata = ", outData);
     if (dcID !== "" && dcID !== 0) {
-      nav("/materialmanagement/return/customerjobwork/PrintMaterialDC", {
+      nav("/MaterialManagement/Return/CustomerJobWork/PrintMaterialDC", {
         //formHeader: formHeader,
         //outData: outData,
         state: {
@@ -294,7 +294,7 @@ function OutwordMaterialIssueVocher(props) {
           <div className="col-md-12">
             <div className="row">
               <div className="col-md-3">
-                <label className="">IV No</label>
+                <label className="form-label">IV No</label>
                 <input
                   type="text"
                   name="IvId"
@@ -304,7 +304,7 @@ function OutwordMaterialIssueVocher(props) {
                 />
               </div>
               <div className="col-md-3">
-                <label className="">IV Date</label>
+                <label className="form-label">IV Date</label>
                 <input
                   type="text"
                   name="IVDate"
@@ -313,7 +313,7 @@ function OutwordMaterialIssueVocher(props) {
                 />
               </div>
               <div className="col-md-3">
-                <div className="mt-4 ms-3">{formHeader.IVStatus}</div>
+                <div className="form-label mt-4 ms-3">{formHeader.IVStatus}</div>
                 {/* <input
                   type="text"
                   name="status"
@@ -345,7 +345,7 @@ function OutwordMaterialIssueVocher(props) {
           <div className="col-md-6">
             <div className="row">
               <div className="col-md-12">
-                <label className="">Customer</label>
+                <label className="form-label">Customer</label>
                 <input
                   type="text"
                   name="Customer"
@@ -356,7 +356,7 @@ function OutwordMaterialIssueVocher(props) {
             </div>
             <div className="row">
               <div className="col-md-6">
-                <label className="">GST No</label>
+                <label className="form-label">GST No</label>
                 <input
                   type="text"
                   name="reference"
@@ -365,7 +365,7 @@ function OutwordMaterialIssueVocher(props) {
                 />
               </div>
               <div className="col-md-6">
-                <label className="">DC No / PN No</label>
+                <label className="form-label">DC No / PN No</label>
                 <input
                   type="text"
                   name="PkngDcNo"
@@ -376,7 +376,7 @@ function OutwordMaterialIssueVocher(props) {
             </div>
             <div className="row">
               <div className="col-md-6">
-                <label className="">Weight</label>
+                <label className="form-label">Weight</label>
                 <input
                   type="text"
                   name="TotalWeight"
@@ -385,7 +385,7 @@ function OutwordMaterialIssueVocher(props) {
                 />
               </div>
               <div className="col-md-6">
-                <label className="">Calculated Weight</label>
+                <label className="form-label">Calculated Weight</label>
                 <input
                   type="text"
                   name="Type"
@@ -399,9 +399,9 @@ function OutwordMaterialIssueVocher(props) {
           <div className="col-md-3">
             <label className="form-label"></label>
             <textarea
-              style={{ height: "110px" }}
-              className="form-control"
-              rowSpane="3"
+             id="exampleFormControlTextarea1"
+             rows="4  "
+             style={{ width: "240px" }}
               value={custdata.Address}
               readOnly
             ></textarea>
@@ -475,11 +475,11 @@ function OutwordMaterialIssueVocher(props) {
         </div>
         <div className="row">
           <div className="col-md-4">
-            <label className="">GST No</label>
+            <label className="form-label">GST No</label>
             <input type="text" name="reference" disabled />
           </div>
           <div className="col-md-4">
-            <label className="">DC No / Ph No</label>
+            <label className="form-label">DC No / Ph No</label>
             <input
               type="text"
               name="PkngDcNo"
@@ -495,7 +495,7 @@ function OutwordMaterialIssueVocher(props) {
         </div>
         <div className="row">
           <div className="col-md-4">
-            <label className="">Weight</label>
+            <label className="form-label">Weight</label>
             <input
               type="text"
               name="TotalWeight"
@@ -504,7 +504,7 @@ function OutwordMaterialIssueVocher(props) {
             />
           </div>
           <div className="col-md-4">
-            <label className="">Calculate Weight</label>
+            <label className="form-label">Calculate Weight</label>
             <input
               type="text"
               name="Type"
@@ -527,6 +527,7 @@ function OutwordMaterialIssueVocher(props) {
             //className="col-md-12 col-sm-12"
           >
             <BootstrapTable
+            headerClasses="header-class "
               keyField="IV_No"
               //keyField="id"
               columns={columns}

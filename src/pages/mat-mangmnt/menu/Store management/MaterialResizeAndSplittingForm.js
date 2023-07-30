@@ -12,14 +12,14 @@ function MaterialResizeAndSplittingForm(props) {
   return (
     <div>
       <SplitMatModal open={open} setOpen={setOpen} />
-      <h4 className="form-title">Material Resize and Splitting Form</h4>
+      <h4 className="form-title"><b>Material Resize and Splitting Form</b></h4>
       <hr className="horizontal-line" />
       <div className="table_top_style">
         <form action="">
           <div className="row">
             <div className="col-md-9">
               <label className="form-label">Material Code</label>
-              <input className="" />
+              <input className="form-label" />
             </div>
 
             <div className="col-md-3 mt-2">
@@ -31,15 +31,15 @@ function MaterialResizeAndSplittingForm(props) {
           <div className="row">
             <div className="col-md-3">
               <label className="form-label">Quantity</label>
-              <input className="" />
+              <input className="form-label" />
             </div>
             <div className="col-md-3">
               <label className="form-label">Para1</label>
-              <input className="" />
+              <input className="form-label" />
             </div>
             <div className="col-md-3">
               <label className="form-label">Para2</label>
-              <input className="" />
+              <input className="form-label" />
             </div>
             <div className="col-md-3 mt-2">
               <button className="button-style ">Cancel</button>
@@ -57,8 +57,11 @@ function MaterialResizeAndSplittingForm(props) {
                 marginTop: "30px",
               }}
             >
-              <Table bordered>
+              <Table  striped
+            className="table-data border"
+            style={{ border: "1px"}}>
                 <thead
+                className="tableHeaderBGColor"
                   style={{
                     textAlign: "center",
                     position: "sticky",
@@ -93,10 +96,10 @@ function MaterialResizeAndSplittingForm(props) {
           </div>
           <div className="col-md-4 mt-4 ">
             <div className="ip-box form-bg">
-              <div className="row">
+             
                 <div className="row">
-                  <div className="col-md-3 ">
-                    <label className="">Srl NO</label>
+                  <div className="col-md-3 mt-1 ">
+                    <label className="form-label" style={{whiteSpace:"nowrap"}}>Srl No</label>
                   </div>
 
                   <div className="col-md-4 ">
@@ -112,8 +115,8 @@ function MaterialResizeAndSplittingForm(props) {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-3 ">
-                    <label className="">Para1</label>
+                  <div className="col-md-3 mt-1 ">
+                    <label className="form-label">Para1</label>
                   </div>
 
                   <div className="col-md-4 ">
@@ -129,16 +132,16 @@ function MaterialResizeAndSplittingForm(props) {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-3">
-                    <label className="">Para2</label>
+                  <div className="col-md-3 mt-1">
+                    <label className="form-label">Para2</label>
                   </div>
                   <div className="col-md-9">
                     <input className="in-field" readOnly />
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-3 ">
-                    <label className="">Quantity</label>
+                  <div className="col-md-3 mt-1">
+                    <label className="form-label">Quantity</label>
                   </div>
                   <div className="col-md-9 ">
                     <input className="in-field" readOnly />
@@ -146,8 +149,8 @@ function MaterialResizeAndSplittingForm(props) {
                 </div>
                 <div className="row mt-2 mb-3">
                   {" "}
-                  <div className="col-md-3 ">
-                    <label className="">Location</label>{" "}
+                  <div className="col-md-3 mt-1 ">
+                    <label className="form-label">Location</label>{" "}
                   </div>{" "}
                   <div className="col-md-9" style={{ marginTop: "8px" }}>
                     {" "}
@@ -159,7 +162,7 @@ function MaterialResizeAndSplittingForm(props) {
                     </select>{" "}
                   </div>{" "}
                 </div>
-              </div>
+              
             </div>
           </div>
         </div>

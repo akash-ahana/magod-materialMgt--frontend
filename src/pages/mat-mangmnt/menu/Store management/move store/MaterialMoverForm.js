@@ -152,10 +152,12 @@ function MaterialMoverForm(props) {
     {
       text: "Mtrl Stock ID",
       dataField: "MtrlStockID",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Mtrl Code",
       dataField: "Mtrl_Code",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Para1",
@@ -190,16 +192,19 @@ function MaterialMoverForm(props) {
     {
       text: "Scrap Weight",
       dataField: "ScrapWeight",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Location No",
       dataField: "LocationNo",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
   ];
   const columns2 = [
     {
       text: "Mtrl Stock ID",
       dataField: "MtrlStockID",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Para1",
@@ -234,10 +239,12 @@ function MaterialMoverForm(props) {
     {
       text: "Scrap Weight",
       dataField: "ScrapWeight",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Location No",
       dataField: "LocationNo",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
   ];
 
@@ -334,6 +341,7 @@ function MaterialMoverForm(props) {
                     options={locationData}
                     placeholder="Select Location"
                     onChange={(label) => fromLocationEvent(label)}
+                    className="mb-3"
                   />
                 </div>
 
@@ -360,6 +368,7 @@ function MaterialMoverForm(props) {
                     options={locationData}
                     placeholder="Select Location"
                     onChange={(label) => changeLocation(label)}
+                    className="mb-3"
                   />
                 </div>
               </div>

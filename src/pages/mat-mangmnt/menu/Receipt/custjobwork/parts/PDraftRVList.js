@@ -67,7 +67,7 @@ function PDraftRVList() {
     //console.log("data = ", data);
     //console.log("button click : ");
     if (data && data.RvID !== "") {
-      nav("/materialmanagement/receipt/openbuttondraftpartlist", {
+      nav("/MaterialManagement/Receipt/OpenButtonDraftPartList", {
         state: { id: data.RvID },
       });
     } else {
@@ -99,6 +99,7 @@ function PDraftRVList() {
     {
       text: "RV No",
       dataField: "RV_No",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "RV Date",

@@ -84,7 +84,7 @@ function ReturnCancelIVModal(props) {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            okay
+            Ok
           </Button>
         </Modal.Footer>
       </Modal>

@@ -396,7 +396,7 @@ function MaterialAllotmentMain() {
             //return data.insertId;
 
             nav(
-              "/materialmanagement/shopfloorissue/ivlistservice/issued/shopmatissuevocher",
+              "/MaterialManagement/ShopFloorIssue/IVListService/Issued/ShopMatIssueVoucher",
               {
                 state: { issueIDVal: data.insertId },
               }
@@ -432,7 +432,7 @@ function MaterialAllotmentMain() {
 
         <div className="row">
           <div className="col-md-4">
-            <label className="">Task No</label>
+            <label className="form-label">Task No</label>
             <input type="text" value={formHeader.TaskNo} disabled />
           </div>
           <div className="col-md-6">
@@ -444,57 +444,57 @@ function MaterialAllotmentMain() {
         <div className="row">
           <div className="col-md-4">
             <div style={{ marginBottom: "9px" }}>
-              <label className="">NC Program No</label>
-              <input className="" value={formHeader.NCProgramNo} disabled />
+              <label className="form-label">NC Program No</label>
+              <input className="form-label" value={formHeader.NCProgramNo} disabled />
             </div>
           </div>
           <div className="col-md-6">
             <div style={{ marginBottom: "9px" }}>
-              <label className="">Material Code</label>
-              <input className="" value={formHeader.Mtrl_Code} disabled />
+              <label className="form-label">Material Code</label>
+              <input className="form-label" value={formHeader.Mtrl_Code} disabled />
             </div>
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-4">
-            <label className="">Priorty</label>
-            <input className="" value={formHeader.Priority} disabled />
+            <label className="form-label">Priority</label>
+            <input className="form-label" value={formHeader.Priority} disabled />
           </div>
 
           <div className="col-md-3">
-            <label className="">Machine</label>
-            <input className="" value={formHeader.Machine} disabled />
+            <label className="form-label">Machine</label>
+            <input className="form-label" value={formHeader.Machine} disabled />
           </div>
           <div className="col-md-3">
-            <label className="">Quantity</label>
-            <input className="" value={formHeader.Qty} disabled />
+            <label className="form-label">Quantity</label>
+            <input className="form-label" value={formHeader.Qty} disabled />
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-4">
-            <label className="">Status</label>
-            <input className="" value={formHeader.PStatus} disabled />
+            <label className="form-label">Status</label>
+            <input className="form-label" value={formHeader.PStatus} disabled />
           </div>
 
           <div className="col-md-3">
-            <label className="">Process</label>
-            <input className="" value={formHeader.Operation} disabled />
+            <label className="form-label">Process</label>
+            <input className="form-label" value={formHeader.Operation} disabled />
           </div>
           <div className="col-md-3">
-            <label className="">Alloted</label>
-            <input className="" value={formHeader.QtyAllotted} disabled />
+            <label className="form-label">Alloted</label>
+            <input className="form-label" value={formHeader.QtyAllotted} disabled />
           </div>
         </div>
         <div className="row">
           <div className="col-md-4">
-            <label className="">Source</label>
-            <input className="" value="Customer" disabled />
+            <label className="form-label">Source</label>
+            <input className="form-label" value="Customer" disabled />
           </div>
 
           <div className="col-md-3">
-            <label className="">Issue Now</label>
+            <label className="form-label">Issue Now</label>
             <input
               type="text"
               onChange={issuenowchange}
@@ -530,7 +530,7 @@ function MaterialAllotmentMain() {
       </div>
 
       <div className="row mt-4">
-        <div className="col-md-8 justify-content-center">
+        <div className="col-md-8 justify-content-center mb-3">
           <button
             className="button-style"
             style={{ width: "196px" }}
@@ -558,10 +558,10 @@ function MaterialAllotmentMain() {
         </div>
 
         <div className="col-md-5">
-          <div className="ip-box form-bg">
+          <div className="ip-box form-bg mb-4">
             <div className="row">
-              <div className="col-md-3 ">
-                <label className="">RV No</label>
+              <div className="col-md-4 mt-2 ">
+                <label className="form-label">RV No</label>
               </div>
               <div className="col-md-8 ">
                 <input
@@ -573,8 +573,8 @@ function MaterialAllotmentMain() {
               </div>
             </div>
             <div className="row">
-              <div className="col-md-3 ">
-                <label className="">Part ID</label>
+              <div className="col-md-4 mt-2 ">
+                <label className="form-label">Part ID</label>
               </div>
               <div className="col-md-8" style={{ marginTop: "8px" }}>
                 <input
@@ -587,8 +587,8 @@ function MaterialAllotmentMain() {
             </div>
 
             <div className="row">
-              <div className="col-md-3 ">
-                <label className="">Qty Received</label>
+              <div className="col-md-4 mt-1">
+                <label className="form-label" style={{whiteSpace:"nowrap"}}>Qty Received</label>
               </div>
               <div className="col-md-8 ">
                 <input
@@ -602,8 +602,8 @@ function MaterialAllotmentMain() {
               </div>
             </div>
             <div className="row">
-              <div className="col-md-3 ">
-                <label className="">Qty Accepted</label>
+              <div className="col-md-4 mt-1 ">
+                <label className="form-label" style={{whiteSpace:"nowrap"}}>Qty Accepted</label>
               </div>
               <div className="col-md-8 ">
                 <input
@@ -615,8 +615,8 @@ function MaterialAllotmentMain() {
               </div>
             </div>
             <div className="row">
-              <div className="col-md-3 ">
-                <label className="">Qty Issued</label>
+              <div className="col-md-4 mt-1 ">
+                <label className="form-label" style={{whiteSpace:"nowrap"}}>Qty Issued</label>
               </div>
               <div className="col-md-8 ">
                 <input
@@ -627,9 +627,9 @@ function MaterialAllotmentMain() {
                 />
               </div>
             </div>
-            <div className="row">
-              <div className="col-md-3 ">
-                <label className="">Issue Now</label>
+            <div className="row mb-4">
+              <div className="col-md-4 mt-1 ">
+                <label className="form-label" style={{whiteSpace:"nowrap"}}>Issue Now</label>
               </div>
               <div className="col-md-8 ">
                 <input className="in-field" type="text" disabled />

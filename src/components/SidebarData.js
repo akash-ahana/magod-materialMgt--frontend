@@ -76,7 +76,7 @@ export const customerSidebar = [
             subNav: [
               {
                 title: "New",
-                path: "/MaterialManagement/Receipt/CustomerJobWork/Units/new",
+                path: "/MaterialManagement/Receipt/CustomerJobWork/Units/New",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
@@ -395,7 +395,7 @@ export const customerSidebar = [
     ],
   },
   {
-    title: "Store Managemen",
+    title: "Store Management",
     // path: "/customer",
     icon: <SiIcon.SiMaterialdesignicons />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
@@ -477,6 +477,13 @@ export const customerSidebar = [
       },
     ],
   },
+  {
+    title: "Previous Menu",
+    path: "/home",
+    icon: <MdIcon.MdPreview />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+  },
 ];
 
 export const adminSidebar = [
@@ -493,6 +500,7 @@ export const adminSidebar = [
       },
     ],
   },
+ 
   {
     title: "Users",
     icon: <FaIcon.FaUsers />,

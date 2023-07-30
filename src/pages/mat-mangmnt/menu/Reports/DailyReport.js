@@ -109,6 +109,7 @@ function DailyReport() {
     {
       text: "Receipt Details",
       dataField: "",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Quantity",
@@ -117,10 +118,12 @@ function DailyReport() {
     {
       text: "Weight Caluclated",
       dataField: "totalweightcalculated",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Actual Weight",
       dataField: "totalWeight",
+      headerStyle: { whiteSpace: "nowrap" },
     },
   ];
 
@@ -205,10 +208,12 @@ function DailyReport() {
     {
       text: "Calculated Weight",
       dataField: "TotalWeightCalculated",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Actual Weight",
       dataField: "TotalWeight",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Quantity",
@@ -218,7 +223,7 @@ function DailyReport() {
   const printReceipt = async () => {
     //await delay(2000);
 
-    nav("/materialmanagement/Reports/PrintDailyReportReceipt", {
+    nav("/MaterialManagement/Reports/PrintDailyReportReceipt", {
       state: {
         tableData: firstTab,
         date: dateVal,
@@ -254,7 +259,7 @@ function DailyReport() {
     await delay(300);
     console.log("fullTable = ", fullTable);
 
-    nav("/materialmanagement/Reports/PrintDailyReportInvoice", {
+    nav("/materialManagement/Reports/PrintDailyReportInvoice", {
       state: {
         tableData: fullTable,
         date: dateVal,
@@ -275,10 +280,10 @@ function DailyReport() {
             Load Data
           </button>
           <button className="button-style">Save Data</button>
-          <button className="button-style" onClick={printReceipt}>
+          <button className="button-style" style={{width:"200px"}} onClick={printReceipt}>
             Print Receipt Report
           </button>
-          <button className="button-style" onClick={printInvoice}>
+          <button className="button-style" style={{width:"200px"}} onClick={printInvoice}>
             Print Invoice Dispatch
           </button>
           <button
