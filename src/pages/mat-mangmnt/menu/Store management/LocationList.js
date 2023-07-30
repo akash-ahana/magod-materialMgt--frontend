@@ -65,15 +65,18 @@ function LocationList(props) {
     }
   };
   const InputEventShape = (e) => {
-    //const { value, name } = e.target;
+    const { value, name } = e.target;
+    //const found = allData.filter((obj) => obj.Cust_Code === e[0].Shape);
+
     setFormHeader((preValue) => {
       //console.log(preValue)
       return {
         ...preValue,
-        storage: e[0].Shape,
+        //storage: e[0] && e[0].Shape.length !== 0 ? e[0].Shape : "",
+        storage: value,
       };
     });
-
+    console.log(formHeader);
     if (btnState === "save") {
       //update
     }
@@ -269,7 +272,7 @@ function LocationList(props) {
                         <label className="">Storage Type</label>
                       </div>
                       <div className="col-md-8" style={{ marginTop: "8px" }}>
-                        {/* <select
+                        <select
                           className="ip-select dropdown-field"
                           name="storage"
                           onChange={InputEvent}
@@ -284,14 +287,16 @@ function LocationList(props) {
                               {sh.Shape}
                             </option>
                           ))}
-                        </select> */}
-                        <Typeahead
+                        </select>
+                        {/* <Typeahead
                           id="basic-example"
-                          name="storage"
+                          //name="storage"
+                          //value={formHeader.storage}
+                          defaultSelected={formHeader.storage}
                           options={shape}
                           placeholder="Select Storage Type"
                           onChange={(label) => InputEventShape(label)}
-                        />
+                        /> */}
                       </div>
                     </div>
 

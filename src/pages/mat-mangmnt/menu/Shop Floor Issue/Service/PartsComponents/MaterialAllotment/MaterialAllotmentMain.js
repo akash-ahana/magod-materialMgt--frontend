@@ -67,6 +67,8 @@ function MaterialAllotmentMain() {
         getRequest(url5, async (data2) => {
           data[i].QtyAvailable = data2[0]["QtyAvialable"];
           data[i].issueNow = 0;
+          data[i].AlreadyUsed = 0;
+          data[i].TotalUsed = 0;
         });
       }
       await delay(2000);
@@ -188,12 +190,12 @@ function MaterialAllotmentMain() {
       dataField: "QtyRequired",
     },
     {
-      text: "Alrady used",
-      dataField: "",
+      text: "Already used",
+      dataField: "AlreadyUsed",
     },
     {
       text: "Total used",
-      dataField: "",
+      dataField: "TotalUsed",
     },
     {
       text: "Rejected",

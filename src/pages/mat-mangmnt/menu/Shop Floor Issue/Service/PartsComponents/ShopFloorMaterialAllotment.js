@@ -197,14 +197,14 @@ function ShopFloorMaterialAllotment(props) {
     } else {
       if (props.formtype == "Parts") {
         nav(
-          "/materialmanagement/shopfloorissue/service/parts/shopfloorallotmentform",
+          "/materialmanagement/shopfloorissue/service/parts/shopfloorallotmentform", //MaterialAllotmentMain
           {
             state: { ncid },
           }
         );
       } else if (props.formtype == "Units" || props.formtype == "Others") {
         nav(
-          "/MaterialManagement/ShopFloorIssue/service/Units/MaterialAllotmentForm",
+          "/MaterialManagement/ShopFloorIssue/service/Units/MaterialAllotmentForm", //UnitsMatAllotmentForm
           {
             state: { ncid },
           }

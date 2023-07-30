@@ -499,6 +499,7 @@ function PNew() {
               options={custdata}
               placeholder="Select Customer"
               onChange={(label) => changeCustomer(label)}
+              disabled={boolVal2}
             />
           </div>
           <div className="col-md-4">
@@ -547,7 +548,7 @@ function PNew() {
             <button
               className="button-style"
               style={{ width: "196px" }}
-              disabled={boolVal1}
+              disabled={boolVal1 || boolVal4}
               onClick={allotRVButtonState}
             >
               Allot RV No

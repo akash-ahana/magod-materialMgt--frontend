@@ -98,7 +98,7 @@ function ShopIssueIVList(props) {
       toast.error("Please select Part");
     } else {
       nav(
-        "/materialmanagement/shopfloorissue/ivlistservice/issued/shopmatissuevocher",
+        "/materialmanagement/shopfloorissue/ivlistservice/issued/shopmatissuevocher", //ProductionMatIssueParts
         {
           state: { issueIDVal },
         }
