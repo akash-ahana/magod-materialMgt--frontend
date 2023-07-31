@@ -16,7 +16,7 @@ function MonthlyMatPurSummary() {
           >
             <tr>
               <th>Material</th>
-              <th> Caluclated Weight </th>
+              <th> Calculated Weight </th>
               <th>Actual Weight</th>
             </tr>
           </thead>

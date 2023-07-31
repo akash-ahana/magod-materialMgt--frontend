@@ -185,7 +185,7 @@ function ShopMatIssueVocher() {
     // }
     if (noDetails === 1 && combineSheets.length > 0) {
       nav(
-        "/materialmanagement/shopfloorissue/ivlistprofilecutting/PrintIVListProfileCutting",
+        "/MaterialManagement/ShopFloorIssue/IVListProfileCutting/PrintIVListProfileCutting",
         {
           state: {
             formHeader: formHeader,
@@ -197,7 +197,7 @@ function ShopMatIssueVocher() {
       );
     } else {
       nav(
-        "/materialmanagement/shopfloorissue/ivlistprofilecutting/PrintIVListProfileCutting",
+        "/MaterialManagement/ShopFloorIssue/IVListProfileCutting/PrintIVListProfileCutting",
         {
           state: {
             formHeader: formHeader,
@@ -323,7 +323,7 @@ function ShopMatIssueVocher() {
                 className="button-style "
                 id="btnclose"
                 type="submit"
-                onClick={() => nav("/materialmanagement")}
+                onClick={() => nav("/MaterialManagement")}
               >
                 Close
               </button>

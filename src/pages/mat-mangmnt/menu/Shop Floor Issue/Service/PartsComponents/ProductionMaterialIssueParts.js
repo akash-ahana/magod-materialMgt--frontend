@@ -20,7 +20,7 @@ function ProductionMaterialIssueParts() {
               <input className="" />
             </div>
             <div className="col-md-3">
-              <label className="form-label">Alloted</label>
+              <label className="form-label">Allotted</label>
               <input className="" />
             </div>
             <div className="col-md-3">

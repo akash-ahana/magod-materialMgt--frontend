@@ -86,7 +86,7 @@ function ReturnListing(props) {
       dataField: "Customer",
     },
     {
-      text: "Wieght",
+      text: "Weight",
       dataField: "TotalWeight",
     },
     {
@@ -169,7 +169,7 @@ function ReturnListing(props) {
 
   return (
     <>
-      <h4 className="title">Material Return Issue Vocher</h4>
+      <h4 className="title">Material Return Issue Voucher</h4>
       <div className="row">
         <div className="col-md-8">
           <label className="form-label">Select Customer</label>
@@ -227,7 +227,7 @@ function ReturnListing(props) {
             className="button-style "
             id="btnclose"
             type="submit"
-            onClick={() => nav("/materialmanagement")}
+            onClick={() => nav("/MaterialManagement")}
           >
             Close
           </button>

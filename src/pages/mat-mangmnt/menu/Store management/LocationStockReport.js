@@ -122,7 +122,7 @@ function LocationStockReport() {
     await delay(300);
     console.log("fullTable = ", fullTable);
 
-    nav("/materialmanagement/StoreManagement/PrintLocationStockSummaryReport", {
+    nav("/MaterialManagement/StoreManagement/PrintLocationStockSummaryReport", {
       state: {
         formHeader: selectedfirstRow,
         tableData: fullTable,
@@ -143,7 +143,7 @@ function LocationStockReport() {
       tot2: tot2,
     };
     await delay(300);
-    nav("/materialmanagement/StoreManagement/PrintLocationStockDetailReport", {
+    nav("/MaterialManagement/StoreManagement/PrintLocationStockDetailReport", {
       state: {
         formHeader: selectedSecondRow,
         tableData: thirdTable,
@@ -444,7 +444,7 @@ function LocationStockReport() {
                  // style={{ width: "155px" }}
                   id="btnclose"
                   type="submit"
-                  onClick={() => nav("/materialmanagement")}
+                  onClick={() => nav("/MaterialManagement")}
                   
                 >
                   Close

@@ -116,7 +116,7 @@ function DailyReport() {
       dataField: "qty",
     },
     {
-      text: "Weight Caluclated",
+      text: "Weight Calculated",
       dataField: "totalweightcalculated",
       headerStyle: { whiteSpace: "nowrap" },
     },
@@ -259,7 +259,7 @@ function DailyReport() {
     await delay(300);
     console.log("fullTable = ", fullTable);
 
-    nav("/materialManagement/Reports/PrintDailyReportInvoice", {
+    nav("/MaterialManagement/Reports/PrintDailyReportInvoice", {
       state: {
         tableData: fullTable,
         date: dateVal,
@@ -288,7 +288,7 @@ function DailyReport() {
           </button>
           <button
             className="button-style "
-            onClick={() => nav("/materialmanagement")}
+            onClick={() => nav("/MaterialManagement")}
           >
             Close
           </button>
