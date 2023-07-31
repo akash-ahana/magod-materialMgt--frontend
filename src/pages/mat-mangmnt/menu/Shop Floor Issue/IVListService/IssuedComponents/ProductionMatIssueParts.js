@@ -199,7 +199,7 @@ function ProductionMatIssueParts() {
   };
   const printButton = () => {
     nav(
-      "/materialmanagement/shopfloorissue/ivlistservice/PrintIVListServicePart",
+      "/MaterialManagement/ShopFloorIssue/IVListService/PrintIVListServicePart",
       {
         state: {
           formHeader: formHeader,
@@ -234,7 +234,7 @@ function ProductionMatIssueParts() {
             <input className="" value={formHeader.AssyName} disabled />
           </div>
           <div className="col-md-3">
-            <label className="form-label">Alloted</label>
+            <label className="form-label">Allotted</label>
             <input className="" value={formHeader.QtyIssued} disabled />
           </div>
           <div className="col-md-3">
@@ -296,7 +296,7 @@ function ProductionMatIssueParts() {
               className="button-style "
               id="btnclose"
               type="submit"
-              onClick={() => nav("/materialmanagement")}
+              onClick={() => nav("/MaterialManagement")}
             >
               Close
             </button>{" "}

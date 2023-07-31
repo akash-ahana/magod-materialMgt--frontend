@@ -286,7 +286,7 @@ function StockList(props) {
     });
     await delay(300);
 
-    nav("/materialmanagement/Reports/PrintReportStockList", {
+    nav("/MaterialManagement/Reports/PrintReportStockList", {
       state: {
         //tableData: thirdTable,
         customerDetails: customerDetails,
@@ -356,7 +356,7 @@ function StockList(props) {
     console.log("table = ", fullStockTable);
     console.log("table scrap = ", fullStockScrapTable);
 
-    nav("/materialmanagement/Reports/PrintReportFullStockList", {
+    nav("/MaterialManagement/Reports/PrintReportFullStockList", {
       state: {
         customerDetails: customerDetails,
         fullStockTable: fullStockTable,
@@ -420,7 +420,7 @@ function StockList(props) {
               className="button-style "
               id="btnclose"
               type="submit"
-              onClick={() => nav("/materialmanagement")}
+              onClick={() => nav("/MaterialManagement")}
             >
               Close
             </button>

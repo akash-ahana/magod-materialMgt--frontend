@@ -424,7 +424,7 @@ function PurchasePartsNew() {
       (data) => {
         if (data.affectedRows !== 0) {
           toast.success("Record is Deleted");
-          nav("/materialmanagement/receipt/purchase/parts/new", {
+          nav("/MaterialManagement/Receipt/Purchase/Parts/New", {
             replace: true,
           });
           window.location.reload();
@@ -559,7 +559,7 @@ function PurchasePartsNew() {
               className="button-style "
               id="btnclose"
               type="submit"
-              onClick={() => nav("/materialmanagement")}
+              onClick={() => nav("/MaterialManagement")}
             >
               Close
             </button>

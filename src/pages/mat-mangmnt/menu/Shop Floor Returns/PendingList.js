@@ -511,7 +511,7 @@ function PendingList(props) {
             className="button-style "
             id="btnclose"
             type="submit"
-            onClick={() => nav("/materialmanagement")}
+            onClick={() => nav("/MaterialManagement")}
             style={{width:"170px"}}
           >
             Close

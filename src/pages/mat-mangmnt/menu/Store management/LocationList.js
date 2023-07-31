@@ -349,7 +349,7 @@ function LocationList(props) {
                 style={{ width: "100px" }}
                 id="btnclose"
                 type="submit"
-                onClick={() => nav("/materialmanagement")}
+                onClick={() => nav("/MaterialManagement")}
               >
                 Close
               </button>

@@ -19,7 +19,7 @@ function MonthlyMatPurDetails() {
               <th>Date</th>
               <th>Material</th>
               <th>Quantity</th>
-              <th>Weight Caluclated </th>
+              <th>Weight Calculated </th>
               <th>Actual Weight</th>
             </tr>
           </thead>

@@ -4,7 +4,7 @@ import LocationStockReport from "./LocationStockReport";
 function LocationStock() {
   return (
     <div>
-      <LocationStockReport />
+      <LocationStockReport/>
     </div>
   );
 }

@@ -236,7 +236,7 @@ function StockDispatch() {
             className="button-style "
             id="btnclose"
             type="submit"
-            onClick={() => nav("/materialmanagement")}
+            onClick={() => nav("/MaterialManagement")}
           >
             Close
           </button>

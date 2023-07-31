@@ -481,7 +481,7 @@ function MaterialAllotmentMain() {
             <input className="form-label" value={formHeader.Operation} disabled />
           </div>
           <div className="col-md-3">
-            <label className="form-label">Alloted</label>
+            <label className="form-label">Allotted</label>
             <input className="form-label" value={formHeader.QtyAllotted} disabled />
           </div>
         </div>
@@ -505,7 +505,7 @@ function MaterialAllotmentMain() {
               className="button-style "
               id="btnclose"
               type="submit"
-              onClick={() => nav("/materialmanagement")}
+              onClick={() => nav("/MaterialManagement")}
             >
               Close
             </button>

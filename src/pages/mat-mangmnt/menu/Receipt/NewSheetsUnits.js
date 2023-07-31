@@ -506,7 +506,7 @@ function NewSheetsUnits(props) {
         if (data.affectedRows !== 0) {
           toast.success("Record is Deleted");
           nav(
-            "/materialmanagement/receipt/customerjobwork/sheetsandothers/new",
+            "/MaterialManagement/Receipt/CustomerJobWork/SheetsAndOthers/New",
             {
               replace: true,
             }
@@ -1103,7 +1103,7 @@ function NewSheetsUnits(props) {
               className="button-style "
               id="btnclose"
               type="submit"
-              onClick={() => nav("/materialmanagement")}
+              onClick={() => nav("/MaterialManagement")}
             >
               Close
             </button>
