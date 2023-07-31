@@ -18,6 +18,8 @@ function ProductionMatIssueParts() {
   const [tableData, setTableData] = useState([]);
   const [rowData, setRowData] = useState({});
   const [show, setShow] = useState(false);
+  const [show1, setShow1] = useState(false); //cancel
+  const [show2, setShow2] = useState(false); //accept
   const [showYN, setShowYN] = useState(false);
 
   const [modalMessage, setModalMessage] = useState(
@@ -177,6 +179,7 @@ function ProductionMatIssueParts() {
   };
   const cancelButton = () => {
     setShow(true);
+    setShow1(true);
   };
 
   const acceptReturn = () => {
@@ -194,6 +197,7 @@ function ProductionMatIssueParts() {
         "Cannot Accept Partial Return, Use Issued Quantity before returning"
       );
     } else {
+      setShow2(true);
       setShowYN(true);
     }
   };
@@ -260,7 +264,7 @@ function ProductionMatIssueParts() {
             <button
               className="button-style "
               onClick={cancelButton}
-              disabled={formHeader.Status === "Closed" ? true : false}
+              disabled={show1 || formHeader.Status === "Closed" ? true : false}
             >
               Cancel
             </button>
@@ -280,7 +284,7 @@ function ProductionMatIssueParts() {
             <button
               className="button-style "
               onClick={acceptReturn}
-              disabled={formHeader.Status === "Closed" ? true : false}
+              disabled={show2 || formHeader.Status === "Closed" ? true : false}
             >
               Accept Return
             </button>

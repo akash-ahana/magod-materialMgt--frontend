@@ -1003,6 +1003,7 @@ function NewSheetsUnits(props) {
                 //disabled={props.type2 === "purchase" ? true : boolVal2}
                 placeholder="Select Customer"
                 onChange={(label) => changeCustomer(label)}
+                disabled={boolVal2}
               />
             ) : (
               <select

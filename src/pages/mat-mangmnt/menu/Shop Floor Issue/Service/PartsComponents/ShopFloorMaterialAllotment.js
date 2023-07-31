@@ -201,14 +201,15 @@ function ShopFloorMaterialAllotment(props) {
     } else {
       if (props.formtype == "Parts") {
         nav(
-          "/MaterialManagement/ShopFloorIssue/Service/Parts/ShopFloorAllotmentForm",
+          "/materialmanagement/shopfloorissue/service/parts/shopfloorallotmentform", //MaterialAllotmentMain
+
           {
             state: { ncid },
           }
         );
       } else if (props.formtype == "Units" || props.formtype == "Others") {
         nav(
-          "/MaterialManagement/ShopFloorIssue/Service/Units/MaterialAllotmentForm",
+          "/MaterialManagement/ShopFloorIssue/service/Units/MaterialAllotmentForm", //UnitsMatAllotmentForm
           {
             state: { ncid },
           }
