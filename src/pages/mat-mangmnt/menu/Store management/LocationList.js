@@ -344,21 +344,16 @@ function LocationList(props) {
                 </button>
               </div>
               <div className="col-md-3 col-sm-12">
-
-              <button
-                className="button-style"
-                style={{ width: "100px" }}
-                id="btnclose"
-                type="submit"
-                onClick={() => nav("/MaterialManagement")}
-              >
-                Close
-              </button>
-              </div>        
-
-               
+                <button
+                  className="button-style"
+                  style={{ width: "100px" }}
+                  id="btnclose"
+                  type="submit"
+                  onClick={() => nav("/MaterialManagement")}
+                >
+                  Close
+                </button>
               </div>
-
             </div>
           </div>
         </div>
