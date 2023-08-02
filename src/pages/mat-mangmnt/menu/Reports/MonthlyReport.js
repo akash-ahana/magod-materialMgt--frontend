@@ -297,7 +297,7 @@ function MonthlyReport() {
     await delay(300);
     console.log("fullStockTable2 = ", fullStockTable2);
 
-    nav("/materialmanagement/Reports/PrintMonthlyReport", {
+    nav("/MaterialManagement/Reports/PrintMonthlyReport", {
       state: {
         date: formatDate(new Date(dateVal), 9),
         thirdTab: thirdTab,
@@ -314,7 +314,7 @@ function MonthlyReport() {
       {" "}
       <h4 className="title">Raw Material Daily Report</h4>
       <div className="row">
-        <div className="col-md-1"></div>
+     
         <div className="col-md-2">
           <label className="form-label">Select Month</label>
           <input
@@ -324,6 +324,7 @@ function MonthlyReport() {
             onChange={InputEvent}
           />
         </div>
+        <div className="col-md-2"></div>
         <div className="col-md-2">
           <button className="button-style" onClick={loadData}>
             Load Data
@@ -340,16 +341,16 @@ function MonthlyReport() {
             className="button-style "
             id="btnclose"
             type="submit"
-            onClick={() => nav("/materialmanagement")}
+            onClick={() => nav("/MaterialManagement")}
           >
             Close
           </button>
         </div>
       </div>
       <div className="row mt-4">
-        <div className="col-md-1"></div>
-        <div className="col-md-11">
-          <Tabs id="controlled-tab-example" className="mb-3 mt-3 tab_font">
+       
+        <div className="col-md-12">
+          <Tabs id="controlled-tab-example" className="mb-3 mt-3 tab_font" style={{width:"1200px"}}>
             <Tab eventKey="mat_rece" title="Material Purchase Details">
               {/* <MonthlyMatPurDetails /> */}
               <div style={{ height: "400px", overflowY: "scroll" }}>

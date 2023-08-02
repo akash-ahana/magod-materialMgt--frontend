@@ -9,6 +9,7 @@ const { endpoints } = require("../../../../api/constants");
 
 function StockArrival() {
   const nav = useNavigate();
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
   const [firstTable, setFirstTable] = useState([]);
   const [secondTable, setSecondTable] = useState([]);
   const [thirdTable, setThirdTable] = useState([]);
@@ -138,7 +139,7 @@ function StockArrival() {
     });
   };
 
-  const updateLedger = () => {
+  const updateLedger = async () => {
     let flag = 0;
     for (let i = 0; i < secondTable.length; i++) {
       if (secondTable[i].TotalWeight <= 0) {
@@ -148,6 +149,7 @@ function StockArrival() {
     if (flag == 1) {
       toast.error("Update Receipt Weight before updating stock ledger");
     } else {
+      console.log("else");
       let flag1 = 0;
       for (let i = 0; i < firstTable.length; i++) {
         //insertStockArrivalMtrlReceiptList
@@ -163,9 +165,11 @@ function StockArrival() {
           paraData1,
           (data) => {
             flag1 = 1;
+            console.log("updated");
           }
         );
       }
+      await delay(300);
       if (flag1 == 1) {
         toast.success("Stock Ledger is Updated");
         loadData();
@@ -182,7 +186,7 @@ function StockArrival() {
           <label className="form-label">Stock Date</label>
           <input type="date" name="date" onChange={InputEvent} />
         </div>
-        <div className="col-md-2">
+        <div className="col-md-3">
           <button className="button-style" onClick={loadData}>
             Load Data
           </button>
@@ -201,7 +205,7 @@ function StockArrival() {
             className="button-style "
             id="btnclose"
             type="submit"
-            onClick={() => nav("/materialmanagement")}
+            onClick={() => nav("/MaterialManagement")}
           >
             Close
           </button>
@@ -224,7 +228,7 @@ function StockArrival() {
               ></BootstrapTable>
             </div>
           </div>
-          <div className="row">
+          <div className="row mt-3">
             <div style={{ height: "200px", overflowY: "scroll" }}>
               <BootstrapTable
                 keyField="id"

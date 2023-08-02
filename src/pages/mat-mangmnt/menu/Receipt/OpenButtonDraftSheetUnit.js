@@ -113,6 +113,7 @@ function OpenButtonDraftSheetUnit() {
     {
       text: "Mtrl Code",
       dataField: "mtrlCode",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: unitLabel1 !== "" ? para1Label + "(" + unitLabel1 + ")" : "",
@@ -147,6 +148,7 @@ function OpenButtonDraftSheetUnit() {
     {
       text: "Location No",
       dataField: "locationNo",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Updated",
@@ -571,7 +573,7 @@ function OpenButtonDraftSheetUnit() {
         if (data.affectedRows !== 0) {
           toast.success("Record is Deleted");
           nav(
-            "/materialmanagement/receipt/customerjobwork/sheetsandothers/new",
+            "/MaterialManagement/Receipt/CustomerJobWork/SheetsAndOthers/New",
             {
               replace: true,
             }
@@ -906,7 +908,7 @@ function OpenButtonDraftSheetUnit() {
 
         <div className="row">
           <div className="col-md-3">
-            <label className="">Receipt Date</label>
+            <label className="form-label">Receipt Date</label>
             <input
               type="text"
               name="receiptDate"
@@ -915,11 +917,11 @@ function OpenButtonDraftSheetUnit() {
             />
           </div>
           <div className="col-md-3">
-            <label className="">RV No</label>
+            <label className="form-label">RV No</label>
             <input type="text" name="rvNo" value={formHeader.rvNo} readOnly />
           </div>
           <div className="col-md-3">
-            <label className="">RV Date</label>
+            <label className="form-label">RV Date</label>
             <input
               type="text"
               name="rvDate"
@@ -928,7 +930,7 @@ function OpenButtonDraftSheetUnit() {
             />
           </div>
           <div className="col-md-3">
-            <label className="">status</label>
+            <label className="form-label">Status</label>
             <input
               type="text"
               name="status"
@@ -952,7 +954,7 @@ function OpenButtonDraftSheetUnit() {
             </select>
           </div>
           <div className="col-md-4">
-            <label className="">Weight</label>
+            <label className="form-label">Weight</label>
             <input
               type="text"
               name="weight"
@@ -966,7 +968,7 @@ function OpenButtonDraftSheetUnit() {
 
         <div className="row">
           <div className="col-md-8">
-            <label className="">Reference</label>
+            <label className="form-label">Reference</label>
             <input
               type="text"
               name="reference"
@@ -976,7 +978,7 @@ function OpenButtonDraftSheetUnit() {
             />
           </div>
           <div className="col-md-4">
-            <label className="">Calculated Weight</label>
+            <label className="form-label">Calculated Weight</label>
             <input
               type="text"
               name="calculatedWeight"
@@ -986,53 +988,69 @@ function OpenButtonDraftSheetUnit() {
           </div>
         </div>
 
-        <div className="row mt-4">
+        <div className="row mt-3">
           <div className="col-md-8 justify-content-center">
-            <button
+            <div className="row">
+              <div className="col-md-3 col-sm-12">
+              <button
               className="button-style"
-              style={{ width: "196px" }}
+             
               onClick={saveButtonState}
               disabled={boolVal4}
             >
               Save
             </button>
-            <button
+              </div>
+              <div className="col-md-3 col-sm-12">
+              <button
               className="button-style"
-              style={{ width: "196px" }}
+             
               disabled={boolVal4}
               onClick={allotRVButtonState}
             >
               Allot RV No
             </button>
-            <button
+              </div>
+              <div className="col-md-3 col-sm-12">
+              <button
               className="button-style"
-              style={{ width: "196px" }}
+            
               disabled={boolVal4}
               onClick={deleteRVButtonState}
             >
               Delete RV
             </button>
-            <button
+              </div>
+              <div className="col-md-3 col-sm-12">
+              <button
               className="button-style "
               id="btnclose"
               type="submit"
-              onClick={() => nav("/materialmanagement")}
+              onClick={() => nav("/MaterialManagement")}
             >
               Close
             </button>
+              </div>
+
+            </div>
+            
+           
+            
+            
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4 mb-3">
             <label className="form-label"></label>
             <textarea
-              style={{ height: "110px" }}
-              className="form-control"
+               id="exampleFormControlTextarea1"
+               rows="4"
+               style={{ width: "330px" }}
               value={formHeader.address}
               readOnly
             ></textarea>
           </div>
         </div>
         <div className="row">
-          <div className="col-md-6 col-sm-12">
+          <div className="col-md-8 col-sm-12">
             <div style={{ height: "330px", overflowY: "scroll" }}>
               <BootstrapTable
                 keyField="id"
@@ -1042,6 +1060,7 @@ function OpenButtonDraftSheetUnit() {
                 hover
                 condensed
                 selectRow={selectRow}
+                headerClasses="header-class "
               ></BootstrapTable>
             </div>
 
@@ -1052,12 +1071,12 @@ function OpenButtonDraftSheetUnit() {
              <Tables theadData={getHeadings()} tbodyData={data3} />
             </div> */}
           </div>
-          <div className="col-md-6 col-sm-12">
+          <div className="col-md-4 col-sm-12">
             <div className="ip-box form-bg">
               <div className="row justify-content-center mt-2">
                 <button
                   className="button-style "
-                  style={{ width: "260px" }}
+                  style={{ width: "155px" }}
                   //onClick={addNewPart}
                   disabled={boolVal4}
                   onClick={addNewMaterial}
@@ -1065,32 +1084,40 @@ function OpenButtonDraftSheetUnit() {
                   Add Serial
                 </button>
               </div>
-              <div className="row justify-content-center mt-2">
+              <div className="row justify-content-center">
+                
+              <div className="col-md-6 col-sm-12">
                 <button
                   className="button-style "
-                  style={{ width: "120px" }}
+                  style={{ width: "155px" }}
                   disabled={true}
                 >
                   Add to stock
                 </button>
+                </div>
+                <div className="col-md-6 col-sm-12">
                 <button
                   className="button-style "
-                  style={{ width: "130px" }}
+                  style={{ width: "155px" }}
                   disabled={true}
                 >
                   Remove stock
                 </button>
+                </div>
+                
+                
+                
               </div>
               <div className="row">
-                <div className="col-md-12 col-sm-12">
+               
                   <div className="ip-box form-bg">
                     <div className="row">
-                      <p className="form-title-deco">Serial Details</p>
+                    <p className="form-title-deco mt-2"><h5>Serial Details</h5></p>
 
-                      <div className="col-md-3 ">
-                        <label className="">Part ID</label>
+                      <div className="col-md-4 ">
+                        <label className="form-label">Part ID</label>
                       </div>
-                      <div className="col-md-6" style={{ marginTop: "8px" }}>
+                      <div className="col-md-8" style={{ marginTop: "8px" }}>
                         <select
                           className="ip-select dropdown-field"
                           onChange={changeMtrl}
@@ -1150,10 +1177,10 @@ function OpenButtonDraftSheetUnit() {
                     </div>
 
                     <div className="row">
-                      <div className="col-md-3">
-                        <label className="">{para1Label}</label>
+                      <div className="col-md-4">
+                        <label className="form-label">{para1Label}</label>
                       </div>
-                      <div className="col-md-4 ">
+                      <div className="col-md-8 ">
                         <input
                           className="in-field"
                           name="dynamicPara1"
@@ -1162,15 +1189,15 @@ function OpenButtonDraftSheetUnit() {
                           onChange={changeMaterialHandle}
                         />
                       </div>
-                      <div className="col-md-3">
-                        <label className="">{unitLabel1}</label>
+                      <div className="col-md-4">
+                        <label className="form-label">{unitLabel1}</label>
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-md-3">
-                        <label className="">{para2Label}</label>
+                      <div className="col-md-4">
+                        <label className="form-label">{para2Label}</label>
                       </div>
-                      <div className="col-md-4 ">
+                      <div className="col-md-8 ">
                         <input
                           className="in-field"
                           name="dynamicPara2"
@@ -1179,15 +1206,15 @@ function OpenButtonDraftSheetUnit() {
                           disabled={boolVal3 | boolVal4 | boolPara2 | boolVal5}
                         />
                       </div>
-                      <div className="col-md-3">
-                        <label className="">{unitLabel2}</label>
+                      <div className="col-md-4">
+                        <label className="form-label">{unitLabel2}</label>
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-md-3">
-                        <label className="">{para3Label}</label>
+                      <div className="col-md-4">
+                        <label className="form-label">{para3Label}</label>
                       </div>
-                      <div className="col-md-4 ">
+                      <div className="col-md-8 ">
                         <input
                           className="in-field"
                           name="dynamicPara3"
@@ -1197,16 +1224,14 @@ function OpenButtonDraftSheetUnit() {
                         />
                       </div>
                       <div className="col-md-3">
-                        <label className="">{unitLabel3}</label>
+                        <label className="form-label">{unitLabel3}</label>
                       </div>
                     </div>
                     <div className="col-md-12 ">
-                      <p className="form-title-deco">Quantity Details</p>
+                    <p className="form-title-deco"><h5>Quantity Details</h5></p>
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">Received</label>
-                        </div>
-                        <div className="col-md-4 ">
+                        <div className="col-md-6">
+                          <label className="form-label">Received</label>
                           <input
                             className="in-field"
                             name="qtyReceived"
@@ -1215,7 +1240,8 @@ function OpenButtonDraftSheetUnit() {
                             onChange={changeMaterialHandle}
                           />
                         </div>
-                        <div className="col-md-4">
+                      
+                        <div className="col-md-6">
                           <div
                             className="col-md-12 mt-2"
                             style={{ display: "flex", gap: "5px" }}
@@ -1232,15 +1258,13 @@ function OpenButtonDraftSheetUnit() {
                               disabled={boolVal3 | boolVal4}
                               onChange={changeMaterialHandle}
                             />
-                             <label className="">Inspected</label>
+                             <label className="form-label">Inspected</label>
                           </div>
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">Accepted</label>
-                        </div>
-                        <div className="col-md-4 ">
+                        <div className="col-md-6">
+                          <label className="form-label">Accepted</label>
                           <input
                             className="in-field"
                             name="qtyAccepted"
@@ -1249,7 +1273,8 @@ function OpenButtonDraftSheetUnit() {
                             onChange={changeMaterialHandle}
                           />
                         </div>
-                        <div className="col-md-4">
+                        
+                        <div className="col-md-6">
                           <div
                             className="col-md-12 mt-2"
                             style={{ display: "flex", gap: "5px" }}
@@ -1263,16 +1288,14 @@ function OpenButtonDraftSheetUnit() {
                               disabled={boolVal3 | boolVal4}
                               onChange={changeMaterialHandle}
                             />
-                             <label className="">Updated</label>
+                             <label className="form-label">Updated</label>
                           </div>
                         </div>
                       </div>
 
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">Wt Calculated 2</label>
-                        </div>
-                        <div className="col-md-4 ">
+                        <div className="col-md-6 mt-2">
+                          <label className="form-label" style={{whiteSpace:"nowrap"}}>Wt Calculated 2</label>
                           <input
                             className="in-field"
                             name="totalWeightCalculated"
@@ -1280,12 +1303,13 @@ function OpenButtonDraftSheetUnit() {
                             disabled={true}
                           />
                         </div>
+                        <div className="col-md-8 ">
+                          
+                        </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">Weight</label>
-                        </div>
-                        <div className="col-md-4 ">
+                        <div className="col-md-6 mt-1">
+                          <label className="form-label">Weight</label>
                           <input
                             className="in-field"
                             name="totalWeight"
@@ -1294,12 +1318,13 @@ function OpenButtonDraftSheetUnit() {
                             disabled={boolVal3 | boolVal4}
                           />
                         </div>
+                        <div className="col-md-8 ">
+                         
+                        </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-3 ">
-                          <label className="">Location</label>
-                        </div>
-                        <div className="col-md-6" style={{ marginTop: "8px" }}>
+                        <div className="col-md-6 mt-1 ">
+                          <label className="form-label">Location</label>
                           <select
                             className="ip-select dropdown-field"
                             onChange={changeLocation}
@@ -1321,19 +1346,22 @@ function OpenButtonDraftSheetUnit() {
                             <option value="option 1">004</option> */}
                           </select>
                         </div>
+                        <div className="col-md-8" style={{ marginTop: "8px" }}>
+                        
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+               
               </div>
-              <div className="row justify-content-center mt-2">
+              <div className="row justify-content-center mt-3 mb-4">
                 <button
                   className="button-style "
-                  style={{ width: "120px" }}
+                  style={{ width: "155px" }}
                   disabled={boolVal4}
                   onClick={handleDelete}
                 >
-                  Delete Serial
+                  Delete
                 </button>
               </div>
             </div>

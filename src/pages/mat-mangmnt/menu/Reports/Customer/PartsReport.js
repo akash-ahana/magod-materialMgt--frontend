@@ -64,13 +64,13 @@ function PartsReport() {
             className="button-style "
             id="btnclose"
             type="submit"
-            onClick={() => nav("/materialmanagement")}
+            onClick={() => nav("/MaterialManagement")}
           >
             Close
           </button>
         </div>
       </div>
-      <Tabs id="controlled-tab-example" className="mb-3 mt-3 tab_font">
+      <Tabs className="mt-3 tab_font">
         <Tab eventKey="mat_rece" title="Parts In Stock And Process">
           <PartsInStockAndProcess custCode={custCode} />
         </Tab>

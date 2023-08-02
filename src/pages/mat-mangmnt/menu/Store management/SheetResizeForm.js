@@ -59,12 +59,14 @@ function SheetResizeForm() {
   const changeCustomer = (e) => {
     //e.preventDefault();
     //const { value, name } = e.target;
-    let url1 = endpoints.getResizeMtrlStockList + "?code=" + e[0].Cust_Code;
+    if (e.length !== 0) {
+      let url1 = endpoints.getResizeMtrlStockList + "?code=" + e[0].Cust_Code;
 
-    getRequest(url1, (data) => {
-      setTabledata(data);
-      //console.log("api call = ", data);
-    });
+      getRequest(url1, (data) => {
+        setTabledata(data);
+        //console.log("api call = ", data);
+      });
+    }
   };
 
   const selectRow = {
@@ -120,7 +122,7 @@ function SheetResizeForm() {
               () =>
                 selectedTableRows.length !== 0
                   ? nav(
-                      "/materialmanagement/shoopfloorreturns/pendinglist/resizeandreturn/materialsplitter",
+                      "/MaterialManagement/ShoopFloorReturns/PendingList/ResizeAndReturn/MaterialSplitter",
                       {
                         state: {
                           secondTableRow: selectedTableRows,
@@ -143,7 +145,7 @@ function SheetResizeForm() {
             className="button-style "
             id="btnclose"
             type="submit"
-            onClick={() => nav("/materialmanagement")}
+            onClick={() => nav("/MaterialManagement")}
           >
             Close
           </button>

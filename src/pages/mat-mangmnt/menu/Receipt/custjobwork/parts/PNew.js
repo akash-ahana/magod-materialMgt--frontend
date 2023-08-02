@@ -124,22 +124,27 @@ function PNew() {
     {
       text: "Part Id",
       dataField: "partId",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Unit Wt",
       dataField: "unitWeight",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Qty Received",
       dataField: "qtyReceived",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Qty Accepted",
       dataField: "qtyAccepted",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Qty Rejected",
       dataField: "qtyRejected",
+      headerStyle: { whiteSpace: "nowrap" },
     },
   ];
 
@@ -399,7 +404,7 @@ function PNew() {
       (data) => {
         if (data.affectedRows !== 0) {
           toast.success("Record is Deleted");
-          nav("/materialmanagement/receipt/customerjobwork/parts/new", {
+          nav("/MaterialManagement/Receipt/CustomerJobWork/Parts/New", {
             replace: true,
           });
           window.location.reload();
@@ -443,7 +448,7 @@ function PNew() {
 
         <div className="row">
           <div className="col-md-3">
-            <label className="">Receipt Date</label>
+            <label className="form-label">Receipt Date</label>
             <input
               type="text"
               name="receiptDate"
@@ -452,11 +457,11 @@ function PNew() {
             />
           </div>
           <div className="col-md-3">
-            <label className="">RV No</label>
+            <label className="form-label">RV No</label>
             <input type="text" name="rvNo" value={formHeader.rvNo} readOnly />
           </div>
           <div className="col-md-3">
-            <label className="">RV Date</label>
+            <label className="form-label">RV Date</label>
             <input
               type="text"
               name="rvDate"
@@ -465,7 +470,7 @@ function PNew() {
             />
           </div>
           <div className="col-md-3">
-            <label className="">status</label>
+            <label className="form-label">Status</label>
             <input
               type="text"
               name="status"
@@ -475,7 +480,7 @@ function PNew() {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-8">
+          <div className="col-md-8 ">
             <label className="form-label">Customer</label>
             {/* <select
               className="ip-select"
@@ -499,10 +504,11 @@ function PNew() {
               options={custdata}
               placeholder="Select Customer"
               onChange={(label) => changeCustomer(label)}
+              disabled={boolVal2}
             />
           </div>
           <div className="col-md-4">
-            <label className="">Weight</label>
+            <label className="form-label">Weight</label>
             <input
               type="text"
               name="weight"
@@ -514,7 +520,7 @@ function PNew() {
         </div>
         <div className="row">
           <div className="col-md-8">
-            <label className="">Reference</label>
+            <label className="form-label">Reference</label>
             <input
               type="text"
               name="reference"
@@ -524,7 +530,7 @@ function PNew() {
             />
           </div>
           <div className="col-md-4">
-            <label className="">Calculated Weight</label>
+            <label className="form-label">Calculated Weight</label>
             <input
               type="text"
               name="calculatedWeight"
@@ -534,11 +540,10 @@ function PNew() {
           </div>
         </div>
 
-        <div className="row mt-4">
+        <div className="row">
           <div className="col-md-8 justify-content-center">
             <button
               className="button-style"
-              style={{ width: "196px" }}
               onClick={saveButtonState}
               disabled={boolVal4}
             >
@@ -547,14 +552,13 @@ function PNew() {
             <button
               className="button-style"
               style={{ width: "196px" }}
-              disabled={boolVal1}
+              disabled={boolVal1 || boolVal4}
               onClick={allotRVButtonState}
             >
               Allot RV No
             </button>
             <button
               className="button-style"
-              style={{ width: "196px" }}
               disabled={boolVal1}
               onClick={deleteRVButtonState}
             >
@@ -564,16 +568,18 @@ function PNew() {
               className="button-style "
               id="btnclose"
               type="submit"
-              onClick={() => nav("/materialmanagement")}
+              onClick={() => nav("/MaterialManagement")}
             >
               Close
             </button>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4 mb-3 mt-3">
             <label className="form-label"></label>
             <textarea
-              style={{ height: "110px" }}
-              className="form-control"
+              id="exampleFormControlTextarea1"
+              rows="4"
+              style={{ width: "330px" }}
+              //className="form-control"
               value={formHeader.address}
               readOnly
             ></textarea>
@@ -592,6 +598,7 @@ function PNew() {
             striped
             hover
             condensed
+            headerClasses="header-class "
             selectRow={selectRow}
           ></BootstrapTable>
         </div>
@@ -632,112 +639,100 @@ function PNew() {
         </div>*/}
         <div className="col-md-4 col-sm-12">
           <div className="ip-box form-bg">
-            <div className="row">
-              <div className="col-md-12 col-sm-12">
-                <div className="ip-box form-bg">
-                  <div className="row">
-                    <div className="row justify-content-center mt-1 mb-2">
-                      <button
-                        className="button-style "
-                        style={{ width: "120px" }}
-                        onClick={addNewPart}
-                        disabled={boolVal1 | boolVal4}
-                      >
-                        Add New
-                      </button>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-3 ">
-                        <label className="">Part ID</label>
-                      </div>
-                      <div className="col-md-8" style={{ marginTop: "8px" }}>
-                        <select
-                          className="ip-select dropdown-field"
-                          name="partId"
-                          value={inputPart.partId}
-                          onChange={changePartHandle}
-                          disabled={boolVal3 | boolVal4}
-                        >
-                          <option value="" disabled selected>
-                            Select Part
-                          </option>
-
-                          {mtrlDetails.map((part, index) => (
-                            <option key={index} value={part.PartId}>
-                              {part.PartId}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-3 ">
-                        <label className="">Unit Wt</label>
-                      </div>
-                      <div className="col-md-8 ">
-                        <input
-                          className="in-field"
-                          type="text"
-                          name="unitWeight"
-                          value={inputPart.unitWeight}
-                          onChange={changePartHandle}
-                          //onKeyUp={changePartHandle1}
-                          disabled={boolVal3 | boolVal4}
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-3 ">
-                        <label className="">Qty Received</label>
-                      </div>
-                      <div className="col-md-8 ">
-                        <input
-                          className="in-field"
-                          type="text"
-                          name="qtyReceived"
-                          //value={tempVal}
-                          value={inputPart.qtyReceived}
-                          onChange={changePartHandle}
-                          disabled={boolVal3 | boolVal4}
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-3 ">
-                        <label className="">Qty Accepted</label>
-                      </div>
-                      <div className="col-md-8 ">
-                        <input
-                          className="in-field"
-                          type="text"
-                          name="qtyAccepted"
-                          value={inputPart.qtyAccepted}
-                          onChange={changePartHandle}
-                          disabled={boolVal3 | boolVal4}
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-3 ">
-                        <label className="">Qty Rejected</label>
-                      </div>
-                      <div className="col-md-8 ">
-                        <input
-                          className="in-field"
-                          type="text"
-                          name="qtyRejected"
-                          readOnly
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row justify-content-center mt-3">
+            <div className="row justify-content-center mt-2 mb-2">
               <button
                 className="button-style "
-                style={{ width: "120px" }}
+                style={{ width: "155px" }}
+                onClick={addNewPart}
+                disabled={boolVal1 | boolVal4}
+              >
+                Add New
+              </button>
+            </div>
+            <div className="row">
+              <div className="col-md-11 ">
+                <label className="form-label">Part ID</label>
+                <select
+                  className="ip-select dropdown-field"
+                  name="partId"
+                  value={inputPart.partId}
+                  onChange={changePartHandle}
+                  disabled={boolVal3 | boolVal4}
+                >
+                  <option value="" disabled selected>
+                    Select Part
+                  </option>
+
+                  {mtrlDetails.map((part, index) => (
+                    <option key={index} value={part.PartId}>
+                      {part.PartId}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="col-md-8" style={{ marginTop: "8px" }}></div>
+            </div>
+            <div className="row">
+              <div className="col-md-11 ">
+                <label className="form-label">Unit Wt</label>
+                <input
+                  className="in-field"
+                  type="text"
+                  name="unitWeight"
+                  value={inputPart.unitWeight}
+                  onChange={changePartHandle}
+                  //onKeyUp={changePartHandle1}
+                  disabled={boolVal3 | boolVal4}
+                />
+              </div>
+              <div className="col-md-8 "></div>
+            </div>
+            <div className="row">
+              <div className="col-md-11 ">
+                <label className="form-label">Qty Received</label>
+                <input
+                  className="in-field"
+                  type="text"
+                  name="qtyReceived"
+                  //value={tempVal}
+                  value={inputPart.qtyReceived}
+                  onChange={changePartHandle}
+                  disabled={boolVal3 | boolVal4}
+                />
+              </div>
+              <div className="col-md-8 "></div>
+            </div>
+            <div className="row">
+              <div className="col-md-11 ">
+                <label className="form-label">Qty Accepted</label>
+                <input
+                  className="in-field"
+                  type="text"
+                  name="qtyAccepted"
+                  value={inputPart.qtyAccepted}
+                  onChange={changePartHandle}
+                  disabled={boolVal3 | boolVal4}
+                />
+              </div>
+              <div className="col-md-8 "></div>
+            </div>
+            <div className="row">
+              <div className="col-md-11 ">
+                <label className="form-label">Qty Rejected</label>
+                <input
+                  className="in-field"
+                  type="text"
+                  name="qtyRejected"
+                  readOnly
+                />
+              </div>
+              <div className="col-md-8 "></div>
+            </div>
+
+            <div className="row justify-content-center mt-3 mb-4">
+              <button
+                className="button-style "
+                style={{ width: "155px" }}
                 disabled={boolVal3 | boolVal4}
                 onClick={handleDelete}
               >

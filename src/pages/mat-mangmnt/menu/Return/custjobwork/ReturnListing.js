@@ -86,7 +86,7 @@ function ReturnListing(props) {
       dataField: "Customer",
     },
     {
-      text: "Wieght",
+      text: "Weight",
       dataField: "TotalWeight",
     },
     {
@@ -119,16 +119,16 @@ function ReturnListing(props) {
 
   let openClick = async (e) => {
     //console.log("selected data = ", selectData);
-    console.log("data = ", selectData);
+    console.log("data = ", selectData, "propType = ", propsType);
     if (selectData && selectData.Type !== "Parts") {
       nav(
-        "/materialmanagement/return/customerjobwork/OutwordMaterialIssueVocher",
+        "/MaterialManagement/Return/CustomerJobWork/OutwordMaterialIssueVoucher",
         {
           state: { selectData, propsType },
         }
       );
     } else if (selectData && selectData.Type === "Parts") {
-      nav("/materialmanagement/return/customerjobwork/OutwordPartIssueVocher", {
+      nav("/MaterialManagement/Return/CustomerJobWork/OutwordPartIssueVoucher", {
         state: { selectData, propsType },
       });
     } else {
@@ -169,7 +169,7 @@ function ReturnListing(props) {
 
   return (
     <>
-      <h4 className="title">Material Return Issue Vocher</h4>
+      <h4 className="title">Material Return Issue Voucher</h4>
       <div className="row">
         <div className="col-md-8">
           <label className="form-label">Select Customer</label>
@@ -198,12 +198,10 @@ function ReturnListing(props) {
         </div>
       </div>
       <div className="row">
-        <div className="col-md-4">
-          <div
-            className="col-md-4 mt-4"
-            style={{ display: "flex", gap: "5px" }}
-          >
-            <input
+      <div className="col-md-4 col-sm-12 mt-3">
+      <div className="row">
+        <div className="col-md-1 col-sm-12 mt-1">
+        <input
               className="form-check-input mt-2"
               type="checkbox"
               checked={checkboxVal === "on" ? true : false}
@@ -211,9 +209,12 @@ function ReturnListing(props) {
               onChange={changeCheckbox}
               disabled={checkboxDisable === "on" ? true : false}
             />
-            <label className="">Filter Customer</label>
-          </div>
         </div>
+        <div className="col-md-1 col-sm-12">
+        <label className="form-label" style={{whiteSpace:"nowrap"}}>Filter Customer</label>
+        </div>
+        </div>
+      </div>
         <div className="col-md-4">
           <div className="col-md-4 mt-2">
             <button className="button-style" onClick={openClick}>
@@ -226,7 +227,7 @@ function ReturnListing(props) {
             className="button-style "
             id="btnclose"
             type="submit"
-            onClick={() => nav("/materialmanagement")}
+            onClick={() => nav("/MaterialManagement")}
           >
             Close
           </button>
@@ -247,6 +248,7 @@ function ReturnListing(props) {
               hover
               condensed
               selectRow={selectRow}
+              headerClasses="header-class "
             ></BootstrapTable>
           </div>
         </div>

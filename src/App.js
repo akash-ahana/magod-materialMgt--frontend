@@ -124,35 +124,35 @@ function App() {
             <Route path="Receipt">
               <Route index={true} />
               <Route
-                path="openbuttonopenclosedpartlist"
+                path="OpenButtonOpenClosedPartList"
                 element={<OpenButtonOpenClosedPartList />}
               />
               <Route
-                path="openbuttondraftpartlist"
+                path="OpenButtonDraftPartList"
                 element={<OpenButtonDraftPartList />}
               />
               <Route
-                path="openbuttondraftsheetunit"
+                path="OpenButtonDraftSheetUnit"
                 element={<OpenButtonDraftSheetUnit />}
               />
               <Route
-                path="openbuttonclosedsheetunit"
+                path="OpenButtonClosedSheetUnit"
                 element={<OpenButtonClosedSheetUnit />}
               />
               <Route
-                path="openbuttonopensheetunit"
+                path="OpenButtonOpenSheetUnit"
                 element={<OpenButtonOpenSheetUnit />}
               />
-              <Route path="customerjobwork">
+              <Route path="CustomerJobWork">
                 <Route index={true} />
-                <Route path="parts">
+                <Route path="Parts">
                   <Route index={true} />
-                  <Route path="new" element={<PNew />} />
-                  <Route path="draftrvlist" element={<PDraftRVList />} />
-                  <Route path="openrvlist" element={<POpenRVList />} />
-                  <Route path="closedrvlist" element={<PClosedRVList />} />
+                  <Route path="New" element={<PNew />} />
+                  <Route path="DraftRVList" element={<PDraftRVList />} />
+                  <Route path="OpenRVList" element={<POpenRVList />} />
+                  <Route path="ClosedRVList" element={<PClosedRVList />} />
                 </Route>
-                <Route path="units">
+                <Route path="Units">
                   <Route index={true} />
 
                   <Route path="new" element={<UnitsNew />} />
@@ -218,15 +218,15 @@ function App() {
               </Route>
               <Route path="branchtransfer" element={<BranchTransfer />} />
             </Route>
-            <Route path="return">
+            <Route path="Return">
               <Route index={true} />
-              <Route path="customerjobwork">
+              <Route path="CustomerJobWork">
                 <Route index={true} />
 
                 <Route path="new">
                   <Route index={true} element={<ReturnNew />} />
                   <Route
-                    path="OutwardMaterialIssueVocher"
+                    path="OutwardMaterialIssueVoucher"
                     element={<OutwordMaterialIssueVocher />}
                   />
                 </Route>
@@ -242,11 +242,11 @@ function App() {
                 />
                 <Route path="salesivlist" element={<ReturnSalesIVList />} />
                 <Route
-                  path="OutwordMaterialIssueVocher"
+                  path="OutwordMaterialIssueVoucher"
                   element={<OutwordMaterialIssueVocher />}
                 />
                 <Route
-                  path="OutwordPartIssueVocher"
+                  path="OutwordPartIssueVoucher"
                   element={<OutwordPartIssueVocher />}
                 />
                 <Route path="PrintMaterialDC" element={<PrintMaterialDC />} />
@@ -256,7 +256,7 @@ function App() {
                 <Route index={true} element={<PurchasePlannedforfuture />} />
               </Route>
             </Route>
-            <Route path="ShopfloorIssue">
+            <Route path="ShopFloorIssue">
               <Route index={true} />
               <Route path="Service">
                 <Route index={true} />
@@ -278,7 +278,7 @@ function App() {
                     element={<UnitsMatAllotmentForm />}
                   />
                   <Route
-                    path="ShopFloorMaterialIssueVocher"
+                    path="ShopFloorMaterialIssueVoucher"
                     element={<UnitsIssueToProduction />}
                   />
                 </Route>
@@ -300,14 +300,14 @@ function App() {
                 <Route path="Issued">
                   <Route index={true} element={<ShopIssueIVListIssued />} />
                   <Route
-                    path="ShopMatIssueVocher"
+                    path="ShopMatIssueVoucher"
                     element={<ProductionMatIssueParts />}
                   />
                 </Route>
                 <Route path="Closed">
                   <Route index={true} element={<ShopIssueIVListClosed />} />
                   <Route
-                    path="ShopMatIssueVocher"
+                    path="ShopMatIssueVoucher"
                     element={<ProductionMatIssueParts />}
                   />
                 </Route>
@@ -326,7 +326,7 @@ function App() {
                     element={<IVListProfileCuttingClosed />}
                   />
                   <Route
-                    path="ShopMatIssueVocher"
+                    path="ShopMatIssueVoucher"
                     element={<ShopMatIssueVocher />}
                   />
                 </Route>
@@ -337,7 +337,7 @@ function App() {
                     element={<IVListProfileCuttingCurrent />}
                   />
                   <Route
-                    path="ShopMatIssueVocher"
+                    path="ShopMatIssueVoucher"
                     element={<ShopMatIssueVocher />}
                   />
                 </Route>

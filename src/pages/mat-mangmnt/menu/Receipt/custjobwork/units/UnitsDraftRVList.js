@@ -65,7 +65,7 @@ export default function UnitsDraftRVList() {
   const openButtonClick = () => {
     //console.log("data = ", data);
     //console.log("button click : ");
-    nav("/materialmanagement/receipt/openbuttondraftsheetunit", {
+    nav("/MaterialManagement/Receipt/OpenButtonDraftSheetUnit", {
       state: { id: data.RvID, type: "units" },
     });
   };
@@ -94,12 +94,14 @@ export default function UnitsDraftRVList() {
     {
       text: "RV No",
       dataField: "RV_No",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "RV Date",
       dataField: "RV_Date",
       sort: true,
       formatter: statusFormatter,
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Customer",
@@ -108,6 +110,7 @@ export default function UnitsDraftRVList() {
     {
       text: "Cust Doc No",
       dataField: "CustDocuNo",
+      headerStyle: { whiteSpace: "nowrap" },
     },
   ];
   return (
@@ -144,7 +147,7 @@ export default function UnitsDraftRVList() {
               className="button-style "
               id="btnclose"
               type="submit"
-              onClick={() => nav("/materialmanagement")}
+              onClick={() => nav("/MaterialManagement")}
             >
               Close
             </button>
@@ -164,18 +167,19 @@ export default function UnitsDraftRVList() {
               condensed
               //pagination={paginationFactory()}
               selectRow={selectRow}
+              headerClasses="header-class "
             ></BootstrapTable>
           </div>
 
           <div className="col-md-5 col-sm-12">
             <div className="ip-box form-bg">
-              <div className="row">
-                <div className="col-md-12 col-sm-12">
-                  <div className="ip-box form-bg">
-                    <div className="row">
+             
+               
+                  
+                   
                       <div className="row">
-                        <div className="col-md-3 ">
-                          <label className="">Receipt Date</label>
+                        <div className="col-md-4 mt-1">
+                          <label className="form-label">Receipt Date</label>
                         </div>
                         <div className="col-md-8 ">
                           <input
@@ -186,8 +190,8 @@ export default function UnitsDraftRVList() {
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-3 ">
-                          <label className="">RV No</label>
+                        <div className="col-md-4 mt-1 ">
+                          <label className="form-label">RV No</label>
                         </div>
                         <div className="col-md-8 ">
                           <input
@@ -198,8 +202,8 @@ export default function UnitsDraftRVList() {
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">RV Date</label>
+                        <div className="col-md-4 mt-1">
+                          <label className="form-label">RV Date</label>
                         </div>
                         <div className="col-md-8 ">
                           <input
@@ -210,8 +214,8 @@ export default function UnitsDraftRVList() {
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-3 ">
-                          <label className="">Cust code</label>
+                        <div className="col-md-4 mt-1 ">
+                          <label className="form-label">Cust Code</label>
                         </div>
                         <div className="col-md-8 ">
                           <input
@@ -222,8 +226,8 @@ export default function UnitsDraftRVList() {
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-3 ">
-                          <label className="">Customer</label>
+                        <div className="col-md-4 mt-1 ">
+                          <label className="form-label">Customer</label>
                         </div>
                         <div className="col-md-8 ">
                           <input
@@ -234,8 +238,8 @@ export default function UnitsDraftRVList() {
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">Cust Docu No</label>
+                        <div className="col-md-4 mt-1">
+                          <label className="form-label" style={{whiteSpace:"nowrap"}}>Cust Docu No</label>
                         </div>
 
                         <div className="col-md-8 ">
@@ -247,8 +251,8 @@ export default function UnitsDraftRVList() {
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-3 ">
-                          <label className="">Total Weight</label>
+                        <div className="col-md-4 mt-1">
+                          <label className="form-label">Total Weight</label>
                         </div>
                         <div className="col-md-8 ">
                           <input
@@ -260,8 +264,8 @@ export default function UnitsDraftRVList() {
                       </div>
 
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">Calculatd weight</label>
+                        <div className="col-md-4 mt-1">
+                          <label className="form-label" style={{whiteSpace:"nowrap"}}>Calculated Weight</label>
                         </div>
                         <div className="col-md-8 ">
                           <input
@@ -272,8 +276,8 @@ export default function UnitsDraftRVList() {
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-3 ">
-                          <label className="">RV status</label>
+                        <div className="col-md-4 mt-1">
+                          <label className="form-label">RV Status</label>
                         </div>
                         <div className="col-md-8 ">
                           <input
@@ -283,14 +287,14 @@ export default function UnitsDraftRVList() {
                           />
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="row justify-content-center mt-4">
+                    
+                 
+               
+             
+              <div className="row justify-content-center mt-4 mb-4">
                 <button
-                  className="button-style "
-                  style={{ width: "120px" }}
+                  className="button-style " style={{ width: "155px" }}
+                 
                   //data.RvID
                   onClick={openButtonClick}
                 >

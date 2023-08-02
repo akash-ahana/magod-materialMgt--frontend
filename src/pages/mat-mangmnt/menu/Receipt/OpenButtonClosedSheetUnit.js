@@ -171,7 +171,7 @@ function OpenButtonClosedSheetUnit() {
 
         <div className="row">
           <div className="col-md-3">
-            <label className="">Receipt Date</label>
+            <label className="form-label">Receipt Date</label>
             <input
               type="text"
               name="receiptDate"
@@ -180,11 +180,11 @@ function OpenButtonClosedSheetUnit() {
             />
           </div>
           <div className="col-md-3">
-            <label className="">RV No</label>
+            <label className="form-label">RV No</label>
             <input type="text" name="rvNo" value={formHeader.RV_No} readOnly />
           </div>
           <div className="col-md-3">
-            <label className="">RV Date</label>
+            <label className="form-label">RV Date</label>
             <input
               type="text"
               name="rvDate"
@@ -194,7 +194,7 @@ function OpenButtonClosedSheetUnit() {
             {/* value={currDate} */}
           </div>
           <div className="col-md-3">
-            <label className="">status</label>
+            <label className="form-label">Status</label>
             <input
               type="text"
               name="status"
@@ -224,7 +224,7 @@ function OpenButtonClosedSheetUnit() {
             </select>
           </div>
           <div className="col-md-4">
-            <label className="">Weight</label>
+            <label className="form-label">Weight</label>
             <input
               type="text"
               name="weight"
@@ -237,7 +237,7 @@ function OpenButtonClosedSheetUnit() {
         </div>
         <div className="row">
           <div className="col-md-8">
-            <label className="">Reference</label>
+            <label className="form-label">Reference</label>
             <input
               type="text"
               name="reference"
@@ -247,7 +247,7 @@ function OpenButtonClosedSheetUnit() {
             />
           </div>
           <div className="col-md-4">
-            <label className="">Calculated Weight</label>
+            <label className="form-label">Calculated Weight</label>
             <input
               type="text"
               name="calculatedWeight"
@@ -258,43 +258,63 @@ function OpenButtonClosedSheetUnit() {
         </div>
 
         <div className="row mt-4">
+
           <div className="col-md-8 justify-content-center">
+           <div className="row">
+            <div className="col-md-3 col-sm-12">
             <button
               className="button-style"
-              style={{ width: "196px" }}
+            
               disabled={boolVal}
             >
               Save
             </button>
-
+            </div>
+            <div className="col-md-3 col-sm-12">
             <button
               className="button-style"
-              style={{ width: "196px" }}
+            
               disabled={boolVal}
             >
               Allot RV No
             </button>
-            <button
+</div>
+
+<div className="col-md-3 col-sm-12">
+<button
               className="button-style"
-              style={{ width: "196px" }}
+              
               disabled={boolVal}
             >
               Delete RV
             </button>
-            <button
+</div>
+
+<div className="col-md-3 col-sm-12">
+<button
               className="button-style "
               id="btnclose"
               type="submit"
-              onClick={() => nav("/materialmanagement")}
+              onClick={() => nav("/MaterialManagement")}
             >
               Close
             </button>
+</div>
+
+
+           </div>
+            
+
+           
+           
+            
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4 mb-3">
             <label className="form-label"></label>
             <textarea
-              style={{ height: "110px" }}
-              className="form-control"
+                 id="exampleFormControlTextarea1"
+                 rows="4"
+                 style={{ width: "330px" }}
               value={formHeader.address}
               readOnly
             ></textarea>
@@ -303,7 +323,7 @@ function OpenButtonClosedSheetUnit() {
         <div className="row">
           <div
             style={{ height: "330px", overflowY: "scroll" }}
-            className="col-md-6 col-sm-12"
+            className="col-md-8 col-sm-12"
           >
             <BootstrapTable
               keyField="Id"
@@ -312,6 +332,7 @@ function OpenButtonClosedSheetUnit() {
               striped
               hover
               condensed
+              headerClasses="header-class "
               //selectRow={selectRow}
             ></BootstrapTable>
           </div>
@@ -323,43 +344,52 @@ function OpenButtonClosedSheetUnit() {
               <Tables theadData={getHeadings()} tbodyData={data3} />
             </div> 
           </div> */}
-          <div className="col-md-6 col-sm-12">
+          <div className="col-md-4 col-sm-12">
             <div className="ip-box form-bg">
               <div className="row justify-content-center mt-2">
                 <button
                   className="button-style "
-                  style={{ width: "260px" }}
+                  style={{ width: "155px" }}
                   disabled={boolVal}
                 >
                   Add Serial
                 </button>
               </div>
-              <div className="row justify-content-center mt-2">
-                <button
+         
+                <div className="row">
+                  <div className="col-md-6 col-sm-12">
+                  <button
                   className="button-style "
-                  style={{ width: "120px" }}
+                  style={{ width: "150px" }}
                   disabled={boolVal}
                 >
                   Add to stock
                 </button>
-                <button
+                  </div>
+                  <div className="col-md-6 col-sm-12">
+                  <button
                   className="button-style "
-                  style={{ width: "130px" }}
+                  style={{ width: "150px" }}
                   disabled={boolVal}
                 >
                   Remove stock
                 </button>
-              </div>
+                  </div>
+
+                </div>
+                
+               
+             
               <div className="row">
                 <div className="col-md-12 col-sm-12">
                   <div className="ip-box form-bg">
                     <div className="row">
-                      <p className="form-title-deco">Serial Details</p>
+                    <p className="form-title-deco mt-2"><h5>Serial Details</h5></p>
 
-                      <div className="col-md-3 ">
-                        <label className="">Part ID</label>
+                      <div className="col-md-4 ">
+                        <label className="form-label">Part ID</label>
                       </div>
-                      <div className="col-md-6" style={{ marginTop: "8px" }}>
+                      <div className="col-md-8" style={{ marginTop: "8px" }}>
                         <select
                           className="ip-select dropdown-field"
                           disabled={boolVal}
@@ -376,99 +406,93 @@ function OpenButtonClosedSheetUnit() {
                     </div>
 
                     <div className="row">
-                      <div className="col-md-3">
-                        <label className="">Para 1</label>
+                      <div className="col-md-4">
+                        <label className="form-label">Para 1</label>
                       </div>
-                      <div className="col-md-4 ">
+                      <div className="col-md-8 ">
                         <input className="in-field" disabled={boolVal} />
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-md-3">
-                        <label className="">Para 2</label>
+                      <div className="col-md-4">
+                        <label className="form-label">Para 2</label>
                       </div>
-                      <div className="col-md-4 ">
+                      <div className="col-md-8 ">
                         <input className="in-field" disabled={boolVal} />
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-md-3">
-                        <label className="">Para 3</label>
+                      <div className="col-md-4">
+                        <label className="form-label">Para 3</label>
                       </div>
-                      <div className="col-md-4 ">
+                      <div className="col-md-8 ">
                         <input className="in-field" disabled={boolVal} />
                       </div>
                     </div>
-                    <div className="col-md-12 ">
-                      <p className="form-title-deco">Quantity Details</p>
+                    <div className="col-md-12 mt-3 ">
+                    <p className="form-title-deco"><h5>Quantity Details</h5></p>
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">Received</label>
-                        </div>
-                        <div className="col-md-4 ">
+                        <div className="col-md-6">
+                          <label className="form-label">Received</label>
                           <input className="in-field" disabled={boolVal} />
                         </div>
-                        <div className="col-md-4">
+                        
+                        <div className="col-md-6">
                           <div
-                            className="col-md-12 mt-2"
+                            className="col-md-12"
                             style={{ display: "flex", gap: "5px" }}
                           >
                             <input
-                              className="form-check-input mt-2"
+                              className="form-check-input mt-3"
                               type="checkbox"
                               value=""
                               id="flexCheckDefault"
                               disabled={boolVal}
                             />
-                             <label className="">Inspected</label>
+                             <label className="form-label mt-1">Inspected</label>
                           </div>
                         </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">Accepted</label>
-                        </div>
-                        <div className="col-md-4 ">
+                        <div className="col-md-6">
+                          <label className="form-label">Accepted</label>
                           <input className="in-field" disabled={boolVal} />
                         </div>
-                        <div className="col-md-4">
+                        
+                        <div className="col-md-6">
                           <div
-                            className="col-md-12 mt-2"
+                            className="col-md-12"
                             style={{ display: "flex", gap: "5px" }}
                           >
                             <input
-                              className="form-check-input mt-2"
+                              className="form-check-input mt-3"
                               type="checkbox"
                               value=""
                               id="flexCheckDefault"
                               disabled={boolVal}
                             />
-                             <label className="">Updated</label>
+                             <label className="form-label mt-1">Updated</label>
                           </div>
                         </div>
                       </div>
 
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">Wt Caluclated 2</label>
-                        </div>
-                        <div className="col-md-4 ">
+                        <div className="col-md-6 mt-2">
+                          <label className="form-label" style={{whiteSpace:"nowrap"}}>Wt Caluclated 2</label>
                           <input className="in-field" disabled={boolVal} />
                         </div>
+                        
                       </div>
                       <div className="row">
-                        <div className="col-md-3">
-                          <label className="">Weight</label>
-                        </div>
-                        <div className="col-md-4 ">
+                        <div className="col-md-6">
+                          <label className="form-label">Weight</label>
                           <input className="in-field" disabled={boolVal} />
                         </div>
+                       
                       </div>
                       <div className="row">
-                        <div className="col-md-3 ">
-                          <label className="">Location</label>
-                        </div>
-                        <div className="col-md-6" style={{ marginTop: "8px" }}>
+                        <div className="col-md-6 ">
+                          <label className="form-label">Location</label>
                           <select
                             className="ip-select dropdown-field"
                             disabled={boolVal}
@@ -479,18 +503,19 @@ function OpenButtonClosedSheetUnit() {
                             <option value="option 1">004</option> */}
                           </select>
                         </div>
+                        
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="row justify-content-center mt-2">
+              <div className="row justify-content-center mt-3 mb-4">
                 <button
                   className="button-style "
-                  style={{ width: "120px" }}
+                  style={{ width: "155px" }}
                   disabled={boolVal}
                 >
-                  Delete Serial
+                  Delete
                 </button>
               </div>
             </div>

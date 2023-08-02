@@ -421,6 +421,7 @@ function Parts(props) {
                 hover
                 condensed
                 selectRow={selectRowFirst}
+                headerClasses="header-class "
               ></BootstrapTable>
             </div>
           </div>
@@ -436,20 +437,23 @@ function Parts(props) {
                 hover
                 condensed
                 selectRow={selectRowSecond}
+                headerClasses="header-class "
                 //</div>selectRow={selectRowFirst}
               ></BootstrapTable>
             </div>
           </div>
         </div>
         <div className="col-md-4 col-sm-12">
-          <div className="row">
+         <div className="ip-box form-bg">
+         <div className="row mb-3">
             <div className="col-md-4">
-              <label className="">RV_No</label>
-              <input type="text" name="rvNo" disabled value={rvNoval} />
+              <label className="form-label">RV_No</label>
+              <input type="text" name="rvNo" disabled value={rvNoval}  className="in-field" />
             </div>
             <div className="col-md-7">
-              <label className="">Customer Ref</label>
+              <label className="form-label">Customer Ref</label>
               <input
+               className="in-field"
                 type="text"
                 name="customerRef"
                 disabled
@@ -457,6 +461,8 @@ function Parts(props) {
               />
             </div>
           </div>
+         </div>
+          
           <div>
             <button
               className="button-style"
@@ -467,7 +473,7 @@ function Parts(props) {
             </button>
           </div>
           <div>
-            <div style={{ height: "400px", overflowY: "scroll" }}>
+            <div style={{ height: "400px", overflowY: "scroll" }} className="mt-3">
               <BootstrapTable
                 keyField="Id"
                 columns={columnsThird}
@@ -476,6 +482,7 @@ function Parts(props) {
                 hover
                 condensed
                 //selectRow={selectRowSecond}
+                headerClasses="header-class "
               ></BootstrapTable>
             </div>
           </div>

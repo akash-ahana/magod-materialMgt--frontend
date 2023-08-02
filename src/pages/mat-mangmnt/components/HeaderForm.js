@@ -9,7 +9,7 @@ function HeaderForm() {
 
         <div className="row">
           <div className="col-md-3">
-            <label className="">Receipt Date</label>
+            <label className="form-label">Receipt Date</label>
             <input
               type="text"
               name="receiptDate"
@@ -18,7 +18,7 @@ function HeaderForm() {
             />
           </div>
           <div className="col-md-3">
-            <label className="">RV No</label>
+            <label className="form-label">RV No</label>
             <input
               type="text"
               name="rvNo"
@@ -27,7 +27,7 @@ function HeaderForm() {
             />
           </div>
           <div className="col-md-3">
-            <label className="">RV Date</label>
+            <label className="form-label">RV Date</label>
             <input
               type="text"
               name="rvDate"
@@ -36,7 +36,7 @@ function HeaderForm() {
             />
           </div>
           <div className="col-md-3">
-            <label className="">status</label>
+            <label className="form-label">Status</label>
             <input
               type="text"
               name="status"
@@ -64,7 +64,7 @@ function HeaderForm() {
             </select>
           </div>
           <div className="col-md-4">
-            <label className="">Weight</label>
+            <label className="form-label">Weight</label>
             <input
               type="text"
               name="weight"
@@ -75,7 +75,7 @@ function HeaderForm() {
         </div>
         <div className="row">
           <div className="col-md-8">
-            <label className="">Reference</label>
+            <label className="form-label">Reference</label>
             <input
               type="text"
               name="reference"
@@ -84,7 +84,7 @@ function HeaderForm() {
             />
           </div>
           <div className="col-md-4">
-            <label className="">Caluclated Weight</label>
+            <label className="form-label">Caluclated Weight</label>
             <input
               type="text"
               name="calculatedWeight"

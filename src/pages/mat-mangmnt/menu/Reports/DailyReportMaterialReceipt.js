@@ -6,8 +6,9 @@ function DailyReportMaterialReceipt() {
     <div>
       {" "}
       <div style={{ height: "200px", overflowY: "scroll" }}>
-        <Table bordered>
+        <Table striped>
           <thead
+          className="tableHeaderBGColor">
             style={{
               textAlign: "center",
               position: "sticky",
@@ -15,14 +16,14 @@ function DailyReportMaterialReceipt() {
             }}
           >
             <tr>
-              <th>RV No</th>
+              <th style={{whiteSpace:"nowrap"}}>RV No</th>
               <th>Customer</th>
-              <th>Customer Doc No</th>
+              <th style={{whiteSpace:"nowrap"}}>Customer Doc No</th>
               <th>Type</th>
-              <th>Receipt Details</th>
+              <th style={{whiteSpace:"nowrap"}}>Receipt Details</th>
               <th>Quantity</th>
-              <th>Weight Caluclated</th>
-              <th>Actual Weight</th>
+              <th style={{whiteSpace:"nowrap"}}>Weight Caluclated</th>
+              <th style={{whiteSpace:"nowrap"}}>Actual Weight</th>
             </tr>
           </thead>
 

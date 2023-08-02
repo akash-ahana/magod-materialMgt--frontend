@@ -34,6 +34,7 @@ function LocationList(props) {
       setShape(data);
     });
 
+    console.log("shapes", shape);
     getRequest(endpoints.getMaterialLocationList, (data) => {
       for (let i = 0; i < data.length; i++) {
         data[i].id = i + 1;
@@ -65,15 +66,19 @@ function LocationList(props) {
     }
   };
   const InputEventShape = (e) => {
-    //const { value, name } = e.target;
+    const { value, name } = e.target;
+    //const found = allData.filter((obj) => obj.Cust_Code === e[0].Shape);
+
     setFormHeader((preValue) => {
       //console.log(preValue)
       return {
         ...preValue,
-        storage: e[0].Shape,
+        //storage: e[0] && e[0].Shape.length !== 0 ? e[0].Shape : "",
+        storage: value,
+
       };
     });
-
+    console.log(formHeader);
     if (btnState === "save") {
       //update
     }
@@ -230,7 +235,7 @@ function LocationList(props) {
       <LocationLisModal open={open} setOpen={setOpen} />
       <h4 className="title">Material Storage Location Manager</h4>
       <div className="row">
-        <div className="col-md-7">
+        <div className="col-md-7 col-sm-12">
           <div style={{ height: "450px", overflowY: "scroll" }}>
             <BootstrapTable
               keyField="id"
@@ -244,9 +249,10 @@ function LocationList(props) {
             ></BootstrapTable>
           </div>
         </div>
-        <div className="col-md-5">
+        <div className="col-md-5 col-sm-12">
           <div className="ip-box form-bg">
             <div className="row">
+
               <div className="col-md-12 col-sm-12">
                 <div className="ip-box form-bg">
                   <div className="row">
@@ -269,7 +275,8 @@ function LocationList(props) {
                         <label className="">Storage Type</label>
                       </div>
                       <div className="col-md-8" style={{ marginTop: "8px" }}>
-                        {/* <select
+                        <select
+
                           className="ip-select dropdown-field"
                           name="storage"
                           onChange={InputEvent}
@@ -284,66 +291,80 @@ function LocationList(props) {
                               {sh.Shape}
                             </option>
                           ))}
-                        </select> */}
-                        <Typeahead
+                        </select>
+                        {/* <Typeahead
                           id="basic-example"
-                          name="storage"
+                          //name="storage"
+                          //value={formHeader.storage}
+                          defaultSelected={formHeader.storage}
                           options={shape}
                           placeholder="Select Storage Type"
                           onChange={(label) => InputEventShape(label)}
-                        />
+                        /> */}
                       </div>
                     </div>
 
-                    <div className="row">
-                      <div className="col-md-4 ">
-                        <label className="">Storage Capacity</label>
-                      </div>
-                      <div className="col-md-8 ">
-                        <input
-                          className="in-field"
-                          type="text"
-                          name="capacity"
-                          value={formHeader.capacity}
-                          onChange={InputEvent}
-                          onBlur={insertData}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
+            <div className="row">
+              <div className="col-md-5 ">
+                <label className="form-label">Storage Capacity</label>
+              </div>
+              <div className="col-md-7 ">
+                <input
+                  className="in-field"
+                  type="text"
+                  name="capacity"
+                  value={formHeader.capacity}
+                  onChange={InputEvent}
+                  onBlur={insertData}
+                />
               </div>
             </div>
-            <div className="row justify-content-center mt-3">
+
+            <div className="row mt-3 mb-3">
+              <div className="col-md-3 col-sm-12">
+                <button
+                  className="button-style "
+                  style={{ width: "100px" }}
+                  onClick={addButton}
+                >
+                  Add
+                </button>
+              </div>
+              <div className="col-md-3 col-sm-12">
+                <button
+                  className="button-style"
+                  style={{ width: "100px" }}
+                  onClick={deleteButton}
+                >
+                  Delete
+                </button>
+              </div>
+              <div className="col-md-3 col-sm-12">
+                <button
+                  className="button-style "
+                  style={{ width: "100px" }}
+                  onClick={saveButton}
+                >
+                  Save
+                </button>
+              </div>
+              <div className="col-md-3 col-sm-12">
+
               <button
-                className="button-style col-md-3"
+                className="button-style"
                 style={{ width: "100px" }}
-                onClick={addButton}
-              >
-                Add
-              </button>
-              <button
-                className="button-style col-md-3"
-                style={{ width: "100px" }}
-                onClick={deleteButton}
-              >
-                Delete
-              </button>
-              <button
-                className="button-style col-md-3"
-                style={{ width: "100px", marginBottom: "20PX" }}
-                onClick={saveButton}
-              >
-                Save
-              </button>
-              <button
-                className="button-style col-md-3"
                 id="btnclose"
                 type="submit"
-                onClick={() => nav("/materialmanagement")}
+                onClick={() => nav("/MaterialManagement")}
               >
                 Close
               </button>
+              </div>        
+
+               
+              </div>
+
             </div>
           </div>
         </div>

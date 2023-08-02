@@ -50,22 +50,22 @@ export const customerSidebar = [
             subNav: [
               {
                 title: "New",
-                path: "/materialmanagement/receipt/customerjobwork/parts/new",
+                path: "/MaterialManagement/Receipt/CustomerJobWork/Parts/New",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Draft RV List",
-                path: "/materialmanagement/receipt/customerjobwork/parts/draftrvlist",
+                path: "/MaterialManagement/Receipt/CustomerJobWork/Parts/DraftRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Open RV List",
-                path: "/materialmanagement/receipt/customerjobwork/parts/openrvlist",
+                path: "/MaterialManagement/Receipt/CustomerJobWork/Parts/OpenRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Closed RV List",
-                path: "/materialmanagement/receipt/customerjobwork/parts/closedrvlist",
+                path: "/MaterialManagement/Receipt/CustomerJobWork/Parts/ClosedRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
             ],
@@ -76,22 +76,22 @@ export const customerSidebar = [
             subNav: [
               {
                 title: "New",
-                path: "/materialmanagement/receipt/customerjobwork/units/new",
+                path: "/MaterialManagement/Receipt/CustomerJobWork/Units/New",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Draft RV List",
-                path: "/materialmanagement/receipt/customerjobwork/units/draftrvlist",
+                path: "/MaterialManagement/Receipt/CustomerJobWork/Units/DraftRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Open RV List",
-                path: "/materialmanagement/receipt/customerjobwork/units/openrvlist",
+                path: "/MaterialManagement/Receipt/CustomerJobWork/Units/OpenRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Closed RV List",
-                path: "/materialmanagement/receipt/customerjobwork/units/closedrvlist",
+                path: "/MaterialManagement/Receipt/CustomerJobWork/Units/ClosedRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
             ],
@@ -103,22 +103,22 @@ export const customerSidebar = [
             subNav: [
               {
                 title: "New",
-                path: "/materialmanagement/receipt/customerjobwork/sheetsandothers/new",
+                path: "/MaterialManagement/Receipt/CustomerJobWork/SheetsAndOthers/New",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Draft RV List",
-                path: "/materialmanagement/receipt/customerjobwork/sheetsandothers/draftrvlist",
+                path: "/MaterialManagement/Receipt/CustomerJobWork/SheetsAndOthers/DraftRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Open RV List",
-                path: "/materialmanagement/receipt/customerjobwork/sheetsandothers/openrvlist",
+                path: "/MaterialManagement/Receipt/CustomerJobWork/SheetsAndOthers/OpenRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Closed RV List",
-                path: "/materialmanagement/receipt/customerjobwork/sheetsandothers/closedrvlist",
+                path: "/MaterialManagement/Receipt/CustomerJobWork/SheetsAndOthers/ClosedRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
             ],
@@ -138,22 +138,22 @@ export const customerSidebar = [
             subNav: [
               {
                 title: "New",
-                path: "/materialmanagement/receipt/purchase/parts/new",
+                path: "/MaterialManagement/Receipt/Purchase/Parts/New",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Draft RV List",
-                path: "/materialmanagement/receipt/purchase/parts/draftrvlist",
+                path: "/MaterialManagement/Receipt/Purchase/Parts/DraftRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Open RV List",
-                path: "/materialmanagement/receipt/purchase/parts/openrvlist",
+                path: "/MaterialManagement/Receipt/Purchase/Parts/OpenRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Closed RV List",
-                path: "/materialmanagement/receipt/purchase/parts/closedrvlist",
+                path: "/MaterialManagement/Receipt/Purchase/Parts/ClosedRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
             ],
@@ -164,22 +164,22 @@ export const customerSidebar = [
             subNav: [
               {
                 title: "New",
-                path: "/materialmanagement/receipt/purchase/units/new",
+                path: "/MaterialManagement/Receipt/Purchase/Units/New",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Draft RV List",
-                path: "/materialmanagement/receipt/purchase/units/draftrvlist",
+                path: "/MaterialManagement/Receipt/Purchase/Units/DraftRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Open RV List",
-                path: "/materialmanagement/receipt/purchase/units/openrvlist",
+                path: "/MaterialManagement/Receipt/Purchase/Units/OpenRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Closed RV List",
-                path: "/materialmanagement/receipt/purchase/units/closedrvlist",
+                path: "/MaterialManagement/Receipt/Purchase/Units/ClosedRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
             ],
@@ -191,22 +191,22 @@ export const customerSidebar = [
             subNav: [
               {
                 title: "New",
-                path: "/materialmanagement/receipt/purchase/others/new",
+                path: "/MaterialManagement/Receipt/Purchase/Others/New",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Draft RV List",
-                path: "/materialmanagement/receipt/purchase/others/draftrvlist",
+                path: "/MaterialManagement/Receipt/Purchase/Others/DraftRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Open RV List",
-                path: "/materialmanagement/receipt/purchase/others/openrvlist",
+                path: "/MaterialManagement/Receipt/Purchase/Others/OpenRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
               {
                 title: "Closed RV List",
-                path: "/materialmanagement/receipt/purchase/others/closedrvlist",
+                path: "/MaterialManagement/Receipt/Purchase/Others/ClosedRVList",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
             ],
@@ -217,7 +217,7 @@ export const customerSidebar = [
             subNav: [
               {
                 title: "New",
-                path: "/materialmanagement/receipt/purchase/gas/new",
+                path: "/MaterialManagement/Receipt/Purchase/Gas/New",
                 icon: <AiIcons.AiOutlineArrowRight />,
               },
             ],
@@ -226,7 +226,7 @@ export const customerSidebar = [
       },
       {
         title: "Branch Transfer",
-        path: "/materialmanagement/receipt/branchtransfer",
+        path: "/MaterialManagement/Receipt/BranchTransfer",
         icon: <AiIcons.AiOutlineBranches />,
       },
     ],
@@ -246,34 +246,34 @@ export const customerSidebar = [
         subNav: [
           {
             title: "New",
-            path: "/materialmanagement/return/customerjobwork/new",
+            path: "/MaterialManagement/Return/CustomerJobWork/New",
             icon: <AiIcons.AiOutlineArrowRight />,
           },
           {
             title: "Pending Dispatch List",
-            path: "/materialmanagement/return/customerjobwork/pendingdispatchlist",
+            path: "/MaterialManagement/Return/CustomerJobWork/PendingDispatchList",
             icon: <AiIcons.AiOutlineArrowRight />,
           },
           {
             title: "Customer IV List",
-            path: "/materialmanagement/return/customerjobwork/customerivlist",
+            path: "/MaterialManagement/Return/CustomerJobWork/CustomerIVList",
             icon: <AiIcons.AiOutlineArrowRight />,
           },
           {
             title: "Sales IV List",
-            path: "/materialmanagement/return/customerjobwork/salesivlist",
+            path: "/MaterialManagement/Return/CustomerJobWork/SalesIVList",
             icon: <AiIcons.AiOutlineArrowRight />,
           },
           {
             title: "Cancelled",
-            path: "/materialmanagement/return/customerjobwork/cancelled",
+            path: "/MaterialManagement/Return/CustomerJobWork/Cancelled",
             icon: <AiIcons.AiOutlineArrowRight />,
           },
         ],
       },
       {
         title: "Purchase  Planned for future",
-        path: "/materialmanagement/return/purchaseplannedforfuture",
+        path: "/MaterialManagement/Return/PurchasePlannedForFuture",
         icon: <BiIcons.BiPurchaseTag />,
       },
     ],
@@ -395,7 +395,7 @@ export const customerSidebar = [
     ],
   },
   {
-    title: "Store Managemen",
+    title: "Store Management",
     // path: "/customer",
     icon: <SiIcon.SiMaterialdesignicons />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
@@ -477,6 +477,13 @@ export const customerSidebar = [
       },
     ],
   },
+  {
+    title: "Previous Menu",
+    path: "/home",
+    icon: <MdIcon.MdPreview />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+  },
 ];
 
 export const adminSidebar = [
@@ -493,6 +500,7 @@ export const adminSidebar = [
       },
     ],
   },
+ 
   {
     title: "Users",
     icon: <FaIcon.FaUsers />,

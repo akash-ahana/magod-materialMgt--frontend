@@ -78,13 +78,13 @@ function ReturnNew() {
             className="button-style "
             id="btnclose"
             type="submit"
-            onClick={() => nav("/materialmanagement")}
+            onClick={() => nav("/MaterialManagement")}
           >
             Close
           </button>
         </div>
       </div>
-      <Tabs id="controlled-tab-example" className="mb-3 mt-3 tab_font">
+      <Tabs id="controlled-tab-example" className=" mt-3">
         <Tab eventKey="mat_rece" title="Profiles Material">
           <ProfilesMaterials
             custCode={custCode}
@@ -96,7 +96,7 @@ function ReturnNew() {
           />
         </Tab>
 
-        <Tab eventKey="mat_retu" title="Parts">
+        <Tab eventKey="mat_retu" title="Parts" className=" mt-3">
           <Parts
             custCode={custCode}
             custName={custName}

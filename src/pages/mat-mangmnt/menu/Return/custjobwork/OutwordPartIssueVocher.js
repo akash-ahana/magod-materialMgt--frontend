@@ -227,7 +227,7 @@ function OutwordPartIssueVocher(props) {
   let printDC = () => {
     //console.log("First formheader = ", formHeader, " outdata = ", outData);
     if (dcID !== "" && dcID !== 0) {
-      nav("/materialmanagement/return/customerjobwork/PrintPartsDC", {
+      nav("/MaterialManagement/Return/CustomerJobWork/PrintPartsDC", {
         //formHeader: formHeader,
         //outData: outData,
         state: {
@@ -265,13 +265,13 @@ function OutwordPartIssueVocher(props) {
       />
 
       <div>
-        <h4 className="title">Outward Material Issue Vocher</h4>
+        <h4 className="title">Outward Material Issue Voucher</h4>
 
         <div className="row">
           <div className="col-md-12">
             <div className="row">
               <div className="col-md-3">
-                <label className="">IV No</label>
+                <label className="form-label">IV No</label>
                 <input
                   type="text"
                   name="IvId"
@@ -281,7 +281,7 @@ function OutwordPartIssueVocher(props) {
                 />
               </div>
               <div className="col-md-3">
-                <label className="">Date</label>
+                <label className="form-label">Date</label>
                 <input
                   type="text"
                   name="IVDate"
@@ -290,13 +290,13 @@ function OutwordPartIssueVocher(props) {
                 />
               </div>
               <div className="col-md-3">
-                <label className=""></label>
-                <input
+                <label className=" form-label mt-4 ms-3">{formHeader.IVStatus}</label>
+                {/* <input
                   type="text"
                   name="status"
-                  value={formHeader.IVStatus}
+                  value=
                   disabled
-                />
+                /> */}
               </div>
 
               <div className="col-md-3">
@@ -307,6 +307,8 @@ function OutwordPartIssueVocher(props) {
                     boolVal2 |
                     boolVal3 |
                     (location.state.propsType === "customerIVList")
+                      ? true
+                      : false | (location.state.propsType === "returnCancelled")
                       ? true
                       : false
                   }
@@ -333,7 +335,7 @@ function OutwordPartIssueVocher(props) {
             </div>
             <div className="row">
               <div className="col-md-6">
-                <label className="">GST No</label>
+                <label className="form-label">GST No</label>
                 <input
                   type="text"
                   name="CSTNo"
@@ -342,7 +344,7 @@ function OutwordPartIssueVocher(props) {
                 />
               </div>
               <div className="col-md-6">
-                <label className="">DC No / Ph No</label>
+                <label className="form-label">DC No / Ph No</label>
                 <input
                   type="text"
                   name="PkngDcNo"
@@ -353,7 +355,7 @@ function OutwordPartIssueVocher(props) {
             </div>
             <div className="row">
               <div className="col-md-6">
-                <label className="">Weight</label>
+                <label className="form-label">Weight</label>
                 <input
                   type="text"
                   name="TotalWeight"
@@ -362,7 +364,7 @@ function OutwordPartIssueVocher(props) {
                 />
               </div>
               <div className="col-md-6">
-                <label className="">Calculated Weight</label>
+                <label className="form-label">Calculated Weight</label>
                 <input
                   type="text"
                   name="Type"
@@ -372,12 +374,12 @@ function OutwordPartIssueVocher(props) {
               </div>
             </div>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-3 mt-3">
             <label className="form-label"></label>
             <textarea
-              style={{ height: "110px" }}
-              className="form-control"
-              rowSpane="3"
+              id="exampleFormControlTextarea1"
+              rows="4  "
+              style={{ width: "240px" }}
               value={custdata.Address}
               readOnly
             ></textarea>
@@ -389,6 +391,8 @@ function OutwordPartIssueVocher(props) {
                 onClick={cancelIV}
                 disabled={
                   boolVal2 | (location.state.propsType === "customerIVList")
+                    ? true
+                    : false | (location.state.propsType === "returnCancelled")
                     ? true
                     : false
                 }
@@ -402,6 +406,8 @@ function OutwordPartIssueVocher(props) {
                 onClick={createDC}
                 disabled={
                   boolVal2 | (location.state.propsType === "customerIVList")
+                    ? true
+                    : false | (location.state.propsType === "returnCancelled")
                     ? true
                     : false
                 }
@@ -418,6 +424,8 @@ function OutwordPartIssueVocher(props) {
                   boolVal3 |
                   (location.state.propsType === "customerIVList")
                     ? true
+                    : false | (location.state.propsType === "returnCancelled")
+                    ? true
                     : false
                 }
               >
@@ -429,7 +437,7 @@ function OutwordPartIssueVocher(props) {
                 className="button-style mb-2"
                 id="btnclose"
                 type="submit"
-                onClick={() => nav("/materialmanagement")}
+                onClick={() => nav("/MaterialManagement")}
               >
                 Close
               </button>
@@ -454,7 +462,7 @@ function OutwordPartIssueVocher(props) {
         </div>
         {/* <div className="row">
           <div className="col-md-4">
-            <label className="">GST No</label>
+            <label className="form-label">GST No</label>
             <input
               type="text"
               name="CSTNo"
@@ -463,7 +471,7 @@ function OutwordPartIssueVocher(props) {
             />
           </div>
           <div className="col-md-4">
-            <label className="">DC No / Ph No</label>
+            <label className="form-label">DC No / Ph No</label>
             <input
               type="text"
               name="PkngDcNo"
@@ -479,7 +487,7 @@ function OutwordPartIssueVocher(props) {
         </div>
         <div className="row">
           <div className="col-md-4">
-            <label className="">Weight</label>
+            <label className="form-label">Weight</label>
             <input
               type="text"
               name="TotalWeight"
@@ -489,7 +497,7 @@ function OutwordPartIssueVocher(props) {
           </div>
 
           <div className="col-md-4">
-            <label className="">Calculated Weight</label>
+            <label className="form-label">Calculated Weight</label>
             <input
               type="text"
               name="Type"
@@ -509,6 +517,7 @@ function OutwordPartIssueVocher(props) {
         <div className="col-md-12 col-sm-12">
           <div style={{ height: "420px", overflowY: "scroll" }}>
             <BootstrapTable
+              headerClasses="header-class "
               keyField="IV_No"
               //keyField="id"
               columns={columns}

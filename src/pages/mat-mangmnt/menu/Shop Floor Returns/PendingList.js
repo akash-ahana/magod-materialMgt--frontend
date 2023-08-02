@@ -85,27 +85,33 @@ function PendingList(props) {
     {
       text: "IV No",
       dataField: "IV_No",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "IV Date",
       dataField: "Issue_date",
       formatter: statusFormatter,
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Program No",
       dataField: "NC_ProgramNo",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Mtrl Code",
       dataField: "mtrl_code",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Issued",
       dataField: "QtyIssued",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Returned",
       dataField: "QtyReturned",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Used",
@@ -122,10 +128,12 @@ function PendingList(props) {
       text: "NcPgmMtrlId",
       dataField: "NcPgmMtrlId",
       hidden: true,
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "ShapeMtrlID",
       dataField: "ShapeMtrlID",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Used",
@@ -152,10 +160,12 @@ function PendingList(props) {
     {
       text: "Balance Length",
       dataField: "RemPara1",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
     {
       text: "Balance Width",
       dataField: "RemPara2",
+      headerStyle: { whiteSpace: 'nowrap' },
     },
   ];
 
@@ -466,24 +476,25 @@ function PendingList(props) {
       <h4 className="title">Shop Floor Material Issue List</h4>
       <div className="row">
         <div className="col-md-3">
-          <h4 className="form-title">Shop Floor Material Return Form</h4>
+          <h4 className="form-title"><b>Shop Floor Material Return Form</b></h4>
           {/* <button className="button-style ">custname</button> */}
         </div>
         <div className="col-md-9">
-          <button className="button-style mt-0" onClick={returnScrap}>
+          <button className="button-style mt-0" onClick={returnScrap} style={{width:"170px"}}>
             Return As Scrap
           </button>
-          <button className="button-style" onClick={returnToStock}>
+          <button className="button-style" onClick={returnToStock} style={{width:"170px"}}>
             Return To Stock
           </button>
           <button
             className="button-style mt-0"
+            style={{width:"170px"}}
             onClick={() => {
               if (Object.keys(secondTableRow).length == 0) {
                 toast.error("Select Material to return to Stock");
               } else {
                 nav(
-                  "/materialmanagement/shoopfloorreturns/pendinglist/resizeandreturn/materialsplitter",
+                  "/MaterialManagement/ShoopFloorReturns/PendingList/ResizeAndReturn/MaterialSplitter",
                   {
                     state: {
                       secondTableRow: selectedSecondTableRows,
@@ -500,7 +511,8 @@ function PendingList(props) {
             className="button-style "
             id="btnclose"
             type="submit"
-            onClick={() => nav("/materialmanagement")}
+            onClick={() => nav("/MaterialManagement")}
+            style={{width:"170px"}}
           >
             Close
           </button>
@@ -508,7 +520,7 @@ function PendingList(props) {
       </div>
 
       <div className="row mt-2">
-        <div className="col-md-2">
+        <div className="col-md-2 mb-5">
           {/* <SideComponent /> */}
           {treeData.map((node, i) => {
             const machine = node.Machine;
@@ -523,7 +535,7 @@ function PendingList(props) {
             );
           })}
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6 mt-3">
           <div style={{ height: "400px", overflowY: "scroll" }}>
             <BootstrapTable
               keyField="IssueID"
@@ -537,7 +549,7 @@ function PendingList(props) {
             ></BootstrapTable>
           </div>
         </div>
-        <div className="col-md-4">
+        <div className="col-md-4 mt-3">
           <div style={{ height: "400px", overflowY: "scroll" }}>
             <BootstrapTable
               keyField="NcPgmMtrlId"

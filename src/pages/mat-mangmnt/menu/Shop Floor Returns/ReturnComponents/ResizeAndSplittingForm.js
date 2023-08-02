@@ -332,7 +332,7 @@ function ResizeAndSplittingForm() {
           <div className="col-md-9">
             <label className="form-label">Material Code</label>
             <input
-              className=""
+              className="form-label"
               name="materialCode"
               value={formHeader.materialCode}
               disabled
@@ -349,7 +349,7 @@ function ResizeAndSplittingForm() {
           <div className="col-md-3">
             <label className="form-label">Quantity</label>
             <input
-              className=""
+              className="form-label"
               name="quantity"
               value={formHeader.quantity}
               disabled
@@ -358,7 +358,7 @@ function ResizeAndSplittingForm() {
           <div className="col-md-3">
             <label className="form-label">Para1</label>
             <input
-              className=""
+              className="form-label"
               name="para1"
               value={formHeader.para1}
               disabled
@@ -367,7 +367,7 @@ function ResizeAndSplittingForm() {
           <div className="col-md-3">
             <label className="form-label">Para2</label>
             <input
-              className=""
+              className="form-label"
               name="para2"
               value={formHeader.para2}
               disabled
@@ -378,7 +378,7 @@ function ResizeAndSplittingForm() {
               className="button-style "
               id="btnclose"
               type="submit"
-              onClick={() => nav("/materialmanagement")}
+              onClick={() => nav("/MaterialManagement")}
             >
               Close
             </button>
@@ -409,10 +409,10 @@ function ResizeAndSplittingForm() {
           </div>
           <div className="col-md-4 mt-4 ">
             <div className="ip-box form-bg">
-              <div className="row">
+             
                 <div className="row">
-                  <div className="col-md-3 ">
-                    <label className="">Srl NO</label>
+                  <div className="col-md-3 mt-1 ">
+                    <label className="form-label">Srl NO</label>
                   </div>
 
                   <div className="col-md-4 ">
@@ -433,8 +433,8 @@ function ResizeAndSplittingForm() {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-3 ">
-                    <label className="">Para1</label>
+                  <div className="col-md-3 mt-1 ">
+                    <label className="form-label">Para1</label>
                   </div>
 
                   <div className="col-md-4 ">
@@ -458,8 +458,8 @@ function ResizeAndSplittingForm() {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-3">
-                    <label className="">Para2</label>
+                  <div className="col-md-3 mt-1">
+                    <label className="form-label">Para2</label>
                   </div>
                   <div className="col-md-9 ">
                     <input
@@ -473,8 +473,8 @@ function ResizeAndSplittingForm() {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-3 ">
-                    <label className="">Quantity</label>
+                  <div className="col-md-3 mt-1 ">
+                    <label className="form-label">Quantity</label>
                   </div>
                   <div className="col-md-9 ">
                     <input
@@ -488,8 +488,8 @@ function ResizeAndSplittingForm() {
                 </div>
                 <div className="row mt-2 mb-3">
                   {" "}
-                  <div className="col-md-3 ">
-                    <label className="">Location</label>{" "}
+                  <div className="col-md-3 mt-1 ">
+                    <label className="form-label">Location</label>{" "}
                   </div>{" "}
                   <div className="col-md-9" style={{ marginTop: "8px" }}>
                     {" "}
@@ -510,7 +510,7 @@ function ResizeAndSplittingForm() {
                     </select>{" "}
                   </div>{" "}
                 </div>
-              </div>
+             
             </div>
           </div>
         </div>

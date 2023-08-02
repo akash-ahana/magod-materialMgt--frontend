@@ -11,7 +11,7 @@ function DraftForm() {
                 <div className="row">
                   <div className="row">
                     <div className="col-md-3 ">
-                      <label className="">Part ID</label>
+                      <label className="form-label">Part ID</label>
                     </div>
                     <div className="col-md-8" style={{ marginTop: "8px" }}>
                       <select className="ip-select dropdown-field">
@@ -24,7 +24,7 @@ function DraftForm() {
                   </div>
                   <div className="row">
                     <div className="col-md-3 ">
-                      <label className="">Receipt Date</label>
+                      <label className="form-label">Receipt Date</label>
                     </div>
                     <div className="col-md-8 ">
                       <input
@@ -36,7 +36,7 @@ function DraftForm() {
                   </div>
                   <div className="row">
                     <div className="col-md-3 ">
-                      <label className="">RV No</label>
+                      <label className="form-label">RV No</label>
                     </div>
                     <div className="col-md-8 ">
                       <input className="in-field" />
@@ -44,7 +44,7 @@ function DraftForm() {
                   </div>
                   <div className="row">
                     <div className="col-md-3">
-                      <label className="">RV Date</label>
+                      <label className="form-label">RV Date</label>
                     </div>
                     <div className="col-md-8 ">
                       <input
@@ -56,7 +56,7 @@ function DraftForm() {
                   </div>
                   <div className="row">
                     <div className="col-md-3 ">
-                      <label className="">Cust code</label>
+                      <label className="form-label">Cust code</label>
                     </div>
                     <div className="col-md-8 ">
                       <input className="in-field" />
@@ -64,7 +64,7 @@ function DraftForm() {
                   </div>
                   <div className="row">
                     <div className="col-md-3 ">
-                      <label className="">Customer</label>
+                      <label className="form-label">Customer</label>
                     </div>
                     <div className="col-md-8" style={{ marginTop: "8px" }}>
                       <select className="ip-select dropdown-field">
@@ -78,7 +78,7 @@ function DraftForm() {
 
                   <div className="row">
                     <div className="col-md-3">
-                      <label className="">Cust Docu No</label>
+                      <label className="form-label">Cust Docu No</label>
                     </div>
 
                     <div className="col-md-8 ">
@@ -87,7 +87,7 @@ function DraftForm() {
                   </div>
                   <div className="row">
                     <div className="col-md-3 ">
-                      <label className="">Total Weight</label>
+                      <label className="form-label">Total Weight</label>
                     </div>
                     <div className="col-md-8 ">
                       <input className="in-field" />
@@ -95,7 +95,7 @@ function DraftForm() {
                   </div>
                   <div className="row">
                     <div className="col-md-3">
-                      <label className="">Caluclatd weight</label>
+                      <label className="form-label">Caluclatd weight</label>
                     </div>
                     <div className="col-md-8 ">
                       <input className="in-field" />
@@ -103,7 +103,7 @@ function DraftForm() {
                   </div>
                   <div className="row">
                     <div className="col-md-3 ">
-                      <label className="">RV status</label>
+                      <label className="form-label">RV status</label>
                     </div>
                     <div className="col-md-8 ">
                       <input className="in-field" />

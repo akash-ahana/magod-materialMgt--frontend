@@ -18,6 +18,8 @@ function ProductionMatIssueParts() {
   const [tableData, setTableData] = useState([]);
   const [rowData, setRowData] = useState({});
   const [show, setShow] = useState(false);
+  const [show1, setShow1] = useState(false); //cancel
+  const [show2, setShow2] = useState(false); //accept
   const [showYN, setShowYN] = useState(false);
 
   const [modalMessage, setModalMessage] = useState(
@@ -121,56 +123,63 @@ function ProductionMatIssueParts() {
     },
   ];
 
+  const modalResponseok = (msg) => {
+    console.log("msg = ", msg);
+    if (msg === "ok") {
+      for (let i = 0; i < tableData.length; i++) {
+        let update1 = {
+          Id: tableData[i].PartReceipt_DetailsID,
+          Qty: tableData[i].QtyIssued,
+        };
+        //update QtyIssue mtrlpartreceiptdetails
+        postRequest(
+          endpoints.updateQtyIssuedPartReceiptDetails,
+          update1,
+          (data) => {
+            console.log("update1");
+          }
+        );
+
+        //shopfloorbomissuedetails set qtyreturn = qtyissue
+        let update2 = {
+          Id: tableData[i].Id,
+        };
+        postRequest(
+          endpoints.updateQtyReturnedShopfloorBOMIssueDetails,
+          update2,
+          (data) => {
+            console.log("update2");
+          }
+        );
+      }
+
+      //update ncprogram qtyalloated
+      let update3 = {
+        Id: formHeader.NcId,
+        Qty: formHeader.QtyIssued,
+      };
+      postRequest(endpoints.updateQtyAllotedncprograms, update3, (data) => {
+        console.log("update3");
+      });
+
+      //update shopfloorpartissueregiser stats closed
+      let update4 = {
+        Id: formHeader.IssueID,
+        status: "Cancelled",
+      };
+      postRequest(
+        endpoints.updateStatusShopfloorPartIssueRegister,
+        update4,
+        (data) => {
+          console.log("update4");
+        }
+      );
+      toast.success("Parts Cancelled Successfully");
+    }
+  };
   const cancelButton = () => {
     setShow(true);
-    for (let i = 0; i < tableData.length; i++) {
-      let update1 = {
-        Id: tableData[i].PartReceipt_DetailsID,
-        Qty: tableData[i].QtyIssued,
-      };
-      //update QtyIssue mtrlpartreceiptdetails
-      postRequest(
-        endpoints.updateQtyIssuedPartReceiptDetails,
-        update1,
-        (data) => {
-          console.log("update1");
-        }
-      );
-
-      //shopfloorbomissuedetails set qtyreturn = qtyissue
-      let update2 = {
-        Id: tableData[i].Id,
-      };
-      postRequest(
-        endpoints.updateQtyReturnedShopfloorBOMIssueDetails,
-        update2,
-        (data) => {
-          console.log("update2");
-        }
-      );
-    }
-
-    //update ncprogram qtyalloated
-    let update3 = {
-      Id: formHeader.NcId,
-      Qty: formHeader.QtyIssued,
-    };
-    postRequest(endpoints.updateQtyAllotedncprograms, update3, (data) => {
-      console.log("update3");
-    });
-
-    //update shopfloorpartissueregiser stats closed
-    let update4 = {
-      Id: formHeader.IssueID,
-      status: "Cancelled",
-    };
-    postRequest(
-      endpoints.updateStatusShopfloorPartIssueRegister,
-      update4,
-      (data) => {
-        console.log("update4");
-      }
-    );
+    setShow1(true);
   };
 
   const acceptReturn = () => {
@@ -188,12 +197,13 @@ function ProductionMatIssueParts() {
         "Cannot Accept Partial Return, Use Issued Quantity before returning"
       );
     } else {
+      setShow2(true);
       setShowYN(true);
     }
   };
   const printButton = () => {
     nav(
-      "/materialmanagement/shopfloorissue/ivlistservice/PrintIVListServicePart",
+      "/MaterialManagement/ShopFloorIssue/IVListService/PrintIVListServicePart",
       {
         state: {
           formHeader: formHeader,
@@ -210,7 +220,12 @@ function ProductionMatIssueParts() {
         formHeader={formHeader}
         tableData={tableData}
       />
-      <OkModal show={show} setShow={setShow} modalMessage={modalMessage} />
+      <OkModal
+        show={show}
+        setShow={setShow}
+        modalMessage={modalMessage}
+        modalResponseok={modalResponseok}
+      />
       <h4 className="title">Production Material Issue :Parts</h4>
       <div className="table_top_style">
         <div className="row">
@@ -223,7 +238,7 @@ function ProductionMatIssueParts() {
             <input className="" value={formHeader.AssyName} disabled />
           </div>
           <div className="col-md-3">
-            <label className="form-label">Alloted</label>
+            <label className="form-label">Allotted</label>
             <input className="" value={formHeader.QtyIssued} disabled />
           </div>
           <div className="col-md-3">
@@ -249,7 +264,7 @@ function ProductionMatIssueParts() {
             <button
               className="button-style "
               onClick={cancelButton}
-              disabled={formHeader.Status === "Closed" ? true : false}
+              disabled={show1 || formHeader.Status === "Closed" ? true : false}
             >
               Cancel
             </button>
@@ -269,7 +284,7 @@ function ProductionMatIssueParts() {
             <button
               className="button-style "
               onClick={acceptReturn}
-              disabled={formHeader.Status === "Closed" ? true : false}
+              disabled={show2 || formHeader.Status === "Closed" ? true : false}
             >
               Accept Return
             </button>
@@ -285,7 +300,7 @@ function ProductionMatIssueParts() {
               className="button-style "
               id="btnclose"
               type="submit"
-              onClick={() => nav("/materialmanagement")}
+              onClick={() => nav("/MaterialManagement")}
             >
               Close
             </button>{" "}

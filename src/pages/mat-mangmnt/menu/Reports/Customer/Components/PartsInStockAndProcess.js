@@ -74,9 +74,12 @@ function PartsInStockAndProcess(props) {
 
   // const nav = useNavigate();
   return (
-    <div>
+    <div className="mt-3">
       <div className="row-md-6 justify-content-center mt-1 mb-2">
-        <h5>Issued : Issued for Production</h5>
+        <h5>
+          <b>Issued : Issued for Production &nbsp;&nbsp;&nbsp;&nbsp; Used : Used in
+          Production{" "}</b>
+        </h5>
       </div>
       <div className="row mt-4">
         <div className="col-md-2">

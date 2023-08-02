@@ -185,7 +185,7 @@ function ShopMatIssueVocher() {
     // }
     if (noDetails === 1 && combineSheets.length > 0) {
       nav(
-        "/materialmanagement/shopfloorissue/ivlistprofilecutting/PrintIVListProfileCutting",
+        "/MaterialManagement/ShopFloorIssue/IVListProfileCutting/PrintIVListProfileCutting",
         {
           state: {
             formHeader: formHeader,
@@ -197,7 +197,7 @@ function ShopMatIssueVocher() {
       );
     } else {
       nav(
-        "/materialmanagement/shopfloorissue/ivlistprofilecutting/PrintIVListProfileCutting",
+        "/MaterialManagement/ShopFloorIssue/IVListProfileCutting/PrintIVListProfileCutting",
         {
           state: {
             formHeader: formHeader,
@@ -215,7 +215,7 @@ function ShopMatIssueVocher() {
   };
   return (
     <div>
-      <h4 className="title">Shop Material Issue Vocher</h4>
+      <h4 className="title">Shop Material Issue Voucher</h4>
       <div className="row">
         <div className="col-md-4">
           <div className="row">
@@ -263,7 +263,7 @@ function ShopMatIssueVocher() {
           <div className="row">
             {" "}
             <div className="col-md-12">
-              <label className="form-label">Sourse</label>
+              <label className="form-label">Source</label>
               <input className="" disabled value={formHeader.Remarks} />
             </div>
           </div>
@@ -313,21 +313,21 @@ function ShopMatIssueVocher() {
         <div className="col-md-4">
           {" "}
           <div className="row mt-4">
-            {" "}
-            <div className="col-md-12">
-              <button className="button-style " onClick={printButton}>
+           <div className="col-md-6 col-sm-12">
+           <button className="button-style " onClick={printButton}>
                 Print
               </button>
-
-              <button
+           </div>
+           <div className="col-md-6 col-sm-12">
+           <button
                 className="button-style "
                 id="btnclose"
                 type="submit"
-                onClick={() => nav("/materialmanagement")}
+                onClick={() => nav("/MaterialManagement")}
               >
                 Close
               </button>
-            </div>
+           </div>
           </div>
           <div className="row mt-4">
             {" "}
@@ -336,7 +336,7 @@ function ShopMatIssueVocher() {
               style={{ display: "flex", gap: "5px" }}
             >
               <input
-                className="form-check-input mt-2"
+                className="form-check-input mt-3"
                 type="checkbox"
                 id="flexCheckDefault"
                 name="updated"
@@ -345,7 +345,7 @@ function ShopMatIssueVocher() {
                 //   disabled={true}
                 onChange={checkboxChange}
               />
-               <label className="">No Details</label>
+               <label className="form-label mt-1">No Details</label>
             </div>
           </div>
           <div className="row mt-4">

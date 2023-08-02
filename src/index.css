@@ -159,11 +159,16 @@ code {
 }
 
 .dashboard-link {
-  font-family: cursive;
   text-decoration: none;
   color: black;
   font-size: 22px;
   font-weight: 600;
+}
+button:disabled,
+button[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }
 /*.submenu_links {
   padding-left: 20px;
@@ -172,12 +177,7 @@ code {
   background-color: #4e4ef2;
   color: white;
 }
-button:disabled,
-button[disabled] {
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
-}
+
 
 .breadcrumb-item + .breadcrumb-item::before {
   content: "|" !important;
@@ -364,15 +364,30 @@ body {
     
     
     .rbt-input {
-      margin-top: 13px !important;
+    /* margin-top: 13px !important; */
     border-radius: 0px !important;
     outline: none !important;
     box-shadow: none !important;
     border: none !important;
+    padding: 0px !important;
+
+  margin: 0px !important;
+
+  margin-top: 0px !important;
     border-bottom: 1px solid black !important;
     }
 
     .rbt-input::placeholder {
       padding: 0 px !important;
       margin: 0 px !important;
+     
+    }
+    .in-field {
+      height: 35px;
+    
+      /* margin-top: 10px; */
+    
+      border-radius: 6px;
+    
+      text-indent: 5px;
     }
