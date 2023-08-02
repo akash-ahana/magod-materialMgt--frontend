@@ -373,12 +373,19 @@ function PNew() {
   const allotRVButtonState = (e) => {
     e.preventDefault();
 
-    if (formHeader.weight == "0") {
-      toast.error(
-        "Enter the Customer Material Weight as per Customer Document"
-      );
+    // if (formHeader.weight == "0") {
+    //   toast.error(
+    //     "Enter the Customer Material Weight as per Customer Document"
+    //   );
+    // } else {
+    //   //show model form
+    //   setShow(true);
+    // }
+
+    // ADDED POPUP FOR ALLOTRVNO
+    if (partArray.length === 0) {
+      toast.error("Add Details Before Saving");
     } else {
-      //show model form
       setShow(true);
     }
   };
@@ -559,7 +566,8 @@ function PNew() {
             </button>
             <button
               className="button-style"
-              disabled={boolVal1}
+              // disabled={boolVal1}
+              disabled={boolVal1 | boolVal4}
               onClick={deleteRVButtonState}
             >
               Delete RV
