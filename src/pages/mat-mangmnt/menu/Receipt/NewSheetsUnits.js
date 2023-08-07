@@ -482,6 +482,17 @@ function NewSheetsUnits(props) {
   const allotRVButtonState = (e) => {
     e.preventDefault();
 
+    if (materialArray.length === 0) {
+      toast.error("Add Details Before Saving");
+    } else if (materialArray.length !== 0 && formHeader.weight == "0") {
+      toast.error(
+        "Enter the Customer Material Weight as per Customer Document"
+      );
+    } else {
+      // show model form
+      setShow(true);
+    }
+
     // if (formHeader.weight == "0") {
     //   toast.error(
     //     "Enter the Customer Material Weight as per Customer Document"
@@ -492,11 +503,11 @@ function NewSheetsUnits(props) {
     // }
 
     //ADDED POPUP FOR ALLOTRVNO
-    if (materialArray.length === 0) {
-      toast.error("Add Details Before Saving");
-    } else {
-      setShow(true);
-    }
+    // if (materialArray.length === 0) {
+    //   toast.error("Add Details Before Saving");
+    // } else {
+    //   setShow(true);
+    // }
   };
 
   const allotRVYesButton = async (data) => {
@@ -1165,7 +1176,7 @@ function NewSheetsUnits(props) {
               </div>
 
               <div className="row  justify-content-center">
-                <div className="col-md-6 col-sm-12">
+                {/* <div className="col-md-6 col-sm-12">
                   <button
                     className="button-style "
                     style={{ width: "155px" }}
@@ -1178,6 +1189,21 @@ function NewSheetsUnits(props) {
                     onClick={addToStock}
                   >
                     Add to stock
+                  </button>
+                </div> */}
+                <div className="col-md-6 col-sm-12">
+                  <button
+                    className="button-style "
+                    style={{ width: "155px" }}
+                    disabled={
+                      (props.type2 === "purchase" || props.type === "gas") &&
+                      boolValStock === "on"
+                        ? !boolVal4
+                        : true
+                    }
+                    onClick={removeStock}
+                  >
+                    Add To stock
                   </button>
                 </div>
                 <div className="col-md-6 col-sm-12">

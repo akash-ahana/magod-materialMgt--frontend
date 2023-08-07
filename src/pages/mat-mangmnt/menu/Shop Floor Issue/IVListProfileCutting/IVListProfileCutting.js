@@ -104,7 +104,7 @@ function IVListProfileCutting(props) {
       toast.error("Please select Part");
     } else {
       nav(
-        "/Materialmanagement/ShopFloorIssue/IVListProfileCutting/Closed/ShopMatIssueVoucher",
+        "/MaterialManagement/ShopFloorIssue/IVListProfileCutting/Closed/ShopMatIssueVoucher",
         {
           state: { issueIDVal },
         }

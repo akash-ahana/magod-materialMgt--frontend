@@ -13,18 +13,18 @@ const { endpoints } = require("../../../../api/constants");
 function ResizeAndSplittingForm() {
   const nav = useNavigate();
   const location = useLocation();
-  console.log("row data = ", location.state.secondTableRow);
+  console.log("row data = ", location?.state?.secondTableRow);
   const [formHeader, setFormHeader] = useState({
-    materialCode: location.state.secondTableRow[0].Mtrl_Code,
-    quantity: location.state.secondTableRow.length,
+    materialCode: location?.state?.secondTableRow[0].Mtrl_Code,
+    quantity: location?.state?.secondTableRow.length,
     para1:
-      location.state.type == "storeresize"
-        ? location.state.secondTableRow[0].DynamicPara1
-        : location.state.secondTableRow[0].Para1,
+      location?.state?.type == "storeresize"
+        ? location?.state?.secondTableRow[0].DynamicPara1
+        : location?.state?.secondTableRow[0].Para1,
     para2:
-      location.state.type == "storeresize"
-        ? location.state.secondTableRow[0].DynamicPara2
-        : location.state.secondTableRow[0].Para2,
+      location?.state?.type == "storeresize"
+        ? location?.state?.secondTableRow[0].DynamicPara2
+        : location?.state?.secondTableRow[0].Para2,
   });
   const [tableData, setTableData] = useState([]);
   const [selectedRow, setSelectedRow] = useState({});
@@ -205,12 +205,12 @@ function ResizeAndSplittingForm() {
   const modalYesNoResponse = (msg) => {
     console.log("msg = ", msg);
     if (msg == "yes") {
-      if (location.state.type == "return") {
-        for (let i = 0; i < location.state.secondTableRow.length; i++) {
-          if (location.state.secondTableRow[i].Rejected === 1) {
+      if (location?.state?.type == "return") {
+        for (let i = 0; i < location?.state?.secondTableRow.length; i++) {
+          if (location?.state?.secondTableRow[i].Rejected === 1) {
             //return the sheet
             let paraData1 = {
-              id: location.state.secondTableRow[i].IssueID,
+              id: location?.state?.secondTableRow[i].IssueID,
             };
             postRequest(
               endpoints.updateShopfloorMaterialIssueRegisterQtyReturnedAddOne,
@@ -222,7 +222,7 @@ function ResizeAndSplittingForm() {
 
             //Set issued less by one
             let paraData2 = {
-              Id: location.state.secondTableRow[i].NcID,
+              Id: location?.state?.secondTableRow[i].NcID,
               Qty: 1,
             };
             postRequest(
@@ -233,10 +233,10 @@ function ResizeAndSplittingForm() {
               }
             );
           }
-          if (location.state.secondTableRow[i].Used === 1) {
+          if (location?.state?.secondTableRow[i].Used === 1) {
             //return the sheet
             let paraData1 = {
-              id: location.state.secondTableRow[i].IssueID,
+              id: location?.state?.secondTableRow[i].IssueID,
             };
             postRequest(
               endpoints.updateShopfloorMaterialIssueRegisterQtyReturnedAddOne,
@@ -250,7 +250,7 @@ function ResizeAndSplittingForm() {
           //update stock list
           let paraData3 = {
             LocationNo: "ScrapYard",
-            MtrlStockID: location.state.secondTableRow[i].ShapeMtrlID,
+            MtrlStockID: location?.state?.secondTableRow[i].ShapeMtrlID,
           };
           postRequest(endpoints.updateMtrlStockLock3, paraData3, (data) => {
             console.log("updated stock list");
@@ -258,7 +258,7 @@ function ResizeAndSplittingForm() {
 
           //updatencprogrammtrlallotmentlistReturnStock
           let paraData4 = {
-            id: location.state.secondTableRow[i].NcPgmMtrlId,
+            id: location?.state?.secondTableRow[i].NcPgmMtrlId,
           };
           postRequest(
             endpoints.updatencprogrammtrlallotmentlistReturnStock,
@@ -278,8 +278,8 @@ function ResizeAndSplittingForm() {
             LocationNo: tableData[i].Location,
             Weight: tableData[i].Weight,
             MtrlStockID:
-              location.state.secondTableRow[0].ShapeMtrlID + "/P" + (i + 1),
-            MtrlStockIDNew: location.state.secondTableRow[0].ShapeMtrlID,
+              location?.state?.secondTableRow[0].ShapeMtrlID + "/P" + (i + 1),
+            MtrlStockIDNew: location?.state?.secondTableRow[0].ShapeMtrlID,
           };
           postRequest(endpoints.insertByMtrlStockID, paraData3, (data) => {
             console.log("inserted stock list");
@@ -287,7 +287,7 @@ function ResizeAndSplittingForm() {
         }
         toast.success("Spliting done Successfully");
         nav("/materialmanagement/ShoopFloorReturns/PendingList");
-      } else if (location.state.type == "storeresize") {
+      } else if (location?.state?.type == "storeresize") {
         //insert mtrl stock list
         for (let i = 0; i < tableData.length; i++) {
           let paraData3 = {
@@ -297,8 +297,8 @@ function ResizeAndSplittingForm() {
             LocationNo: tableData[i].Location,
             Weight: tableData[i].Weight,
             MtrlStockID:
-              location.state.secondTableRow[0].ShapeMtrlID + "/P" + (i + 1),
-            MtrlStockIDNew: location.state.secondTableRow[0].ShapeMtrlID,
+              location?.state?.secondTableRow[0].ShapeMtrlID + "/P" + (i + 1),
+            MtrlStockIDNew: location?.state?.secondTableRow[0].ShapeMtrlID,
           };
           postRequest(endpoints.insertByMtrlStockID, paraData3, (data) => {
             console.log("inserted stock list");
@@ -306,10 +306,10 @@ function ResizeAndSplittingForm() {
         }
 
         //update stock list
-        for (let i = 0; i < location.state.secondTableRow.length; i++) {
+        for (let i = 0; i < location?.state?.secondTableRow.length; i++) {
           let paraData3 = {
             LocationNo: "ScrapYard",
-            MtrlStockID: location.state.secondTableRow[i].ShapeMtrlID,
+            MtrlStockID: location?.state?.secondTableRow[i].ShapeMtrlID,
           };
           postRequest(endpoints.updateMtrlStockLock3, paraData3, (data) => {
             console.log("updated stock list");
@@ -409,108 +409,106 @@ function ResizeAndSplittingForm() {
           </div>
           <div className="col-md-4 mt-4 ">
             <div className="ip-box form-bg">
-             
-                <div className="row">
-                  <div className="col-md-3 mt-1 ">
-                    <label className="form-label">Srl NO</label>
-                  </div>
+              <div className="row">
+                <div className="col-md-3 mt-1 ">
+                  <label className="form-label">Srl NO</label>
+                </div>
 
-                  <div className="col-md-4 ">
-                    <input
-                      className="in-field"
-                      readOnly
-                      value={inputData.MtrlStock_ID}
-                    />
-                  </div>
-                  <div className="col-md-3 ">
-                    <button
-                      className="button-style mt-3"
-                      style={{ width: "130px" }}
-                      onClick={addNew}
-                    >
-                      Add New
-                    </button>
-                  </div>
+                <div className="col-md-4 ">
+                  <input
+                    className="in-field"
+                    readOnly
+                    value={inputData.MtrlStock_ID}
+                  />
                 </div>
-                <div className="row">
-                  <div className="col-md-3 mt-1 ">
-                    <label className="form-label">Para1</label>
-                  </div>
+                <div className="col-md-3 ">
+                  <button
+                    className="button-style mt-3"
+                    style={{ width: "130px" }}
+                    onClick={addNew}
+                  >
+                    Add New
+                  </button>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-3 mt-1 ">
+                  <label className="form-label">Para1</label>
+                </div>
 
-                  <div className="col-md-4 ">
-                    <input
-                      type="number"
-                      className="in-field"
-                      name="DynamicPara1"
-                      onChange={changeHandler}
-                      value={inputData.DynamicPara1}
-                      onBlur={focusOutEvent}
-                    />
-                  </div>
-                  <div className="col-md-3 ">
-                    <button
-                      className="button-style mt-3"
-                      style={{ width: "130px" }}
-                      onClick={deleteItem}
-                    >
-                      Delete Item
-                    </button>
-                  </div>
+                <div className="col-md-4 ">
+                  <input
+                    type="number"
+                    className="in-field"
+                    name="DynamicPara1"
+                    onChange={changeHandler}
+                    value={inputData.DynamicPara1}
+                    onBlur={focusOutEvent}
+                  />
                 </div>
-                <div className="row">
-                  <div className="col-md-3 mt-1">
-                    <label className="form-label">Para2</label>
-                  </div>
-                  <div className="col-md-9 ">
-                    <input
-                      type="number"
-                      className="in-field"
-                      name="DynamicPara2"
-                      onChange={changeHandler}
-                      value={inputData.DynamicPara2}
-                      onBlur={focusOutEvent}
-                    />
-                  </div>
+                <div className="col-md-3 ">
+                  <button
+                    className="button-style mt-3"
+                    style={{ width: "130px" }}
+                    onClick={deleteItem}
+                  >
+                    Delete Item
+                  </button>
                 </div>
-                <div className="row">
-                  <div className="col-md-3 mt-1 ">
-                    <label className="form-label">Quantity</label>
-                  </div>
-                  <div className="col-md-9 ">
-                    <input
-                      type="number"
-                      className="in-field"
-                      name="InStock"
-                      onChange={changeHandler}
-                      value={inputData.InStock}
-                    />
-                  </div>
+              </div>
+              <div className="row">
+                <div className="col-md-3 mt-1">
+                  <label className="form-label">Para2</label>
                 </div>
-                <div className="row mt-2 mb-3">
+                <div className="col-md-9 ">
+                  <input
+                    type="number"
+                    className="in-field"
+                    name="DynamicPara2"
+                    onChange={changeHandler}
+                    value={inputData.DynamicPara2}
+                    onBlur={focusOutEvent}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-3 mt-1 ">
+                  <label className="form-label">Quantity</label>
+                </div>
+                <div className="col-md-9 ">
+                  <input
+                    type="number"
+                    className="in-field"
+                    name="InStock"
+                    onChange={changeHandler}
+                    value={inputData.InStock}
+                  />
+                </div>
+              </div>
+              <div className="row mt-2 mb-3">
+                {" "}
+                <div className="col-md-3 mt-1 ">
+                  <label className="form-label">Location</label>{" "}
+                </div>{" "}
+                <div className="col-md-9" style={{ marginTop: "8px" }}>
                   {" "}
-                  <div className="col-md-3 mt-1 ">
-                    <label className="form-label">Location</label>{" "}
-                  </div>{" "}
-                  <div className="col-md-9" style={{ marginTop: "8px" }}>
-                    {" "}
-                    <select
-                      className="ip-select dropdown-field"
-                      name="Location"
-                      onChange={changeHandler}
-                      value={inputData.Location}
-                    >
-                      <option value="" disabled selected>
-                        Select Location
+                  <select
+                    className="ip-select dropdown-field"
+                    name="Location"
+                    onChange={changeHandler}
+                    value={inputData.Location}
+                  >
+                    <option value="" disabled selected>
+                      Select Location
+                    </option>
+                    {locationData.map((location, index) => (
+                      <option key={index} value={location.LocationNo}>
+                        {location.LocationNo}
                       </option>
-                      {locationData.map((location, index) => (
-                        <option key={index} value={location.LocationNo}>
-                          {location.LocationNo}
-                        </option>
-                      ))}
-                    </select>{" "}
-                  </div>{" "}
-                </div>
-             
+                    ))}
+                  </select>{" "}
+                </div>{" "}
+              </div>
             </div>
           </div>
         </div>

@@ -1,17 +1,17 @@
-import React, {useState} from 'react'
-import "./Login.css"
-import Logo from "../Auth/Magod Laser Logo - Default [2500].png"
-import { useNavigate, } from 'react-router-dom'
+import React, { useState } from "react";
+import "./Login.css";
+import Logo from "../Auth/Magod Laser Logo - Default [2500].png";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-const navigate=useNavigate();
-let [username, setUsername] = useState("");
-let [formPassword, setPassword] = useState("");
+  const navigate = useNavigate();
+  let [username, setUsername] = useState("");
+  let [formPassword, setPassword] = useState("");
   const handleLogin = () => {
-    navigate('/home')
-  }
+    navigate("/home");
+  };
 
-   const postRequest = async (url, body, callback) => {
+  const postRequest = async (url, body, callback) => {
     let response = await fetch(url, {
       method: "POST",
       headers: {
@@ -26,25 +26,23 @@ let [formPassword, setPassword] = useState("");
 
   function submitLogin() {
     postRequest(
-        "http://172.16.20.61:5000/user/login",
-        { username: username, password: formPassword },
-        (data) => {
-          if (data.accessToken) {
-            localStorage.setItem("token", data.accessToken);
-            localStorage.setItem("LazerUser", JSON.stringify(data));
-            window.location.href = "/home";
-          } else {
-            alert("Invalid Username/Password");
-          }
+      "http://localhost:5001/user/login",
+      { username: username, password: formPassword },
+      (data) => {
+        if (data.accessToken) {
+          localStorage.setItem("token", data.accessToken);
+          localStorage.setItem("LazerUser", JSON.stringify(data));
+          window.location.href = "/home";
+        } else {
+          alert("Invalid Username/Password");
         }
-      );
+      }
+    );
   }
 
-  
   return (
-    
     <>
-         <div
+      <div
         className="row d-flex "
         style={{ backgroundColor: "lightblue", height: "100vh" }}
       >
@@ -132,9 +130,8 @@ let [formPassword, setPassword] = useState("");
           </div>
         </div>
       </div>
-        
     </>
-  )
+  );
 }
 
-export default Login
+export default Login;

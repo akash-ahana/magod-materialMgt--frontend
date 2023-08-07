@@ -9,9 +9,9 @@ function PrintLocationStockSummaryReport() {
   const location = useLocation();
   console.log(
     "formHeader = ",
-    location.state.formHeader,
+    location?.state?.formHeader,
     " tabledata = ",
-    location.state.tableData
+    location?.state?.tableData
     //" weight = ",
     //location.state.totalweight1
   );
