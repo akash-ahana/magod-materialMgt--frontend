@@ -36,44 +36,42 @@ function ShopIssueIVList(props) {
       text: "IssueID",
       dataField: "IssueID",
       hidden: true,
-  
     },
     {
       text: "IV No",
       dataField: "IV_No",
-      headerStyle: { whiteSpace: 'nowrap' },
-     
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Issue Date",
       dataField: "Issue_date",
       formatter: statusFormatter,
-      headerStyle: { whiteSpace: 'nowrap' },
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Task No",
       dataField: "TaskNo",
-      headerStyle: { whiteSpace: 'nowrap' },
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "NC Program No",
       dataField: "NcId",
-      headerStyle: { whiteSpace: 'nowrap' },
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Qty Issued",
       dataField: "QtyIssued",
-      headerStyle: { whiteSpace: 'nowrap' },
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Qty Used",
       dataField: "QtyUsed",
-      headerStyle: { whiteSpace: 'nowrap' },
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Qty Returned",
       dataField: "QtyReturned",
-      headerStyle: { whiteSpace: 'nowrap' },
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Remarks",
@@ -107,7 +105,7 @@ function ShopIssueIVList(props) {
       toast.error("Please select Part");
     } else {
       nav(
-        "/materialmanagement/shopfloorissue/ivlistservice/issued/shopmatissuevocher", //ProductionMatIssueParts
+        "/Materialmanagement/ShopFloorIssue/IVListService/Issued/ShopMatIssueVoucher", //ProductionMatIssueParts
         {
           state: { issueIDVal },
         }
@@ -138,144 +136,137 @@ function ShopIssueIVList(props) {
 
           <div className="col-md-5 col-sm-12">
             <div className="ip-box form-bg">
-             
-               
-                 
-                  
-                      <div className="row justify-content-center mt-2">
-                        <button
-                          onClick={openButton}
-                          className="col-md-6 button-style"
-                           style={{ width: "155px" }}
-                        >
-                          Open
-                        </button>
-                        <button
-                          className="col-md-6 button-style "
-                          id="btnclose"
-                          type="submit"
-                          onClick={() => nav("/MaterialManagement")}
-                          style={{ width: "155px" }}
-                        >
-                          Close
-                        </button>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-4 mt-3">
-                          <label className="form-label">Customer</label>
-                        </div>
-                        <div className="col-md-8">
-                          <input
-                            className="in-field"
-                            disabled
-                            value={rowData.Cust_Name}
-                          />
-                        </div>
-                      </div>
+              <div className="row justify-content-center mt-2">
+                <button
+                  onClick={openButton}
+                  className="col-md-6 button-style"
+                  style={{ width: "155px" }}
+                >
+                  Open
+                </button>
+                <button
+                  className="col-md-6 button-style "
+                  id="btnclose"
+                  type="submit"
+                  onClick={() => nav("/MaterialManagement")}
+                  style={{ width: "155px" }}
+                >
+                  Close
+                </button>
+              </div>
+              <div className="row">
+                <div className="col-md-4 mt-3">
+                  <label className="form-label">Customer</label>
+                </div>
+                <div className="col-md-8">
+                  <input
+                    className="in-field"
+                    disabled
+                    value={rowData.Cust_Name}
+                  />
+                </div>
+              </div>
 
-                      <div className="row">
-                        <div className="col-md-4 mt-2">
-                          <label className="form-label">Issue Vr No</label>
-                        </div>
-                        <div className="col-md-8 ">
-                          <input
-                            className="in-field"
-                            disabled
-                            value={rowData.IV_No}
-                          />
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-4 mt-2">
-                          <label className="form-label">Vr Date</label>
-                        </div>
-                        <div className="col-md-8 ">
-                          <input
-                            className="in-field"
-                            disabled
-                            value={rowData.Issue_date}
-                          />
-                        </div>
-                      </div>
+              <div className="row">
+                <div className="col-md-4 mt-2">
+                  <label className="form-label">Issue Vr No</label>
+                </div>
+                <div className="col-md-8 ">
+                  <input className="in-field" disabled value={rowData.IV_No} />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-4 mt-2">
+                  <label className="form-label">Vr Date</label>
+                </div>
+                <div className="col-md-8 ">
+                  <input
+                    className="in-field"
+                    disabled
+                    value={rowData.Issue_date}
+                  />
+                </div>
+              </div>
 
-                      <div className="row">
-                        <div className="col-md-4 mt-2">
-                          <label className="form-label">Program No</label>
-                        </div>
-                        <div className="col-md-8 ">
-                          <input
-                            className="in-field"
-                            disabled
-                            value={rowData.NC_ProgramNo}
-                          />
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-4 mt-2">
-                          <label className="form-label" style={{whiteSpace:"nowrap"}}>Assembly Name</label>
-                        </div>
-                        <div className="col-md-8 ">
-                          <input
-                            className="in-field"
-                            disabled
-                            value={rowData.AssyName}
-                          />
-                        </div>
-                      </div>
+              <div className="row">
+                <div className="col-md-4 mt-2">
+                  <label className="form-label">Program No</label>
+                </div>
+                <div className="col-md-8 ">
+                  <input
+                    className="in-field"
+                    disabled
+                    value={rowData.NC_ProgramNo}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-4 mt-2">
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Assembly Name
+                  </label>
+                </div>
+                <div className="col-md-8 ">
+                  <input
+                    className="in-field"
+                    disabled
+                    value={rowData.AssyName}
+                  />
+                </div>
+              </div>
 
-                      <div className="row">
-                        <div className="col-md-4 mt-2">
-                          <label className="form-label">Operation</label>
-                        </div>
+              <div className="row">
+                <div className="col-md-4 mt-2">
+                  <label className="form-label">Operation</label>
+                </div>
 
-                        <div className="col-md-8 ">
-                          <input
-                            className="in-field"
-                            disabled
-                            value={rowData.Operation}
-                          />
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-4 mt-2">
-                          <label className="form-label">Material</label>
-                        </div>
-                        <div className="col-md-8 ">
-                          <input
-                            className="in-field"
-                            disabled
-                            value={rowData.Mtrl_Code}
-                          />
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-4 mt-2">
-                          <label className="form-label">Allotted</label>
-                        </div>
-                        <div className="col-md-8 ">
-                          <input
-                            className="in-field"
-                            disabled
-                            value={rowData.QtyIssued}
-                          />
-                        </div>
-                      </div>
-                      <div className="row mb-4 ">
-                        <div className="col-md-4 mt-2">
-                          <label className="form-label">Returned</label>
-                        </div>
-                        <div className="col-md-8  ">
-                          <input
-                            className="in-field"
-                            disabled
-                            value={rowData.QtyReturned}
-                          />
-                        </div>
-                      </div>
-                    
-                 
-               
-              
+                <div className="col-md-8 ">
+                  <input
+                    className="in-field"
+                    disabled
+                    value={rowData.Operation}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-4 mt-2">
+                  <label className="form-label">Material</label>
+                </div>
+                <div className="col-md-8 ">
+                  <input
+                    className="in-field"
+                    disabled
+                    value={rowData.Mtrl_Code}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-4 mt-2">
+                  <label className="form-label">Allotted</label>
+                </div>
+                <div className="col-md-8 ">
+                  <input
+                    className="in-field"
+                    disabled
+                    value={rowData.QtyIssued}
+                  />
+                </div>
+              </div>
+              <div className="row mb-4 ">
+                <div className="col-md-4 mt-2">
+                  <label className="form-label">Returned</label>
+                </div>
+                <div className="col-md-8  ">
+                  <input
+                    className="in-field"
+                    disabled
+                    value={rowData.QtyReturned}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>

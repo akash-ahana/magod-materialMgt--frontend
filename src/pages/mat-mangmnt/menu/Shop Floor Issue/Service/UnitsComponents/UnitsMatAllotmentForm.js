@@ -62,7 +62,7 @@ function UnitsMatAllotmentForm() {
         setFirstTable(data2);
         if (data2.length == 0) {
           toast.warning(
-            "There is no material to alttot for this program. Check if you have added the material to customer stock?"
+            "There is no material to allot for this program. Check if you have added the material to customer stock?"
           );
         }
       });
@@ -422,13 +422,21 @@ function UnitsMatAllotmentForm() {
           <div className="col-md-6">
             <div style={{ marginBottom: "9px" }}>
               <label className="form-label">NC Program No</label>
-              <input className="form-label" value={formHeader.NCProgramNo} disabled />
+              <input
+                className="form-label"
+                value={formHeader.NCProgramNo}
+                disabled
+              />
             </div>
           </div>
           <div className="col-md-6">
             <div style={{ marginBottom: "9px" }}>
               <label className="form-label">Material Code</label>
-              <input className="form-label" value={formHeader.Mtrl_Code} disabled />
+              <input
+                className="form-label"
+                value={formHeader.Mtrl_Code}
+                disabled
+              />
             </div>
           </div>
         </div>
@@ -436,7 +444,11 @@ function UnitsMatAllotmentForm() {
         <div className="row">
           <div className="col-md-3">
             <label className="form-label">Priority</label>
-            <input className="form-label" value={formHeader.Priority} disabled />
+            <input
+              className="form-label"
+              value={formHeader.Priority}
+              disabled
+            />
           </div>
           <div className="col-md-3">
             <label className="form-label">Para 1</label>
@@ -465,68 +477,76 @@ function UnitsMatAllotmentForm() {
 
           <div className="col-md-3">
             <label className="form-label">Process</label>
-            <input className="form-label" value={formHeader.MProcess} disabled />
+            <input
+              className="form-label"
+              value={formHeader.MProcess}
+              disabled
+            />
           </div>
           <div className="col-md-3">
             <label className="form-label">Allotted</label>
-            <input className="form-label" value={formHeader.QtyAllotted} disabled />
+            <input
+              className="form-label"
+              value={formHeader.QtyAllotted}
+              disabled
+            />
           </div>
         </div>
         <div className="row">
           <div className="col-md-4">
             <label className="form-label">Source</label>
-            <input className="form-label" value={formHeader.CustMtrl} disabled />
+            <input
+              className="form-label"
+              value={formHeader.CustMtrl}
+              disabled
+            />
           </div>
           <div className="col-md-8">
             <div className="row">
-            <div className="col-md-3 col-sm-12">
-            <button
-              className="button-style "
-              //   disabled={true}
-              onClick={allotMaterial}
-              style={{width:"180px"}}
-            >
-              Allot Material
-            </button>
+              <div className="col-md-3 col-sm-12">
+                <button
+                  className="button-style "
+                  //   disabled={true}
+                  onClick={allotMaterial}
+                  style={{ width: "180px" }}
+                >
+                  Allot Material
+                </button>
+              </div>
+              <div className="col-md-3 col-sm-12">
+                <button
+                  className="button-style "
+                  onClick={CancelAllotMaterial}
+                  style={{ width: "180px" }}
+                  //   disabled={true}
+                  //   onClick={addToStock}
+                >
+                  Cancel Allot
+                </button>
+              </div>
+              <div className="col-md-3 col-sm-12">
+                <button
+                  className="button-style "
+                  //   disabled={true}
+                  onClick={issueToProduction}
+                  // style={{width:"180px"}}
+                  style={{ width: "185px" }}
+                >
+                  Issue to Production
+                </button>
+              </div>
+              <div className="col-md-3 col-sm-12">
+                <button
+                  className="button-style "
+                  id="btnclose"
+                  type="submit"
+                  onClick={() => nav("/MaterialManagement")}
+                  style={{ width: "180px" }}
+                >
+                  Close
+                </button>
+              </div>
             </div>
-            <div className="col-md-3 col-sm-12">
-            <button
-              className="button-style "
-              onClick={CancelAllotMaterial}
-              style={{width:"180px"}}
-              //   disabled={true}
-              //   onClick={addToStock}
-            >
-              Cancel Allot
-            </button>
-            </div>
-            <div className="col-md-3 col-sm-12">
-            <button
-              className="button-style "
-              //   disabled={true}
-              onClick={issueToProduction}
-              // style={{width:"180px"}}
-              style={{ width: "185px" }}
-            >
-              Issue to Production
-            </button>
-            </div>
-            <div className="col-md-3 col-sm-12">
-            <button
-              className="button-style "
-              id="btnclose"
-              type="submit"
-              onClick={() => nav("/MaterialManagement")}
-              style={{width:"180px"}}
-            >
-              Close
-            </button>
-            </div>
-            </div>
-            
-           
-            
-            
           </div>
         </div>
 

@@ -992,58 +992,50 @@ function OpenButtonDraftSheetUnit() {
           <div className="col-md-8 justify-content-center">
             <div className="row">
               <div className="col-md-3 col-sm-12">
-              <button
-              className="button-style"
-             
-              onClick={saveButtonState}
-              disabled={boolVal4}
-            >
-              Save
-            </button>
+                <button
+                  className="button-style"
+                  onClick={saveButtonState}
+                  disabled={boolVal4}
+                >
+                  Save
+                </button>
               </div>
               <div className="col-md-3 col-sm-12">
-              <button
-              className="button-style"
-             
-              disabled={boolVal4}
-              onClick={allotRVButtonState}
-            >
-              Allot RV No
-            </button>
+                <button
+                  className="button-style"
+                  disabled={boolVal4}
+                  onClick={allotRVButtonState}
+                >
+                  Allot RV No
+                </button>
               </div>
               <div className="col-md-3 col-sm-12">
-              <button
-              className="button-style"
-            
-              disabled={boolVal4}
-              onClick={deleteRVButtonState}
-            >
-              Delete RV
-            </button>
+                <button
+                  className="button-style"
+                  disabled={boolVal4}
+                  onClick={deleteRVButtonState}
+                >
+                  Delete RV
+                </button>
               </div>
               <div className="col-md-3 col-sm-12">
-              <button
-              className="button-style "
-              id="btnclose"
-              type="submit"
-              onClick={() => nav("/MaterialManagement")}
-            >
-              Close
-            </button>
+                <button
+                  className="button-style "
+                  id="btnclose"
+                  type="submit"
+                  onClick={() => nav("/MaterialManagement")}
+                >
+                  Close
+                </button>
               </div>
-
             </div>
-            
-           
-            
-            
           </div>
           <div className="col-md-4 mb-3">
             <label className="form-label"></label>
             <textarea
-               id="exampleFormControlTextarea1"
-               rows="4"
-               style={{ width: "330px" }}
+              id="exampleFormControlTextarea1"
+              rows="4"
+              style={{ width: "330px" }}
               value={formHeader.address}
               readOnly
             ></textarea>
@@ -1085,274 +1077,265 @@ function OpenButtonDraftSheetUnit() {
                 </button>
               </div>
               <div className="row justify-content-center">
-                
-              <div className="col-md-6 col-sm-12">
-                <button
-                  className="button-style "
-                  style={{ width: "155px" }}
-                  disabled={true}
-                >
-                  Add to stock
-                </button>
+                <div className="col-md-6 col-sm-12">
+                  <button
+                    className="button-style "
+                    style={{ width: "155px" }}
+                    disabled={true}
+                  >
+                    Add to stock
+                  </button>
                 </div>
                 <div className="col-md-6 col-sm-12">
-                <button
-                  className="button-style "
-                  style={{ width: "155px" }}
-                  disabled={true}
-                >
-                  Remove stock
-                </button>
+                  <button
+                    className="button-style "
+                    style={{ width: "155px" }}
+                    disabled={true}
+                  >
+                    Remove stock
+                  </button>
                 </div>
-                
-                
-                
               </div>
               <div className="row">
-               
-                  <div className="ip-box form-bg">
-                    <div className="row">
-                    <p className="form-title-deco mt-2"><h5>Serial Details</h5></p>
+                <div className="ip-box form-bg">
+                  <div className="row">
+                    <p className="form-title-deco mt-2">
+                      <h5>Serial Details</h5>
+                    </p>
 
-                      <div className="col-md-4 ">
-                        <label className="form-label">Part ID</label>
+                    <div className="col-md-4 ">
+                      <label className="form-label">Part ID</label>
+                    </div>
+                    <div className="col-md-8" style={{ marginTop: "8px" }}>
+                      <select
+                        className="ip-select dropdown-field"
+                        onChange={changeMtrl}
+                        name="mtrlCode"
+                        disabled={boolVal3 | boolVal4 | boolVal5}
+                      >
+                        <option value="" disabled selected>
+                          Select Material
+                        </option>
+                        {location?.state?.type === "sheets"
+                          ? mtrlDetails.map((material, index) =>
+                              (material.Shape !== "Units") &
+                              (material.Shape !== "Cylinder") &
+                              (material.Shape !== null) &
+                              (material.Mtrl_Code !== "") ? (
+                                <option key={index} value={material.Mtrl_Code}>
+                                  {material.Mtrl_Code}
+                                </option>
+                              ) : (
+                                ""
+                              )
+                            )
+                          : location?.state?.type === "units"
+                          ? mtrlDetails.map((material, index) =>
+                              (material.Shape === "Units") &
+                              //(material.Shape !== "Cylinder") &
+                              (material.Shape !== null) &
+                              (material.Mtrl_Code !== "") ? (
+                                <option key={index} value={material.Mtrl_Code}>
+                                  {material.Mtrl_Code}
+                                </option>
+                              ) : (
+                                ""
+                              )
+                            )
+                          : mtrlDetails.map((material, index) =>
+                              (material.Shape !== null) &
+                              (material.Mtrl_Code !== "") ? (
+                                <option key={index} value={material.Mtrl_Code}>
+                                  {material.Mtrl_Code}
+                                </option>
+                              ) : (
+                                ""
+                              )
+                            )}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-md-4">
+                      <label className="form-label">{para1Label}</label>
+                    </div>
+                    <div className="col-md-8 ">
+                      <input
+                        className="in-field"
+                        name="dynamicPara1"
+                        value={inputPart.dynamicPara1}
+                        disabled={boolVal3 | boolVal4 | boolPara1 | boolVal5}
+                        onChange={changeMaterialHandle}
+                      />
+                    </div>
+                    <div className="col-md-4">
+                      <label className="form-label">{unitLabel1}</label>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-4">
+                      <label className="form-label">{para2Label}</label>
+                    </div>
+                    <div className="col-md-8 ">
+                      <input
+                        className="in-field"
+                        name="dynamicPara2"
+                        value={inputPart.dynamicPara2}
+                        onChange={changeMaterialHandle}
+                        disabled={boolVal3 | boolVal4 | boolPara2 | boolVal5}
+                      />
+                    </div>
+                    <div className="col-md-4">
+                      <label className="form-label">{unitLabel2}</label>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-4">
+                      <label className="form-label">{para3Label}</label>
+                    </div>
+                    <div className="col-md-8 ">
+                      <input
+                        className="in-field"
+                        name="dynamicPara3"
+                        value={inputPart.dynamicPara3}
+                        onChange={changeMaterialHandle}
+                        disabled={boolVal3 | boolVal4 | boolPara3 | boolVal5}
+                      />
+                    </div>
+                    <div className="col-md-3">
+                      <label className="form-label">{unitLabel3}</label>
+                    </div>
+                  </div>
+                  <div className="col-md-12 ">
+                    <p className="form-title-deco">
+                      <h5>Quantity Details</h5>
+                    </p>
+                    <div className="row">
+                      <div className="col-md-6">
+                        <label className="form-label">Received</label>
+                        <input
+                          className="in-field"
+                          name="qtyReceived"
+                          value={inputPart.qtyReceived}
+                          disabled={boolVal3 | boolVal4}
+                          onChange={changeMaterialHandle}
+                        />
                       </div>
-                      <div className="col-md-8" style={{ marginTop: "8px" }}>
-                        <select
-                          className="ip-select dropdown-field"
-                          onChange={changeMtrl}
-                          name="mtrlCode"
-                          disabled={boolVal3 | boolVal4 | boolVal5}
+
+                      <div className="col-md-6">
+                        <div
+                          className="col-md-12 mt-2"
+                          style={{ display: "flex", gap: "5px" }}
                         >
-                          <option value="" disabled selected>
-                            Select Material
-                          </option>
-                          {location.state.type === "sheets"
-                            ? mtrlDetails.map((material, index) =>
-                                (material.Shape !== "Units") &
-                                (material.Shape !== "Cylinder") &
-                                (material.Shape !== null) &
-                                (material.Mtrl_Code !== "") ? (
-                                  <option
-                                    key={index}
-                                    value={material.Mtrl_Code}
-                                  >
-                                    {material.Mtrl_Code}
-                                  </option>
-                                ) : (
-                                  ""
-                                )
-                              )
-                            : location.state.type === "units"
-                            ? mtrlDetails.map((material, index) =>
-                                (material.Shape === "Units") &
-                                //(material.Shape !== "Cylinder") &
-                                (material.Shape !== null) &
-                                (material.Mtrl_Code !== "") ? (
-                                  <option
-                                    key={index}
-                                    value={material.Mtrl_Code}
-                                  >
-                                    {material.Mtrl_Code}
-                                  </option>
-                                ) : (
-                                  ""
-                                )
-                              )
-                            : mtrlDetails.map((material, index) =>
-                                (material.Shape !== null) &
-                                (material.Mtrl_Code !== "") ? (
-                                  <option
-                                    key={index}
-                                    value={material.Mtrl_Code}
-                                  >
-                                    {material.Mtrl_Code}
-                                  </option>
-                                ) : (
-                                  ""
-                                )
-                              )}
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="row">
-                      <div className="col-md-4">
-                        <label className="form-label">{para1Label}</label>
-                      </div>
-                      <div className="col-md-8 ">
-                        <input
-                          className="in-field"
-                          name="dynamicPara1"
-                          value={inputPart.dynamicPara1}
-                          disabled={boolVal3 | boolVal4 | boolPara1 | boolVal5}
-                          onChange={changeMaterialHandle}
-                        />
-                      </div>
-                      <div className="col-md-4">
-                        <label className="form-label">{unitLabel1}</label>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-4">
-                        <label className="form-label">{para2Label}</label>
-                      </div>
-                      <div className="col-md-8 ">
-                        <input
-                          className="in-field"
-                          name="dynamicPara2"
-                          value={inputPart.dynamicPara2}
-                          onChange={changeMaterialHandle}
-                          disabled={boolVal3 | boolVal4 | boolPara2 | boolVal5}
-                        />
-                      </div>
-                      <div className="col-md-4">
-                        <label className="form-label">{unitLabel2}</label>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-4">
-                        <label className="form-label">{para3Label}</label>
-                      </div>
-                      <div className="col-md-8 ">
-                        <input
-                          className="in-field"
-                          name="dynamicPara3"
-                          value={inputPart.dynamicPara3}
-                          onChange={changeMaterialHandle}
-                          disabled={boolVal3 | boolVal4 | boolPara3 | boolVal5}
-                        />
-                      </div>
-                      <div className="col-md-3">
-                        <label className="form-label">{unitLabel3}</label>
-                      </div>
-                    </div>
-                    <div className="col-md-12 ">
-                    <p className="form-title-deco"><h5>Quantity Details</h5></p>
-                      <div className="row">
-                        <div className="col-md-6">
-                          <label className="form-label">Received</label>
                           <input
-                            className="in-field"
-                            name="qtyReceived"
-                            value={inputPart.qtyReceived}
-                            disabled={boolVal3 | boolVal4}
-                            onChange={changeMaterialHandle}
-                          />
-                        </div>
-                      
-                        <div className="col-md-6">
-                          <div
-                            className="col-md-12 mt-2"
-                            style={{ display: "flex", gap: "5px" }}
-                          >
-                            <input
-                              className="form-check-input mt-2"
-                              type="checkbox"
-                              id="flexCheckDefault"
-                              name="inspected"
-                              checked={insCheck}
-                              /*checked={
+                            className="form-check-input mt-2"
+                            type="checkbox"
+                            id="flexCheckDefault"
+                            name="inspected"
+                            checked={insCheck}
+                            /*checked={
                                 inputPart.inspected === "1" ? true : false
                               }*/
-                              disabled={boolVal3 | boolVal4}
-                              onChange={changeMaterialHandle}
-                            />
-                             <label className="form-label">Inspected</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-6">
-                          <label className="form-label">Accepted</label>
-                          <input
-                            className="in-field"
-                            name="qtyAccepted"
-                            value={inputPart.qtyAccepted}
-                            disabled={boolVal3 | boolVal4 | !boolVal5}
+                            disabled={boolVal3 | boolVal4}
                             onChange={changeMaterialHandle}
                           />
+                           <label className="form-label">Inspected</label>
                         </div>
-                        
-                        <div className="col-md-6">
-                          <div
-                            className="col-md-12 mt-2"
-                            style={{ display: "flex", gap: "5px" }}
-                          >
-                            <input
-                              className="form-check-input mt-2"
-                              type="checkbox"
-                              id="flexCheckDefault"
-                              name="updated"
-                              value={inputPart.upDated}
-                              disabled={boolVal3 | boolVal4}
-                              onChange={changeMaterialHandle}
-                            />
-                             <label className="form-label">Updated</label>
-                          </div>
-                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-6">
+                        <label className="form-label">Accepted</label>
+                        <input
+                          className="in-field"
+                          name="qtyAccepted"
+                          value={inputPart.qtyAccepted}
+                          disabled={boolVal3 | boolVal4 | !boolVal5}
+                          onChange={changeMaterialHandle}
+                        />
                       </div>
 
-                      <div className="row">
-                        <div className="col-md-6 mt-2">
-                          <label className="form-label" style={{whiteSpace:"nowrap"}}>Wt Calculated 2</label>
+                      <div className="col-md-6">
+                        <div
+                          className="col-md-12 mt-2"
+                          style={{ display: "flex", gap: "5px" }}
+                        >
                           <input
-                            className="in-field"
-                            name="totalWeightCalculated"
-                            value={inputPart.totalWeightCalculated}
-                            disabled={true}
-                          />
-                        </div>
-                        <div className="col-md-8 ">
-                          
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-6 mt-1">
-                          <label className="form-label">Weight</label>
-                          <input
-                            className="in-field"
-                            name="totalWeight"
-                            value={inputPart.totalWeight}
+                            className="form-check-input mt-2"
+                            type="checkbox"
+                            id="flexCheckDefault"
+                            name="updated"
+                            value={inputPart.upDated}
+                            disabled={boolVal3 | boolVal4}
                             onChange={changeMaterialHandle}
-                            disabled={boolVal3 | boolVal4}
                           />
-                        </div>
-                        <div className="col-md-8 ">
-                         
+                           <label className="form-label">Updated</label>
                         </div>
                       </div>
-                      <div className="row">
-                        <div className="col-md-6 mt-1 ">
-                          <label className="form-label">Location</label>
-                          <select
-                            className="ip-select dropdown-field"
-                            onChange={changeLocation}
-                            disabled={boolVal3 | boolVal4}
-                            name="locationNo"
-                          >
-                            <option value="" disabled selected>
-                              Select Location
+                    </div>
+
+                    <div className="row">
+                      <div className="col-md-6 mt-2">
+                        <label
+                          className="form-label"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          Wt Calculated 2
+                        </label>
+                        <input
+                          className="in-field"
+                          name="totalWeightCalculated"
+                          value={inputPart.totalWeightCalculated}
+                          disabled={true}
+                        />
+                      </div>
+                      <div className="col-md-8 "></div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-6 mt-1">
+                        <label className="form-label">Weight</label>
+                        <input
+                          className="in-field"
+                          name="totalWeight"
+                          value={inputPart.totalWeight}
+                          onChange={changeMaterialHandle}
+                          disabled={boolVal3 | boolVal4}
+                        />
+                      </div>
+                      <div className="col-md-8 "></div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-6 mt-1 ">
+                        <label className="form-label">Location</label>
+                        <select
+                          className="ip-select dropdown-field"
+                          onChange={changeLocation}
+                          disabled={boolVal3 | boolVal4}
+                          name="locationNo"
+                        >
+                          <option value="" disabled selected>
+                            Select Location
+                          </option>
+                          {locationData.map((location, index) => (
+                            <option key={index} value={location.LocationNo}>
+                              {location.LocationNo}
                             </option>
-                            {locationData.map((location, index) => (
-                              <option key={index} value={location.LocationNo}>
-                                {location.LocationNo}
-                              </option>
-                            ))}
+                          ))}
 
-                            {/* <option value="option 1">001</option>
+                          {/* <option value="option 1">001</option>
                             <option value="option 1">002</option>
                             <option value="option 1">003</option>
                             <option value="option 1">004</option> */}
-                          </select>
-                        </div>
-                        <div className="col-md-8" style={{ marginTop: "8px" }}>
-                        
-                        </div>
+                        </select>
                       </div>
+                      <div
+                        className="col-md-8"
+                        style={{ marginTop: "8px" }}
+                      ></div>
                     </div>
                   </div>
-               
+                </div>
               </div>
               <div className="row justify-content-center mt-3 mb-4">
                 <button

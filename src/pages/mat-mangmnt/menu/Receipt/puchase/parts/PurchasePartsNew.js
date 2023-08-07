@@ -384,14 +384,31 @@ function PurchasePartsNew() {
   const allotRVButtonState = (e) => {
     e.preventDefault();
 
-    if (formHeader.weight == "0") {
+    if (partArray.length === 0) {
+      toast.error("Add Details Before Saving");
+    } else if (partArray.length !== 0 && formHeader.weight == "0") {
       toast.error(
         "Enter the Customer Material Weight as per Customer Document"
       );
     } else {
-      //show model form
+      // show model form
       setShow(true);
     }
+    // if (formHeader.weight == "0") {
+    //   toast.error(
+    //     "Enter the Customer Material Weight as per Customer Document"
+    //   );
+    // } else {
+    //   //show model form
+    //   setShow(true);
+    // }
+
+    // ADDED POPUP FOR ALLOTRVNO
+    // if (partArray.length === 0) {
+    //   toast.error("Add Details Before Saving");
+    // } else {
+    //   setShow(true);
+    // }
   };
 
   const allotRVYesButton = (data) => {
@@ -629,93 +646,86 @@ function PurchasePartsNew() {
         </div>*/}
         <div className="col-md-6 col-sm-12">
           <div className="ip-box form-bg">
-            
-             
-                
-                 
-                    <div className="row justify-content-center mt-2 mb-2">
-                      <button
-                        className="button-style "
-                        style={{ width: "155px" }}
-                        onClick={addNewPart}
-                        disabled={boolVal1 | boolVal4}
-                      >
-                        Add New
-                      </button>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6 ">
-                        <label className="form-label">Part ID</label>
-                        <select
-                          className="ip-select dropdown-field mt-1"
-                          name="partId"
-                          value={inputPart.partId}
-                          onChange={changePartHandle}
-                          disabled={boolVal3 | boolVal4}
-                        >
-                          <option value="" disabled selected>
-                            Select Part
-                          </option>
-                          {mtrlDetails.map((part, index) => (
-                            <option key={index} value={part.PartId}>
-                              {part.PartId}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      <div className="col-md-6" >
-                      <label className="form-label">Unit Wt</label>
-                        <input
-                          className="in-field"
-                          type="text"
-                          name="unitWeight"
-                          value={inputPart.unitWeight}
-                          onChange={changePartHandle}
-                          //onKeyUp={changePartHandle1}
-                          disabled={boolVal3 | boolVal4}
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6 ">
-                      <label className="form-label">Qty Received</label>
-                      <input
-                          className="in-field"
-                          type="text"
-                          name="qtyReceived"
-                          //value={tempVal}
-                          value={inputPart.qtyReceived}
-                          onChange={changePartHandle}
-                          disabled={boolVal3 | boolVal4}
-                        />
-                      </div>
-                      <div className="col-md-6">
-                      <label className="form-label">Qty Accepted</label>
-                      <input
-                          className="in-field"
-                          type="text"
-                          name="qtyAccepted"
-                          value={inputPart.qtyAccepted}
-                          onChange={changePartHandle}
-                          disabled={boolVal3 | boolVal4}
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label className="form-label">Qty Rejected</label>
-                        <input
-                          className="in-field"
-                          type="text"
-                          name="qtyRejected"
-                          readOnly
-                        />
-                      </div>
-                    </div>
-                 
-               
-             
-           
+            <div className="row justify-content-center mt-2 mb-2">
+              <button
+                className="button-style "
+                style={{ width: "155px" }}
+                onClick={addNewPart}
+                disabled={boolVal1 | boolVal4}
+              >
+                Add New
+              </button>
+            </div>
+            <div className="row">
+              <div className="col-md-6 ">
+                <label className="form-label">Part ID</label>
+                <select
+                  className="ip-select dropdown-field mt-1"
+                  name="partId"
+                  value={inputPart.partId}
+                  onChange={changePartHandle}
+                  disabled={boolVal3 | boolVal4}
+                >
+                  <option value="" disabled selected>
+                    Select Part
+                  </option>
+                  {mtrlDetails.map((part, index) => (
+                    <option key={index} value={part.PartId}>
+                      {part.PartId}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="col-md-6">
+                <label className="form-label">Unit Wt</label>
+                <input
+                  className="in-field"
+                  type="text"
+                  name="unitWeight"
+                  value={inputPart.unitWeight}
+                  onChange={changePartHandle}
+                  //onKeyUp={changePartHandle1}
+                  disabled={boolVal3 | boolVal4}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-6 ">
+                <label className="form-label">Qty Received</label>
+                <input
+                  className="in-field"
+                  type="text"
+                  name="qtyReceived"
+                  //value={tempVal}
+                  value={inputPart.qtyReceived}
+                  onChange={changePartHandle}
+                  disabled={boolVal3 | boolVal4}
+                />
+              </div>
+              <div className="col-md-6">
+                <label className="form-label">Qty Accepted</label>
+                <input
+                  className="in-field"
+                  type="text"
+                  name="qtyAccepted"
+                  value={inputPart.qtyAccepted}
+                  onChange={changePartHandle}
+                  disabled={boolVal3 | boolVal4}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-6">
+                <label className="form-label">Qty Rejected</label>
+                <input
+                  className="in-field"
+                  type="text"
+                  name="qtyRejected"
+                  readOnly
+                />
+              </div>
+            </div>
+
             <div className="row justify-content-center mt-3 mb-4">
               <button
                 className="button-style "

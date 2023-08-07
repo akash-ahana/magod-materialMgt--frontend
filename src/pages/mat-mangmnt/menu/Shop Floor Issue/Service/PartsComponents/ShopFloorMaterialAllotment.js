@@ -91,7 +91,6 @@ function ShopFloorMaterialAllotment(props) {
       text: "Task No",
       dataField: "TaskNo",
       headerStyle: { whiteSpace: "nowrap" },
-
     },
     {
       text: "PStatus",
@@ -201,7 +200,7 @@ function ShopFloorMaterialAllotment(props) {
     } else {
       if (props.formtype == "Parts") {
         nav(
-          "/materialmanagement/shopfloorissue/service/parts/shopfloorallotmentform", //MaterialAllotmentMain
+          "/MaterialManagement/ShopFloorIssue/Service/Parts/ShopFloorAllotmentForm", //MaterialAllotmentMain
 
           {
             state: { ncid },

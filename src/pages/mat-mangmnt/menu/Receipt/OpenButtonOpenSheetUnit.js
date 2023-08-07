@@ -454,23 +454,52 @@ function OpenButtonOpenSheetUnit() {
     },
   ];
 
+  // const selectRow = {
+  //   mode: "radio",
+  //   clickToSelect: true,
+  //   bgColor: "#8A92F0",
+  //   onSelect: (row, isSelect, rowIndex, e) => {
+  //     // mtrlArray.map((obj) => {
+  //     //   if (obj.id == row.id) {
+  //     //     setMtrlStock(obj);
+  //     //   }
+  //     // });
+  //     setInputPart({
+  //       // id: row.id,
+  //       // partId: row.partId,
+  //       // unitWeight: row.unitWeight,
+  //       // qtyAccepted: row.qtyAccepted,
+  //       // qtyRejected: row.qtyRejected,
+  //       // qtyReceived: row.qtyReceived,
+  //       id: row.id,
+  //       srl: row.srl,
+  //       mtrlCode: row.mtrlCode,
+  //       dynamicPara1: row.dynamicPara1,
+  //       dynamicPara2: row.dynamicPara2,
+  //       dynamicPara3: row.dynamicPara3,
+  //       qty: row.qty,
+  //       inspected: row.inspected,
+  //       locationNo: row.locationNo,
+  //       upDated: row.upDated,
+  //     });
+  //   },
+  // };
+
   const selectRow = {
     mode: "radio",
     clickToSelect: true,
     bgColor: "#8A92F0",
+    // style: (row, rowIndex) => {
+    //   const backgroundColor = row.isSelected ? "#8A92F0" : "white"; // Change the colors accordingly
+    //   return { backgroundColor };
+    // },
     onSelect: (row, isSelect, rowIndex, e) => {
-      mtrlArray.map((obj) => {
-        if (obj.id == row.id) {
-          setMtrlStock(obj);
-        }
-      });
+      console.log("Selected Row:", row);
+      console.log("Is Select:", isSelect);
+      console.log("Row Index:", rowIndex);
+      console.log("Event:", e);
+
       setInputPart({
-        // id: row.id,
-        // partId: row.partId,
-        // unitWeight: row.unitWeight,
-        // qtyAccepted: row.qtyAccepted,
-        // qtyRejected: row.qtyRejected,
-        // qtyReceived: row.qtyReceived,
         id: row.id,
         srl: row.srl,
         mtrlCode: row.mtrlCode,
@@ -581,56 +610,39 @@ function OpenButtonOpenSheetUnit() {
         <div className="row mt-4">
           <div className="col-md-8 justify-content-center">
             <div className="row">
-                <div className="col-md-3 col-sm-12">
+              <div className="col-md-3 col-sm-12">
+                <button className="button-style" disabled={boolVal}>
+                  Save
+                </button>
+              </div>
+              <div className="col-md-3 col-sm-12">
+                <button className="button-style" disabled={boolVal}>
+                  Allot RV No
+                </button>
+              </div>
+              <div className="col-md-3 col-sm-12">
+                <button className="button-style" disabled={boolVal}>
+                  Delete RV
+                </button>
+              </div>
+              <div className="col-md-3 col-sm-12">
                 <button
-              className="button-style"
-            
-              disabled={boolVal}
-            >
-              Save
-            </button>
-                </div>
-                <div className="col-md-3 col-sm-12">
-                <button
-              className="button-style"
-           
-              disabled={boolVal}
-            >
-              Allot RV No
-            </button>
-                </div>
-                <div className="col-md-3 col-sm-12">
-                <button
-              className="button-style"
-             
-              disabled={boolVal}
-            >
-              Delete RV
-            </button>
-                </div>
-                <div className="col-md-3 col-sm-12">
-                <button
-              className="button-style "
-              id="btnclose"
-              type="submit"
-              onClick={() => nav("/MaterialManagement")}
-            >
-              Close
-            </button>
-                </div>
+                  className="button-style "
+                  id="btnclose"
+                  type="submit"
+                  onClick={() => nav("/MaterialManagement")}
+                >
+                  Close
+                </button>
+              </div>
             </div>
-           
-
-            
-            
-            
           </div>
           <div className="col-md-4 mb-3">
             <label className="form-label"></label>
             <textarea
-                id="exampleFormControlTextarea1"
-                rows="4"
-                style={{ width: "330px" }}
+              id="exampleFormControlTextarea1"
+              rows="4"
+              style={{ width: "330px" }}
               value={formHeader.address}
               readOnly
             ></textarea>
@@ -673,184 +685,186 @@ function OpenButtonOpenSheetUnit() {
               </div>
               <div className="row justify-content-center">
                 <div className="col-md-6 col-sm-12">
-                <button
-                  className="button-style "
-                  style={{ width: "155px" }}
-                  disabled={boolVal2}
-                  onClick={addToStock}
-                >
-                  Add to stock
-                </button>
+                  <button
+                    className="button-style "
+                    style={{ width: "155px" }}
+                    disabled={boolVal2}
+                    onClick={addToStock}
+                  >
+                    Add to stock
+                  </button>
                 </div>
                 <div className="col-md-6 col-sm-12">
-                <button
-                  className="button-style "
-                  style={{ width: "155px" }}
-                  disabled={boolVal3}
-                  onClick={removeStock}
-                >
-                  Remove stock
-                </button>
-</div>
-                
-                
+                  <button
+                    className="button-style "
+                    style={{ width: "155px" }}
+                    disabled={boolVal3}
+                    onClick={removeStock}
+                  >
+                    Remove stock
+                  </button>
+                </div>
               </div>
               <div className="row">
-           
-                  <div className="ip-box form-bg">
-                    <div className="row">
-                    <p className="form-title-deco mt-2"><h5>Serial Details</h5></p>
+                <div className="ip-box form-bg">
+                  <div className="row">
+                    <p className="form-title-deco mt-2">
+                      <h5>Serial Details</h5>
+                    </p>
 
-                      <div className="col-md-4 ">
-                        <label className="form-label">Part ID</label>
+                    <div className="col-md-4 ">
+                      <label className="form-label">Part ID</label>
+                    </div>
+                    <div className="col-md-8" style={{ marginTop: "8px" }}>
+                      <select
+                        className="ip-select dropdown-field"
+                        disabled={boolVal}
+                      >
+                        <option value="" disabled selected>
+                          Select Material
+                        </option>
+                        {/* <option value="option 1">001</option>
+                          <option value="option 1">002</option>
+                          <option value="option 1">003</option>
+                          <option value="option 1">004</option> */}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-md-4">
+                      <label className="form-label">Para 1</label>
+                    </div>
+                    <div className="col-md-8 ">
+                      <input
+                        className="in-field"
+                        value={inputPart.dynamicPara1}
+                        disabled={boolVal}
+                      />
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-4">
+                      <label className="form-label">Para 2</label>
+                    </div>
+                    <div className="col-md-8 ">
+                      <input
+                        className="in-field"
+                        disabled={boolVal}
+                        value={inputPart.dynamicPara2}
+                      />
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-4">
+                      <label className="form-label">Para 3</label>
+                    </div>
+                    <div className="col-md-8 ">
+                      <input
+                        className="in-field"
+                        disabled={boolVal}
+                        value={inputPart.dynamicPara3}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-12  mt-3">
+                    <p className="form-title-deco">
+                      <h5>Quantity Details</h5>
+                    </p>
+                    <div className="row">
+                      <div className="col-md-6">
+                        <label className="form-label">Received</label>
+                        <input
+                          className="in-field"
+                          disabled={boolVal}
+                          value={inputPart.qtyReceived}
+                        />
                       </div>
-                      <div className="col-md-8" style={{ marginTop: "8px" }}>
+
+                      <div className="col-md-6">
+                        <div
+                          className="col-md-12 mt-2"
+                          style={{ display: "flex", gap: "5px" }}
+                        >
+                          <input
+                            className="form-check-input mt-2"
+                            type="checkbox"
+                            checked={inputPart.inspected == 1 ? true : false}
+                            id="flexCheckDefault"
+                            disabled={boolVal}
+                          />
+                           <label className="form-label">Inspected</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-6">
+                        <label className="form-label">Accepted</label>
+                        <input
+                          className="in-field"
+                          disabled={boolVal}
+                          value={inputPart.qtyAccepted}
+                        />
+                      </div>
+
+                      <div className="col-md-6">
+                        <div
+                          className="col-md-12 mt-2"
+                          style={{ display: "flex", gap: "5px" }}
+                        >
+                          <input
+                            className="form-check-input mt-2"
+                            type="checkbox"
+                            checked={inputPart.upDated == 1 ? true : false}
+                            id="flexCheckDefault"
+                            disabled={boolVal}
+                          />
+                           <label className="form-label">Updated</label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-md-6 mt-2">
+                        <label
+                          className="form-label"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          Wt Calculated 2
+                        </label>
+                        <input
+                          className="in-field"
+                          disabled={boolVal}
+                          value={inputPart.totalWeightCalculated}
+                        />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-6">
+                        <label className="form-label">Weight</label>
+                        <input
+                          className="in-field"
+                          disabled={boolVal}
+                          value={inputPart.totalWeight}
+                        />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-6 ">
+                        <label className="form-label">Location</label>
                         <select
                           className="ip-select dropdown-field"
                           disabled={boolVal}
                         >
-                          <option value="" disabled selected>
-                            Select Material
-                          </option>
                           {/* <option value="option 1">001</option>
-                          <option value="option 1">002</option>
-                          <option value="option 1">003</option>
-                          <option value="option 1">004</option> */}
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="row">
-                      <div className="col-md-4">
-                        <label className="form-label">Para 1</label>
-                      </div>
-                      <div className="col-md-8 ">
-                        <input
-                          className="in-field"
-                          value={inputPart.dynamicPara1}
-                          disabled={boolVal}
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-4">
-                        <label className="form-label">Para 2</label>
-                      </div>
-                      <div className="col-md-8 ">
-                        <input
-                          className="in-field"
-                          disabled={boolVal}
-                          value={inputPart.dynamicPara2}
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-4">
-                        <label className="form-label">Para 3</label>
-                      </div>
-                      <div className="col-md-8 ">
-                        <input
-                          className="in-field"
-                          disabled={boolVal}
-                          value={inputPart.dynamicPara3}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-12  mt-3">
-                    <p className="form-title-deco"><h5>Quantity Details</h5></p>
-                      <div className="row">
-                        <div className="col-md-6">
-                          <label className="form-label">Received</label>
-                          <input
-                            className="in-field"
-                            disabled={boolVal}
-                            value={inputPart.qtyReceived}
-                          />
-                        </div>
-                       
-                        <div className="col-md-6">
-                          <div
-                            className="col-md-12 mt-2"
-                            style={{ display: "flex", gap: "5px" }}
-                          >
-                            <input
-                              className="form-check-input mt-2"
-                              type="checkbox"
-                              checked={inputPart.inspected == 1 ? true : false}
-                              id="flexCheckDefault"
-                              disabled={boolVal}
-                            />
-                             <label className="form-label">Inspected</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-md-6">
-                          <label className="form-label">Accepted</label>
-                          <input
-                            className="in-field"
-                            disabled={boolVal}
-                            value={inputPart.qtyAccepted}
-                          />
-                        </div>
-                       
-                        <div className="col-md-6">
-                          <div
-                            className="col-md-12 mt-2"
-                            style={{ display: "flex", gap: "5px" }}
-                          >
-                            <input
-                              className="form-check-input mt-2"
-                              type="checkbox"
-                              checked={inputPart.upDated == 1 ? true : false}
-                              id="flexCheckDefault"
-                              disabled={boolVal}
-                            />
-                             <label className="form-label">Updated</label>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="row">
-                        <div className="col-md-6 mt-2">
-                          <label className="form-label" style={{whiteSpace:"nowrap"}}>Wt Calculated 2</label>
-                          <input
-                            className="in-field"
-                            disabled={boolVal}
-                            value={inputPart.totalWeightCalculated}
-                          />
-                        </div>
-                        
-                      </div>
-                      <div className="row">
-                        <div className="col-md-6">
-                          <label className="form-label">Weight</label>
-                          <input
-                            className="in-field"
-                            disabled={boolVal}
-                            value={inputPart.totalWeight}
-                          />
-                        </div>
-                        
-                      </div>
-                      <div className="row">
-                        <div className="col-md-6 ">
-                          <label className="form-label">Location</label>
-                          <select
-                            className="ip-select dropdown-field"
-                            disabled={boolVal}
-                          >
-                            {/* <option value="option 1">001</option>
                             <option value="option 1">002</option>
                             <option value="option 1">003</option>
                             <option value="option 1">004</option> */}
-                          </select>
-                        </div>
-                       
+                        </select>
                       </div>
                     </div>
                   </div>
-               
+                </div>
               </div>
               <div className="row justify-content-center mt-2 mb-4">
                 <button
@@ -858,7 +872,7 @@ function OpenButtonOpenSheetUnit() {
                   style={{ width: "155px" }}
                   disabled={boolVal}
                 >
-                  Delete 
+                  Delete
                 </button>
               </div>
             </div>
