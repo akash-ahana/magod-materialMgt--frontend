@@ -364,8 +364,26 @@ function PNew() {
         insertHeaderFunction();
         setBoolVal2(true);
       } else {
-        //to update data
-        updateHeaderFunction();
+        //checl part array table valid data
+        console.log("part array = ", partArray);
+        let flag1 = 0;
+
+        for (let i = 0; i < partArray.length; i++) {
+          if (
+            partArray[i].partId == "" ||
+            partArray[i].unitWeight == "" ||
+            partArray[i].qtyReceived == "" ||
+            partArray[i].qtyAccepted == ""
+          ) {
+            flag1 = 1;
+          }
+        }
+        if (flag1 == 1) {
+          toast.error("Please fill correct Part details");
+        } else {
+          //to update data
+          updateHeaderFunction();
+        }
       }
     }
   };
@@ -380,8 +398,23 @@ function PNew() {
         "Enter the Customer Material Weight as per Customer Document"
       );
     } else {
-      // show model form
-      setShow(true);
+      let flag1 = 1;
+      for (let i = 0; i < partArray.length; i++) {
+        if (
+          partArray[i].partId == "" ||
+          partArray[i].unitWeight == "" ||
+          partArray[i].qtyReceived == "" ||
+          partArray[i].qtyAccepted == ""
+        ) {
+          flag1 = 1;
+        }
+      }
+      if (flag1 == 1) {
+        toast.error("Please fill correct Part details");
+      } else {
+        //show model form
+        setShow(true);
+      }
     }
 
     // if (partArray.length !== 0 && formHeader.weight == "0") {

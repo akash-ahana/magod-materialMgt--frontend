@@ -34,14 +34,17 @@ function UnitsMatAllotmentForm() {
     let url1 = endpoints.getRowByNCID + "?id=" + location.state.ncid;
 
     getRequest(url1, async (data) => {
-      console.log("form header data = ", data);
+      data["QtyAllottedTemp"] = data.QtyAllotted;
       setFormHeader(data);
       //setAllData(data);
 
       let url2 = endpoints.getCustomerByCustCode + "?code=" + data.Cust_Code;
       //console.log(url2);
       getRequest(url2, async (data1) => {
-        setFormHeader({ ...data, customer: data1.Cust_name });
+        setFormHeader({
+          ...data,
+          customer: data1.Cust_name,
+        });
       });
 
       //get first table data
@@ -58,6 +61,7 @@ function UnitsMatAllotmentForm() {
         "&para2=" +
         data.Para2;
       getRequest(url3, async (data2) => {
+        console.log("form header data = ", data);
         console.log("table data = ", data2);
         setFirstTable(data2);
         if (data2.length == 0) {
@@ -95,11 +99,11 @@ function UnitsMatAllotmentForm() {
       dataField: "MtrlStockID",
     },
     {
-      text: "Para1",
+      text: "Width",
       dataField: "DynamicPara1",
     },
     {
-      text: "Para2",
+      text: "Length",
       dataField: "DynamicPara2",
     },
     {
@@ -119,11 +123,11 @@ function UnitsMatAllotmentForm() {
       dataField: "MtrlStockID",
     },
     {
-      text: "Para1",
+      text: "Width",
       dataField: "DynamicPara1",
     },
     {
-      text: "Para2",
+      text: "Length",
       dataField: "DynamicPara2",
     },
     {
@@ -137,8 +141,18 @@ function UnitsMatAllotmentForm() {
     bgColor: "#98A8F8",
     onSelect: (row, isSelect, rowIndex, e) => {
       if (isSelect) {
-        setFirstTableRow([...firstTableRow, row]);
-        setSecondTableRow([...firstTableRow, row]);
+        console.log("formheader = ", formHeader);
+        console.log("firsttable = ", firstTableRow);
+        if (
+          formHeader.QtyAllottedTemp + firstTableRow.length <
+          formHeader.Qty
+        ) {
+          setFirstTableRow([...firstTableRow, row]);
+          setSecondTableRow([...firstTableRow, row]);
+        } else {
+          //isSelect = false;
+          //row.isSelect = false;
+        }
       } else {
         setFirstTableRow(
           firstTableRow.filter((obj) => {
@@ -151,6 +165,14 @@ function UnitsMatAllotmentForm() {
           })
         );
       }
+      //delay(3000);
+      //console.log("isselect = ", isSelect);
+      //console.log("selected table row = ", firstTableRow);
+    },
+    onSelectAll: (isSelect, rows) => {
+      //console.log("rows = ", rows);
+      //setFirstTableRow(rows);
+      //console.log("selected table row = ", firstTableRow);
     },
   };
   const selectRow2 = {
@@ -174,7 +196,7 @@ function UnitsMatAllotmentForm() {
   const allotMaterial = () => {
     setFormHeader({
       ...formHeader,
-      QtyAllotted: parseInt(formHeader.QtyAllotted) + firstTableRow.length,
+      QtyAllotted: parseInt(formHeader.QtyAllottedTemp) + firstTableRow.length,
     });
     setSecondTable(firstTableRow);
   };

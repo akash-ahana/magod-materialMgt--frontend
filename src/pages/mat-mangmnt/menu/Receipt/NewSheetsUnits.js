@@ -41,6 +41,10 @@ function NewSheetsUnits(props) {
   //after clicking inspected checkbox
   const [boolVal5, setBoolVal5] = useState(false);
 
+  //after clicking alllotrv enable add to stock / remove stock
+  const [boolVal6, setBoolVal6] = useState(true);
+  const [boolVal7, setBoolVal7] = useState(true);
+
   const [insCheck, setInsCheck] = useState(false);
   const [calcWeightVal, setCalcWeightVal] = useState(0);
   const [saveUpdateCount, setSaveUpdateCount] = useState(0);
@@ -473,8 +477,24 @@ function NewSheetsUnits(props) {
         insertHeaderFunction();
         setBoolVal2(true);
       } else {
-        //to update data
-        updateHeaderFunction();
+        console.log("part array = ", materialArray);
+        let flag1 = 0;
+        for (let i = 0; i < materialArray.length; i++) {
+          if (
+            materialArray[i].mtrlCode == "" ||
+            materialArray[i].locationNo == "" ||
+            materialArray[i].qtyReceived == "" ||
+            materialArray[i].qtyAccepted == ""
+          ) {
+            flag1 = 1;
+          }
+        }
+        if (flag1 == 1) {
+          toast.error("Please fill correct Material details");
+        } else {
+          //to update data
+          updateHeaderFunction();
+        }
       }
     }
   };
@@ -489,8 +509,25 @@ function NewSheetsUnits(props) {
         "Enter the Customer Material Weight as per Customer Document"
       );
     } else {
-      // show model form
-      setShow(true);
+
+      let flag1 = 0;
+      for (let i = 0; i < materialArray.length; i++) {
+        if (
+          materialArray[i].mtrlCode == "" ||
+          materialArray[i].locationNo == "" ||
+          materialArray[i].qtyReceived == "" ||
+          materialArray[i].qtyAccepted == ""
+        ) {
+          flag1 = 1;
+        }
+      }
+      if (flag1 == 1) {
+        toast.error("Please fill correct Material details");
+      } else {
+        //show model form
+        setShow(true);
+      }
+
     }
 
     // if (formHeader.weight == "0") {
@@ -514,6 +551,7 @@ function NewSheetsUnits(props) {
     await delay(500);
     setFormHeader(data);
     setBoolVal4(true);
+    setBoolVal6(false);
   };
 
   const deleteRVButtonState = () => {
@@ -939,6 +977,8 @@ function NewSheetsUnits(props) {
           //setBoolVal2(true);
           //setBoolVal3(false);
           setBoolValStock("on");
+          setBoolVal6(true);
+          setBoolVal7(false);
         } else {
           toast.error("Stock Not Added");
         }
@@ -958,6 +998,8 @@ function NewSheetsUnits(props) {
           //setBoolVal2(false);
           //setBoolVal3(true);
           setBoolValStock("off");
+          setBoolVal6(false);
+          setBoolVal7(true);
         } else {
           toast.error("Stock Not Removed");
         }
@@ -1176,34 +1218,20 @@ function NewSheetsUnits(props) {
               </div>
 
               <div className="row  justify-content-center">
-                {/* <div className="col-md-6 col-sm-12">
-                  <button
-                    className="button-style "
-                    style={{ width: "155px" }}
-                    disabled={
-                      (props.type2 === "purchase" || props.type === "gas") &&
-                      boolValStock === "off"
-                        ? !boolVal4
-                        : true
-                    }
-                    onClick={addToStock}
-                  >
-                    Add to stock
-                  </button>
-                </div> */}
                 <div className="col-md-6 col-sm-12">
                   <button
                     className="button-style "
                     style={{ width: "155px" }}
                     disabled={
-                      (props.type2 === "purchase" || props.type === "gas") &&
-                      boolValStock === "on"
-                        ? !boolVal4
-                        : true
+                      /*(props.type2 === "purchase" || props.type === "gas") &&
+                      boolValStock === "off"
+                        ? !boolVal4 
+                        : true*/
+                      boolVal6
                     }
-                    onClick={removeStock}
+                    onClick={addToStock}
                   >
-                    Add To stock
+                    Add to stock
                   </button>
                 </div>
                 <div className="col-md-6 col-sm-12">
@@ -1211,10 +1239,11 @@ function NewSheetsUnits(props) {
                     className="button-style "
                     style={{ width: "155px" }}
                     disabled={
-                      (props.type2 === "purchase" || props.type === "gas") &&
+                      /*(props.type2 === "purchase" || props.type === "gas") &&
                       boolValStock === "on"
                         ? !boolVal4
-                        : true
+                        : true*/
+                      boolVal7
                     }
                     onClick={removeStock}
                   >

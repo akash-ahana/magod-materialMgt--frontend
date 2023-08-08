@@ -164,7 +164,9 @@ const PrintIVListProfileCuttingTable2 = ({
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.tableContainer}>
-        <Text style={styles.title1}>Magod Laser Machining Pvt Ltd : Jigni</Text>
+        <Text style={styles.title1}>
+          Magod Laser Machining Pvt Ltd : Jigani
+        </Text>
         <Text style={styles.title2}>Material : Floor Issue</Text>
         <Text style={styles.line1}>
           _________________________________________________________________________________
