@@ -297,7 +297,7 @@ function MonthlyReport() {
     await delay(300);
     console.log("fullStockTable2 = ", fullStockTable2);
 
-    nav("/materialmanagement/Reports/PrintMonthlyReport", {
+    nav("/MaterialManagement/Reports/PrintMonthlyReport", {
       state: {
         date: formatDate(new Date(dateVal), 9),
         thirdTab: thirdTab,
@@ -341,7 +341,7 @@ function MonthlyReport() {
             className="button-style "
             id="btnclose"
             type="submit"
-            onClick={() => nav("/materialmanagement")}
+            onClick={() => nav("/MaterialManagement")}
           >
             Close
           </button>

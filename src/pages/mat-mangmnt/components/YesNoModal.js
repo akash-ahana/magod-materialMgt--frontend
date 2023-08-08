@@ -21,7 +21,11 @@ function YesNoModal(props) {
         </Modal.Header>
         <Modal.Body>{message}</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleYes}>
+          <Button
+            variant="secondary"
+            onClick={handleYes}
+            style={{ backgroundColor: " #2b3a55" }}
+          >
             Yes
           </Button>
           <Button variant="secondary" onClick={handleNo}>

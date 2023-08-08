@@ -54,7 +54,7 @@ function LocationStockReport() {
 
   const changeCustomer = (e) => {
     //const { name, value } = e.target;
-    setCustCode(e[0].Cust_Code);
+    setCustCode(e[0]?.Cust_Code);
   };
   const radioButtonChanged = async (e) => {
     const { name, value } = e.target;
@@ -122,7 +122,7 @@ function LocationStockReport() {
     await delay(300);
     console.log("fullTable = ", fullTable);
 
-    nav("/materialmanagement/StoreManagement/PrintLocationStockSummaryReport", {
+    nav("/MaterialManagement/StoreManagement/PrintLocationStockSummaryReport", {
       state: {
         formHeader: selectedfirstRow,
         tableData: fullTable,
@@ -143,7 +143,7 @@ function LocationStockReport() {
       tot2: tot2,
     };
     await delay(300);
-    nav("/materialmanagement/StoreManagement/PrintLocationStockDetailReport", {
+    nav("/MaterialManagement/StoreManagement/PrintLocationStockDetailReport", {
       state: {
         formHeader: selectedSecondRow,
         tableData: thirdTable,
@@ -303,7 +303,10 @@ function LocationStockReport() {
       <h4 className="title">Location Stock Report</h4>
       <div className="row">
         <div className="col-md-4">
-          <h4 className="form-title"> <u>Stock Viewer</u></h4>
+          <h4 className="form-title">
+            {" "}
+            <u>Stock Viewer</u>
+          </h4>
 
           <div className="row">
             <div className="col-md-12">
@@ -421,35 +424,34 @@ function LocationStockReport() {
             <div className="col-md-8">
               <div className="row  mt-3">
                 <div className="col-md-4 col-sm-12">
-                <button
-                  className="button-style "
-                 // style={{ width: "155px" }}
-                  onClick={summaryReport}
-                >
-                  Summary Report
-                </button>
+                  <button
+                    className="button-style "
+                    // style={{ width: "155px" }}
+                    onClick={summaryReport}
+                  >
+                    Summary Report
+                  </button>
                 </div>
                 <div className="col-md-4 col-sm-12">
-                <button
-                  className="button-style "
-                 // style={{ width: "155px" }}
-                  onClick={detailsReport}
-                >
-                  Details Report
-                </button>
+                  <button
+                    className="button-style "
+                    // style={{ width: "155px" }}
+                    onClick={detailsReport}
+                  >
+                    Details Report
+                  </button>
                 </div>
                 <div className="col-md-4 col-sm-12">
-                <button
-                  className="button-style"
-                 // style={{ width: "155px" }}
-                  id="btnclose"
-                  type="submit"
-                  onClick={() => nav("/materialmanagement")}
-                  
-                >
-                  Close
-                </button>
-                </div>  
+                  <button
+                    className="button-style"
+                    // style={{ width: "155px" }}
+                    id="btnclose"
+                    type="submit"
+                    onClick={() => nav("/MaterialManagement")}
+                  >
+                    Close
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -474,30 +476,25 @@ function LocationStockReport() {
               <label className="form-label">Dim 2</label>
               <input className="" value={selectedSecondRow.DynamicPara2} />
             </div>
-            <div
-              className="col-md-4 mt-2"
-              
-            >
+            <div className="col-md-4 mt-2">
               <div className="row">
                 <div className="col-md-1 col-sm-12">
-                <input
-                className="form-check-input mt-3"
-                type="checkbox"
-                id="flexCheckDefault"
-                name="updated"
-                checked={selectedSecondRow.Scrap !== 0 ? true : false}
-                //   value={inputPart.upDated}
-                //disabled={boolVal3 | boolVal4}
-                //   disabled={true}
-                //   onChange={changeMaterialHandle}
-              />
+                  <input
+                    className="form-check-input mt-3"
+                    type="checkbox"
+                    id="flexCheckDefault"
+                    name="updated"
+                    checked={selectedSecondRow.Scrap !== 0 ? true : false}
+                    //   value={inputPart.upDated}
+                    //disabled={boolVal3 | boolVal4}
+                    //   disabled={true}
+                    //   onChange={changeMaterialHandle}
+                  />
                 </div>
                 <div className="col-md-8 col-sm-12">
-                <label className="form-label mt-1">Scrap</label>
+                  <label className="form-label mt-1">Scrap</label>
                 </div>
-
               </div>
-              
             </div>
           </div>
         </div>
