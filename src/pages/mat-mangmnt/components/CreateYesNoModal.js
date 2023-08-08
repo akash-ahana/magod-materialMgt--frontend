@@ -86,7 +86,12 @@ function CreateYesNoModal(props) {
           changes are permitted after this
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleYes}>
+          <Button
+            variant="secondary"
+            style={{ backgroundColor: "#2b3a55" }}
+            onClick={handleYes}
+            // className="button_style"
+          >
             Yes
           </Button>
           <Button variant="secondary" onClick={handleNo}>

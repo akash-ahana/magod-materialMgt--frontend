@@ -437,7 +437,7 @@ function OutwordPartIssueVocher(props) {
                 className="button-style mb-2"
                 id="btnclose"
                 type="submit"
-                onClick={() => nav("/materialmanagement")}
+                onClick={() => nav("/MaterialManagement")}
               >
                 Close
               </button>

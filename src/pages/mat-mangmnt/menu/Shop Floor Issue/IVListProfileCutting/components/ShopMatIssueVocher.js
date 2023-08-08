@@ -13,7 +13,7 @@ function ShopMatIssueVocher() {
   const location = useLocation();
   const [noDetails, setNoDetails] = useState(0);
   const [combineSheets, setCombineSheets] = useState("");
-  console.log("location id = ", location.state.issueIDVal);
+  console.log("location id = ", location?.state?.issueIDVal);
   const [tableData, setTableData] = useState([]);
   let [formHeader, setFormHeader] = useState({
     CustMtrl: "",
@@ -185,7 +185,7 @@ function ShopMatIssueVocher() {
     // }
     if (noDetails === 1 && combineSheets.length > 0) {
       nav(
-        "/materialmanagement/shopfloorissue/ivlistprofilecutting/PrintIVListProfileCutting",
+        "/MaterialManagement/ShopFloorIssue/IVListProfileCutting/PrintIVListProfileCutting",
         {
           state: {
             formHeader: formHeader,
@@ -197,7 +197,7 @@ function ShopMatIssueVocher() {
       );
     } else {
       nav(
-        "/materialmanagement/shopfloorissue/ivlistprofilecutting/PrintIVListProfileCutting",
+        "/MaterialManagement/ShopFloorIssue/IVListProfileCutting/PrintIVListProfileCutting",
         {
           state: {
             formHeader: formHeader,
@@ -313,21 +313,21 @@ function ShopMatIssueVocher() {
         <div className="col-md-4">
           {" "}
           <div className="row mt-4">
-           <div className="col-md-6 col-sm-12">
-           <button className="button-style " onClick={printButton}>
+            <div className="col-md-6 col-sm-12">
+              <button className="button-style " onClick={printButton}>
                 Print
               </button>
-           </div>
-           <div className="col-md-6 col-sm-12">
-           <button
+            </div>
+            <div className="col-md-6 col-sm-12">
+              <button
                 className="button-style "
                 id="btnclose"
                 type="submit"
-                onClick={() => nav("/materialmanagement")}
+                onClick={() => nav("/MaterialManagement")}
               >
                 Close
               </button>
-           </div>
+            </div>
           </div>
           <div className="row mt-4">
             {" "}

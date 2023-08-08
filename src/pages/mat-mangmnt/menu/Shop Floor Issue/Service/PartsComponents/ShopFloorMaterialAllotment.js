@@ -90,6 +90,7 @@ function ShopFloorMaterialAllotment(props) {
     {
       text: "Task No",
       dataField: "TaskNo",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "PStatus",
@@ -102,6 +103,7 @@ function ShopFloorMaterialAllotment(props) {
     {
       text: "NCProgram No",
       dataField: "NCProgramNo",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Machine",
@@ -114,6 +116,7 @@ function ShopFloorMaterialAllotment(props) {
     {
       text: "Mtrl Code",
       dataField: "Mtrl_Code",
+      headerStyle: { whiteSpace: "nowrap" },
     },
     {
       text: "Source",
@@ -197,7 +200,7 @@ function ShopFloorMaterialAllotment(props) {
     } else {
       if (props.formtype == "Parts") {
         nav(
-          "/materialmanagement/shopfloorissue/service/parts/shopfloorallotmentform", //MaterialAllotmentMain
+          "/MaterialManagement/ShopFloorIssue/Service/Parts/ShopFloorAllotmentForm", //MaterialAllotmentMain
 
           {
             state: { ncid },
@@ -231,7 +234,7 @@ function ShopFloorMaterialAllotment(props) {
           style={{ width: "155px" }}
           id="btnclose"
           type="submit"
-          onClick={() => nav("/materialmanagement")}
+          onClick={() => nav("/MaterialManagement")}
         >
           Close
         </button>

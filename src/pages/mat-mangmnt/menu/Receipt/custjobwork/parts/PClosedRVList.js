@@ -154,7 +154,7 @@ function PClosedRVList() {
               className="button-style "
               id="btnclose"
               type="submit"
-              onClick={() => nav("/materialmanagement")}
+              onClick={() => nav("/MaterialManagement")}
             >
               Close
             </button>
@@ -245,7 +245,7 @@ function PClosedRVList() {
                       </div>
                       <div className="row">
                         <div className="col-md-4 mt-1">
-                          <label className="form-label">Cust Docu No</label>
+                          <label className="form-label" style={{whiteSpace:"nowrap"}}>Cust Docu No</label>
                         </div>
 
                         <div className="col-md-8 ">
@@ -271,7 +271,7 @@ function PClosedRVList() {
 
                       <div className="row">
                         <div className="col-md-4 mt-1">
-                          <label className="form-label" style={{whiteSpace:"nowrap"}}>Calculatd Weight</label>
+                          <label className="form-label" style={{whiteSpace:"nowrap"}}>Calculated Weight</label>
                         </div>
                         <div className="col-md-8 ">
                           <input

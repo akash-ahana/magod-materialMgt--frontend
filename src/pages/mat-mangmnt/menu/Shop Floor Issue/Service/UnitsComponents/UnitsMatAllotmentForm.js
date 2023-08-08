@@ -66,7 +66,7 @@ function UnitsMatAllotmentForm() {
         setFirstTable(data2);
         if (data2.length == 0) {
           toast.warning(
-            "There is no material to alttot for this program. Check if you have added the material to customer stock?"
+            "There is no material to allot for this program. Check if you have added the material to customer stock?"
           );
         }
       });
@@ -513,7 +513,7 @@ function UnitsMatAllotmentForm() {
             />
           </div>
           <div className="col-md-3">
-            <label className="form-label">Alloted</label>
+            <label className="form-label">Allotted</label>
             <input
               className="form-label"
               value={formHeader.QtyAllotted}
@@ -569,7 +569,7 @@ function UnitsMatAllotmentForm() {
                   className="button-style "
                   id="btnclose"
                   type="submit"
-                  onClick={() => nav("/materialmanagement")}
+                  onClick={() => nav("/MaterialManagement")}
                   style={{ width: "180px" }}
                 >
                   Close

@@ -502,11 +502,14 @@ function NewSheetsUnits(props) {
   const allotRVButtonState = (e) => {
     e.preventDefault();
 
-    if (formHeader.weight == "0") {
+    if (materialArray.length === 0) {
+      toast.error("Add Details Before Saving");
+    } else if (materialArray.length !== 0 && formHeader.weight == "0") {
       toast.error(
         "Enter the Customer Material Weight as per Customer Document"
       );
     } else {
+
       let flag1 = 0;
       for (let i = 0; i < materialArray.length; i++) {
         if (
@@ -524,7 +527,24 @@ function NewSheetsUnits(props) {
         //show model form
         setShow(true);
       }
+
     }
+
+    // if (formHeader.weight == "0") {
+    //   toast.error(
+    //     "Enter the Customer Material Weight as per Customer Document"
+    //   );
+    // } else {
+    //   //show model form
+    //   setShow(true);
+    // }
+
+    //ADDED POPUP FOR ALLOTRVNO
+    // if (materialArray.length === 0) {
+    //   toast.error("Add Details Before Saving");
+    // } else {
+    //   setShow(true);
+    // }
   };
 
   const allotRVYesButton = async (data) => {
@@ -542,7 +562,7 @@ function NewSheetsUnits(props) {
         if (data.affectedRows !== 0) {
           toast.success("Record is Deleted");
           nav(
-            "/materialmanagement/receipt/customerjobwork/sheetsandothers/new",
+            "/MaterialManagement/Receipt/CustomerJobWork/SheetsAndOthers/New",
             {
               replace: true,
             }
@@ -1144,7 +1164,7 @@ function NewSheetsUnits(props) {
               className="button-style "
               id="btnclose"
               type="submit"
-              onClick={() => nav("/materialmanagement")}
+              onClick={() => nav("/MaterialManagement")}
             >
               Close
             </button>
