@@ -34,14 +34,17 @@ function UnitsMatAllotmentForm() {
     let url1 = endpoints.getRowByNCID + "?id=" + location.state.ncid;
 
     getRequest(url1, async (data) => {
-      console.log("form header data = ", data);
+      data["QtyAllottedTemp"] = data.QtyAllotted;
       setFormHeader(data);
       //setAllData(data);
 
       let url2 = endpoints.getCustomerByCustCode + "?code=" + data.Cust_Code;
       //console.log(url2);
       getRequest(url2, async (data1) => {
-        setFormHeader({ ...data, customer: data1.Cust_name });
+        setFormHeader({
+          ...data,
+          customer: data1.Cust_name,
+        });
       });
 
       //get first table data
@@ -58,6 +61,7 @@ function UnitsMatAllotmentForm() {
         "&para2=" +
         data.Para2;
       getRequest(url3, async (data2) => {
+        console.log("form header data = ", data);
         console.log("table data = ", data2);
         setFirstTable(data2);
         if (data2.length == 0) {
@@ -95,11 +99,11 @@ function UnitsMatAllotmentForm() {
       dataField: "MtrlStockID",
     },
     {
-      text: "Para1",
+      text: "Width",
       dataField: "DynamicPara1",
     },
     {
-      text: "Para2",
+      text: "Length",
       dataField: "DynamicPara2",
     },
     {
@@ -119,11 +123,11 @@ function UnitsMatAllotmentForm() {
       dataField: "MtrlStockID",
     },
     {
-      text: "Para1",
+      text: "Width",
       dataField: "DynamicPara1",
     },
     {
-      text: "Para2",
+      text: "Length",
       dataField: "DynamicPara2",
     },
     {
@@ -137,8 +141,18 @@ function UnitsMatAllotmentForm() {
     bgColor: "#98A8F8",
     onSelect: (row, isSelect, rowIndex, e) => {
       if (isSelect) {
-        setFirstTableRow([...firstTableRow, row]);
-        setSecondTableRow([...firstTableRow, row]);
+        console.log("formheader = ", formHeader);
+        console.log("firsttable = ", firstTableRow);
+        if (
+          formHeader.QtyAllottedTemp + firstTableRow.length <
+          formHeader.Qty
+        ) {
+          setFirstTableRow([...firstTableRow, row]);
+          setSecondTableRow([...firstTableRow, row]);
+        } else {
+          //isSelect = false;
+          //row.isSelect = false;
+        }
       } else {
         setFirstTableRow(
           firstTableRow.filter((obj) => {
@@ -151,6 +165,14 @@ function UnitsMatAllotmentForm() {
           })
         );
       }
+      //delay(3000);
+      //console.log("isselect = ", isSelect);
+      //console.log("selected table row = ", firstTableRow);
+    },
+    onSelectAll: (isSelect, rows) => {
+      //console.log("rows = ", rows);
+      //setFirstTableRow(rows);
+      //console.log("selected table row = ", firstTableRow);
     },
   };
   const selectRow2 = {
@@ -174,7 +196,7 @@ function UnitsMatAllotmentForm() {
   const allotMaterial = () => {
     setFormHeader({
       ...formHeader,
-      QtyAllotted: parseInt(formHeader.QtyAllotted) + firstTableRow.length,
+      QtyAllotted: parseInt(formHeader.QtyAllottedTemp) + firstTableRow.length,
     });
     setSecondTable(firstTableRow);
   };
@@ -422,13 +444,21 @@ function UnitsMatAllotmentForm() {
           <div className="col-md-6">
             <div style={{ marginBottom: "9px" }}>
               <label className="form-label">NC Program No</label>
-              <input className="form-label" value={formHeader.NCProgramNo} disabled />
+              <input
+                className="form-label"
+                value={formHeader.NCProgramNo}
+                disabled
+              />
             </div>
           </div>
           <div className="col-md-6">
             <div style={{ marginBottom: "9px" }}>
               <label className="form-label">Material Code</label>
-              <input className="form-label" value={formHeader.Mtrl_Code} disabled />
+              <input
+                className="form-label"
+                value={formHeader.Mtrl_Code}
+                disabled
+              />
             </div>
           </div>
         </div>
@@ -436,7 +466,11 @@ function UnitsMatAllotmentForm() {
         <div className="row">
           <div className="col-md-3">
             <label className="form-label">Priority</label>
-            <input className="form-label" value={formHeader.Priority} disabled />
+            <input
+              className="form-label"
+              value={formHeader.Priority}
+              disabled
+            />
           </div>
           <div className="col-md-3">
             <label className="form-label">Para 1</label>
@@ -465,68 +499,76 @@ function UnitsMatAllotmentForm() {
 
           <div className="col-md-3">
             <label className="form-label">Process</label>
-            <input className="form-label" value={formHeader.MProcess} disabled />
+            <input
+              className="form-label"
+              value={formHeader.MProcess}
+              disabled
+            />
           </div>
           <div className="col-md-3">
             <label className="form-label">Alloted</label>
-            <input className="form-label" value={formHeader.QtyAllotted} disabled />
+            <input
+              className="form-label"
+              value={formHeader.QtyAllotted}
+              disabled
+            />
           </div>
         </div>
         <div className="row">
           <div className="col-md-4">
             <label className="form-label">Source</label>
-            <input className="form-label" value={formHeader.CustMtrl} disabled />
+            <input
+              className="form-label"
+              value={formHeader.CustMtrl}
+              disabled
+            />
           </div>
           <div className="col-md-8">
             <div className="row">
-            <div className="col-md-3 col-sm-12">
-            <button
-              className="button-style "
-              //   disabled={true}
-              onClick={allotMaterial}
-              style={{width:"180px"}}
-            >
-              Allot Material
-            </button>
+              <div className="col-md-3 col-sm-12">
+                <button
+                  className="button-style "
+                  //   disabled={true}
+                  onClick={allotMaterial}
+                  style={{ width: "180px" }}
+                >
+                  Allot Material
+                </button>
+              </div>
+              <div className="col-md-3 col-sm-12">
+                <button
+                  className="button-style "
+                  onClick={CancelAllotMaterial}
+                  style={{ width: "180px" }}
+                  //   disabled={true}
+                  //   onClick={addToStock}
+                >
+                  Cancel Allot
+                </button>
+              </div>
+              <div className="col-md-3 col-sm-12">
+                <button
+                  className="button-style "
+                  //   disabled={true}
+                  onClick={issueToProduction}
+                  // style={{width:"180px"}}
+                  style={{ width: "185px" }}
+                >
+                  Issue to Production
+                </button>
+              </div>
+              <div className="col-md-3 col-sm-12">
+                <button
+                  className="button-style "
+                  id="btnclose"
+                  type="submit"
+                  onClick={() => nav("/materialmanagement")}
+                  style={{ width: "180px" }}
+                >
+                  Close
+                </button>
+              </div>
             </div>
-            <div className="col-md-3 col-sm-12">
-            <button
-              className="button-style "
-              onClick={CancelAllotMaterial}
-              style={{width:"180px"}}
-              //   disabled={true}
-              //   onClick={addToStock}
-            >
-              Cancel Allot
-            </button>
-            </div>
-            <div className="col-md-3 col-sm-12">
-            <button
-              className="button-style "
-              //   disabled={true}
-              onClick={issueToProduction}
-              // style={{width:"180px"}}
-              style={{ width: "185px" }}
-            >
-              Issue to Production
-            </button>
-            </div>
-            <div className="col-md-3 col-sm-12">
-            <button
-              className="button-style "
-              id="btnclose"
-              type="submit"
-              onClick={() => nav("/materialmanagement")}
-              style={{width:"180px"}}
-            >
-              Close
-            </button>
-            </div>
-            </div>
-            
-           
-            
-            
           </div>
         </div>
 

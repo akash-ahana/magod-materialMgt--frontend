@@ -66,19 +66,15 @@ function LocationList(props) {
     }
   };
   const InputEventShape = (e) => {
-    const { value, name } = e.target;
-    //const found = allData.filter((obj) => obj.Cust_Code === e[0].Shape);
-
+    //const { value, name } = e.target;
     setFormHeader((preValue) => {
       //console.log(preValue)
       return {
         ...preValue,
-        //storage: e[0] && e[0].Shape.length !== 0 ? e[0].Shape : "",
-        storage: value,
-
+        storage: e[0]?.Shape,
       };
     });
-    console.log(formHeader);
+
     if (btnState === "save") {
       //update
     }
@@ -252,31 +248,27 @@ function LocationList(props) {
         <div className="col-md-5 col-sm-12">
           <div className="ip-box form-bg">
             <div className="row">
-
-              <div className="col-md-12 col-sm-12">
-                <div className="ip-box form-bg">
-                  <div className="row">
-                    <div className="row">
-                      <div className="col-md-4 ">
-                        <label className="">Location No/Name</label>
-                      </div>
-                      <div className="col-md-8 ">
-                        <input
-                          className="in-field"
-                          type="text"
-                          name="location"
-                          value={formHeader.location}
-                          onChange={InputEvent}
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-4 ">
-                        <label className="">Storage Type</label>
-                      </div>
-                      <div className="col-md-8" style={{ marginTop: "8px" }}>
-                        <select
-
+              <div className="col-md-5 ">
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  Location No/Name
+                </label>
+              </div>
+              <div className="col-md-7 ">
+                <input
+                  className="in-field"
+                  type="text"
+                  name="location"
+                  value={formHeader.location}
+                  onChange={InputEvent}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-5 mt-2 ">
+                <label className="form-label">Storage Type</label>
+              </div>
+              <div className="col-md-7" style={{ marginTop: "8px" }}>
+                {/* <select
                           className="ip-select dropdown-field"
                           name="storage"
                           onChange={InputEvent}
@@ -291,19 +283,21 @@ function LocationList(props) {
                               {sh.Shape}
                             </option>
                           ))}
-                        </select>
-                        {/* <Typeahead
-                          id="basic-example"
-                          //name="storage"
-                          //value={formHeader.storage}
-                          defaultSelected={formHeader.storage}
-                          options={shape}
-                          placeholder="Select Storage Type"
-                          onChange={(label) => InputEventShape(label)}
-                        /> */}
-                      </div>
-                    </div>
-
+                        </select> */}
+                {shape.length > 0 ? (
+                  <Typeahead
+                    id="basic-example"
+                    name="storage"
+                    options={shape}
+                    placeholder="Select Storage Type"
+                    onChange={(label) => InputEventShape(label)}
+                    className="in-field"
+                  />
+                ) : (
+                  <p>Loading storage types...</p>
+                )}
+              </div>
+            </div>
 
             <div className="row">
               <div className="col-md-5 ">
@@ -355,7 +349,7 @@ function LocationList(props) {
                   style={{ width: "100px" }}
                   id="btnclose"
                   type="submit"
-                  onClick={() => nav("/materialmanagement")}
+                  onClick={() => nav("/MaterialManagement")}
                 >
                   Close
                 </button>

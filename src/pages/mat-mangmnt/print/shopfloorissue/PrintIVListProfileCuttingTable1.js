@@ -153,7 +153,9 @@ const PrintIVListProfileCuttingTable1 = ({ formHeader, tableData }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.tableContainer}>
-        <Text style={styles.title1}>Magod Laser Machining Pvt Ltd : Jigni</Text>
+        <Text style={styles.title1}>
+          Magod Laser Machining Pvt Ltd : Jigani
+        </Text>
         <Text style={styles.title2}>Material : Floor Issue</Text>
         <Text style={styles.line1}>
           _________________________________________________________________________________
@@ -189,8 +191,8 @@ const PrintIVListProfileCuttingTable1 = ({ formHeader, tableData }) => (
         </Text>
 
         <Text style={styles.mtrlID}>Mtrl ID </Text>
-        <Text style={styles.para1}>Para 1 </Text>
-        <Text style={styles.para2}>Para 2 </Text>
+        <Text style={styles.para1}>Width </Text>
+        <Text style={styles.para2}>Length </Text>
         <Text style={styles.used}>Used </Text>
         <Text style={styles.reject}>Reject </Text>
 
