@@ -95,7 +95,7 @@ function NewSheetsUnits(props) {
     totalWeightCalculated: "",
     totalWeight: "",
     locationNo: "",
-    upDated: "",
+    updated: "",
     qtyAccepted: 0,
     qtyReceived: 0,
     qtyRejected: 0,
@@ -157,7 +157,7 @@ function NewSheetsUnits(props) {
       formatter: (celContent, row) => (
         <div className="checkbox">
           <lable>
-            <input type="checkbox" checked={row.UpDated == 1 ? true : false} />
+            <input type="checkbox" checked={row.updated == 1 ? true : false} />
           </lable>
         </div>
       ),
@@ -509,25 +509,44 @@ function NewSheetsUnits(props) {
         "Enter the Customer Material Weight as per Customer Document"
       );
     } else {
-
       let flag1 = 0;
       for (let i = 0; i < materialArray.length; i++) {
         if (
-          materialArray[i].mtrlCode == "" ||
-          materialArray[i].locationNo == "" ||
+          //materialArray[i].mtrlCode == "" ||
+          //materialArray[i].locationNo == "" ||
           materialArray[i].qtyReceived == "" ||
-          materialArray[i].qtyAccepted == ""
+          materialArray[i].qtyReceived == "0" ||
+          materialArray[i].qtyReceived == 0
+          //materialArray[i].qtyAccepted == ""
         ) {
           flag1 = 1;
         }
+        if (materialArray[i].mtrlCode == "") {
+          flag1 = 2;
+        }
+        if (
+          materialArray[i].qtyAccepted == "" ||
+          materialArray[i].qtyAccepted == "0" ||
+          materialArray[i].qtyAccepted == 0
+        ) {
+          flag1 = 3;
+        }
+        if (materialArray[i].locationNo == "") {
+          flag1 = 4;
+        }
       }
       if (flag1 == 1) {
-        toast.error("Please fill correct Material details");
+        toast.error("Receipt Qty cannot be Zero");
+      } else if (flag1 == 2) {
+        toast.error("Select Material First");
+      } else if (flag1 == 3) {
+        toast.error("Select Quantity Accepted");
+      } else if (flag1 == 4) {
+        toast.error("Select Location");
       } else {
         //show model form
         setShow(true);
       }
-
     }
 
     // if (formHeader.weight == "0") {
@@ -583,7 +602,7 @@ function NewSheetsUnits(props) {
     qty,
     inspected,
     locationNo,
-    upDated,
+    updated,
   } = inputPart;
 
   const addNewMaterial = (e) => {
@@ -606,7 +625,7 @@ function NewSheetsUnits(props) {
     inputPart.totalWeightCalculated = 0.0;
     inputPart.totalWeight = 0.0;
     inputPart.locationNo = "";
-    inputPart.upDated = 0.0;
+    inputPart.updated = 0;
     inputPart.qtyAccepted = 0.0;
     inputPart.qtyReceived = 0.0;
     inputPart.qtyRejected = 0.0;
@@ -645,7 +664,7 @@ function NewSheetsUnits(props) {
           qty: "",
           inspected: "",
           locationNo: "",
-          upDated: "",
+          updated: "",
         };
         //setPartArray(newRow);
         setMaterialArray([...materialArray, newRow]);
@@ -691,6 +710,33 @@ function NewSheetsUnits(props) {
           );
           setMaterialArray(newArray);
           toast.success("Material Deleted");
+          //reset all fields
+          //Object.keys(inputPart).forEach((key) => (inputPart[key] = null));
+          setInputPart({
+            id: "",
+            rvId: "",
+            srl: "",
+            custCode: "",
+            mtrlCode: "",
+            material: "",
+            shapeMtrlId: "",
+            shapeID: "",
+            dynamicPara1: "",
+            dynamicPara2: "",
+            dynamicPara3: "",
+            qty: "",
+            inspected: "",
+            accepted: "",
+            totalWeightCalculated: "",
+            totalWeight: "",
+            locationNo: "",
+            updated: "",
+            qtyAccepted: 0,
+            qtyReceived: 0,
+            qtyRejected: 0,
+            qtyUsed: 0,
+            qtyReturned: 0,
+          });
         }
       });
 
@@ -898,7 +944,7 @@ function NewSheetsUnits(props) {
           obj.totalWeightCalculated = obj.TotalWeightCalculated;
           obj.totalWeight = obj.TotalWeight;
           obj.locationNo = obj.LocationNo;
-          obj.upDated = obj.UpDated;
+          obj.updated = obj.Updated;
           obj.qtyAccepted = obj.QtyAccepted;
           obj.qtyReceived = obj.QtyReceived;
           obj.qtyRejected = obj.QtyRejected;
@@ -929,7 +975,7 @@ function NewSheetsUnits(props) {
         qty: row.qty,
         inspected: row.inspected,
         locationNo: row.locationNo,
-        upDated: row.upDated,
+        updated: row.updated,
       });
     },
   };
@@ -937,7 +983,7 @@ function NewSheetsUnits(props) {
   // const addToStock = () => {};
 
   // const removeToStock = () => {};
-  const addToStock = () => {
+  const addToStock = async () => {
     if (Object.keys(mtrlStock).length === 0) {
       toast.error("Please Select Material");
     } else {
@@ -983,6 +1029,18 @@ function NewSheetsUnits(props) {
           toast.error("Stock Not Added");
         }
       });
+      //console.log("mtrlstock = ", mtrlStock);
+      //console.log("before materialArray = ", materialArray);
+
+      //update checkbox
+      for (let i = 0; i < materialArray.length; i++) {
+        if (materialArray[i].mtrlCode == mtrlStock.Mtrl_Code) {
+          materialArray[i].updated = 1;
+        }
+      }
+      await delay(500);
+      setMaterialArray(materialArray);
+      //console.log("after materialArray = ", materialArray);
     }
   };
 
@@ -1000,6 +1058,15 @@ function NewSheetsUnits(props) {
           setBoolValStock("off");
           setBoolVal6(false);
           setBoolVal7(true);
+
+          //update checkbox
+          for (let i = 0; i < materialArray.length; i++) {
+            if (materialArray[i].mtrlCode == mtrlStock.Mtrl_Code) {
+              materialArray[i].updated = 0;
+            }
+          }
+          await delay(500);
+          setMaterialArray(materialArray);
         } else {
           toast.error("Stock Not Removed");
         }
@@ -1423,7 +1490,7 @@ function NewSheetsUnits(props) {
                             type="checkbox"
                             id="flexCheckDefault"
                             name="updated"
-                            value={inputPart.upDated}
+                            value={inputPart.updated}
                             //disabled={boolVal3 | boolVal4}
                             disabled={true}
                             onChange={changeMaterialHandle}
