@@ -27,7 +27,12 @@ function ShopFloorMaterialAllotment(props) {
       "&hasbom=" +
       props.hasbom;
     await getRequest(url1, async (data) => {
-      console.log("table data = ", data);
+      //delay(5000);
+      data = data.filter((obj) => {
+        return obj["PStatus"] !== "Completed";
+      });
+      //await delay(3000);
+      console.log("new table data = ", data);
       setTableData(data);
       //setAllData(data);
     });
