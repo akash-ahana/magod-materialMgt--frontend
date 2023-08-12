@@ -181,7 +181,7 @@ function OpenButtonDraftSheetUnit() {
       formHeader.calcWeight = data.TotalCalculatedWeight;
       formHeader.type = data.Type;
 
-      //console.log("data = ", data);
+      console.log("data = ", data);
       //data.ReceiptDate = formatDate(new Date(data.ReceiptDate), 4);
       //data.RV_Date = formatDate(new Date(data.RV_Date), 3);
       //setFormHeader(formHeader);
@@ -227,34 +227,55 @@ function OpenButtonDraftSheetUnit() {
         setMaterialArray(data2);
 
         //find shape of material
+        //console.log("data2 = ", data2);
         for (let i = 0; i < data2.length; i++) {
           const url2 =
             endpoints.getRowByMtrlCode + "?code=" + data2[i].Mtrl_Code;
           getRequest(url2, (data3) => {
+            //console.log("data3 = ", data3);
+
             if (data3.Shape === "Block") {
               setPara1Label("Length");
               setPara2Label("Width");
               setPara3Label("Height");
+              setUnitLabel1("mm");
+              setUnitLabel2("mm");
+              setUnitLabel3("mm");
             } else if (data3.Shape === "Plate") {
               setPara1Label("Length");
               setPara2Label("Width");
               setPara3Label("");
+              setUnitLabel1("mm");
+              setUnitLabel2("mm");
+              setUnitLabel3("");
             } else if (data3.Shape === "Sheet") {
               setPara1Label("Width");
               setPara2Label("Length");
               setPara3Label("");
+              setUnitLabel1("mm");
+              setUnitLabel2("mm");
+              setUnitLabel3("");
             } else if (data3.Shape === "Tiles") {
               setPara1Label("");
               setPara2Label("");
               setPara3Label("");
+              setUnitLabel1("");
+              setUnitLabel2("");
+              setUnitLabel3("");
             } else if (data3.Shape.includes("Tube")) {
               setPara1Label("Length");
               setPara2Label("");
               setPara3Label("");
+              setUnitLabel1("mm");
+              setUnitLabel2("");
+              setUnitLabel3("");
             } else if (data3.Shape.includes("Units")) {
               setPara1Label("Qty(Nos)");
               setPara2Label("");
               setPara3Label("");
+              setUnitLabel1("Nos");
+              setUnitLabel2("");
+              setUnitLabel3("");
             }
           });
         }
@@ -275,6 +296,8 @@ function OpenButtonDraftSheetUnit() {
       setMtrlDetails(data);
     });
     //console.log("data = ", custdata);
+    await delay(500);
+    console.log("para1 label = ", para1Label);
   }
 
   useEffect(() => {

@@ -85,6 +85,44 @@ function SheetResizeForm() {
       }
     },
   };
+
+  const resizeButton = () => {
+    console.log("selected rows = ", selectedTableRows);
+    if (selectedTableRows.length == 0) {
+      toast.error("Please select the row first");
+    } else {
+      let flag = 0;
+      for (let i = 0; i < selectedTableRows; i++) {
+        if (
+          selectedTableRows[0].DynamicPara1 !==
+            selectedTableRows[i].DynamicPara1 ||
+          selectedTableRows[0].DynamicPara2 !==
+            selectedTableRows[i].DynamicPara2 ||
+          selectedTableRows[0].Mtrl_Code !== selectedTableRows[i].Mtrl_Code
+        ) {
+          flag = 1;
+        }
+        if (selectedTableRows[0].Mtrl_Code !== selectedTableRows[i].Mtrl_Code) {
+          flag = 2;
+        }
+      }
+      if (flag == 1) {
+        toast.error("Select Items with similar dimensions and Material Code");
+      } else if (flag == 2) {
+        toast.error("Select Items with similar Material Code");
+      } else {
+        nav(
+          "/MaterialManagement/ShoopFloorReturns/PendingList/ResizeAndReturn/MaterialSplitter",
+          {
+            state: {
+              secondTableRow: selectedTableRows,
+              type: "storeresize",
+            },
+          }
+        );
+      }
+    }
+  };
   return (
     <div>
       {" "}
@@ -118,7 +156,8 @@ function SheetResizeForm() {
         <div className="col-md-2">
           <button
             className="button-style"
-            onClick={
+            onClick={resizeButton}
+            /*onClick={
               () =>
                 selectedTableRows.length !== 0
                   ? nav(
@@ -135,7 +174,7 @@ function SheetResizeForm() {
               // nav(
               //   "/MaterialManagement/StoreManagement/ResizeSheets/MaterialResizeAndSplittingForm"
               // )
-            }
+            }*/
           >
             Resize
           </button>

@@ -465,28 +465,6 @@ function PNew() {
     );
   };
 
-  let dummydata = [
-    {
-      label: "Alabama",
-      population: 4780127,
-      capital: "Montgomery",
-      region: "South",
-    },
-    { label: "Alaska", population: 710249, capital: "Juneau", region: "West" },
-    {
-      label: "Arizona",
-      population: 6392307,
-      capital: "Phoenix",
-      region: "West",
-    },
-    {
-      label: "Arkansas",
-      population: 2915958,
-      capital: "Little Rock",
-      region: "South",
-    },
-  ];
-
   return (
     <div>
       <CreateYesNoModal
